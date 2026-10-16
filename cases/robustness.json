@@ -1,0 +1,286 @@
+{
+  "baseline": {
+    "hainan_heavy_rut": {
+      "family": "高粘·SMA",
+      "label": "SMA-13 · 高粘高弹改性沥青（70#基，高粘剂12%） · 木质素纤维0.3%、抗剥落剂、温拌剂"
+    },
+    "harbin_thermal_crack": {
+      "family": "SBS·SMA",
+      "label": "SMA-13 · SBS改性沥青（110#基，SBS 5.5%） · 木质素纤维0.3%、抗剥落剂"
+    },
+    "wuhan_water_damage": {
+      "family": "SBS·AC",
+      "label": "AC-20 · SBS改性沥青（70#基，SBS 5.5%） · 抗剥落剂、抗车辙剂"
+    },
+    "expressway_skid_noise": {
+      "family": "高粘·OGFC",
+      "label": "OGFC-13 · 高粘高弹改性沥青（70#基，高粘剂12%） · 木质素纤维0.3%、抗剥落剂、温拌剂"
+    },
+    "northwest_reflective": {
+      "family": "SBS·SMA",
+      "label": "SMA-13 · SBS改性沥青（90#基，SBS 5.5%） · 木质素纤维0.3%、抗剥落剂"
+    },
+    "intersection_extreme": {
+      "family": "SBS·AC",
+      "label": "AC-20 · SBS改性沥青（70#基，SBS 5.5%） · 抗剥落剂、抗车辙剂、RAP 20%+再生剂"
+    },
+    "rural_low_carbon": {
+      "family": "橡胶·SUP",
+      "label": "SUP-12.5 · 橡胶沥青（90#基，胶粉21%） · 抗剥落剂、温拌剂、RAP 30%+再生剂"
+    }
+  },
+  "price": {
+    "改性剂−20%": {
+      "hainan_heavy_rut": "高粘·SMA",
+      "harbin_thermal_crack": "SBS·SMA",
+      "wuhan_water_damage": "SBS·AC",
+      "expressway_skid_noise": "高粘·OGFC",
+      "northwest_reflective": "SBS·SMA",
+      "intersection_extreme": "SBS·AC",
+      "rural_low_carbon": "橡胶·SUP"
+    },
+    "改性剂+20%": {
+      "hainan_heavy_rut": "高粘·SMA",
+      "harbin_thermal_crack": "SBS·SMA",
+      "wuhan_water_damage": "SBS·AC",
+      "expressway_skid_noise": "高粘·OGFC",
+      "northwest_reflective": "SBS·SMA",
+      "intersection_extreme": "SBS·AC",
+      "rural_low_carbon": "橡胶·SUP"
+    },
+    "基质沥青−20%": {
+      "hainan_heavy_rut": "高粘·SMA",
+      "harbin_thermal_crack": "SBS·SMA",
+      "wuhan_water_damage": "SBS·AC",
+      "expressway_skid_noise": "高粘·OGFC",
+      "northwest_reflective": "SBS·SMA",
+      "intersection_extreme": "SBS·AC",
+      "rural_low_carbon": "橡胶·SUP"
+    },
+    "基质沥青+20%": {
+      "hainan_heavy_rut": "高粘·SMA",
+      "harbin_thermal_crack": "SBS·SMA",
+      "wuhan_water_damage": "SBS·AC",
+      "expressway_skid_noise": "高粘·OGFC",
+      "northwest_reflective": "SBS·SMA",
+      "intersection_extreme": "SBS·AC",
+      "rural_low_carbon": "橡胶·SUP"
+    },
+    "橡胶粉+50%": {
+      "hainan_heavy_rut": "高粘·SMA",
+      "harbin_thermal_crack": "SBS·SMA",
+      "wuhan_water_damage": "SBS·AC",
+      "expressway_skid_noise": "高粘·OGFC",
+      "northwest_reflective": "SBS·SMA",
+      "intersection_extreme": "SBS·AC",
+      "rural_low_carbon": "橡胶·SUP"
+    }
+  },
+  "weights": {
+    "hainan_heavy_rut": {
+      "same_as_baseline": 1.0,
+      "families": {
+        "高粘·SMA": 20
+      }
+    },
+    "harbin_thermal_crack": {
+      "same_as_baseline": 1.0,
+      "families": {
+        "SBS·SMA": 20
+      }
+    },
+    "wuhan_water_damage": {
+      "same_as_baseline": 1.0,
+      "families": {
+        "SBS·AC": 20
+      }
+    },
+    "expressway_skid_noise": {
+      "same_as_baseline": 1.0,
+      "families": {
+        "高粘·OGFC": 20
+      }
+    },
+    "northwest_reflective": {
+      "same_as_baseline": 0.55,
+      "families": {
+        "SBS·SMA": 11,
+        "橡胶·SMA": 9
+      }
+    },
+    "intersection_extreme": {
+      "same_as_baseline": 1.0,
+      "families": {
+        "SBS·AC": 20
+      }
+    },
+    "rural_low_carbon": {
+      "same_as_baseline": 1.0,
+      "families": {
+        "橡胶·SUP": 20
+      }
+    }
+  },
+  "seeds": {
+    "11": {
+      "hainan_heavy_rut": {
+        "family": "高粘·SMA",
+        "truth_ok": true
+      },
+      "harbin_thermal_crack": {
+        "family": "SBS·SMA",
+        "truth_ok": true
+      },
+      "wuhan_water_damage": {
+        "family": "橡胶·AC",
+        "truth_ok": true
+      },
+      "expressway_skid_noise": {
+        "family": "高粘·OGFC",
+        "truth_ok": true
+      },
+      "northwest_reflective": {
+        "family": "高粘·SMA",
+        "truth_ok": true
+      },
+      "intersection_extreme": {
+        "family": "SBS·AC",
+        "truth_ok": true
+      },
+      "rural_low_carbon": {
+        "family": "橡胶·SUP",
+        "truth_ok": true
+      }
+    },
+    "22": {
+      "hainan_heavy_rut": {
+        "family": "高粘·SMA",
+        "truth_ok": true
+      },
+      "harbin_thermal_crack": {
+        "family": "橡胶·SMA",
+        "truth_ok": true
+      },
+      "wuhan_water_damage": {
+        "family": "橡胶·AC",
+        "truth_ok": true
+      },
+      "expressway_skid_noise": {
+        "family": "高粘·OGFC",
+        "truth_ok": true
+      },
+      "northwest_reflective": {
+        "family": "橡胶·SMA",
+        "truth_ok": true
+      },
+      "intersection_extreme": {
+        "family": "SBS·AC",
+        "truth_ok": true
+      },
+      "rural_low_carbon": {
+        "family": "橡胶·SUP",
+        "truth_ok": true
+      }
+    },
+    "33": {
+      "hainan_heavy_rut": {
+        "family": "高粘·SMA",
+        "truth_ok": true
+      },
+      "harbin_thermal_crack": {
+        "family": "橡胶·SMA",
+        "truth_ok": true
+      },
+      "wuhan_water_damage": {
+        "family": "橡胶·AC",
+        "truth_ok": true
+      },
+      "expressway_skid_noise": {
+        "family": "高粘·OGFC",
+        "truth_ok": true
+      },
+      "northwest_reflective": {
+        "family": "橡胶·SMA",
+        "truth_ok": true
+      },
+      "intersection_extreme": {
+        "family": "SBS·AC",
+        "truth_ok": true
+      },
+      "rural_low_carbon": {
+        "family": "橡胶·SUP",
+        "truth_ok": true
+      }
+    },
+    "44": {
+      "hainan_heavy_rut": {
+        "family": "高粘·SMA",
+        "truth_ok": true
+      },
+      "harbin_thermal_crack": {
+        "family": "SBS·SMA",
+        "truth_ok": false
+      },
+      "wuhan_water_damage": {
+        "family": "SBS·AC",
+        "truth_ok": true
+      },
+      "expressway_skid_noise": {
+        "family": "高粘·OGFC",
+        "truth_ok": true
+      },
+      "northwest_reflective": {
+        "family": "SBS·SMA",
+        "truth_ok": true
+      },
+      "intersection_extreme": {
+        "family": "SBS·AC",
+        "truth_ok": true
+      },
+      "rural_low_carbon": {
+        "family": "橡胶·SUP",
+        "truth_ok": true
+      }
+    },
+    "55": {
+      "hainan_heavy_rut": {
+        "family": "高粘·SMA",
+        "truth_ok": true
+      },
+      "harbin_thermal_crack": {
+        "family": "橡胶·SMA",
+        "truth_ok": false
+      },
+      "wuhan_water_damage": {
+        "family": "SBS·AC",
+        "truth_ok": true
+      },
+      "expressway_skid_noise": {
+        "family": "高粘·OGFC",
+        "truth_ok": true
+      },
+      "northwest_reflective": {
+        "family": "高粘·SMA",
+        "truth_ok": true
+      },
+      "intersection_extreme": {
+        "family": "SBS·AC",
+        "truth_ok": true
+      },
+      "rural_low_carbon": {
+        "family": "橡胶·SUP",
+        "truth_ok": true
+      }
+    }
+  },
+  "size": {
+    "40": 7,
+    "40_pure": 4,
+    "80": 7,
+    "80_pure": 5,
+    "160": 7,
+    "160_pure": 5,
+    "400": 7,
+    "400_pure": 7
+  }
+}
