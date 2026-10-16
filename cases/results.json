@@ -1,0 +1,2544 @@
+{
+  "cases": [
+    {
+      "id": "C1",
+      "name": "海南西部 · 高温重载车辙处治",
+      "tags": [
+        "高温1-夏炎热区",
+        "低温4-冬温区",
+        "雨量1-潮湿区",
+        "交通-特重",
+        "层位-上面层",
+        "结构-半刚性基层",
+        "路段-一般路段",
+        "病害-车辙(重)"
+      ],
+      "expert_note": "南方高温重载上面层车辙处治常用：SBS改性 SMA-13 + 抗剥落剂",
+      "targets": {
+        "ds": 4600,
+        "eps": 2500,
+        "tsr": 80,
+        "fatigue": 5.6,
+        "modulus": 6000,
+        "td": 0.65
+      },
+      "hard": [
+        "ds",
+        "tsr",
+        "td"
+      ],
+      "priority": [
+        "高温抗车辙",
+        "水稳定性",
+        "抗疲劳",
+        "低温抗裂",
+        "抗滑",
+        "结构承载"
+      ],
+      "search": {
+        "space_size": 3300,
+        "after_rules": 1908,
+        "feasible": 145,
+        "excluded_by_rules": {
+          "R10": {
+            "reason": "原型保守规则：特重及以上交通 RAP 掺量不宜超过 20%",
+            "count": 912
+          },
+          "R6": {
+            "reason": "110# 软质沥青高温稳定性不足，不适用夏炎热区",
+            "count": 672
+          }
+        },
+        "relaxed": false,
+        "note": ""
+      },
+      "recommended": {
+        "label": "SMA-13 · 高粘高弹改性沥青（70#基，高粘剂12%） · 木质素纤维0.3%、抗剥落剂、温拌剂",
+        "binder": "PG 82-28",
+        "oil": 6.1,
+        "economics": {
+          "cost_t": 630.1,
+          "cost_m2": 60.49,
+          "carbon_t": 66.46,
+          "carbon_m2": 6.38,
+          "life_years": 8.6,
+          "cost_m2_yr": 7.03,
+          "carbon_m2_yr": 0.74
+        },
+        "checks": [
+          {
+            "conservative": 7884.612,
+            "indicator": "ds",
+            "name": "高温抗车辙",
+            "unit": "次/mm",
+            "target": 4600,
+            "hard": true,
+            "pred": 9117.144,
+            "low": 7340.267,
+            "high": 11324.154,
+            "pass": true,
+            "margin": 1.17
+          },
+          {
+            "conservative": 2700.397,
+            "indicator": "eps",
+            "name": "低温抗裂",
+            "unit": "με",
+            "target": 2500,
+            "hard": false,
+            "pred": 2833.787,
+            "low": 2634.697,
+            "high": 3032.876,
+            "pass": true,
+            "margin": 0.401
+          },
+          {
+            "conservative": 89.419,
+            "indicator": "tsr",
+            "name": "水稳定性",
+            "unit": "%",
+            "target": 80,
+            "hard": true,
+            "pred": 91.35,
+            "low": 88.468,
+            "high": 94.233,
+            "pass": true,
+            "margin": 1.177
+          },
+          {
+            "conservative": 5.662,
+            "indicator": "fatigue",
+            "name": "抗疲劳",
+            "unit": "lg次",
+            "target": 5.6,
+            "hard": false,
+            "pred": 5.757,
+            "low": 5.614,
+            "high": 5.9,
+            "pass": true,
+            "margin": 0.154
+          },
+          {
+            "conservative": 8335.805,
+            "indicator": "modulus",
+            "name": "结构承载",
+            "unit": "MPa",
+            "target": 6000,
+            "hard": false,
+            "pred": 8903.91,
+            "low": 8055.992,
+            "high": 9751.828,
+            "pass": true,
+            "margin": 0.779
+          },
+          {
+            "conservative": 0.924,
+            "indicator": "td",
+            "name": "抗滑",
+            "unit": "mm",
+            "target": 0.65,
+            "hard": true,
+            "pred": 0.971,
+            "low": 0.9,
+            "high": 1.043,
+            "pass": true,
+            "margin": 0.912
+          }
+        ],
+        "reasons": [
+          "在75%单侧置信的保守预测下满足全部硬性性能指标",
+          "高温抗车辙：预测 9,117次/mm，目标 ≥4600，权重 0.35",
+          "水稳定性：预测 91.3%，目标 ≥80，权重 0.12",
+          "抗疲劳：预测 5.76lg次，目标 ≥5.6，权重 0.09",
+          "单价约 630 元/t，预期寿命 8.6 年，年均 7.03 元/m²·年，碳排 66.5 kgCO₂e/t"
+        ],
+        "feasible": true,
+        "truth": {
+          "ds": {
+            "true": 9084.645393257395,
+            "pass": true,
+            "hard": true
+          },
+          "eps": {
+            "true": 3029.0878519744715,
+            "pass": true,
+            "hard": false
+          },
+          "tsr": {
+            "true": 93.1,
+            "pass": true,
+            "hard": true
+          },
+          "fatigue": {
+            "true": 5.799999999999999,
+            "pass": true,
+            "hard": false
+          },
+          "modulus": {
+            "true": 8968.735287433898,
+            "pass": true,
+            "hard": false
+          },
+          "td": {
+            "true": 0.98,
+            "pass": true,
+            "hard": true
+          }
+        },
+        "family_match": {
+          "modifier": false,
+          "gradation": true
+        },
+        "construction": [
+          "拌和温度 150–160℃，出料温度不低于 145℃",
+          "压实度由98%降至96%时，预测动稳定度下降约 50%",
+          "SMA 需钢轮压路机紧跟碾压，禁用胶轮，防止泛油",
+          "温拌工艺可在气温 ≥5℃ 时施工，并可提前开放交通"
+        ]
+      },
+      "alternatives": [
+        "SMA-13 · 橡胶沥青（70#基，胶粉21%） · 木质素纤维0.3%、抗剥落剂、抗车辙剂",
+        "OGFC-13 · 高粘高弹改性沥青（70#基，高粘剂12%） · 木质素纤维0.3%、抗剥落剂"
+      ],
+      "expert": {
+        "label": "SMA-13 · SBS改性沥青（70#基，SBS 4.5%） · 木质素纤维0.3%、抗剥落剂",
+        "binder": "PG 76-22",
+        "economics": {
+          "cost_t": 567.6,
+          "cost_m2": 54.49,
+          "carbon_t": 61.2,
+          "carbon_m2": 5.88,
+          "life_years": 6.2,
+          "cost_m2_yr": 8.79,
+          "carbon_m2_yr": 0.95
+        },
+        "checks": [
+          {
+            "conservative": 3685.946,
+            "indicator": "ds",
+            "name": "高温抗车辙",
+            "unit": "次/mm",
+            "target": 4600,
+            "hard": true,
+            "pred": 4255.442,
+            "low": 3434.13,
+            "high": 5273.181,
+            "pass": false,
+            "margin": -0.481
+          },
+          {
+            "conservative": 2628.497,
+            "indicator": "eps",
+            "name": "低温抗裂",
+            "unit": "με",
+            "target": 2500,
+            "hard": false,
+            "pred": 2749.622,
+            "low": 2568.838,
+            "high": 2930.407,
+            "pass": true,
+            "margin": 0.257
+          },
+          {
+            "conservative": 87.277,
+            "indicator": "tsr",
+            "name": "水稳定性",
+            "unit": "%",
+            "target": 80,
+            "hard": true,
+            "pred": 89.32,
+            "low": 86.27,
+            "high": 92.369,
+            "pass": true,
+            "margin": 0.91
+          },
+          {
+            "conservative": 5.524,
+            "indicator": "fatigue",
+            "name": "抗疲劳",
+            "unit": "lg次",
+            "target": 5.6,
+            "hard": false,
+            "pred": 5.618,
+            "low": 5.478,
+            "high": 5.757,
+            "pass": false,
+            "margin": -0.189
+          },
+          {
+            "conservative": 8058.152,
+            "indicator": "modulus",
+            "name": "结构承载",
+            "unit": "MPa",
+            "target": 6000,
+            "hard": false,
+            "pred": 8629.741,
+            "low": 7776.624,
+            "high": 9482.857,
+            "pass": true,
+            "margin": 0.686
+          },
+          {
+            "conservative": 0.919,
+            "indicator": "td",
+            "name": "抗滑",
+            "unit": "mm",
+            "target": 0.65,
+            "hard": true,
+            "pred": 0.967,
+            "low": 0.896,
+            "high": 1.037,
+            "pass": true,
+            "margin": 0.898
+          }
+        ],
+        "feasible": false,
+        "truth": {
+          "ds": {
+            "true": 5617.658213936023,
+            "pass": true,
+            "hard": true
+          },
+          "eps": {
+            "true": 2889.0879040544733,
+            "pass": true,
+            "hard": false
+          },
+          "tsr": {
+            "true": 89.55,
+            "pass": true,
+            "hard": true
+          },
+          "fatigue": {
+            "true": 5.618318018503002,
+            "pass": true,
+            "hard": false
+          },
+          "modulus": {
+            "true": 8803.735287433898,
+            "pass": true,
+            "hard": false
+          },
+          "td": {
+            "true": 0.98,
+            "pass": true,
+            "hard": true
+          }
+        },
+        "rule_violations": []
+      }
+    },
+    {
+      "id": "C2",
+      "name": "哈尔滨 · 寒冷地区裂缝处治",
+      "tags": [
+        "高温2-夏热区",
+        "低温1-冬严寒区",
+        "雨量2-湿润区",
+        "交通-中等",
+        "层位-上面层",
+        "结构-半刚性基层",
+        "路段-一般路段",
+        "病害-低温横向裂缝(中)"
+      ],
+      "expert_note": "东北寒区常用：90#基质 SBS 改性 AC-13",
+      "targets": {
+        "ds": 2400,
+        "eps": 3100,
+        "tsr": 80,
+        "fatigue": 5.0,
+        "modulus": 6000,
+        "td": 0.55
+      },
+      "hard": [
+        "ds",
+        "eps",
+        "tsr",
+        "td"
+      ],
+      "priority": [
+        "低温抗裂",
+        "水稳定性",
+        "高温抗车辙",
+        "抗疲劳",
+        "抗滑",
+        "结构承载"
+      ],
+      "search": {
+        "space_size": 3300,
+        "after_rules": 1332,
+        "feasible": 3,
+        "excluded_by_rules": {
+          "R5": {
+            "reason": "50# 硬质沥青低温延性差，不适用冬严寒/冬寒区",
+            "count": 168
+          },
+          "R9": {
+            "reason": "原型保守规则：冬严寒区高RAP+温拌组合数据不足",
+            "count": 456
+          },
+          "R4": {
+            "reason": "冬严寒区使用抗车辙剂会加剧低温开裂风险",
+            "count": 1632
+          },
+          "R2": {
+            "reason": "冬严寒区排水路面易冻融堵塞与松散，不推荐",
+            "count": 36
+          }
+        },
+        "relaxed": false,
+        "note": ""
+      },
+      "recommended": {
+        "label": "SMA-13 · SBS改性沥青（110#基，SBS 5.5%） · 木质素纤维0.3%、抗剥落剂",
+        "binder": "PG 64-34",
+        "oil": 5.9,
+        "economics": {
+          "cost_t": 566.1,
+          "cost_m2": 54.35,
+          "carbon_t": 59.7,
+          "carbon_m2": 5.73,
+          "life_years": 9.9,
+          "cost_m2_yr": 5.49,
+          "carbon_m2_yr": 0.58
+        },
+        "checks": [
+          {
+            "conservative": 2504.857,
+            "indicator": "ds",
+            "name": "高温抗车辙",
+            "unit": "次/mm",
+            "target": 2400,
+            "hard": true,
+            "pred": 2855.204,
+            "low": 2348.444,
+            "high": 3471.314,
+            "pass": true,
+            "margin": 0.093
+          },
+          {
+            "conservative": 3114.776,
+            "indicator": "eps",
+            "name": "低温抗裂",
+            "unit": "με",
+            "target": 3100,
+            "hard": true,
+            "pred": 3247.226,
+            "low": 3049.539,
+            "high": 3444.913,
+            "pass": true,
+            "margin": 0.03
+          },
+          {
+            "conservative": 87.583,
+            "indicator": "tsr",
+            "name": "水稳定性",
+            "unit": "%",
+            "target": 80,
+            "hard": true,
+            "pred": 89.501,
+            "low": 86.639,
+            "high": 92.363,
+            "pass": true,
+            "margin": 0.948
+          },
+          {
+            "conservative": 5.618,
+            "indicator": "fatigue",
+            "name": "抗疲劳",
+            "unit": "lg次",
+            "target": 5.0,
+            "hard": false,
+            "pred": 5.716,
+            "low": 5.569,
+            "high": 5.864,
+            "pass": true,
+            "margin": 1.544
+          },
+          {
+            "conservative": 5555.696,
+            "indicator": "modulus",
+            "name": "结构承载",
+            "unit": "MPa",
+            "target": 6000,
+            "hard": false,
+            "pred": 6117.855,
+            "low": 5278.812,
+            "high": 6956.898,
+            "pass": false,
+            "margin": -0.148
+          },
+          {
+            "conservative": 0.942,
+            "indicator": "td",
+            "name": "抗滑",
+            "unit": "mm",
+            "target": 0.55,
+            "hard": true,
+            "pred": 0.991,
+            "low": 0.917,
+            "high": 1.064,
+            "pass": true,
+            "margin": 1.305
+          }
+        ],
+        "reasons": [
+          "在75%单侧置信的保守预测下满足全部硬性性能指标",
+          "低温抗裂：预测 3,247με，目标 ≥3100，权重 0.29",
+          "水稳定性：预测 89.5%，目标 ≥80，权重 0.12",
+          "高温抗车辙：预测 2,855次/mm，目标 ≥2400，权重 0.10",
+          "单价约 566 元/t，预期寿命 9.9 年，年均 5.49 元/m²·年，碳排 59.7 kgCO₂e/t"
+        ],
+        "feasible": true,
+        "truth": {
+          "ds": {
+            "true": 2981.170033362761,
+            "pass": true,
+            "hard": true
+          },
+          "eps": {
+            "true": 3203.244330694141,
+            "pass": true,
+            "hard": true
+          },
+          "tsr": {
+            "true": 89.05,
+            "pass": true,
+            "hard": true
+          },
+          "fatigue": {
+            "true": 5.6686061775053975,
+            "pass": true,
+            "hard": false
+          },
+          "modulus": {
+            "true": 6253.735287433898,
+            "pass": true,
+            "hard": false
+          },
+          "td": {
+            "true": 1.016,
+            "pass": true,
+            "hard": true
+          }
+        },
+        "family_match": {
+          "modifier": true,
+          "gradation": false
+        },
+        "construction": [
+          "拌和温度 160–170℃，出料温度不低于 155℃",
+          "压实度由98%降至96%时，预测动稳定度下降约 48%",
+          "SMA 需钢轮压路机紧跟碾压，禁用胶轮，防止泛油"
+        ]
+      },
+      "alternatives": [
+        "SMA-13 · 橡胶沥青（90#基，胶粉21%） · 木质素纤维0.3%、抗剥落剂、温拌剂",
+        "SMA-13 · 高粘高弹改性沥青（70#基，高粘剂12%） · 木质素纤维0.3%、抗剥落剂、温拌剂"
+      ],
+      "expert": {
+        "label": "AC-13 · SBS改性沥青（90#基，SBS 4.5%） · 抗剥落剂",
+        "binder": "PG 70-28",
+        "economics": {
+          "cost_t": 473.2,
+          "cost_m2": 45.43,
+          "carbon_t": 54.5,
+          "carbon_m2": 5.23,
+          "life_years": 6.5,
+          "cost_m2_yr": 6.99,
+          "carbon_m2_yr": 0.8
+        },
+        "checks": [
+          {
+            "conservative": 1591.161,
+            "indicator": "ds",
+            "name": "高温抗车辙",
+            "unit": "次/mm",
+            "target": 2400,
+            "hard": true,
+            "pred": 1828.114,
+            "low": 1486.002,
+            "high": 2248.988,
+            "pass": false,
+            "margin": -0.892
+          },
+          {
+            "conservative": 2599.442,
+            "indicator": "eps",
+            "name": "低温抗裂",
+            "unit": "με",
+            "target": 3100,
+            "hard": true,
+            "pred": 2721.809,
+            "low": 2539.171,
+            "high": 2904.446,
+            "pass": false,
+            "margin": -1.001
+          },
+          {
+            "conservative": 85.965,
+            "indicator": "tsr",
+            "name": "水稳定性",
+            "unit": "%",
+            "target": 80,
+            "hard": true,
+            "pred": 87.891,
+            "low": 85.016,
+            "high": 90.766,
+            "pass": true,
+            "margin": 0.746
+          },
+          {
+            "conservative": 5.308,
+            "indicator": "fatigue",
+            "name": "抗疲劳",
+            "unit": "lg次",
+            "target": 5.0,
+            "hard": false,
+            "pred": 5.409,
+            "low": 5.258,
+            "high": 5.559,
+            "pass": true,
+            "margin": 0.77
+          },
+          {
+            "conservative": 7131.11,
+            "indicator": "modulus",
+            "name": "结构承载",
+            "unit": "MPa",
+            "target": 6000,
+            "hard": false,
+            "pred": 7725.275,
+            "low": 6838.461,
+            "high": 8612.088,
+            "pass": true,
+            "margin": 0.377
+          },
+          {
+            "conservative": 0.537,
+            "indicator": "td",
+            "name": "抗滑",
+            "unit": "mm",
+            "target": 0.55,
+            "hard": true,
+            "pred": 0.585,
+            "low": 0.513,
+            "high": 0.657,
+            "pass": false,
+            "margin": -0.044
+          }
+        ],
+        "feasible": false,
+        "truth": {
+          "ds": {
+            "true": 1965.8723419840649,
+            "pass": false,
+            "hard": true
+          },
+          "eps": {
+            "true": 2843.887904054473,
+            "pass": false,
+            "hard": true
+          },
+          "tsr": {
+            "true": 87.25,
+            "pass": true,
+            "hard": true
+          },
+          "fatigue": {
+            "true": 5.418318018503003,
+            "pass": true,
+            "hard": false
+          },
+          "modulus": {
+            "true": 8003.735287433898,
+            "pass": true,
+            "hard": false
+          },
+          "td": {
+            "true": 0.6,
+            "pass": true,
+            "hard": true
+          }
+        },
+        "rule_violations": []
+      }
+    },
+    {
+      "id": "C3",
+      "name": "长江中游 · 水损害路段修复（中面层）",
+      "tags": [
+        "高温1-夏炎热区",
+        "低温3-冬冷区",
+        "雨量1-潮湿区",
+        "交通-重",
+        "层位-中面层",
+        "结构-半刚性基层",
+        "路段-一般路段",
+        "病害-水损害（坑槽/松散）(重)"
+      ],
+      "expert_note": "多雨区中面层水损害修复：SBS改性 AC-20 + 抗剥落剂",
+      "targets": {
+        "ds": 3400,
+        "eps": 2200,
+        "tsr": 86,
+        "fatigue": 5.3,
+        "modulus": 9500
+      },
+      "hard": [
+        "ds",
+        "tsr",
+        "modulus"
+      ],
+      "priority": [
+        "水稳定性",
+        "高温抗车辙",
+        "结构承载",
+        "抗疲劳",
+        "低温抗裂"
+      ],
+      "search": {
+        "space_size": 2736,
+        "after_rules": 2160,
+        "feasible": 20,
+        "excluded_by_rules": {
+          "R6": {
+            "reason": "110# 软质沥青高温稳定性不足，不适用夏炎热区",
+            "count": 576
+          }
+        },
+        "relaxed": false,
+        "note": ""
+      },
+      "recommended": {
+        "label": "AC-20 · SBS改性沥青（70#基，SBS 5.5%） · 抗剥落剂、抗车辙剂",
+        "binder": "PG 76-28",
+        "oil": 4.6,
+        "economics": {
+          "cost_t": 483.6,
+          "cost_m2": 69.64,
+          "carbon_t": 64.16,
+          "carbon_m2": 9.24,
+          "life_years": 8.9,
+          "cost_m2_yr": 7.82,
+          "carbon_m2_yr": 1.04
+        },
+        "checks": [
+          {
+            "conservative": 4709.702,
+            "indicator": "ds",
+            "name": "高温抗车辙",
+            "unit": "次/mm",
+            "target": 3400,
+            "hard": true,
+            "pred": 5350.662,
+            "low": 4422.827,
+            "high": 6473.141,
+            "pass": true,
+            "margin": 0.708
+          },
+          {
+            "conservative": 2242.951,
+            "indicator": "eps",
+            "name": "低温抗裂",
+            "unit": "με",
+            "target": 2200,
+            "hard": false,
+            "pred": 2387.048,
+            "low": 2171.978,
+            "high": 2602.117,
+            "pass": true,
+            "margin": 0.086
+          },
+          {
+            "conservative": 88.295,
+            "indicator": "tsr",
+            "name": "水稳定性",
+            "unit": "%",
+            "target": 86,
+            "hard": true,
+            "pred": 90.442,
+            "low": 87.238,
+            "high": 93.647,
+            "pass": true,
+            "margin": 0.287
+          },
+          {
+            "conservative": 5.153,
+            "indicator": "fatigue",
+            "name": "抗疲劳",
+            "unit": "lg次",
+            "target": 5.3,
+            "hard": false,
+            "pred": 5.256,
+            "low": 5.102,
+            "high": 5.41,
+            "pass": false,
+            "margin": -0.368
+          },
+          {
+            "conservative": 11489.607,
+            "indicator": "modulus",
+            "name": "结构承载",
+            "unit": "MPa",
+            "target": 9500,
+            "hard": true,
+            "pred": 12056.797,
+            "low": 11210.245,
+            "high": 12903.35,
+            "pass": true,
+            "margin": 0.663
+          }
+        ],
+        "reasons": [
+          "在75%单侧置信的保守预测下满足全部硬性性能指标",
+          "水稳定性：预测 90.4%，目标 ≥86，权重 0.27",
+          "高温抗车辙：预测 5,351次/mm，目标 ≥3400，权重 0.17",
+          "结构承载：预测 12,057MPa，目标 ≥9500，权重 0.10",
+          "单价约 484 元/t，预期寿命 8.9 年，年均 7.82 元/m²·年，碳排 64.2 kgCO₂e/t"
+        ],
+        "feasible": true,
+        "truth": {
+          "ds": {
+            "true": 5133.182997137321,
+            "pass": true,
+            "hard": true
+          },
+          "eps": {
+            "true": 2473.244330694141,
+            "pass": true,
+            "hard": false
+          },
+          "tsr": {
+            "true": 88.75,
+            "pass": true,
+            "hard": true
+          },
+          "fatigue": {
+            "true": 5.273006177505397,
+            "pass": false,
+            "hard": false
+          },
+          "modulus": {
+            "true": 11891.735287433898,
+            "pass": true,
+            "hard": true
+          }
+        },
+        "family_match": {
+          "modifier": true,
+          "gradation": true
+        },
+        "construction": [
+          "拌和温度 170–180℃，出料温度不低于 165℃",
+          "压实度由98%降至96%时，预测动稳定度下降约 45%",
+          "水损害路段铣刨后应排查下承层积水与基层松散，必要时增设防水粘结层"
+        ]
+      },
+      "alternatives": [
+        "AC-16 · SBS改性沥青（70#基，SBS 5.5%） · 抗剥落剂、抗车辙剂",
+        "AC-16 · 橡胶沥青（70#基，胶粉21%） · 抗剥落剂、抗车辙剂"
+      ],
+      "expert": {
+        "label": "AC-20 · SBS改性沥青（70#基，SBS 4.5%） · 抗剥落剂",
+        "binder": "PG 76-22",
+        "economics": {
+          "cost_t": 417.4,
+          "cost_m2": 60.11,
+          "carbon_t": 52.94,
+          "carbon_m2": 7.62,
+          "life_years": 7.0,
+          "cost_m2_yr": 8.59,
+          "carbon_m2_yr": 1.09
+        },
+        "checks": [
+          {
+            "conservative": 2556.142,
+            "indicator": "ds",
+            "name": "高温抗车辙",
+            "unit": "次/mm",
+            "target": 3400,
+            "hard": true,
+            "pred": 2941.848,
+            "low": 2385.19,
+            "high": 3628.421,
+            "pass": false,
+            "margin": -0.619
+          },
+          {
+            "conservative": 2367.07,
+            "indicator": "eps",
+            "name": "低温抗裂",
+            "unit": "με",
+            "target": 2200,
+            "hard": false,
+            "pred": 2490.688,
+            "low": 2306.184,
+            "high": 2675.193,
+            "pass": true,
+            "margin": 0.334
+          },
+          {
+            "conservative": 86.065,
+            "indicator": "tsr",
+            "name": "水稳定性",
+            "unit": "%",
+            "target": 86,
+            "hard": true,
+            "pred": 88.01,
+            "low": 85.106,
+            "high": 90.913,
+            "pass": true,
+            "margin": 0.008
+          },
+          {
+            "conservative": 5.173,
+            "indicator": "fatigue",
+            "name": "抗疲劳",
+            "unit": "lg次",
+            "target": 5.3,
+            "hard": false,
+            "pred": 5.267,
+            "low": 5.126,
+            "high": 5.408,
+            "pass": false,
+            "margin": -0.317
+          },
+          {
+            "conservative": 9565.786,
+            "indicator": "modulus",
+            "name": "结构承载",
+            "unit": "MPa",
+            "target": 9500,
+            "hard": true,
+            "pred": 10176.635,
+            "low": 9264.921,
+            "high": 11088.349,
+            "pass": true,
+            "margin": 0.022
+          }
+        ],
+        "feasible": false,
+        "truth": {
+          "ds": {
+            "true": 3217.772328377496,
+            "pass": false,
+            "hard": true
+          },
+          "eps": {
+            "true": 2589.4879040544733,
+            "pass": true,
+            "hard": false
+          },
+          "tsr": {
+            "true": 87.25,
+            "pass": true,
+            "hard": true
+          },
+          "fatigue": {
+            "true": 5.278718018503002,
+            "pass": false,
+            "hard": false
+          },
+          "modulus": {
+            "true": 10141.735287433898,
+            "pass": true,
+            "hard": true
+          }
+        },
+        "rule_violations": []
+      }
+    },
+    {
+      "id": "C4",
+      "name": "城市快速路 · 抗滑不足与降噪",
+      "tags": [
+        "高温1-夏炎热区",
+        "低温4-冬温区",
+        "雨量1-潮湿区",
+        "交通-重",
+        "层位-上面层",
+        "结构-柔性基层",
+        "路段-一般路段",
+        "病害-抗滑不足(重)"
+      ],
+      "expert_note": "排水降噪罩面：高粘高弹改性 OGFC-13",
+      "targets": {
+        "ds": 3100,
+        "eps": 2500,
+        "tsr": 80,
+        "fatigue": 5.3,
+        "modulus": 6000,
+        "td": 1.05
+      },
+      "hard": [
+        "ds",
+        "tsr",
+        "td"
+      ],
+      "priority": [
+        "高温抗车辙",
+        "水稳定性",
+        "抗滑",
+        "抗疲劳",
+        "低温抗裂",
+        "结构承载"
+      ],
+      "search": {
+        "space_size": 1476,
+        "after_rules": 1188,
+        "feasible": 15,
+        "excluded_by_rules": {
+          "R6": {
+            "reason": "110# 软质沥青高温稳定性不足，不适用夏炎热区",
+            "count": 288
+          }
+        },
+        "relaxed": false,
+        "note": ""
+      },
+      "recommended": {
+        "label": "OGFC-13 · 高粘高弹改性沥青（70#基，高粘剂12%） · 木质素纤维0.3%、抗剥落剂、温拌剂",
+        "binder": "PG 82-28",
+        "oil": 5.1,
+        "economics": {
+          "cost_t": 590.1,
+          "cost_m2": 48.39,
+          "carbon_t": 61.0,
+          "carbon_m2": 5.0,
+          "life_years": 9.5,
+          "cost_m2_yr": 5.09,
+          "carbon_m2_yr": 0.53
+        },
+        "checks": [
+          {
+            "conservative": 3937.638,
+            "indicator": "ds",
+            "name": "高温抗车辙",
+            "unit": "次/mm",
+            "target": 3100,
+            "hard": true,
+            "pred": 4531.571,
+            "low": 3674.384,
+            "high": 5588.73,
+            "pass": true,
+            "margin": 0.519
+          },
+          {
+            "conservative": 2614.11,
+            "indicator": "eps",
+            "name": "低温抗裂",
+            "unit": "με",
+            "target": 2500,
+            "hard": false,
+            "pred": 2756.084,
+            "low": 2544.182,
+            "high": 2967.986,
+            "pass": true,
+            "margin": 0.228
+          },
+          {
+            "conservative": 84.087,
+            "indicator": "tsr",
+            "name": "水稳定性",
+            "unit": "%",
+            "target": 80,
+            "hard": true,
+            "pred": 86.009,
+            "low": 83.14,
+            "high": 88.879,
+            "pass": true,
+            "margin": 0.511
+          },
+          {
+            "conservative": 5.352,
+            "indicator": "fatigue",
+            "name": "抗疲劳",
+            "unit": "lg次",
+            "target": 5.3,
+            "hard": false,
+            "pred": 5.449,
+            "low": 5.304,
+            "high": 5.594,
+            "pass": true,
+            "margin": 0.13
+          },
+          {
+            "conservative": 5217.638,
+            "indicator": "modulus",
+            "name": "结构承载",
+            "unit": "MPa",
+            "target": 6000,
+            "hard": false,
+            "pred": 5782.415,
+            "low": 4939.465,
+            "high": 6625.366,
+            "pass": false,
+            "margin": -0.261
+          },
+          {
+            "conservative": 1.322,
+            "indicator": "td",
+            "name": "抗滑",
+            "unit": "mm",
+            "target": 1.05,
+            "hard": true,
+            "pred": 1.372,
+            "low": 1.297,
+            "high": 1.447,
+            "pass": true,
+            "margin": 0.906
+          }
+        ],
+        "reasons": [
+          "在75%单侧置信的保守预测下满足全部硬性性能指标",
+          "高温抗车辙：预测 4,532次/mm，目标 ≥3100，权重 0.22",
+          "水稳定性：预测 86.0%，目标 ≥80，权重 0.17",
+          "抗滑：预测 1.37mm，目标 ≥1.05，权重 0.15",
+          "单价约 590 元/t，预期寿命 9.5 年，年均 5.09 元/m²·年，碳排 61.0 kgCO₂e/t"
+        ],
+        "feasible": true,
+        "truth": {
+          "ds": {
+            "true": 4210.250924401602,
+            "pass": true,
+            "hard": true
+          },
+          "eps": {
+            "true": 2859.0878519744715,
+            "pass": true,
+            "hard": false
+          },
+          "tsr": {
+            "true": 87.8,
+            "pass": true,
+            "hard": true
+          },
+          "fatigue": {
+            "true": 5.4399999999999995,
+            "pass": true,
+            "hard": false
+          },
+          "modulus": {
+            "true": 5628.735287433898,
+            "pass": false,
+            "hard": false
+          },
+          "td": {
+            "true": 1.394,
+            "pass": true,
+            "hard": true
+          }
+        },
+        "family_match": {
+          "modifier": true,
+          "gradation": true
+        },
+        "construction": [
+          "拌和温度 150–160℃，出料温度不低于 145℃",
+          "压实度由98%降至96%时，预测动稳定度下降约 45%",
+          "OGFC 不宜过度碾压以免堵塞空隙，下承层需完好防水",
+          "温拌工艺可在气温 ≥5℃ 时施工，并可提前开放交通"
+        ]
+      },
+      "alternatives": [
+        "SMA-13 · 70#基质沥青 · 木质素纤维0.3%、抗剥落剂、抗车辙剂",
+        "SMA-13 · SBS改性沥青（90#基，SBS 3.5%） · 木质素纤维0.3%、抗剥落剂、抗车辙剂"
+      ],
+      "expert": {
+        "label": "OGFC-13 · 高粘高弹改性沥青（70#基，高粘剂10%） · 木质素纤维0.3%、抗剥落剂",
+        "binder": "PG 82-28",
+        "economics": {
+          "cost_t": 556.2,
+          "cost_m2": 45.61,
+          "carbon_t": 63.12,
+          "carbon_m2": 5.18,
+          "life_years": 8.9,
+          "cost_m2_yr": 5.12,
+          "carbon_m2_yr": 0.58
+        },
+        "checks": [
+          {
+            "conservative": 4421.729,
+            "indicator": "ds",
+            "name": "高温抗车辙",
+            "unit": "次/mm",
+            "target": 3100,
+            "hard": true,
+            "pred": 5039.125,
+            "low": 4146.046,
+            "high": 6124.578,
+            "pass": true,
+            "margin": 0.771
+          },
+          {
+            "conservative": 2425.811,
+            "indicator": "eps",
+            "name": "低温抗裂",
+            "unit": "με",
+            "target": 2500,
+            "hard": false,
+            "pred": 2564.217,
+            "low": 2357.641,
+            "high": 2770.793,
+            "pass": false,
+            "margin": -0.148
+          },
+          {
+            "conservative": 84.013,
+            "indicator": "tsr",
+            "name": "水稳定性",
+            "unit": "%",
+            "target": 80,
+            "hard": true,
+            "pred": 85.983,
+            "low": 83.043,
+            "high": 88.923,
+            "pass": true,
+            "margin": 0.502
+          },
+          {
+            "conservative": 5.195,
+            "indicator": "fatigue",
+            "name": "抗疲劳",
+            "unit": "lg次",
+            "target": 5.3,
+            "hard": false,
+            "pred": 5.29,
+            "low": 5.149,
+            "high": 5.431,
+            "pass": false,
+            "margin": -0.262
+          },
+          {
+            "conservative": 5324.602,
+            "indicator": "modulus",
+            "name": "结构承载",
+            "unit": "MPa",
+            "target": 6000,
+            "hard": false,
+            "pred": 5893.743,
+            "low": 5044.279,
+            "high": 6743.206,
+            "pass": false,
+            "margin": -0.225
+          },
+          {
+            "conservative": 1.371,
+            "indicator": "td",
+            "name": "抗滑",
+            "unit": "mm",
+            "target": 1.05,
+            "hard": true,
+            "pred": 1.418,
+            "low": 1.347,
+            "high": 1.488,
+            "pass": true,
+            "margin": 1.068
+          }
+        ],
+        "feasible": true,
+        "truth": {
+          "ds": {
+            "true": 5198.718507103761,
+            "pass": true,
+            "hard": true
+          },
+          "eps": {
+            "true": 2733.7939740393203,
+            "pass": true,
+            "hard": false
+          },
+          "tsr": {
+            "true": 86.5,
+            "pass": true,
+            "hard": true
+          },
+          "fatigue": {
+            "true": 5.2700000000000005,
+            "pass": false,
+            "hard": false
+          },
+          "modulus": {
+            "true": 5858.735287433898,
+            "pass": false,
+            "hard": false
+          },
+          "td": {
+            "true": 1.43,
+            "pass": true,
+            "hard": true
+          }
+        },
+        "rule_violations": []
+      }
+    },
+    {
+      "id": "C5",
+      "name": "西北干旱区 · 半刚性基层反射裂缝",
+      "tags": [
+        "高温1-夏炎热区",
+        "低温2-冬寒区",
+        "雨量4-干旱区",
+        "交通-重",
+        "层位-上面层",
+        "结构-半刚性基层",
+        "路段-一般路段",
+        "病害-反射裂缝(中)",
+        "病害-疲劳龟裂(中)"
+      ],
+      "expert_note": "半刚性基层反射裂缝：橡胶沥青 AC-13（配合应力吸收层）",
+      "targets": {
+        "ds": 3100,
+        "eps": 2900,
+        "tsr": 75,
+        "fatigue": 5.6,
+        "modulus": 6000,
+        "td": 0.6
+      },
+      "hard": [
+        "ds",
+        "eps",
+        "tsr",
+        "fatigue",
+        "td"
+      ],
+      "priority": [
+        "低温抗裂",
+        "高温抗车辙",
+        "抗疲劳",
+        "水稳定性",
+        "抗滑",
+        "结构承载"
+      ],
+      "search": {
+        "space_size": 3300,
+        "after_rules": 2460,
+        "feasible": 0,
+        "excluded_by_rules": {
+          "R5": {
+            "reason": "50# 硬质沥青低温延性差，不适用冬严寒/冬寒区",
+            "count": 168
+          },
+          "R6": {
+            "reason": "110# 软质沥青高温稳定性不足，不适用夏炎热区",
+            "count": 672
+          }
+        },
+        "relaxed": true,
+        "note": "无候选方案满足全部硬性指标，已按缺口最小排序并放宽"
+      },
+      "recommended": {
+        "label": "SMA-13 · SBS改性沥青（90#基，SBS 5.5%） · 木质素纤维0.3%、抗剥落剂",
+        "binder": "PG 70-28",
+        "oil": 6.1,
+        "economics": {
+          "cost_t": 577.4,
+          "cost_m2": 55.43,
+          "carbon_t": 61.79,
+          "carbon_m2": 5.93,
+          "life_years": 8.7,
+          "cost_m2_yr": 6.37,
+          "carbon_m2_yr": 0.68
+        },
+        "checks": [
+          {
+            "conservative": 3192.588,
+            "indicator": "ds",
+            "name": "高温抗车辙",
+            "unit": "次/mm",
+            "target": 3100,
+            "hard": true,
+            "pred": 3689.299,
+            "low": 2973.11,
+            "high": 4578.01,
+            "pass": true,
+            "margin": 0.064
+          },
+          {
+            "conservative": 3066.701,
+            "indicator": "eps",
+            "name": "低温抗裂",
+            "unit": "με",
+            "target": 2900,
+            "hard": true,
+            "pred": 3192.128,
+            "low": 3004.923,
+            "high": 3379.333,
+            "pass": true,
+            "margin": 0.333
+          },
+          {
+            "conservative": 87.699,
+            "indicator": "tsr",
+            "name": "水稳定性",
+            "unit": "%",
+            "target": 75,
+            "hard": true,
+            "pred": 89.804,
+            "low": 86.662,
+            "high": 92.946,
+            "pass": true,
+            "margin": 1.587
+          },
+          {
+            "conservative": 5.569,
+            "indicator": "fatigue",
+            "name": "抗疲劳",
+            "unit": "lg次",
+            "target": 5.6,
+            "hard": true,
+            "pred": 5.667,
+            "low": 5.521,
+            "high": 5.812,
+            "pass": false,
+            "margin": -0.078
+          },
+          {
+            "conservative": 6734.844,
+            "indicator": "modulus",
+            "name": "结构承载",
+            "unit": "MPa",
+            "target": 6000,
+            "hard": false,
+            "pred": 7319.257,
+            "low": 6446.999,
+            "high": 8191.515,
+            "pass": true,
+            "margin": 0.245
+          },
+          {
+            "conservative": 0.897,
+            "indicator": "td",
+            "name": "抗滑",
+            "unit": "mm",
+            "target": 0.6,
+            "hard": true,
+            "pred": 0.947,
+            "low": 0.873,
+            "high": 1.022,
+            "pass": true,
+            "margin": 0.991
+          }
+        ],
+        "reasons": [
+          "未满足：抗疲劳（预测均值5.67，75%保守值5.57，目标5.6）",
+          "低温抗裂：预测 3,192με，目标 ≥2900，权重 0.21",
+          "高温抗车辙：预测 3,689次/mm，目标 ≥3100，权重 0.17",
+          "水稳定性：预测 89.8%，目标 ≥75，权重 0.07",
+          "单价约 577 元/t，预期寿命 8.7 年，年均 6.37 元/m²·年，碳排 61.8 kgCO₂e/t"
+        ],
+        "feasible": false,
+        "truth": {
+          "ds": {
+            "true": 4269.595647459053,
+            "pass": true,
+            "hard": true
+          },
+          "eps": {
+            "true": 3147.6443306941414,
+            "pass": true,
+            "hard": true
+          },
+          "tsr": {
+            "true": 90.05,
+            "pass": true,
+            "hard": true
+          },
+          "fatigue": {
+            "true": 5.712606177505398,
+            "pass": true,
+            "hard": true
+          },
+          "modulus": {
+            "true": 7413.735287433898,
+            "pass": true,
+            "hard": false
+          },
+          "td": {
+            "true": 0.98,
+            "pass": true,
+            "hard": true
+          }
+        },
+        "family_match": {
+          "modifier": false,
+          "gradation": false
+        },
+        "construction": [
+          "拌和温度 165–175℃，出料温度不低于 160℃",
+          "压实度由98%降至96%时，预测动稳定度下降约 49%",
+          "SMA 需钢轮压路机紧跟碾压，禁用胶轮，防止泛油",
+          "反射裂缝处治建议在新铺层下设置应力吸收层（橡胶沥青/SBS 同步碎石封层）或抗裂土工格栅"
+        ]
+      },
+      "alternatives": [
+        "SMA-13 · 橡胶沥青（90#基，胶粉21%） · 木质素纤维0.3%、抗剥落剂",
+        "SMA-13 · 高粘高弹改性沥青（70#基，高粘剂12%） · 木质素纤维0.3%、抗剥落剂、温拌剂"
+      ],
+      "expert": {
+        "label": "AC-13 · 橡胶沥青（70#基，胶粉18%）",
+        "binder": "PG 70-28",
+        "economics": {
+          "cost_t": 446.1,
+          "cost_m2": 42.83,
+          "carbon_t": 50.66,
+          "carbon_m2": 4.86,
+          "life_years": 4.9,
+          "cost_m2_yr": 8.74,
+          "carbon_m2_yr": 0.99
+        },
+        "checks": [
+          {
+            "conservative": 1942.9,
+            "indicator": "ds",
+            "name": "高温抗车辙",
+            "unit": "次/mm",
+            "target": 3100,
+            "hard": true,
+            "pred": 2249.279,
+            "low": 1807.709,
+            "high": 2798.713,
+            "pass": false,
+            "margin": -1.015
+          },
+          {
+            "conservative": 2426.519,
+            "indicator": "eps",
+            "name": "低温抗裂",
+            "unit": "με",
+            "target": 2900,
+            "hard": true,
+            "pred": 2547.719,
+            "low": 2366.823,
+            "high": 2728.614,
+            "pass": false,
+            "margin": -0.947
+          },
+          {
+            "conservative": 81.862,
+            "indicator": "tsr",
+            "name": "水稳定性",
+            "unit": "%",
+            "target": 75,
+            "hard": true,
+            "pred": 83.843,
+            "low": 80.886,
+            "high": 86.8,
+            "pass": true,
+            "margin": 0.858
+          },
+          {
+            "conservative": 5.307,
+            "indicator": "fatigue",
+            "name": "抗疲劳",
+            "unit": "lg次",
+            "target": 5.6,
+            "hard": true,
+            "pred": 5.402,
+            "low": 5.26,
+            "high": 5.543,
+            "pass": false,
+            "margin": -0.733
+          },
+          {
+            "conservative": 7836.317,
+            "indicator": "modulus",
+            "name": "结构承载",
+            "unit": "MPa",
+            "target": 6000,
+            "hard": false,
+            "pred": 8409.108,
+            "low": 7554.197,
+            "high": 9264.019,
+            "pass": true,
+            "margin": 0.612
+          },
+          {
+            "conservative": 0.523,
+            "indicator": "td",
+            "name": "抗滑",
+            "unit": "mm",
+            "target": 0.6,
+            "hard": true,
+            "pred": 0.573,
+            "low": 0.499,
+            "high": 0.647,
+            "pass": false,
+            "margin": -0.256
+          }
+        ],
+        "feasible": false,
+        "truth": {
+          "ds": {
+            "true": 2366.4195915791297,
+            "pass": false,
+            "hard": true
+          },
+          "eps": {
+            "true": 2610.6117603809894,
+            "pass": false,
+            "hard": true
+          },
+          "tsr": {
+            "true": 83.16,
+            "pass": true,
+            "hard": true
+          },
+          "fatigue": {
+            "true": 5.41,
+            "pass": false,
+            "hard": true
+          },
+          "modulus": {
+            "true": 8648.735287433898,
+            "pass": true,
+            "hard": false
+          },
+          "td": {
+            "true": 0.6,
+            "pass": true,
+            "hard": true
+          }
+        },
+        "rule_violations": []
+      }
+    },
+    {
+      "id": "C6",
+      "name": "城市主干道交叉口 · 极重荷载车辙（中面层）",
+      "tags": [
+        "高温2-夏热区",
+        "低温3-冬冷区",
+        "雨量2-湿润区",
+        "交通-极重",
+        "层位-中面层",
+        "结构-半刚性基层",
+        "路段-平面交叉口/公交站台",
+        "病害-车辙(重)"
+      ],
+      "expert_note": "交叉口重载中面层：SBS改性 AC-20 + 抗车辙剂",
+      "targets": {
+        "ds": 5800,
+        "eps": 2200,
+        "tsr": 80,
+        "fatigue": 5.8,
+        "modulus": 11500
+      },
+      "hard": [
+        "ds",
+        "tsr",
+        "modulus"
+      ],
+      "priority": [
+        "高温抗车辙",
+        "抗疲劳",
+        "水稳定性",
+        "结构承载",
+        "低温抗裂"
+      ],
+      "search": {
+        "space_size": 2736,
+        "after_rules": 1824,
+        "feasible": 20,
+        "excluded_by_rules": {
+          "R10": {
+            "reason": "原型保守规则：特重及以上交通 RAP 掺量不宜超过 20%",
+            "count": 912
+          }
+        },
+        "relaxed": false,
+        "note": ""
+      },
+      "recommended": {
+        "label": "AC-20 · SBS改性沥青（70#基，SBS 5.5%） · 抗剥落剂、抗车辙剂、RAP 20%+再生剂",
+        "binder": "PG 76-28",
+        "oil": 4.2,
+        "economics": {
+          "cost_t": 411.8,
+          "cost_m2": 59.3,
+          "carbon_t": 57.78,
+          "carbon_m2": 8.32,
+          "life_years": 5.9,
+          "cost_m2_yr": 10.05,
+          "carbon_m2_yr": 1.41
+        },
+        "checks": [
+          {
+            "conservative": 7684.878,
+            "indicator": "ds",
+            "name": "高温抗车辙",
+            "unit": "次/mm",
+            "target": 5800,
+            "hard": true,
+            "pred": 8702.441,
+            "low": 7228.33,
+            "high": 10477.176,
+            "pass": true,
+            "margin": 0.611
+          },
+          {
+            "conservative": 1970.03,
+            "indicator": "eps",
+            "name": "低温抗裂",
+            "unit": "με",
+            "target": 2200,
+            "hard": false,
+            "pred": 2102.36,
+            "low": 1904.853,
+            "high": 2299.867,
+            "pass": false,
+            "margin": -0.46
+          },
+          {
+            "conservative": 83.273,
+            "indicator": "tsr",
+            "name": "水稳定性",
+            "unit": "%",
+            "target": 80,
+            "hard": true,
+            "pred": 85.209,
+            "low": 82.319,
+            "high": 88.098,
+            "pass": true,
+            "margin": 0.409
+          },
+          {
+            "conservative": 4.757,
+            "indicator": "fatigue",
+            "name": "抗疲劳",
+            "unit": "lg次",
+            "target": 5.8,
+            "hard": false,
+            "pred": 4.861,
+            "low": 4.706,
+            "high": 5.017,
+            "pass": false,
+            "margin": -2.606
+          },
+          {
+            "conservative": 13075.075,
+            "indicator": "modulus",
+            "name": "结构承载",
+            "unit": "MPa",
+            "target": 11500,
+            "hard": true,
+            "pred": 13684.568,
+            "low": 12774.876,
+            "high": 14594.26,
+            "pass": true,
+            "margin": 0.525
+          }
+        ],
+        "reasons": [
+          "在75%单侧置信的保守预测下满足全部硬性性能指标",
+          "高温抗车辙：预测 8,702次/mm，目标 ≥5800，权重 0.38",
+          "水稳定性：预测 85.2%，目标 ≥80，权重 0.11",
+          "结构承载：预测 13,685MPa，目标 ≥11500，权重 0.09",
+          "单价约 412 元/t，预期寿命 5.9 年，年均 10.05 元/m²·年，碳排 57.8 kgCO₂e/t"
+        ],
+        "feasible": true,
+        "truth": {
+          "ds": {
+            "true": 8798.056508721502,
+            "pass": true,
+            "hard": true
+          },
+          "eps": {
+            "true": 2149.244330694141,
+            "pass": false,
+            "hard": false
+          },
+          "tsr": {
+            "true": 85.35,
+            "pass": true,
+            "hard": true
+          },
+          "fatigue": {
+            "true": 4.929006177505397,
+            "pass": false,
+            "hard": false
+          },
+          "modulus": {
+            "true": 13571.735287433898,
+            "pass": true,
+            "hard": true
+          }
+        },
+        "family_match": {
+          "modifier": true,
+          "gradation": true
+        },
+        "construction": [
+          "拌和温度 170–180℃，出料温度不低于 165℃",
+          "压实度由98%降至96%时，预测动稳定度下降约 42%",
+          "RAP 需分级预处理并检测旧料沥青含量，控制掺量 20%"
+        ]
+      },
+      "alternatives": [
+        "AC-16 · SBS改性沥青（70#基，SBS 5.5%） · 抗剥落剂、抗车辙剂、RAP 20%+再生剂",
+        "AC-20 · 橡胶沥青（70#基，胶粉21%） · 抗剥落剂、抗车辙剂、RAP 20%+再生剂"
+      ],
+      "expert": {
+        "label": "AC-20 · SBS改性沥青（70#基，SBS 4.5%） · 抗车辙剂",
+        "binder": "PG 76-22",
+        "economics": {
+          "cost_t": 459.4,
+          "cost_m2": 66.15,
+          "carbon_t": 61.54,
+          "carbon_m2": 8.86,
+          "life_years": 4.5,
+          "cost_m2_yr": 14.7,
+          "carbon_m2_yr": 1.97
+        },
+        "checks": [
+          {
+            "conservative": 4932.461,
+            "indicator": "ds",
+            "name": "高温抗车辙",
+            "unit": "次/mm",
+            "target": 5800,
+            "hard": true,
+            "pred": 5611.178,
+            "low": 4628.991,
+            "high": 6801.769,
+            "pass": false,
+            "margin": -0.352
+          },
+          {
+            "conservative": 2104.613,
+            "indicator": "eps",
+            "name": "低温抗裂",
+            "unit": "με",
+            "target": 2200,
+            "hard": false,
+            "pred": 2228.695,
+            "low": 2043.497,
+            "high": 2413.892,
+            "pass": false,
+            "margin": -0.191
+          },
+          {
+            "conservative": 80.49,
+            "indicator": "tsr",
+            "name": "水稳定性",
+            "unit": "%",
+            "target": 80,
+            "hard": true,
+            "pred": 82.541,
+            "low": 79.48,
+            "high": 85.601,
+            "pass": true,
+            "margin": 0.061
+          },
+          {
+            "conservative": 5.061,
+            "indicator": "fatigue",
+            "name": "抗疲劳",
+            "unit": "lg次",
+            "target": 5.8,
+            "hard": false,
+            "pred": 5.155,
+            "low": 5.015,
+            "high": 5.295,
+            "pass": false,
+            "margin": -1.846
+          },
+          {
+            "conservative": 11894.315,
+            "indicator": "modulus",
+            "name": "结构承载",
+            "unit": "MPa",
+            "target": 11500,
+            "hard": true,
+            "pred": 12463.883,
+            "low": 11613.782,
+            "high": 13313.985,
+            "pass": true,
+            "margin": 0.131
+          }
+        ],
+        "feasible": false,
+        "truth": {
+          "ds": {
+            "true": 5991.77246138146,
+            "pass": true,
+            "hard": true
+          },
+          "eps": {
+            "true": 2399.4879040544733,
+            "pass": true,
+            "hard": false
+          },
+          "tsr": {
+            "true": 83.25,
+            "pass": true,
+            "hard": true
+          },
+          "fatigue": {
+            "true": 5.158718018503002,
+            "pass": false,
+            "hard": false
+          },
+          "modulus": {
+            "true": 12121.735287433898,
+            "pass": true,
+            "hard": true
+          }
+        },
+        "rule_violations": []
+      }
+    },
+    {
+      "id": "C7",
+      "name": "县乡道路 · 低预算低碳预防性养护",
+      "tags": [
+        "高温1-夏炎热区",
+        "低温4-冬温区",
+        "雨量1-潮湿区",
+        "交通-轻",
+        "层位-上面层",
+        "结构-半刚性基层",
+        "路段-一般路段"
+      ],
+      "expert_note": "低等级道路经济型：70#基质 AC-13 + 厂拌热再生 RAP20% + 温拌",
+      "targets": {
+        "ds": 1000,
+        "eps": 2000,
+        "tsr": 75,
+        "fatigue": 4.8,
+        "modulus": 6000,
+        "td": 0.5
+      },
+      "hard": [
+        "ds",
+        "tsr",
+        "td"
+      ],
+      "priority": [
+        "水稳定性",
+        "高温抗车辙",
+        "抗疲劳",
+        "低温抗裂",
+        "抗滑",
+        "结构承载"
+      ],
+      "search": {
+        "space_size": 3300,
+        "after_rules": 2628,
+        "feasible": 2442,
+        "excluded_by_rules": {
+          "R6": {
+            "reason": "110# 软质沥青高温稳定性不足，不适用夏炎热区",
+            "count": 672
+          }
+        },
+        "relaxed": false,
+        "note": ""
+      },
+      "recommended": {
+        "label": "SUP-12.5 · 橡胶沥青（90#基，胶粉21%） · 抗剥落剂、温拌剂、RAP 30%+再生剂",
+        "binder": "PG 70-28",
+        "oil": 4.8,
+        "economics": {
+          "cost_t": 374.3,
+          "cost_m2": 35.93,
+          "carbon_t": 38.53,
+          "carbon_m2": 3.7,
+          "life_years": 12.5,
+          "cost_m2_yr": 2.87,
+          "carbon_m2_yr": 0.3
+        },
+        "checks": [
+          {
+            "conservative": 2504.263,
+            "indicator": "ds",
+            "name": "高温抗车辙",
+            "unit": "次/mm",
+            "target": 1000,
+            "hard": true,
+            "pred": 2838.646,
+            "low": 2354.347,
+            "high": 3422.567,
+            "pass": true,
+            "margin": 1.993
+          },
+          {
+            "conservative": 2422.147,
+            "indicator": "eps",
+            "name": "低温抗裂",
+            "unit": "με",
+            "target": 2000,
+            "hard": false,
+            "pred": 2545.016,
+            "low": 2361.629,
+            "high": 2728.402,
+            "pass": true,
+            "margin": 0.844
+          },
+          {
+            "conservative": 82.155,
+            "indicator": "tsr",
+            "name": "水稳定性",
+            "unit": "%",
+            "target": 75,
+            "hard": true,
+            "pred": 84.033,
+            "low": 81.23,
+            "high": 86.836,
+            "pass": true,
+            "margin": 0.894
+          },
+          {
+            "conservative": 5.158,
+            "indicator": "fatigue",
+            "name": "抗疲劳",
+            "unit": "lg次",
+            "target": 4.8,
+            "hard": false,
+            "pred": 5.254,
+            "low": 5.11,
+            "high": 5.399,
+            "pass": true,
+            "margin": 0.895
+          },
+          {
+            "conservative": 8484.624,
+            "indicator": "modulus",
+            "name": "结构承载",
+            "unit": "MPa",
+            "target": 6000,
+            "hard": false,
+            "pred": 9068.793,
+            "low": 8196.899,
+            "high": 9940.688,
+            "pass": true,
+            "margin": 0.828
+          },
+          {
+            "conservative": 0.636,
+            "indicator": "td",
+            "name": "抗滑",
+            "unit": "mm",
+            "target": 0.5,
+            "hard": true,
+            "pred": 0.685,
+            "low": 0.611,
+            "high": 0.758,
+            "pass": true,
+            "margin": 0.452
+          }
+        ],
+        "reasons": [
+          "在75%单侧置信的保守预测下满足全部硬性性能指标",
+          "水稳定性：预测 84.0%，目标 ≥75，权重 0.12",
+          "高温抗车辙：预测 2,839次/mm，目标 ≥1000，权重 0.10",
+          "抗疲劳：预测 5.25lg次，目标 ≥4.8，权重 0.05",
+          "单价约 374 元/t，预期寿命 12.5 年，年均 2.87 元/m²·年，碳排 38.5 kgCO₂e/t"
+        ],
+        "feasible": true,
+        "truth": {
+          "ds": {
+            "true": 2829.3504120614484,
+            "pass": true,
+            "hard": true
+          },
+          "eps": {
+            "true": 2404.262229452913,
+            "pass": true,
+            "hard": false
+          },
+          "tsr": {
+            "true": 84.22,
+            "pass": true,
+            "hard": true
+          },
+          "fatigue": {
+            "true": 5.2744,
+            "pass": true,
+            "hard": false
+          },
+          "modulus": {
+            "true": 9101.735287433898,
+            "pass": true,
+            "hard": false
+          },
+          "td": {
+            "true": 0.656,
+            "pass": true,
+            "hard": true
+          }
+        },
+        "family_match": {
+          "modifier": false,
+          "gradation": false
+        },
+        "construction": [
+          "拌和温度 145–155℃，出料温度不低于 140℃",
+          "压实度由98%降至96%时，预测动稳定度下降约 46%",
+          "温拌工艺可在气温 ≥5℃ 时施工，并可提前开放交通",
+          "RAP 需分级预处理并检测旧料沥青含量，控制掺量 30%"
+        ]
+      },
+      "alternatives": [
+        "AC-13 · 橡胶沥青（90#基，胶粉21%） · 抗剥落剂、温拌剂、RAP 30%+再生剂",
+        "SUP-12.5 · SBS改性沥青（90#基，SBS 5.5%） · 抗剥落剂、温拌剂、RAP 30%+再生剂"
+      ],
+      "expert": {
+        "label": "AC-13 · 70#基质沥青 · 温拌剂、RAP 20%+再生剂",
+        "binder": "PG 64-22",
+        "economics": {
+          "cost_t": 381.9,
+          "cost_m2": 36.66,
+          "carbon_t": 34.65,
+          "carbon_m2": 3.33,
+          "life_years": 9.8,
+          "cost_m2_yr": 3.74,
+          "carbon_m2_yr": 0.34
+        },
+        "checks": [
+          {
+            "conservative": 1066.349,
+            "indicator": "ds",
+            "name": "高温抗车辙",
+            "unit": "次/mm",
+            "target": 1000,
+            "hard": true,
+            "pred": 1217.62,
+            "low": 998.902,
+            "high": 1484.227,
+            "pass": true,
+            "margin": 0.139
+          },
+          {
+            "conservative": 1765.805,
+            "indicator": "eps",
+            "name": "低温抗裂",
+            "unit": "με",
+            "target": 2000,
+            "hard": false,
+            "pred": 1888.067,
+            "low": 1705.586,
+            "high": 2070.548,
+            "pass": false,
+            "margin": -0.468
+          },
+          {
+            "conservative": 74.284,
+            "indicator": "tsr",
+            "name": "水稳定性",
+            "unit": "%",
+            "target": 75,
+            "hard": true,
+            "pred": 76.24,
+            "low": 73.321,
+            "high": 79.158,
+            "pass": false,
+            "margin": -0.09
+          },
+          {
+            "conservative": 4.826,
+            "indicator": "fatigue",
+            "name": "抗疲劳",
+            "unit": "lg次",
+            "target": 4.8,
+            "hard": false,
+            "pred": 4.925,
+            "low": 4.778,
+            "high": 5.071,
+            "pass": true,
+            "margin": 0.066
+          },
+          {
+            "conservative": 9518.333,
+            "indicator": "modulus",
+            "name": "结构承载",
+            "unit": "MPa",
+            "target": 6000,
+            "hard": false,
+            "pred": 10126.466,
+            "low": 9218.805,
+            "high": 11034.126,
+            "pass": true,
+            "margin": 1.173
+          },
+          {
+            "conservative": 0.53,
+            "indicator": "td",
+            "name": "抗滑",
+            "unit": "mm",
+            "target": 0.5,
+            "hard": true,
+            "pred": 0.579,
+            "low": 0.506,
+            "high": 0.651,
+            "pass": true,
+            "margin": 0.101
+          }
+        ],
+        "feasible": false,
+        "truth": {
+          "ds": {
+            "true": 1193.4087412944946,
+            "pass": true,
+            "hard": true
+          },
+          "eps": {
+            "true": 2054.059585784344,
+            "pass": true,
+            "hard": false
+          },
+          "tsr": {
+            "true": 76.8,
+            "pass": true,
+            "hard": true
+          },
+          "fatigue": {
+            "true": 4.91,
+            "pass": true,
+            "hard": false
+          },
+          "modulus": {
+            "true": 10008.735287433898,
+            "pass": true,
+            "hard": false
+          },
+          "td": {
+            "true": 0.6,
+            "pass": true,
+            "hard": true
+          }
+        },
+        "rule_violations": []
+      }
+    }
+  ],
+  "accuracy": {
+    "ds": {
+      "r2": 0.9252071867159006,
+      "mape": 13.333155839320368,
+      "coverage_1sigma": 0.7753333333333333
+    },
+    "eps": {
+      "r2": 0.820478398128601,
+      "mape": 6.528757926685215,
+      "coverage_1sigma": 0.6966666666666667
+    },
+    "tsr": {
+      "r2": 0.6609612838933809,
+      "mape": 2.6757304430873003,
+      "coverage_1sigma": 0.702
+    },
+    "fatigue": {
+      "r2": 0.8281722474523303,
+      "mape": 2.0647282051657596,
+      "coverage_1sigma": 0.7373333333333333
+    },
+    "modulus": {
+      "r2": 0.8807435894705926,
+      "mape": 6.340999822978062,
+      "coverage_1sigma": 0.7506666666666667
+    },
+    "td": {
+      "r2": 0.8472421007590824,
+      "mape": 6.921725179141884,
+      "coverage_1sigma": 0.8173333333333334
+    }
+  },
+  "ablation": {
+    "40": {
+      "prior": {
+        "ds": {
+          "r2": 0.37137806416413643,
+          "mape": 46.483106919714345,
+          "coverage_1sigma": 0.35
+        },
+        "eps": {
+          "r2": 0.6624533238719514,
+          "mape": 9.931208266637084,
+          "coverage_1sigma": 0.4746666666666667
+        },
+        "tsr": {
+          "r2": 0.6087622549173909,
+          "mape": 2.9213769366181066,
+          "coverage_1sigma": 0.7226666666666667
+        },
+        "fatigue": {
+          "r2": 0.6990195127335515,
+          "mape": 2.8170938021338645,
+          "coverage_1sigma": 0.5433333333333333
+        },
+        "modulus": {
+          "r2": 0.7879739279007785,
+          "mape": 9.51841518358369,
+          "coverage_1sigma": 0.5713333333333334
+        },
+        "td": {
+          "r2": 0.8661483922332274,
+          "mape": 6.439800619702013,
+          "coverage_1sigma": 0.658
+        }
+      },
+      "pure": {
+        "ds": {
+          "r2": 0.5788960371827231,
+          "mape": 27.39259349031015,
+          "coverage_1sigma": 0.8086666666666666
+        },
+        "eps": {
+          "r2": 0.5594103915514115,
+          "mape": 11.022166163346863,
+          "coverage_1sigma": 0.6413333333333333
+        },
+        "tsr": {
+          "r2": 0.26100934840311196,
+          "mape": 3.9502349265410546,
+          "coverage_1sigma": 0.7953333333333333
+        },
+        "fatigue": {
+          "r2": 0.5918562031124939,
+          "mape": 3.1995079053938884,
+          "coverage_1sigma": 0.764
+        },
+        "modulus": {
+          "r2": 0.610882507850051,
+          "mape": 12.188999909623552,
+          "coverage_1sigma": 0.7566666666666667
+        },
+        "td": {
+          "r2": 0.5999440431234975,
+          "mape": 9.164351902692786,
+          "coverage_1sigma": 0.7826666666666666
+        }
+      },
+      "hybrid": {
+        "ds": {
+          "r2": 0.8980679951786318,
+          "mape": 16.66066426078747,
+          "coverage_1sigma": 0.732
+        },
+        "eps": {
+          "r2": 0.8001374999377093,
+          "mape": 7.192594194887033,
+          "coverage_1sigma": 0.6786666666666666
+        },
+        "tsr": {
+          "r2": 0.6070327900158332,
+          "mape": 2.8656915571245682,
+          "coverage_1sigma": 0.8746666666666667
+        },
+        "fatigue": {
+          "r2": 0.7829382377747011,
+          "mape": 2.328655445773205,
+          "coverage_1sigma": 0.6866666666666666
+        },
+        "modulus": {
+          "r2": 0.8679892209188659,
+          "mape": 6.723876284908275,
+          "coverage_1sigma": 0.792
+        },
+        "td": {
+          "r2": 0.850985912295319,
+          "mape": 6.941490909525903,
+          "coverage_1sigma": 0.7613333333333333
+        }
+      }
+    },
+    "80": {
+      "prior": {
+        "ds": {
+          "r2": 0.37137806416413643,
+          "mape": 46.483106919714345,
+          "coverage_1sigma": 0.40066666666666667
+        },
+        "eps": {
+          "r2": 0.6624533238719514,
+          "mape": 9.931208266637084,
+          "coverage_1sigma": 0.4713333333333333
+        },
+        "tsr": {
+          "r2": 0.6087622549173909,
+          "mape": 2.9213769366181066,
+          "coverage_1sigma": 0.6353333333333333
+        },
+        "fatigue": {
+          "r2": 0.6990195127335515,
+          "mape": 2.8170938021338645,
+          "coverage_1sigma": 0.5386666666666666
+        },
+        "modulus": {
+          "r2": 0.7879739279007785,
+          "mape": 9.51841518358369,
+          "coverage_1sigma": 0.566
+        },
+        "td": {
+          "r2": 0.8661483922332274,
+          "mape": 6.439800619702013,
+          "coverage_1sigma": 0.6786666666666666
+        }
+      },
+      "pure": {
+        "ds": {
+          "r2": 0.652015388035686,
+          "mape": 30.08144644620335,
+          "coverage_1sigma": 0.7413333333333333
+        },
+        "eps": {
+          "r2": 0.6826423576842922,
+          "mape": 9.428909444560626,
+          "coverage_1sigma": 0.768
+        },
+        "tsr": {
+          "r2": 0.4939985499805972,
+          "mape": 3.306398841583727,
+          "coverage_1sigma": 0.74
+        },
+        "fatigue": {
+          "r2": 0.7277299320223989,
+          "mape": 2.623695435436214,
+          "coverage_1sigma": 0.8013333333333333
+        },
+        "modulus": {
+          "r2": 0.6310483056082654,
+          "mape": 11.988782787974825,
+          "coverage_1sigma": 0.7166666666666667
+        },
+        "td": {
+          "r2": 0.7374887191837154,
+          "mape": 7.494020211401701,
+          "coverage_1sigma": 0.8246666666666667
+        }
+      },
+      "hybrid": {
+        "ds": {
+          "r2": 0.9037353110389161,
+          "mape": 14.661777980812435,
+          "coverage_1sigma": 0.7206666666666667
+        },
+        "eps": {
+          "r2": 0.8287229336689798,
+          "mape": 6.466789461341167,
+          "coverage_1sigma": 0.7766666666666666
+        },
+        "tsr": {
+          "r2": 0.6550425835714466,
+          "mape": 2.7057255179254907,
+          "coverage_1sigma": 0.7833333333333333
+        },
+        "fatigue": {
+          "r2": 0.8295089339356014,
+          "mape": 2.067716307735145,
+          "coverage_1sigma": 0.7326666666666667
+        },
+        "modulus": {
+          "r2": 0.8801638006470613,
+          "mape": 6.397058539151073,
+          "coverage_1sigma": 0.7293333333333333
+        },
+        "td": {
+          "r2": 0.8597307243914396,
+          "mape": 6.642511586537192,
+          "coverage_1sigma": 0.8
+        }
+      }
+    },
+    "160": {
+      "prior": {
+        "ds": {
+          "r2": 0.37137806416413643,
+          "mape": 46.483106919714345,
+          "coverage_1sigma": 0.39066666666666666
+        },
+        "eps": {
+          "r2": 0.6624533238719514,
+          "mape": 9.931208266637084,
+          "coverage_1sigma": 0.508
+        },
+        "tsr": {
+          "r2": 0.6087622549173909,
+          "mape": 2.9213769366181066,
+          "coverage_1sigma": 0.63
+        },
+        "fatigue": {
+          "r2": 0.6990195127335515,
+          "mape": 2.8170938021338645,
+          "coverage_1sigma": 0.558
+        },
+        "modulus": {
+          "r2": 0.7879739279007785,
+          "mape": 9.51841518358369,
+          "coverage_1sigma": 0.5546666666666666
+        },
+        "td": {
+          "r2": 0.8661483922332274,
+          "mape": 6.439800619702013,
+          "coverage_1sigma": 0.642
+        }
+      },
+      "pure": {
+        "ds": {
+          "r2": 0.8418409082424007,
+          "mape": 19.782931483462253,
+          "coverage_1sigma": 0.7893333333333333
+        },
+        "eps": {
+          "r2": 0.7759860874710103,
+          "mape": 7.6276781989540705,
+          "coverage_1sigma": 0.7366666666666667
+        },
+        "tsr": {
+          "r2": 0.5994939902527076,
+          "mape": 2.9522402368661904,
+          "coverage_1sigma": 0.768
+        },
+        "fatigue": {
+          "r2": 0.7543611749829635,
+          "mape": 2.490076607485407,
+          "coverage_1sigma": 0.7446666666666667
+        },
+        "modulus": {
+          "r2": 0.8197892838887295,
+          "mape": 8.041171099734159,
+          "coverage_1sigma": 0.72
+        },
+        "td": {
+          "r2": 0.7525960098752582,
+          "mape": 7.341362426672227,
+          "coverage_1sigma": 0.6726666666666666
+        }
+      },
+      "hybrid": {
+        "ds": {
+          "r2": 0.9267057838180919,
+          "mape": 13.314256848974226,
+          "coverage_1sigma": 0.7413333333333333
+        },
+        "eps": {
+          "r2": 0.8342855910153723,
+          "mape": 6.354606588347679,
+          "coverage_1sigma": 0.7226666666666667
+        },
+        "tsr": {
+          "r2": 0.6417613995298694,
+          "mape": 2.7729175791026144,
+          "coverage_1sigma": 0.7413333333333333
+        },
+        "fatigue": {
+          "r2": 0.8277157953269855,
+          "mape": 2.061928195370395,
+          "coverage_1sigma": 0.7786666666666666
+        },
+        "modulus": {
+          "r2": 0.8810841808101555,
+          "mape": 6.279143019411499,
+          "coverage_1sigma": 0.696
+        },
+        "td": {
+          "r2": 0.8448240446534835,
+          "mape": 7.082460621411651,
+          "coverage_1sigma": 0.6526666666666666
+        }
+      }
+    }
+  }
+}

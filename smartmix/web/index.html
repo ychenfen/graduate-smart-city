@@ -1,0 +1,591 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>数智选材 · 沥青材料方案推荐</title>
+<!-- 全部前端依赖本地化，离线/内网/答辩现场均可演示 -->
+<script src="/static/echarts.min.js"></script>
+<style>
+@font-face{font-family:"Barlow Condensed";font-weight:500;src:url(/static/barlow-condensed-latin-500-normal.woff2) format("woff2");font-display:swap}
+@font-face{font-family:"Barlow Condensed";font-weight:600;src:url(/static/barlow-condensed-latin-600-normal.woff2) format("woff2");font-display:swap}
+@font-face{font-family:"Barlow Condensed";font-weight:700;src:url(/static/barlow-condensed-latin-700-normal.woff2) format("woff2");font-display:swap}
+:root{
+  --asphalt:#2B2D2F; --asphalt-2:#3A3D40; --paper:#EEF0EC; --sheet:#FAFBF9; --ink:#1F2326;
+  --muted:#5F6562; --agg:#878C88; --line:#D5D9D4; --mark:#E3B21C; --mark-ink:#5A4300;
+  --pass:#2E7A57; --fail:#B23F36; --soft:#8A6D1E;
+  --num:"Barlow Condensed","PingFang SC","Microsoft YaHei","Noto Sans CJK SC",sans-serif;
+}
+*{box-sizing:border-box}
+html,body{margin:0}
+body{font-family:"Noto Sans SC","Noto Sans CJK SC","PingFang SC","Microsoft YaHei","Source Han Sans SC",system-ui,sans-serif;background:var(--paper);color:var(--ink);font-size:14px;line-height:1.6}
+button,select,input{font:inherit;color:inherit}
+:focus-visible{outline:2px solid var(--mark);outline-offset:2px}
+
+.app{display:grid;grid-template-columns:360px 1fr;min-height:100vh}
+aside{background:var(--asphalt);color:#E8EAE6;padding:20px 20px 32px;position:sticky;top:0;height:100vh;overflow:auto}
+aside h1{font-size:20px;margin:0 0 2px;font-weight:700;letter-spacing:.02em}
+aside .sub{color:#A9AEA9;font-size:12.5px;margin:0 0 16px}
+aside label{display:block;font-size:12.5px;color:#C3C7C2;margin:12px 0 4px}
+aside select,aside input[type=number]{width:100%;background:var(--asphalt-2);border:1px solid #4C5054;border-radius:4px;padding:7px 9px;color:#F1F2EF}
+aside .row{display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px}
+aside .row2{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+aside fieldset{border:0;border-top:1px solid #45494C;margin:18px 0 0;padding:6px 0 0}
+aside legend{font-size:13px;font-weight:700;color:#F1F2EF;padding:0 6px 0 0}
+.zone-out{font-family:var(--num);font-size:15px;color:var(--mark);margin-top:6px}
+.dist-list{display:flex;flex-direction:column;gap:6px}
+.dist{display:grid;grid-template-columns:1fr 64px 28px;gap:6px}
+.dist button{background:none;border:1px solid #4C5054;border-radius:4px;color:#C3C7C2;cursor:pointer}
+.linkbtn{background:none;border:0;color:var(--mark);cursor:pointer;padding:4px 0;font-size:13px}
+.go{margin-top:20px;width:100%;background:var(--mark);color:#241B00;border:0;border-radius:4px;padding:11px;font-weight:700;font-size:15px;cursor:pointer}
+.go:disabled{opacity:.6;cursor:progress}
+
+/* 路面结构断面 —— 页面的标志性元素 */
+.section{margin:4px 0 6px;border-radius:4px;overflow:hidden;border:1px solid #4C5054}
+.section .ly{position:relative;display:flex;align-items:center;justify-content:space-between;padding:0 10px;font-size:12px;color:#D9DCD7;transition:outline-color .2s}
+.section .ly span:last-child{font-family:var(--num);font-size:13px;color:#A9AEA9}
+.ly.top{height:26px;background:repeating-radial-gradient(circle at 30% 40%,#505458 0 1px,#3F4245 1px 4px)}
+.ly.mid{height:32px;background:repeating-radial-gradient(circle at 60% 30%,#55595C 0 1.5px,#45484B 1.5px 6px)}
+.ly.bot{height:38px;background:repeating-radial-gradient(circle at 20% 70%,#5B5F61 0 2px,#4A4D50 2px 8px)}
+.ly.base{height:30px;background:#6F6B62;color:#EDEAE2}
+.ly.sub{height:22px;background:#8A7F6C;color:#F4F0E6}
+.ly.on{outline:2px solid var(--mark);outline-offset:-2px;z-index:1}
+.ly.on::after{content:"本次养护";position:absolute;right:56px;font-size:11px;background:var(--mark);color:#241B00;padding:0 6px;border-radius:2px}
+.section .marking{height:3px;background:linear-gradient(90deg,var(--mark) 0 40px,transparent 40px 70px);background-size:70px 3px}
+.ly.dist-mark::before{content:"";position:absolute;left:44%;top:0;bottom:0;width:2px;background:#C9CCC7;opacity:.55;transform:skewX(-8deg)}
+
+main{padding:22px 28px 60px;min-width:0}
+.steps{display:flex;gap:4px;border-bottom:1px solid var(--line);margin-bottom:18px;flex-wrap:wrap}
+.steps button{background:none;border:0;border-bottom:3px solid transparent;padding:8px 14px 9px;cursor:pointer;color:var(--muted);font-weight:500}
+.steps button b{font-family:var(--num);font-size:16px;margin-right:6px;color:var(--agg)}
+.steps button[aria-selected=true]{color:var(--ink);border-bottom-color:var(--mark)}
+.steps button[aria-selected=true] b{color:var(--ink)}
+.steps .aux{margin-left:auto}
+.pane{display:none}.pane.on{display:block}
+.empty{padding:48px 0;color:var(--muted);max-width:56ch}
+.empty strong{color:var(--ink)}
+
+h2{font-size:18px;margin:0 0 4px}
+h3{font-size:15px;margin:22px 0 8px}
+.lead{color:var(--muted);margin:0 0 16px;max-width:72ch}
+.tags{display:flex;flex-wrap:wrap;gap:6px;margin:8px 0 16px}
+.tags span{background:var(--sheet);border:1px solid var(--line);border-radius:3px;padding:1px 8px;font-size:12.5px}
+
+table{border-collapse:collapse;width:100%;background:var(--sheet)}
+th,td{text-align:left;padding:8px 10px;border-bottom:1px solid var(--line);vertical-align:top}
+th{font-weight:500;color:var(--muted);font-size:12.5px;background:#F2F4F0}
+td.n{font-family:var(--num);font-size:17px;white-space:nowrap}
+.hard{font-size:11.5px;border:1px solid var(--ink);border-radius:2px;padding:0 4px;margin-left:6px}
+.wbar{height:8px;background:#E3E6E1;border-radius:4px;overflow:hidden;min-width:80px}
+.wbar i{display:block;height:100%;background:var(--asphalt)}
+ol.trace{margin:0;padding-left:20px;color:var(--muted);max-width:80ch}
+
+.funnel{display:flex;gap:0;margin:4px 0 18px;flex-wrap:wrap}
+.funnel div{padding:6px 14px;border-left:3px solid var(--line)}
+.funnel div:first-child{border-left:0;padding-left:0}
+.funnel b{display:block;font-family:var(--num);font-size:24px;line-height:1.1}
+.funnel small{color:var(--muted)}
+
+.cands{display:flex;flex-direction:column;border-top:1px solid var(--line)}
+.cand{display:grid;grid-template-columns:44px 1fr 300px;gap:14px;padding:14px 0;border-bottom:1px solid var(--line);align-items:start}
+.cand .rk{font-family:var(--num);font-size:34px;line-height:1;color:var(--agg);border-right:3px solid var(--line);padding-right:8px;text-align:right}
+.cand.top .rk{color:var(--ink);border-right-color:var(--mark)}
+.cand.near .rk{color:#B8BCB7}
+.cand h4{margin:0 0 4px;font-size:15px}
+.cand .pg{font-family:var(--num);font-size:16px;margin-right:10px}
+.cand .meta{color:var(--muted);font-size:12.5px}
+.chips{display:flex;flex-wrap:wrap;gap:4px;margin-top:8px}
+.chip{font-size:12px;padding:0 7px;border-radius:2px;border:1px solid}
+.chip.ok{color:var(--pass);border-color:#9CC4AF}
+.chip.no{color:var(--fail);border-color:#E0AAA4;background:#FBF0EE}
+.chip.soft{color:var(--soft);border-color:#E4D3A3}
+.econ{display:grid;grid-template-columns:repeat(3,1fr);gap:4px 12px}
+.econ div b{display:block;font-family:var(--num);font-size:20px;line-height:1.1}
+.econ div small{color:var(--muted);font-size:11.5px}
+.cand .acts{margin-top:10px;display:flex;gap:12px;align-items:center}
+.cand label.cmp{font-size:12.5px;color:var(--muted);display:flex;gap:4px;align-items:center;cursor:pointer}
+.btn{background:var(--asphalt);color:#fff;border:0;border-radius:4px;padding:5px 12px;cursor:pointer;font-size:13px}
+.btn.ghost{background:none;color:var(--ink);border:1px solid var(--agg)}
+.note{font-size:12.5px;color:var(--soft);margin-top:6px}
+
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:24px}
+.chart{height:340px;background:var(--sheet);border:1px solid var(--line)}
+.chart.tall{height:520px}
+.reason{margin:0;padding-left:18px}
+.tune{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;background:var(--sheet);border:1px solid var(--line);padding:14px}
+.tune label{font-size:12.5px;color:var(--muted);display:block}
+.tune select,.tune input{width:100%;border:1px solid var(--line);border-radius:4px;padding:6px 8px;background:#fff}
+.tune .chk{display:flex;gap:14px;grid-column:span 2;align-items:center;flex-wrap:wrap}
+.tune .chk label{display:flex;gap:6px;color:var(--ink);align-items:center;white-space:nowrap}
+.tune input[type=checkbox]{width:auto;margin:0}
+.paths{font-size:13px;color:var(--muted);margin:0;padding-left:18px}
+.status{position:fixed;right:20px;bottom:20px;background:var(--asphalt);color:#fff;padding:9px 14px;border-radius:4px;font-size:13px;display:none}
+.disclaimer{font-size:12px;color:var(--muted);margin-top:28px;max-width:80ch;border-top:1px solid var(--line);padding-top:10px}
+textarea{width:100%;min-height:150px;font-family:ui-monospace,monospace;font-size:12.5px;border:1px solid var(--line);border-radius:4px;padding:8px}
+
+@media (max-width:980px){
+  .app{grid-template-columns:1fr}
+  aside{position:static;height:auto}
+  .cand{grid-template-columns:36px 1fr}
+  .cand .econ{grid-column:2}
+  .grid2{grid-template-columns:1fr}
+  .tune{grid-template-columns:1fr 1fr}
+  main{padding:16px}
+}
+@media (prefers-reduced-motion:reduce){*{transition:none!important}}
+</style>
+</head>
+<body>
+<div class="app">
+<aside aria-label="养护场景输入">
+  <h1>数智选材</h1>
+  <p class="sub">养护决策 → 沥青材料方案智能推荐</p>
+
+  <div class="section" id="section" aria-hidden="true">
+    <div class="marking"></div>
+    <div class="ly top" data-l="上面层"><span>上面层</span><span id="th-top">4 cm</span></div>
+    <div class="ly mid" data-l="中面层"><span>中面层</span><span>6 cm</span></div>
+    <div class="ly bot" data-l="下面层"><span>下面层</span><span>8 cm</span></div>
+    <div class="ly base" id="ly-base"><span>半刚性基层</span><span></span></div>
+    <div class="ly sub"><span>路基</span><span></span></div>
+  </div>
+
+  <label for="preset">从典型场景开始</label>
+  <select id="preset"></select>
+
+  <fieldset><legend>气候</legend>
+    <div class="row">
+      <div><label for="c-hot">最热月均高温 ℃</label><input id="c-hot" type="number" step="0.5"></div>
+      <div><label for="c-min">极端最低 ℃</label><input id="c-min" type="number" step="0.5"></div>
+      <div><label for="c-rain">年降雨 mm</label><input id="c-rain" type="number" step="10"></div>
+    </div>
+    <div class="zone-out" id="zone-out"></div>
+  </fieldset>
+
+  <fieldset><legend>道路与结构</legend>
+    <div class="row2">
+      <div><label for="traffic">交通荷载等级</label><select id="traffic"></select></div>
+      <div><label for="layer">养护层位</label><select id="layer"></select></div>
+      <div><label for="thick">铺筑厚度 cm</label><input id="thick" type="number" step="0.5"></div>
+      <div><label for="structure">结构类型</label><select id="structure"></select></div>
+    </div>
+    <label for="special">路段特征</label><select id="special"></select>
+  </fieldset>
+
+  <fieldset><legend>病害</legend>
+    <div class="dist-list" id="dist-list"></div>
+    <button class="linkbtn" id="add-dist" type="button">添加病害</button>
+  </fieldset>
+
+  <fieldset><legend>约束</legend>
+    <div class="row2">
+      <div><label for="cost-p">成本敏感度</label><select id="cost-p"><option>低</option><option>中</option><option>高</option></select></div>
+      <div><label for="carbon-p">低碳优先级</label><select id="carbon-p"><option>低</option><option>中</option><option>高</option></select></div>
+      <div><label for="budget">单价上限 元/t</label><input id="budget" type="number" placeholder="不限"></div>
+      <div><label for="rap">回收料 RAP</label><select id="rap"><option value="1">允许</option><option value="0">不允许</option></select></div>
+    </div>
+  </fieldset>
+
+  <button class="go" id="go" type="button">生成材料方案</button>
+</aside>
+
+<main>
+  <nav class="steps" role="tablist">
+    <button role="tab" aria-selected="true" data-p="req"><b>1</b>性能需求</button>
+    <button role="tab" aria-selected="false" data-p="rec"><b>2</b>推荐方案与对比</button>
+    <button role="tab" aria-selected="false" data-p="det"><b>3</b>方案详情与微调</button>
+    <button role="tab" aria-selected="false" data-p="kg" class="aux">材料知识图谱</button>
+    <button role="tab" aria-selected="false" data-p="fb">反馈与模型</button>
+  </nav>
+
+  <section class="pane on" id="p-req">
+    <div class="empty" id="req-empty">在左侧选择一个典型场景或填写养护场景，然后点击<strong>生成材料方案</strong>。系统会先把场景翻译成可量化的混合料性能需求。</div>
+    <div id="req-body" hidden>
+      <h2 id="req-title"></h2>
+      <div class="tags" id="req-tags"></div>
+      <table id="req-table"><thead><tr><th>性能</th><th>目标值</th><th>依据</th><th style="width:22%">权重</th></tr></thead><tbody></tbody></table>
+      <h3>推导过程</h3>
+      <ol class="trace" id="req-trace"></ol>
+    </div>
+  </section>
+
+  <section class="pane" id="p-rec">
+    <div class="empty" id="rec-empty">还没有推荐结果。先在左侧生成材料方案。</div>
+    <div id="rec-body" hidden>
+      <div class="funnel" id="funnel"></div>
+      <p class="note" id="relaxed-note"></p>
+      <div class="cands" id="cands"></div>
+      <h3>多方案对比</h3>
+      <p class="lead">勾选方案的“加入对比”，雷达图按“刚好达标 = 50 分”归一化；经济性与低碳为候选间相对值。</p>
+      <div class="grid2">
+        <div class="chart" id="radar"></div>
+        <div class="chart" id="pareto"></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="pane" id="p-det">
+    <div class="empty" id="det-empty">从推荐方案中选择“查看详情”，在这里查看推荐依据并手动微调配方。</div>
+    <div id="det-body" hidden>
+      <h2 id="det-title"></h2>
+      <p class="lead" id="det-sub"></p>
+      <div class="grid2">
+        <div>
+          <h3>预测性能</h3>
+          <table id="det-checks"><thead><tr><th>性能</th><th>目标</th><th>预测（区间）</th><th>结论（按保守值）</th></tr></thead><tbody></tbody></table>
+          <h3>推荐理由</h3>
+          <ul class="reason" id="det-reasons"></ul>
+          <h3>知识图谱推理路径</h3>
+          <ul class="paths" id="det-paths"></ul>
+        </div>
+        <div>
+          <h3>为什么是这个配方</h3>
+          <label for="exp-target" class="meta">对比基准：70#基质沥青 AC-13。选择指标：</label>
+          <select id="exp-target"></select>
+          <div class="chart" id="shap"></div>
+          <h3>施工工艺协同</h3>
+          <ul class="reason" id="det-cons"></ul>
+          <div class="chart" style="height:220px" id="compact"></div>
+        </div>
+      </div>
+      <h3>人工微调</h3>
+      <p class="lead">修改任意参数后点击“重新评估”，系统按同一场景重新预测并校核。</p>
+      <div class="tune" id="tune"></div>
+      <div class="acts" style="margin-top:10px;display:flex;gap:10px">
+        <button class="btn" id="re-eval" type="button">重新评估</button>
+        <button class="btn ghost" id="export" type="button">导出方案 JSON</button>
+      </div>
+    </div>
+  </section>
+
+  <section class="pane" id="p-kg">
+    <h2>材料组成 · 性能表现 · 适用场景</h2>
+    <p class="lead">节点可拖动，滚轮缩放；鼠标悬停节点时高亮它的直接关系。</p>
+    <div class="chart tall" id="kg"></div>
+    <h3>知识规则</h3>
+    <table id="rules"><thead><tr><th>编号</th><th>类型</th><th>说明</th></tr></thead><tbody></tbody></table>
+  </section>
+
+  <section class="pane" id="p-fb">
+    <h2>推荐 → 验证 → 反馈 → 优化</h2>
+    <p class="lead" id="model-info"></p>
+    <div class="grid2">
+      <div>
+        <h3>录入室内试验结果</h3>
+        <p class="lead">每条记录包含配方与实测指标（可部分缺测）。提交后追加进训练集并重训模型。</p>
+        <textarea id="lab-json" aria-label="试验记录 JSON"></textarea>
+        <div style="margin-top:8px"><button class="btn" id="lab-send" type="button">提交并重训</button></div>
+      </div>
+      <div>
+        <h3>录入路用性能跟踪</h3>
+        <p class="lead">实际服役年限与预测年限之比用于贝叶斯更新寿命校正系数。</p>
+        <div class="tune" style="grid-template-columns:1fr 1fr 1fr">
+          <div><label for="f-id">案例编号</label><input id="f-id" value="DEMO-001"></div>
+          <div><label for="f-pred">预测寿命 年</label><input id="f-pred" type="number" value="8"></div>
+          <div><label for="f-obs">实际寿命 年</label><input id="f-obs" type="number" value="7"></div>
+        </div>
+        <div style="margin-top:8px"><button class="btn" id="field-send" type="button">提交路用反馈</button></div>
+        <p class="lead" id="field-out" style="margin-top:8px"></p>
+      </div>
+    </div>
+  </section>
+
+  <p class="disclaimer">原型说明：性能模型由模拟室内试验数据训练，单价与碳排因子为示意参数，结果用于方法演示；工程应用前须以企业数据重训并经室内试验验证。</p>
+</main>
+</div>
+<div class="status" id="status" role="status"></div>
+
+<script>
+const $ = s => document.querySelector(s);
+const IND = {ds:"高温抗车辙",eps:"低温抗裂",tsr:"水稳定性",fatigue:"抗疲劳",modulus:"结构承载",td:"抗滑"};
+const UNIT = {ds:"次/mm",eps:"με",tsr:"%",fatigue:"lg次",modulus:"MPa",td:"mm"};
+const FMT = {ds:v=>Math.round(v).toLocaleString(),eps:v=>Math.round(v).toLocaleString(),tsr:v=>v.toFixed(1),fatigue:v=>v.toFixed(2),modulus:v=>Math.round(v).toLocaleString(),td:v=>v.toFixed(2)};
+let META, PRESETS, LAST, CUR, CMP = new Set();
+const charts = {};
+function chart(id){ if(!charts[id]) charts[id]=echarts.init(document.getElementById(id)); return charts[id]; }
+window.addEventListener('resize',()=>Object.values(charts).forEach(c=>c.resize()));
+function status(t, ms=2200){ const s=$('#status'); s.textContent=t; s.style.display='block'; clearTimeout(s._t); if(ms) s._t=setTimeout(()=>s.style.display='none',ms); }
+async function api(path, body){
+  const r = await fetch(path, body?{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(body)}:{});
+  if(!r.ok){ const t=await r.text(); throw new Error(t); }
+  return r.json();
+}
+function opt(sel, items){ sel.innerHTML = items.map(([v,t])=>`<option value="${v}">${t}</option>`).join(''); }
+function esc(s){ return String(s).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c])); }
+
+// ---------- tabs
+document.querySelectorAll('.steps button').forEach(b=>b.addEventListener('click',()=>tab(b.dataset.p)));
+function tab(p){
+  document.querySelectorAll('.steps button').forEach(b=>b.setAttribute('aria-selected', b.dataset.p===p));
+  document.querySelectorAll('.pane').forEach(x=>x.classList.toggle('on', x.id==='p-'+p));
+  setTimeout(()=>Object.values(charts).forEach(c=>c.resize()),0);
+  if(p==='kg') drawKG();
+}
+
+// ---------- form
+function zones(){
+  const h=+$('#c-hot').value, m=+$('#c-min').value, r=+$('#c-rain').value;
+  const hz = h>30?1:(h>=20?2:3), lz = m<-37?1:(m<-21.5?2:(m<-9?3:4)), rz = r>1000?1:(r>=500?2:(r>=250?3:4));
+  $('#zone-out').textContent = `气候分区 ${hz}-${lz}-${rz}  ${META.zones.high[hz]} · ${META.zones.low[lz]} · ${META.zones.rain[rz]}`;
+}
+function syncSection(){
+  const l=$('#layer').value;
+  document.querySelectorAll('#section .ly[data-l]').forEach(x=>{
+    x.classList.toggle('on', x.dataset.l===l);
+  });
+  const hasCrack = [...document.querySelectorAll('.dist select.t')].some(s=>s.value!=='none');
+  document.querySelector('#section .ly.top').classList.toggle('dist-mark', hasCrack);
+  $('#ly-base').firstElementChild.textContent = {semi_rigid:'半刚性基层',flexible:'柔性基层',bridge_deck:'桥面板'}[$('#structure').value];
+  const th = $('#thick').value; const tgt = document.querySelector(`#section .ly[data-l="${l}"] span:last-child`);
+  if(tgt && th) tgt.textContent = th+' cm';
+}
+function distRow(d={type:'rutting',severity:'中'}){
+  const w=document.createElement('div'); w.className='dist';
+  w.innerHTML = `<select class="t" aria-label="病害类型">${Object.entries(META.distress).map(([k,v])=>`<option value="${k}">${v}</option>`).join('')}</select>
+  <select class="s" aria-label="严重程度"><option>轻</option><option>中</option><option>重</option></select>
+  <button type="button" aria-label="删除该病害">×</button>`;
+  w.querySelector('.t').value=d.type; w.querySelector('.s').value=d.severity;
+  w.querySelector('button').onclick=()=>{w.remove();syncSection();};
+  w.querySelector('.t').onchange=syncSection;
+  $('#dist-list').appendChild(w);
+}
+function loadPreset(k){
+  const p=PRESETS[k];
+  $('#c-hot').value=p.climate.hot_month_max; $('#c-min').value=p.climate.extreme_min; $('#c-rain').value=p.climate.annual_rain;
+  $('#traffic').value=p.traffic; $('#layer').value=p.layer; $('#thick').value=p.thickness_cm;
+  $('#structure').value=p.structure; $('#special').value=p.special;
+  $('#dist-list').innerHTML=''; p.distress.forEach(distRow);
+  $('#cost-p').value=p.constraints.cost_priority; $('#carbon-p').value=p.constraints.carbon_priority;
+  $('#rap').value=p.constraints.allow_rap?'1':'0'; $('#budget').value='';
+  zones(); syncSection();
+}
+function scenario(){
+  return {
+    name: $('#preset').selectedOptions[0]?.text,
+    climate:{hot_month_max:+$('#c-hot').value, extreme_min:+$('#c-min').value, annual_rain:+$('#c-rain').value},
+    traffic:$('#traffic').value, layer:$('#layer').value, thickness_cm:+$('#thick').value||null,
+    structure:$('#structure').value, special:$('#special').value,
+    distress:[...document.querySelectorAll('.dist')].map(d=>({type:d.querySelector('.t').value,severity:d.querySelector('.s').value})),
+    constraints:{cost_priority:$('#cost-p').value, carbon_priority:$('#carbon-p').value, allow_rap:$('#rap').value==='1',
+                 budget_max:$('#budget').value?+$('#budget').value:null}
+  };
+}
+
+// ---------- 1 需求
+function renderReq(q){
+  $('#req-empty').hidden=true; $('#req-body').hidden=false;
+  $('#req-title').textContent = q.scenario.name || '自定义场景';
+  $('#req-tags').innerHTML = q.tags.map(t=>`<span>${esc(t)}</span>`).join('');
+  const wmax = Math.max(...Object.keys(IND).map(k=>q.weights[k]));
+  $('#req-table tbody').innerHTML = Object.keys(IND).map(k=>{
+    const t=q.targets[k]; if(t.target<=0) return `<tr><td>${IND[k]}</td><td class="n">—</td><td>${esc(t.basis)}</td><td></td></tr>`;
+    return `<tr><td>${IND[k]}${t.hard?'<span class="hard">硬性</span>':''}</td><td class="n">≥ ${t.target} <small>${UNIT[k]}</small></td>
+      <td>${esc(t.basis)}</td><td><div class="wbar"><i style="width:${q.weights[k]/wmax*100}%"></i></div><small>${q.weights[k].toFixed(3)}</small></td></tr>`;
+  }).join('') + `<tr><td>材料成本</td><td class="n">—</td><td>一次性投入占 ${(q.weights.upfront_share*100).toFixed(0)}%，其余按全寿命年均成本计</td><td><small>${q.weights.cost}</small></td></tr>
+     <tr><td>碳排放</td><td class="n">—</td><td>原材料 + 拌和能耗（A1–A3）</td><td><small>${q.weights.carbon}</small></td></tr>`;
+  $('#req-trace').innerHTML = q.trace.map(t=>`<li>${esc(t)}</li>`).join('');
+}
+
+// ---------- 2 推荐
+function chipHTML(c){
+  const cls = c.pass?'ok':(c.hard?'no':'soft');
+  return `<span class="chip ${cls}" title="目标 ≥ ${c.target}">${c.name} ${FMT[c.indicator](c.pred)}</span>`;
+}
+function renderRec(r){
+  $('#rec-empty').hidden=true; $('#rec-body').hidden=false;
+  const s=r.search;
+  const ex = Object.values(s.excluded_by_rules).reduce((a,b)=>a+b.count,0);
+  $('#funnel').innerHTML = `<div><b>${s.space_size.toLocaleString()}</b><small>候选配方</small></div>
+    <div><b>${s.after_rules.toLocaleString()}</b><small>知识规则过滤后</small></div>
+    <div><b>${s.feasible.toLocaleString()}</b><small>保守预测全部达标</small></div>
+    <div><b>${r.candidates.length}</b><small>推荐（不同材料体系）</small></div>`;
+  $('#relaxed-note').textContent = s.relaxed ? '没有候选在保守预测下满足全部硬性指标，下列方案按缺口从小到大排列，建议配合结构措施或调整次要需求。' : '';
+  CMP = new Set(r.candidates.slice(0,3).map((_,i)=>i));
+  $('#cands').innerHTML = r.candidates.map((c,i)=>{
+    const e=c.economics;
+    return `<div class="cand ${i===0?'top':''} ${c.near_feasible?'near':''}">
+      <div class="rk">${c.rank}</div>
+      <div>
+        <h4>${esc(c.label)}</h4>
+        <div class="meta"><span class="pg">${c.formula.binder}</span>油石比 ${c.formula.oil_ratio}% · 拌和 ${c.construction.mix_temp[0]}–${c.construction.mix_temp[1]}℃${c.scores.pareto?' · Pareto 最优':''}</div>
+        <div class="chips">${c.checks.map(chipHTML).join('')}</div>
+        ${c.near_feasible?'<div class="note">接近达标的其他材料体系，供对比</div>':''}
+        <div class="acts"><button class="btn" data-i="${i}" type="button">查看详情</button>
+          <label class="cmp"><input type="checkbox" data-c="${i}" ${CMP.has(i)?'checked':''}>加入对比</label></div>
+      </div>
+      <div class="econ">
+        <div><b>${e.cost_t.toFixed(0)}</b><small>元/t</small></div>
+        <div><b>${e.life_years}</b><small>预期寿命 年</small></div>
+        <div><b>${e.cost_m2_yr.toFixed(2)}</b><small>元/m²·年</small></div>
+        <div><b>${e.carbon_t.toFixed(1)}</b><small>kgCO₂e/t</small></div>
+        <div><b>${e.cost_m2.toFixed(1)}</b><small>元/m²</small></div>
+        <div><b>${(c.scores.perf*100).toFixed(0)}</b><small>性能裕度分</small></div>
+      </div></div>`;
+  }).join('');
+  document.querySelectorAll('#cands button[data-i]').forEach(b=>b.onclick=()=>showDetail(r.candidates[+b.dataset.i]));
+  document.querySelectorAll('#cands input[data-c]').forEach(x=>x.onchange=()=>{ x.checked?CMP.add(+x.dataset.c):CMP.delete(+x.dataset.c); drawRadar(); });
+  drawRadar(); drawPareto();
+}
+const PALETTE = ['#2B2D2F','#E3B21C','#2E7A57','#7A5BA6','#B23F36','#3D7EA6'];
+function radarVals(c, all){
+  const m = {}; c.checks.forEach(x=>m[x.indicator]=x.margin);
+  const perf = Object.keys(IND).map(k=> m[k]===undefined?null: Math.max(0,Math.min(100, 50+50*Math.tanh(m[k]))));
+  const minC = Math.min(...all.map(a=>a.economics.cost_m2_yr)), minE = Math.min(...all.map(a=>a.economics.carbon_m2_yr));
+  return [...perf.map(v=>v??0), 100*minC/c.economics.cost_m2_yr, 100*minE/c.economics.carbon_m2_yr];
+}
+function drawRadar(){
+  const all = LAST.candidates; const sel=[...CMP].sort().map(i=>all[i]);
+  chart('radar').setOption({
+    color:PALETTE, tooltip:{}, legend:{bottom:0,type:'scroll',textStyle:{fontSize:11}},
+    radar:{radius:'60%',center:['50%','46%'],indicator:[...Object.values(IND),'经济性','低碳'].map(n=>({name:n,max:100})),
+      axisName:{color:'#1F2326'},splitArea:{areaStyle:{color:['#FAFBF9','#F2F4F0']}}},
+    series:[{type:'radar',data:sel.map(c=>({name:`#${c.rank} ${c.formula.gradation} ${c.formula.binder}`,value:radarVals(c,all).map(v=>+v.toFixed(0)),areaStyle:{opacity:.08}}))}]
+  }, true);
+}
+function drawPareto(){
+  const pts = LAST.pareto, cs = LAST.candidates;
+  chart('pareto').setOption({
+    title:{text:'性能 – 年均成本 Pareto 前沿',textStyle:{fontSize:13,fontWeight:500},left:8,top:6},
+    grid:{left:56,right:24,top:64,bottom:44},
+    tooltip:{formatter:p=>p.seriesName==='推荐'?esc(cs[p.dataIndex].label):`性能 ${(p.value[0]*100).toFixed(0)} · ${p.value[1].toFixed(2)} 元/m²·年`},
+    xAxis:{name:'性能裕度分',nameLocation:'middle',nameGap:26,scale:true},
+    yAxis:{name:'元/m²·年',nameGap:14,scale:true},
+    series:[{name:'Pareto 方案',type:'scatter',symbolSize:6,itemStyle:{color:'#878C88'},data:pts.map(p=>[p.perf,p.cost_m2_yr])},
+      {name:'推荐',type:'scatter',symbolSize:14,itemStyle:{color:'#E3B21C',borderColor:'#2B2D2F'},
+       label:{show:true,formatter:p=>'#'+cs[p.dataIndex].rank,position:'top'},
+       data:cs.map(c=>[c.scores.perf,c.economics.cost_m2_yr])}]
+  }, true);
+}
+
+// ---------- 3 详情
+function showDetail(c){
+  CUR=c; tab('det');
+  $('#det-empty').hidden=true; $('#det-body').hidden=false;
+  $('#det-title').textContent = c.label;
+  $('#det-sub').textContent = `${c.formula.binder}（高温 ${c.formula.pg_high_c}℃ / 低温 ${c.formula.pg_low_c}℃），油石比 ${c.formula.oil_ratio}%`
+    + (c.rule_violations&&c.rule_violations.length?`。触发知识规则：${c.rule_violations.join('；')}`:'');
+  $('#det-checks tbody').innerHTML = c.checks.map(x=>`<tr><td>${x.name}${x.hard?'<span class="hard">硬性</span>':''}</td>
+    <td class="n">≥ ${x.target}</td><td class="n">${FMT[x.indicator](x.pred)} <small>(${FMT[x.indicator](x.low)}–${FMT[x.indicator](x.high)}) ${UNIT[x.indicator]}</small></td>
+    <td title="75%单侧保守值 ${FMT[x.indicator](x.conservative)}">${x.pass?'<span class="chip ok">达标</span>':(x.hard?'<span class="chip no">未达标</span>':'<span class="chip soft">偏低</span>')}</td></tr>`).join('');
+  $('#det-reasons').innerHTML = c.reasons.map(t=>`<li>${esc(t)}</li>`).join('');
+  const paths = Object.entries(c.kg_paths||{}).flatMap(([d,ps])=>ps.length?ps:[`${d}：所选材料无直接强化关系，依靠级配与助剂综合作用`]);
+  $('#det-paths').innerHTML = paths.length? paths.map(p=>`<li>${esc(p)}</li>`).join('') : '<li>预防性养护场景，无特定病害路径</li>';
+  $('#det-cons').innerHTML = c.construction.notes.map(t=>`<li>${esc(t)}</li>`).join('')
+    + `<li>建议压实度不低于 ${c.construction.recommended_compaction}%${c.construction.min_compaction?`（${c.construction.min_compaction}% 起即可满足全部硬性指标）`:''}</li>`;
+  const ex = c.explanations||{}; const ks = Object.keys(ex);
+  opt($('#exp-target'), ks.map(k=>[k,IND[k]]));
+  $('#exp-target').onchange=()=>drawShap(ex[$('#exp-target').value]);
+  if(ks.length) drawShap(ex[ks[0]]); else chart('shap').clear();
+  const sens=c.construction.sensitivity;
+  chart('compact').setOption({grid:{left:56,right:56,top:36,bottom:40},tooltip:{trigger:'axis'},legend:{top:0,textStyle:{fontSize:11}},
+    xAxis:{type:'category',data:sens.map(s=>s.compaction+'%'),name:'压实度',nameLocation:'middle',nameGap:24},
+    yAxis:[{type:'value',name:'动稳定度',scale:true},{type:'value',name:'TSR %',scale:true}],
+    series:[{name:'动稳定度',type:'line',data:sens.map(s=>Math.round(s.ds)),itemStyle:{color:'#2B2D2F'}},
+            {name:'冻融劈裂强度比',type:'line',yAxisIndex:1,data:sens.map(s=>+s.tsr.toFixed(1)),itemStyle:{color:'#E3B21C'}}]},true);
+  renderTune(c.mix);
+}
+function drawShap(e){
+  if(!e) return;
+  const items=[...e.items].reverse();
+  const isDs = e.target==='ds';
+  chart('shap').setOption({grid:{left:12,right:28,top:16,bottom:40,containLabel:true},
+    tooltip:{formatter:p=>isDs?`${p.name}：${items[p.dataIndex].percent>0?'+':''}${items[p.dataIndex].percent.toFixed(0)}%`:`${p.name}：${p.value>0?'+':''}${p.value}`},
+    xAxis:{type:'value',name:isDs?'对动稳定度的影响 %':`对${IND[e.target]}的影响（${UNIT[e.target]}）`,nameLocation:'middle',nameGap:24},
+    yAxis:{type:'category',data:items.map(i=>i.factor)},
+    series:[{type:'bar',data:items.map(i=>({value:+(isDs?i.percent:i.contribution).toFixed(isDs?0:3),itemStyle:{color:(isDs?i.percent:i.contribution)>=0?'#2E7A57':'#B23F36'}}))}]},true);
+}
+function renderTune(m){
+  const g=META.gradations, mods=META.modifiers;
+  $('#tune').innerHTML = `
+    <div><label for="t-base">基质沥青</label><select id="t-base">${META.bases.map(b=>`<option>${b}</option>`).join('')}</select></div>
+    <div><label for="t-mod">改性剂</label><select id="t-mod">${Object.entries(mods).map(([k,v])=>`<option value="${k}">${v.name}</option>`).join('')}</select></div>
+    <div><label for="t-dose">掺量 %</label><input id="t-dose" type="number" step="0.5"></div>
+    <div><label for="t-grad">级配</label><select id="t-grad">${g.map(x=>`<option>${x}</option>`).join('')}</select></div>
+    <div><label for="t-oil">油石比偏移 %</label><input id="t-oil" type="number" step="0.1" min="-0.6" max="0.6"></div>
+    <div><label for="t-rap">RAP %</label><input id="t-rap" type="number" step="5" min="0" max="40"></div>
+    <div><label for="t-comp">压实度 %</label><input id="t-comp" type="number" step="0.5" min="94" max="100"></div>
+    <div class="chk"><label><input type="checkbox" id="t-as">抗剥落剂</label><label><input type="checkbox" id="t-ar">抗车辙剂</label><label><input type="checkbox" id="t-wm">温拌剂</label></div>`;
+  $('#t-base').value=m.base; $('#t-mod').value=m.modifier; $('#t-dose').value=m.dose; $('#t-grad').value=m.gradation;
+  $('#t-oil').value=m.oil_offset; $('#t-rap').value=m.rap; $('#t-comp').value=m.compaction;
+  $('#t-as').checked=!!m.anti_strip; $('#t-ar').checked=!!m.anti_rut; $('#t-wm').checked=!!m.warm_mix;
+  $('#t-mod').onchange=()=>{ const d=mods[$('#t-mod').value].doses; $('#t-dose').value=d[Math.floor(d.length/2)]; };
+}
+function tunedMix(){
+  return {base:$('#t-base').value, modifier:$('#t-mod').value, dose:+$('#t-dose').value, gradation:$('#t-grad').value,
+    oil_offset:+$('#t-oil').value, anti_strip:+$('#t-as').checked, anti_rut:+$('#t-ar').checked, warm_mix:+$('#t-wm').checked,
+    rap:+$('#t-rap').value, compaction:+$('#t-comp').value, aging:0};
+}
+$('#re-eval').onclick = async ()=>{
+  status('正在重新评估…',0);
+  try{ const d = await api('/api/v1/evaluate',{scenario:scenario(),mix:tunedMix()}); d.rank='调'; showDetail(d); status('已按微调后的配方重新评估'); }
+  catch(e){ status('评估失败：'+e.message.slice(0,120),5000); }
+};
+$('#export').onclick = ()=>{
+  const blob = new Blob([JSON.stringify({scenario:scenario(),mix:CUR.mix,formula:CUR.formula,checks:CUR.checks,economics:CUR.economics,construction:CUR.construction},null,2)],{type:'application/json'});
+  const a=document.createElement('a'); a.href=URL.createObjectURL(blob); a.download='材料方案.json'; a.click();
+};
+
+// ---------- 知识图谱
+let KG;
+async function drawKG(){
+  if(!KG){ KG = await api('/api/v1/kg');
+    $('#rules tbody').innerHTML = KG.rules.map(r=>`<tr><td>${r.id}</td><td>${{forbid:'禁止',requires:'必须',prefer:'优先'}[r.type]}</td><td>${esc(r.reason)}</td></tr>`).join(''); }
+  const cats=[...new Set(KG.nodes.map(n=>n.category))];
+  const colors={'基质沥青':'#2B2D2F','改性剂':'#E3B21C','级配':'#878C88','级配类型':'#5F6562','功能助剂':'#3D7EA6','性能/目标':'#2E7A57','性能指标':'#8BB8A0','病害':'#B23F36','场景标签':'#7A5BA6'};
+  const ec = {'提升':'#2E7A57','降低':'#B23F36','要求':'#7A5BA6','缓解':'#B23F36'};
+  chart('kg').setOption({
+    tooltip:{formatter:p=>p.dataType==='edge'?`${p.data.source} ${p.data.relation} ${p.data.target}`:p.data.name},
+    legend:{data:cats,top:8,textStyle:{fontSize:11}},
+    series:[{type:'graph',layout:'force',roam:true,draggable:true,focusNodeAdjacency:true,
+      emphasis:{focus:'adjacency',lineStyle:{width:3}},
+      top:56,bottom:20,left:20,right:90,layoutAnimation:false,force:{repulsion:260,edgeLength:[50,120],gravity:.22,friction:.2},
+      categories:cats.map(c=>({name:c,itemStyle:{color:colors[c]||'#999'}})),
+      label:{show:true,fontSize:11,position:'right'},
+      edgeSymbol:['none','arrow'],edgeSymbolSize:6,
+      data:KG.nodes.map(n=>({id:n.id,name:n.name,category:cats.indexOf(n.category),symbolSize:n.category==='性能/目标'?22:(n.category==='病害'?18:13)})),
+      links:KG.edges.map(e=>({source:e.source,target:e.target,relation:e.relation,lineStyle:{color:ec[e.relation]||'#B9BDB8',width:e.strength?e.strength*.8:1,curveness:.1}}))}]
+  },true);
+}
+
+// ---------- 反馈
+async function loadModel(){
+  const m = await api('/api/v1/model');
+  $('#model-info').textContent = `当前模型 v${m.meta.version}，训练样本 ${m.meta.n_train} 条（${Object.entries(m.meta.n_by_source||{}).map(([k,v])=>({simulated:'模拟',lab:'试验反馈'}[k]||k)+' '+v).join('，')}），`
+    + `训练时间 ${m.meta.trained_at}。寿命校正系数 ${m.life_calibration.factor}（${m.life_calibration.n} 条路用反馈）。`;
+}
+$('#lab-json').value = JSON.stringify({records:[{mix:{base:"70#",modifier:"SBS",dose:4.5,gradation:"SMA-13",anti_strip:1},measured:{ds:5200,eps:2850,tsr:88.5,fatigue:null,modulus:null,td:0.98},note:"示例：某标段目标配合比验证"}],retrain:true},null,2);
+$('#lab-send').onclick = async ()=>{
+  status('正在追加数据并重训模型…',0);
+  try{ const d = await api('/api/v1/feedback/lab', JSON.parse($('#lab-json').value)); await loadModel(); status(`已重训：模型 v${d.model.version}，共 ${d.total_records} 条`); }
+  catch(e){ status('提交失败：'+e.message.slice(0,140),6000); }
+};
+$('#field-send').onclick = async ()=>{
+  try{ const d = await api('/api/v1/feedback/field',{case_id:$('#f-id').value,predicted_life:+$('#f-pred').value,observed_life:+$('#f-obs').value});
+    $('#field-out').textContent = `寿命校正系数更新为 ${d.factor}（对数标准差 ${d.log_sd}，累计 ${d.n} 条）。下次推荐将使用新系数。`; loadModel(); }
+  catch(e){ status('提交失败：'+e.message.slice(0,140),6000); }
+};
+
+// ---------- run
+$('#go').onclick = async ()=>{
+  const b=$('#go'); b.disabled=true; b.textContent='正在计算…';
+  try{
+    const r = await api('/api/v1/recommend',{scenario:scenario(),top_k:5,explain:true});
+    LAST=r; renderReq(r.requirements); renderRec(r); tab('rec');
+    if(r.candidates.length) CUR=r.candidates[0], showDetail(r.candidates[0]), tab('rec');
+  }catch(e){ status('计算失败：'+e.message.slice(0,140),6000); }
+  finally{ b.disabled=false; b.textContent='生成材料方案'; }
+};
+(async function init(){
+  [META, PRESETS] = await Promise.all([api('/api/v1/meta'), api('/api/v1/presets')]);
+  opt($('#preset'), Object.entries(PRESETS).map(([k,v])=>[k,v.name]));
+  opt($('#traffic'), META.traffic.map(t=>[t,t])); opt($('#layer'), META.layers.map(t=>[t,t]));
+  opt($('#structure'), Object.entries(META.structures)); opt($('#special'), Object.entries(META.specials));
+  $('#preset').onchange=()=>loadPreset($('#preset').value);
+  ['#c-hot','#c-min','#c-rain'].forEach(s=>$(s).oninput=zones);
+  ['#layer','#structure','#thick'].forEach(s=>$(s).addEventListener('input',syncSection));
+  $('#add-dist').onclick=()=>{distRow();syncSection();};
+  loadPreset(Object.keys(PRESETS)[0]); loadModel();
+})();
+</script>
+</body>
+</html>

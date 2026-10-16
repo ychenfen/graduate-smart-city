@@ -1,0 +1,435 @@
+{
+  "_meta": {
+    "说明": "“材料组成-性能表现-适用场景”三元知识图谱关系表。strength: 1弱 2中 3强；sign: +1提升 / -1降低。规则来自规范条文与工程经验，供推荐过滤、推理解释与可视化使用。"
+  },
+  "nodes_extra": {
+    "distress": {
+      "rutting": {
+        "name": "车辙",
+        "indicator_groups": [
+          "高温抗车辙"
+        ]
+      },
+      "thermal_crack": {
+        "name": "低温横向裂缝",
+        "indicator_groups": [
+          "低温抗裂"
+        ]
+      },
+      "fatigue_crack": {
+        "name": "疲劳龟裂",
+        "indicator_groups": [
+          "抗疲劳"
+        ]
+      },
+      "reflective_crack": {
+        "name": "反射裂缝",
+        "indicator_groups": [
+          "抗疲劳",
+          "低温抗裂"
+        ]
+      },
+      "water_damage": {
+        "name": "水损害（坑槽/松散）",
+        "indicator_groups": [
+          "水稳定性"
+        ]
+      },
+      "skid": {
+        "name": "抗滑不足",
+        "indicator_groups": [
+          "抗滑"
+        ]
+      },
+      "none": {
+        "name": "预防性养护（无明显病害）",
+        "indicator_groups": []
+      }
+    }
+  },
+  "material_effects": [
+    {
+      "src": "SBS",
+      "dst": "高温抗车辙",
+      "sign": 1,
+      "strength": 3
+    },
+    {
+      "src": "SBS",
+      "dst": "低温抗裂",
+      "sign": 1,
+      "strength": 2
+    },
+    {
+      "src": "SBS",
+      "dst": "抗疲劳",
+      "sign": 1,
+      "strength": 2
+    },
+    {
+      "src": "SBS",
+      "dst": "水稳定性",
+      "sign": 1,
+      "strength": 1
+    },
+    {
+      "src": "CR",
+      "dst": "抗疲劳",
+      "sign": 1,
+      "strength": 3
+    },
+    {
+      "src": "CR",
+      "dst": "低温抗裂",
+      "sign": 1,
+      "strength": 2
+    },
+    {
+      "src": "CR",
+      "dst": "高温抗车辙",
+      "sign": 1,
+      "strength": 2
+    },
+    {
+      "src": "HVA",
+      "dst": "高温抗车辙",
+      "sign": 1,
+      "strength": 3
+    },
+    {
+      "src": "HVA",
+      "dst": "水稳定性",
+      "sign": 1,
+      "strength": 2
+    },
+    {
+      "src": "HVA",
+      "dst": "抗疲劳",
+      "sign": 1,
+      "strength": 2
+    },
+    {
+      "src": "50#",
+      "dst": "高温抗车辙",
+      "sign": 1,
+      "strength": 2
+    },
+    {
+      "src": "50#",
+      "dst": "低温抗裂",
+      "sign": -1,
+      "strength": 2
+    },
+    {
+      "src": "90#",
+      "dst": "低温抗裂",
+      "sign": 1,
+      "strength": 1
+    },
+    {
+      "src": "110#",
+      "dst": "低温抗裂",
+      "sign": 1,
+      "strength": 2
+    },
+    {
+      "src": "110#",
+      "dst": "高温抗车辙",
+      "sign": -1,
+      "strength": 2
+    },
+    {
+      "src": "SMA",
+      "dst": "高温抗车辙",
+      "sign": 1,
+      "strength": 2
+    },
+    {
+      "src": "SMA",
+      "dst": "低温抗裂",
+      "sign": 1,
+      "strength": 1
+    },
+    {
+      "src": "SMA",
+      "dst": "抗滑",
+      "sign": 1,
+      "strength": 2
+    },
+    {
+      "src": "SMA",
+      "dst": "抗疲劳",
+      "sign": 1,
+      "strength": 2
+    },
+    {
+      "src": "OGFC",
+      "dst": "抗滑",
+      "sign": 1,
+      "strength": 3
+    },
+    {
+      "src": "OGFC",
+      "dst": "水稳定性",
+      "sign": -1,
+      "strength": 2
+    },
+    {
+      "src": "OGFC",
+      "dst": "结构承载",
+      "sign": -1,
+      "strength": 3
+    },
+    {
+      "src": "AC-20",
+      "dst": "结构承载",
+      "sign": 1,
+      "strength": 2
+    },
+    {
+      "src": "AC-25",
+      "dst": "结构承载",
+      "sign": 1,
+      "strength": 2
+    },
+    {
+      "src": "anti_strip",
+      "dst": "水稳定性",
+      "sign": 1,
+      "strength": 3
+    },
+    {
+      "src": "anti_rut",
+      "dst": "高温抗车辙",
+      "sign": 1,
+      "strength": 3
+    },
+    {
+      "src": "anti_rut",
+      "dst": "低温抗裂",
+      "sign": -1,
+      "strength": 1
+    },
+    {
+      "src": "anti_rut",
+      "dst": "结构承载",
+      "sign": 1,
+      "strength": 2
+    },
+    {
+      "src": "warm_mix",
+      "dst": "碳排放",
+      "sign": -1,
+      "strength": 2
+    },
+    {
+      "src": "warm_mix",
+      "dst": "水稳定性",
+      "sign": -1,
+      "strength": 1
+    },
+    {
+      "src": "rap",
+      "dst": "碳排放",
+      "sign": -1,
+      "strength": 3
+    },
+    {
+      "src": "rap",
+      "dst": "材料成本",
+      "sign": -1,
+      "strength": 3
+    },
+    {
+      "src": "rap",
+      "dst": "低温抗裂",
+      "sign": -1,
+      "strength": 2
+    },
+    {
+      "src": "rap",
+      "dst": "抗疲劳",
+      "sign": -1,
+      "strength": 1
+    }
+  ],
+  "scenario_requirements": [
+    {
+      "src": "高温区1(夏炎热)",
+      "dst": "高温抗车辙",
+      "strength": 3
+    },
+    {
+      "src": "重载及以上交通",
+      "dst": "高温抗车辙",
+      "strength": 3
+    },
+    {
+      "src": "重载及以上交通",
+      "dst": "抗疲劳",
+      "strength": 2
+    },
+    {
+      "src": "低温区1-2(冬严寒/冬寒)",
+      "dst": "低温抗裂",
+      "strength": 3
+    },
+    {
+      "src": "雨量区1-2(潮湿/湿润)",
+      "dst": "水稳定性",
+      "strength": 2
+    },
+    {
+      "src": "长大纵坡/交叉口",
+      "dst": "高温抗车辙",
+      "strength": 3
+    },
+    {
+      "src": "桥面铺装",
+      "dst": "水稳定性",
+      "strength": 3
+    },
+    {
+      "src": "半刚性基层",
+      "dst": "抗疲劳",
+      "strength": 1
+    },
+    {
+      "src": "上面层",
+      "dst": "抗滑",
+      "strength": 2
+    },
+    {
+      "src": "中面层",
+      "dst": "高温抗车辙",
+      "strength": 2
+    }
+  ],
+  "rules": [
+    {
+      "id": "R1",
+      "type": "requires",
+      "if": {
+        "gradation_family": "OGFC"
+      },
+      "then": {
+        "modifier_in": [
+          "HVA"
+        ]
+      },
+      "reason": "OGFC 空隙率约20%，需高粘高弹沥青保证集料粘结与抗飞散"
+    },
+    {
+      "id": "R2",
+      "type": "forbid",
+      "if": {
+        "gradation_family": "OGFC",
+        "low_zone_in": [
+          1
+        ]
+      },
+      "reason": "冬严寒区排水路面易冻融堵塞与松散，不推荐"
+    },
+    {
+      "id": "R3",
+      "type": "forbid",
+      "if": {
+        "rap_gt": 0,
+        "gradation_family_in": [
+          "SMA",
+          "OGFC"
+        ]
+      },
+      "reason": "RAP 级配变异会破坏 SMA/OGFC 骨架结构"
+    },
+    {
+      "id": "R4",
+      "type": "forbid",
+      "if": {
+        "anti_rut": 1,
+        "low_zone_in": [
+          1
+        ]
+      },
+      "reason": "冬严寒区使用抗车辙剂会加剧低温开裂风险"
+    },
+    {
+      "id": "R5",
+      "type": "forbid",
+      "if": {
+        "base": "50#",
+        "low_zone_in": [
+          1,
+          2
+        ]
+      },
+      "reason": "50# 硬质沥青低温延性差，不适用冬严寒/冬寒区"
+    },
+    {
+      "id": "R6",
+      "type": "forbid",
+      "if": {
+        "base": "110#",
+        "high_zone_in": [
+          1
+        ]
+      },
+      "reason": "110# 软质沥青高温稳定性不足，不适用夏炎热区"
+    },
+    {
+      "id": "R7",
+      "type": "forbid",
+      "if": {
+        "gradation_family": "OGFC",
+        "distress_in": [
+          "water_damage"
+        ],
+        "structure_in": [
+          "semi_rigid"
+        ]
+      },
+      "reason": "水损害路段下卧层排水不畅时不宜直接加铺排水面层"
+    },
+    {
+      "id": "R8",
+      "type": "prefer",
+      "if": {
+        "traffic_in": [
+          "特重",
+          "极重"
+        ],
+        "layer": "上面层"
+      },
+      "then": {
+        "modifier_not": [
+          "none"
+        ]
+      },
+      "reason": "特重及以上交通上面层应采用改性沥青"
+    },
+    {
+      "id": "R9",
+      "type": "forbid",
+      "if": {
+        "warm_mix": 1,
+        "rap_gt": 20,
+        "low_zone_in": [
+          1
+        ]
+      },
+      "reason": "原型保守规则：冬严寒区高RAP+温拌组合数据不足"
+    },
+    {
+      "id": "R10",
+      "type": "forbid",
+      "if": {
+        "rap_gt": 20,
+        "traffic_in": [
+          "特重",
+          "极重"
+        ]
+      },
+      "reason": "原型保守规则：特重及以上交通 RAP 掺量不宜超过 20%"
+    }
+  ]
+}
