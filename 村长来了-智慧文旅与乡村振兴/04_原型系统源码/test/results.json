@@ -1,0 +1,282 @@
+{
+  "date": "2026-10-16",
+  "node": "v22.22.0",
+  "threshold": 0.35,
+  "dev": {
+    "threshold": 0.35,
+    "nKB": 59,
+    "nIn": 129,
+    "nOut": 25,
+    "nFollow": 8,
+    "top1": 0.9612403100775194,
+    "top3": 1,
+    "refuseRecall": 0.92,
+    "refusePrecision": 0.8846153846153846,
+    "followAcc": 1,
+    "overallAcc": 0.9545454545454546,
+    "fails": [
+      {
+        "q": "你们这个村是干嘛的",
+        "expect": "intro",
+        "got": "拒答",
+        "conf": 0.33
+      },
+      {
+        "q": "认养一亩田是什么意思",
+        "expect": "terrace-intro",
+        "got": "拒答",
+        "conf": 0.33
+      },
+      {
+        "q": "石斑鱼要提前订吗",
+        "expect": "food-fish",
+        "got": "stay-book",
+        "conf": 0.59
+      },
+      {
+        "q": "菜辣不辣",
+        "expect": "food-diet",
+        "got": "拒答",
+        "conf": 0.34
+      },
+      {
+        "q": "孩子摔破了皮去哪处理",
+        "expect": "medical",
+        "got": "kid",
+        "conf": 0.43
+      }
+    ],
+    "leaks": [
+      {
+        "q": "明年房价会涨吗",
+        "got": "stay-book",
+        "conf": 0.75
+      },
+      {
+        "q": "村里能收快递吗我想寄文件",
+        "got": "mail",
+        "conf": 0.56
+      }
+    ],
+    "followFails": []
+  },
+  "main": {
+    "threshold": 0.35,
+    "nKB": 59,
+    "nIn": 92,
+    "nOut": 20,
+    "nFollow": 6,
+    "top1": 0.8043478260869565,
+    "top3": 0.9565217391304348,
+    "refuseRecall": 1,
+    "refusePrecision": 0.7692307692307693,
+    "followAcc": 0.6666666666666666,
+    "overallAcc": 0.8392857142857143,
+    "fails": [
+      {
+        "q": "这个村叫什么，有什么来头",
+        "expect": "intro",
+        "got": "拒答",
+        "conf": 0.25
+      },
+      {
+        "q": "李家是哪个朝代搬过来的",
+        "expect": "history",
+        "got": "拒答",
+        "conf": 0.3
+      },
+      {
+        "q": "全村大概几口人",
+        "expect": "people",
+        "got": "拒答",
+        "conf": 0
+      },
+      {
+        "q": "古樟要几个人才能抱住",
+        "expect": "tree-story",
+        "got": "tree-loc",
+        "conf": 0.42
+      },
+      {
+        "q": "竹编茶席可以寄到家吗",
+        "expect": "bamboo-buy",
+        "got": "bamboo-exp",
+        "conf": 0.4
+      },
+      {
+        "q": "来了必须尝尝什么",
+        "expect": "food-must",
+        "got": "拒答",
+        "conf": 0.32
+      },
+      {
+        "q": "有什么本地小吃推荐",
+        "expect": "food-must",
+        "got": "food-qmg",
+        "conf": 0.54
+      },
+      {
+        "q": "早餐铺几点开门",
+        "expect": "food-qmg",
+        "got": "hall-open",
+        "conf": 0.74
+      },
+      {
+        "q": "晚上能住在村里吗",
+        "expect": "stay",
+        "got": "night",
+        "conf": 0.43
+      },
+      {
+        "q": "一整天的游玩路线怎么走",
+        "expect": "route-day",
+        "got": "tree-loc",
+        "conf": 0.51
+      },
+      {
+        "q": "穿什么颜色衣服拍照好看",
+        "expect": "route-photo",
+        "got": "weather",
+        "conf": 0.55
+      },
+      {
+        "q": "游客中心能借轮椅吗",
+        "expect": "route-elder",
+        "got": "help",
+        "conf": 0.42
+      },
+      {
+        "q": "山路好不好开",
+        "expect": "car",
+        "got": "trail",
+        "conf": 0.46
+      },
+      {
+        "q": "带孩子玩水要注意什么",
+        "expect": "crab",
+        "got": "kid",
+        "conf": 0.65
+      },
+      {
+        "q": "能牵着狗进村吗",
+        "expect": "pet",
+        "got": "拒答",
+        "conf": 0.32
+      },
+      {
+        "q": "去茶园的古道要走多久",
+        "expect": "trail",
+        "got": "terrace-loc",
+        "conf": 0.64
+      },
+      {
+        "q": "溪边栈道有多长",
+        "expect": "stream",
+        "got": "拒答",
+        "conf": 0.22
+      },
+      {
+        "q": "多谢村长",
+        "expect": "bye",
+        "got": "who",
+        "conf": 0.51
+      }
+    ],
+    "leaks": [],
+    "followFails": [
+      {
+        "q1": "廊桥有什么来历",
+        "q2": "在哪",
+        "expect": "bridge",
+        "got": "tree-loc"
+      },
+      {
+        "q1": "讲讲古樟树",
+        "q2": "怎么去",
+        "expect": "tree-loc",
+        "got": "terrace-loc"
+      }
+    ]
+  },
+  "sweep": [
+    {
+      "t": 0.2,
+      "top1": 0.9844961240310077,
+      "refuseRecall": 0.76,
+      "overall": 0.948051948051948
+    },
+    {
+      "t": 0.25,
+      "top1": 0.9844961240310077,
+      "refuseRecall": 0.84,
+      "overall": 0.961038961038961
+    },
+    {
+      "t": 0.3,
+      "top1": 0.9844961240310077,
+      "refuseRecall": 0.88,
+      "overall": 0.9675324675324676
+    },
+    {
+      "t": 0.35,
+      "top1": 0.9612403100775194,
+      "refuseRecall": 0.92,
+      "overall": 0.9545454545454546
+    },
+    {
+      "t": 0.4,
+      "top1": 0.9534883720930233,
+      "refuseRecall": 0.92,
+      "overall": 0.948051948051948
+    },
+    {
+      "t": 0.42,
+      "top1": 0.937984496124031,
+      "refuseRecall": 0.92,
+      "overall": 0.935064935064935
+    },
+    {
+      "t": 0.45,
+      "top1": 0.9069767441860465,
+      "refuseRecall": 0.92,
+      "overall": 0.9090909090909091
+    },
+    {
+      "t": 0.5,
+      "top1": 0.875968992248062,
+      "refuseRecall": 0.92,
+      "overall": 0.8831168831168831
+    },
+    {
+      "t": 0.55,
+      "top1": 0.8294573643410853,
+      "refuseRecall": 0.92,
+      "overall": 0.8441558441558441
+    },
+    {
+      "t": 0.6,
+      "top1": 0.7596899224806202,
+      "refuseRecall": 0.96,
+      "overall": 0.7922077922077922
+    },
+    {
+      "t": 0.65,
+      "top1": 0.6124031007751938,
+      "refuseRecall": 0.96,
+      "overall": 0.6688311688311688
+    },
+    {
+      "t": 0.7,
+      "top1": 0.43410852713178294,
+      "refuseRecall": 0.96,
+      "overall": 0.5194805194805194
+    }
+  ],
+  "latency": {
+    "n": 2240,
+    "mean": 0.05043170401785709,
+    "p50": 0.038182,
+    "p95": 0.078467,
+    "max": 4.344187
+  }
+}

@@ -8,33 +8,23 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=ZCOOL+XiaoWei&family=Noto+Sans+SC:wght@400;500;700&display=swap">
 <style>
-/* Layout: 左侧数字人舞台 + 右侧功能面板（对话 / 识物 / 明信片 / 看板），窄屏上下堆叠 */
+/* Layout: 左侧数字人舞台 + 右侧功能面板（对话 / 识物 / 明信片 / 看板 / 知识库），窄屏上下堆叠 */
 :root{
-  --bg:#eef2ec;          /* 稻田晨雾 */
-  --surface:#ffffff;
-  --sunk:#e2e9e0;
-  --fg:#1f2b24;
-  --muted:#5c6b61;
-  --line:#cdd8cc;
-  --indigo:#2c4a7c;      /* 蓝印花布 */
-  --indigo-soft:#dfe6f2;
-  --paddy:#4f7a3a;       /* 梯田绿 */
-  --paddy-soft:#e1ecd8;
-  --amber:#c98a1c;       /* 稻穗 */
-  --skin:#f2c9a0;
+  --bg:#eef2ec;--surface:#ffffff;--sunk:#e2e9e0;--fg:#1f2b24;--muted:#5c6b61;--line:#cdd8cc;
+  --indigo:#2c4a7c;--indigo-soft:#dfe6f2;--paddy:#4f7a3a;--paddy-soft:#e1ecd8;--amber:#c98a1c;--amber-soft:#f6ead2;--skin:#f2c9a0;--warn:#b5462f;
   --display:"ZCOOL XiaoWei","STKaiti","KaiTi",serif;
   --body:"Noto Sans SC","PingFang SC","Microsoft YaHei",system-ui,sans-serif;
 }
 @media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
   --bg:#141a17;--surface:#1c2420;--sunk:#232d28;--fg:#e4ebe4;--muted:#9aaa9f;--line:#33413a;
-  --indigo:#8fa9d8;--indigo-soft:#24304a;--paddy:#93bf78;--paddy-soft:#26341f;--amber:#e0a843;--skin:#e8bd93;color-scheme:dark}}
+  --indigo:#8fa9d8;--indigo-soft:#24304a;--paddy:#93bf78;--paddy-soft:#26341f;--amber:#e0a843;--amber-soft:#3a3020;--skin:#e8bd93;--warn:#e07a62;color-scheme:dark}}
 :root[data-theme="dark"]{
   --bg:#141a17;--surface:#1c2420;--sunk:#232d28;--fg:#e4ebe4;--muted:#9aaa9f;--line:#33413a;
-  --indigo:#8fa9d8;--indigo-soft:#24304a;--paddy:#93bf78;--paddy-soft:#26341f;--amber:#e0a843;--skin:#e8bd93;color-scheme:dark}
+  --indigo:#8fa9d8;--indigo-soft:#24304a;--paddy:#93bf78;--paddy-soft:#26341f;--amber:#e0a843;--amber-soft:#3a3020;--skin:#e8bd93;--warn:#e07a62;color-scheme:dark}
 *{box-sizing:border-box}
 body{background:var(--bg);color:var(--fg);font-family:var(--body);font-size:15px;line-height:1.65;
   padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));padding-block:20px 40px}
-.wrap{max-width:1180px;margin:0 auto;display:flex;flex-direction:column;gap:18px}
+.wrap{max-width:1200px;margin:0 auto;display:flex;flex-direction:column;gap:18px}
 header{display:flex;flex-wrap:wrap;align-items:flex-end;justify-content:space-between;gap:8px 20px}
 h1{font-family:var(--display);font-weight:400;font-size:clamp(30px,5vw,44px);line-height:1.1;margin:0;letter-spacing:.04em}
 h1 small{font-size:.45em;color:var(--muted);letter-spacing:.1em;margin-left:10px}
@@ -42,26 +32,22 @@ h1 small{font-size:.45em;color:var(--muted);letter-spacing:.1em;margin-left:10px
 .chips{display:flex;gap:6px;flex-wrap:wrap}
 .chip{font-size:12px;padding:3px 10px;border-radius:99px;background:var(--paddy-soft);color:var(--paddy);letter-spacing:.04em}
 .chip.i{background:var(--indigo-soft);color:var(--indigo)}
-
 .grid{display:grid;grid-template-columns:minmax(0,5fr) minmax(0,7fr);gap:18px;align-items:start}
 @media (max-width:860px){.grid{grid-template-columns:1fr}}
 
-/* 舞台 */
 .stage{background:var(--surface);border:1px solid var(--line);border-radius:18px;overflow:hidden;position:relative}
 .scene{position:relative;aspect-ratio:4/3.4;max-width:100%;background:linear-gradient(180deg,var(--indigo-soft),var(--paddy-soft))}
 .scene svg{position:absolute;inset:0;width:100%;height:100%}
 .bubble{position:absolute;left:5%;right:5%;top:4%;background:var(--surface);border:1.5px solid var(--indigo);border-radius:14px;
   padding:10px 14px;font-size:14.5px;min-height:52px;max-height:44%;overflow:auto;box-shadow:0 6px 18px rgba(20,40,30,.12)}
-.bubble::after{content:"";position:absolute;bottom:-9px;left:50%;width:16px;height:16px;background:var(--surface);
-  border-right:1.5px solid var(--indigo);border-bottom:1.5px solid var(--indigo);transform:translateX(-50%) rotate(45deg)}
-.bubble b{color:var(--indigo)}
 .stage-bar{display:flex;align-items:center;justify-content:space-between;gap:10px;padding:10px 14px;border-top:1px solid var(--line);flex-wrap:wrap}
 .who{font-family:var(--display);font-size:20px}
 .who span{font-family:var(--body);font-size:12px;color:var(--muted);margin-left:6px}
+.toggles{display:flex;gap:14px;flex-wrap:wrap}
 .toggle{display:flex;align-items:center;gap:6px;font-size:13px;color:var(--muted);cursor:pointer;user-select:none}
 .toggle input{accent-color:var(--indigo);width:16px;height:16px}
-
-#mouth{transition:none}
+.offline{display:flex;align-items:center;gap:6px;font-size:12px;color:var(--paddy);padding:6px 14px;border-top:1px dashed var(--line)}
+.offline i{width:8px;height:8px;border-radius:50%;background:var(--paddy);display:inline-block}
 .talking #mouthOpen{animation:talk .18s infinite alternate ease-in-out}
 @keyframes talk{from{transform:scaleY(.15)}to{transform:scaleY(1)}}
 #mouthOpen{transform-origin:200px 268px;transform:scaleY(.15)}
@@ -72,31 +58,33 @@ h1 small{font-size:.45em;color:var(--muted);letter-spacing:.1em;margin-left:10px
 @keyframes sway{0%,100%{transform:rotate(-1deg)}50%{transform:rotate(1deg)}}
 @media (prefers-reduced-motion:reduce){.sway,.blink{animation:none}}
 
-/* 面板 */
 .panel{background:var(--surface);border:1px solid var(--line);border-radius:18px;display:flex;flex-direction:column;min-width:0}
 .tabs{display:flex;gap:2px;padding:6px;border-bottom:1px solid var(--line);overflow-x:auto}
-.tab{flex:1;min-width:max-content;border:0;background:transparent;color:var(--muted);font:500 14px var(--body);padding:9px 12px;border-radius:10px;cursor:pointer}
+.tab{flex:1;min-width:max-content;border:0;background:transparent;color:var(--muted);font:500 14px var(--body);padding:9px 12px;border-radius:10px;cursor:pointer;position:relative}
 .tab[aria-selected="true"]{background:var(--indigo);color:var(--surface)}
-.tab:focus-visible,button:focus-visible,input:focus-visible{outline:2px solid var(--amber);outline-offset:2px}
-.pane{padding:16px;display:flex;flex-direction:column;gap:12px;min-height:520px}
-.note{font-size:12px;color:var(--muted)}
+.tab .dot{position:absolute;top:5px;right:6px;min-width:16px;height:16px;border-radius:8px;background:var(--warn);color:#fff;font-size:10px;line-height:16px;padding:0 4px}
+.tab:focus-visible,button:focus-visible,input:focus-visible,select:focus-visible,textarea:focus-visible{outline:2px solid var(--amber);outline-offset:2px}
+.pane{padding:16px;display:flex;flex-direction:column;gap:12px;min-height:540px}
+.note{font-size:12px;color:var(--muted);margin:0}
 
-/* 对话 */
-.log{flex:1;overflow-y:auto;max-height:380px;display:flex;flex-direction:column;gap:10px;padding-right:4px}
-.msg{max-width:86%;padding:9px 13px;border-radius:14px;font-size:14.5px;white-space:pre-wrap}
+.log{flex:1;overflow-y:auto;max-height:390px;display:flex;flex-direction:column;gap:10px;padding-right:4px}
+.msg{max-width:88%;padding:9px 13px;border-radius:14px;font-size:14.5px;white-space:pre-wrap}
 .msg.u{align-self:flex-end;background:var(--indigo);color:var(--surface);border-bottom-right-radius:4px}
 .msg.c{align-self:flex-start;background:var(--sunk);border-bottom-left-radius:4px}
-.msg .tag{display:inline-block;font-size:11px;color:var(--paddy);background:var(--paddy-soft);border-radius:6px;padding:0 6px;margin-left:6px;vertical-align:1px}
+.msg.miss{background:var(--amber-soft)}
+.basis{display:block;margin-top:6px;font-size:11.5px;color:var(--muted);white-space:normal}
+.basis b{font-weight:500;color:var(--paddy)}
+.basis .warn{color:var(--warn);font-weight:500}
 .quick{display:flex;flex-wrap:wrap;gap:6px}
 .q{border:1px solid var(--line);background:var(--surface);color:var(--fg);font:13px var(--body);padding:5px 11px;border-radius:99px;cursor:pointer}
 .q:hover{border-color:var(--indigo);color:var(--indigo)}
 form.ask{display:flex;gap:8px}
-form.ask input{flex:1;min-width:0;border:1px solid var(--line);background:var(--bg);color:var(--fg);border-radius:12px;padding:10px 12px;font:15px var(--body)}
+.inp{flex:1;min-width:0;border:1px solid var(--line);background:var(--bg);color:var(--fg);border-radius:12px;padding:10px 12px;font:15px var(--body)}
 .btn{border:0;background:var(--indigo);color:var(--surface);font:500 14px var(--body);padding:10px 16px;border-radius:12px;cursor:pointer;white-space:nowrap}
 .btn.alt{background:var(--paddy)}
+.btn.sm{padding:6px 12px;font-size:13px;border-radius:9px}
 .btn.ghost{background:transparent;color:var(--indigo);border:1px solid var(--indigo)}
 
-/* 识物 */
 .things{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:10px}
 @media (max-width:520px){.things{grid-template-columns:repeat(2,minmax(0,1fr))}}
 .thing{border:1px solid var(--line);border-radius:12px;background:var(--bg);padding:8px;cursor:pointer;display:flex;flex-direction:column;gap:6px;align-items:center;font:13px var(--body);color:var(--fg)}
@@ -104,18 +92,18 @@ form.ask input{flex:1;min-width:0;border:1px solid var(--line);background:var(--
 .thing svg{width:100%;aspect-ratio:1;border-radius:8px}
 .drop{border:1.5px dashed var(--line);border-radius:12px;padding:14px;display:flex;align-items:center;gap:14px;flex-wrap:wrap}
 .drop img{width:96px;height:96px;object-fit:cover;border-radius:10px}
-.scan{position:relative;border-radius:12px;overflow:hidden;background:var(--sunk);min-height:120px;display:flex;align-items:center;justify-content:center}
-.result{border-left:3px solid var(--paddy);padding:6px 12px;background:var(--paddy-soft);border-radius:0 10px 10px 0}
+.scan{border-radius:12px;background:var(--sunk);min-height:110px;display:flex;align-items:center;justify-content:center}
+.result{border-left:3px solid var(--paddy);padding:8px 12px;background:var(--paddy-soft);border-radius:0 10px 10px 0}
 .result h3{font-family:var(--display);font-weight:400;font-size:22px;margin:0}
-.bar{height:6px;border-radius:3px;background:var(--line);overflow:hidden;margin-top:4px}
+.cand{display:grid;grid-template-columns:70px minmax(0,1fr) 48px;gap:8px;align-items:center;font-size:12.5px;margin-top:4px}
+.bar{height:7px;border-radius:4px;background:var(--line);overflow:hidden}
 .bar i{display:block;height:100%;background:var(--paddy)}
+.cand .v{text-align:right;font-variant-numeric:tabular-nums;color:var(--muted)}
 
-/* 明信片 */
 .pc-ctrl{display:flex;gap:8px;flex-wrap:wrap;align-items:center}
-.pc-ctrl input{border:1px solid var(--line);background:var(--bg);color:var(--fg);border-radius:10px;padding:8px 10px;font:14px var(--body);width:150px}
+.pc-ctrl .inp{flex:0 1 160px}
 canvas#pc{width:100%;max-width:100%;border-radius:10px;box-shadow:0 8px 24px rgba(20,40,30,.18);background:var(--sunk)}
 
-/* 看板 */
 .kpis{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px}
 .kpi{background:var(--bg);border-radius:12px;padding:10px 12px}
 .kpi .n{font:700 24px var(--body);font-variant-numeric:tabular-nums}
@@ -126,7 +114,22 @@ canvas#pc{width:100%;max-width:100%;border-radius:10px;box-shadow:0 8px 24px rgb
 .chart svg{width:100%;height:auto;display:block}
 .cols{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:10px}
 @media (max-width:560px){.cols,.kpis{grid-template-columns:1fr}}
-.live{font-size:11px;color:var(--surface);background:var(--amber);border-radius:6px;padding:1px 6px;margin-left:6px}
+.live{font-size:11px;color:#fff;background:var(--amber);border-radius:6px;padding:1px 6px;margin-left:6px}
+
+.pending{display:flex;flex-direction:column;gap:8px}
+.pitem{border:1px solid var(--line);border-left:3px solid var(--amber);border-radius:10px;padding:10px 12px;display:flex;flex-direction:column;gap:8px;background:var(--surface)}
+.pitem .row{display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap}
+.pitem .qtext{font-weight:500}
+.pitem .meta{font-size:12px;color:var(--muted)}
+.pform{display:grid;grid-template-columns:110px minmax(0,1fr);gap:8px;align-items:start}
+.pform label{font-size:12.5px;color:var(--muted);padding-top:8px}
+.pform .inp,.pform select,.pform textarea{font:14px var(--body);padding:8px 10px;border-radius:9px;border:1px solid var(--line);background:var(--bg);color:var(--fg);width:100%}
+.pform textarea{min-height:64px;resize:vertical}
+@media (max-width:520px){.pform{grid-template-columns:1fr}.pform label{padding-top:0}}
+.empty{border:1.5px dashed var(--line);border-radius:12px;padding:18px;text-align:center;color:var(--muted);font-size:13px}
+.added{font-size:13px;display:flex;flex-direction:column;gap:4px}
+.added div{padding:6px 10px;border-radius:8px;background:var(--paddy-soft)}
+.toast{position:fixed;left:50%;bottom:calc(24px + env(safe-area-inset-bottom,0px));transform:translateX(-50%);background:var(--fg);color:var(--bg);padding:10px 18px;border-radius:12px;font-size:14px;z-index:20;box-shadow:0 8px 24px rgba(0,0,0,.2)}
 footer{font-size:12px;color:var(--muted);text-align:center}
 </style>
 </head>
@@ -136,48 +139,38 @@ footer{font-size:12px;color:var(--muted);text-align:center}
   <header>
     <div>
       <h1>村长来了<small>云溪村 AI 数字人导览</small></h1>
-      <p class="tagline">会说话、能看图、还会送你一张明信片的乡村导游。全部本地运行，不联网、不调用接口。</p>
+      <p class="tagline">会说话、能看图、还会送你一张明信片的乡村导游。全部在本地运行，不联网、不调用任何外部接口。</p>
     </div>
-    <div class="chips"><span class="chip">数字人</span><span class="chip">多模态识物</span><span class="chip i">AIGC 明信片</span><span class="chip i">文旅运营看板</span></div>
+    <div class="chips"><span class="chip">数字人</span><span class="chip">检索增强问答</span><span class="chip">拍照识物</span><span class="chip i">AIGC 明信片</span><span class="chip i">知识库闭环</span></div>
   </header>
 
   <div class="grid">
-    <!-- 数字人舞台 -->
     <section class="stage" aria-label="数字人村长">
       <div class="scene" id="scene">
         <svg viewBox="0 0 400 420" aria-hidden="true">
-          <!-- 远山与梯田 -->
           <path d="M0 250 Q60 190 120 230 T240 210 T400 230 V420 H0Z" fill="var(--paddy)" opacity=".18"/>
           <path d="M0 300 Q100 260 200 290 T400 280 V420 H0Z" fill="var(--paddy)" opacity=".28"/>
           <path d="M0 330 Q120 300 220 325 T400 320" stroke="var(--paddy)" stroke-width="2" fill="none" opacity=".35"/>
           <path d="M0 355 Q120 325 220 350 T400 345" stroke="var(--paddy)" stroke-width="2" fill="none" opacity=".35"/>
           <g class="sway">
-            <!-- 身体：蓝印花布对襟褂 -->
             <path d="M110 420 Q115 330 200 318 Q285 330 290 420Z" fill="var(--indigo)"/>
             <path d="M200 320 V420" stroke="var(--surface)" stroke-width="2" opacity=".6"/>
-            <g fill="var(--surface)" opacity=".55">
-              <circle cx="150" cy="370" r="5"/><circle cx="170" cy="395" r="4"/><circle cx="245" cy="365" r="5"/><circle cx="235" cy="398" r="4"/><circle cx="265" cy="388" r="3"/><circle cx="138" cy="400" r="3"/>
-            </g>
+            <g fill="var(--surface)" opacity=".55"><circle cx="150" cy="370" r="5"/><circle cx="170" cy="395" r="4"/><circle cx="245" cy="365" r="5"/><circle cx="235" cy="398" r="4"/><circle cx="265" cy="388" r="3"/><circle cx="138" cy="400" r="3"/></g>
             <circle cx="200" cy="345" r="4" fill="var(--amber)"/><circle cx="200" cy="370" r="4" fill="var(--amber)"/>
-            <!-- 脖子与头 -->
             <rect x="185" y="292" width="30" height="30" rx="8" fill="var(--skin)"/>
             <ellipse cx="200" cy="232" rx="68" ry="74" fill="var(--skin)"/>
             <ellipse cx="133" cy="238" rx="10" ry="16" fill="var(--skin)"/><ellipse cx="267" cy="238" rx="10" ry="16" fill="var(--skin)"/>
-            <!-- 草帽 -->
             <ellipse cx="200" cy="172" rx="104" ry="20" fill="var(--amber)"/>
             <path d="M140 172 Q145 118 200 114 Q255 118 260 172Z" fill="var(--amber)"/>
             <path d="M142 160 Q200 150 258 160" stroke="var(--indigo)" stroke-width="7" fill="none"/>
             <path d="M120 176 Q200 190 280 176" stroke="#000" stroke-opacity=".12" stroke-width="2" fill="none"/>
-            <!-- 眉眼 -->
             <path d="M160 204 Q172 197 184 203M216 203 Q228 197 240 204" stroke="#5a4636" stroke-width="4" stroke-linecap="round" fill="none"/>
             <g class="eyes blink"><ellipse cx="172" cy="222" rx="6" ry="7" fill="#2a211b"/><ellipse cx="228" cy="222" rx="6" ry="7" fill="#2a211b"/>
               <circle cx="174" cy="219" r="2" fill="#fff"/><circle cx="230" cy="219" r="2" fill="#fff"/></g>
-            <!-- 腮红、胡子 -->
             <ellipse cx="155" cy="250" rx="12" ry="7" fill="#e58a7a" opacity=".45"/><ellipse cx="245" cy="250" rx="12" ry="7" fill="#e58a7a" opacity=".45"/>
             <path d="M200 236 Q196 248 203 250" stroke="#b5835e" stroke-width="3" fill="none" stroke-linecap="round"/>
             <path d="M168 262 Q185 254 200 260 Q215 254 232 262 Q215 266 200 263 Q185 266 168 262Z" fill="#8a8178"/>
-            <!-- 嘴 -->
-            <g id="mouth"><ellipse id="mouthOpen" cx="200" cy="274" rx="15" ry="11" fill="#7a2e2a"/>
+            <g><ellipse id="mouthOpen" cx="200" cy="274" rx="15" ry="11" fill="#7a2e2a"/>
               <path d="M186 271 Q200 279 214 271" stroke="#7a2e2a" stroke-width="3" fill="none" stroke-linecap="round"/></g>
           </g>
         </svg>
@@ -185,24 +178,28 @@ footer{font-size:12px;color:var(--muted);text-align:center}
       </div>
       <div class="stage-bar">
         <div class="who">李村长<span>云溪村 · 从业三十年的“老向导”</span></div>
-        <label class="toggle"><input type="checkbox" id="voice" checked>村长开口说话</label>
+        <div class="toggles">
+          <label class="toggle"><input type="checkbox" id="voice" checked>开口说话</label>
+          <label class="toggle"><input type="checkbox" id="basisOn" checked>显示检索依据</label>
+        </div>
       </div>
+      <div class="offline"><i></i><span id="offlineText">本地知识库已加载，离线可用</span></div>
     </section>
 
-    <!-- 功能面板 -->
     <section class="panel">
       <div class="tabs" role="tablist">
         <button class="tab" role="tab" aria-selected="true" data-t="chat" id="t-chat">和村长聊天</button>
         <button class="tab" role="tab" aria-selected="false" data-t="see" id="t-see">拍照识物</button>
-        <button class="tab" role="tab" aria-selected="false" data-t="card" id="t-card">生成明信片</button>
-        <button class="tab" role="tab" aria-selected="false" data-t="ops" id="t-ops">村委运营看板</button>
+        <button class="tab" role="tab" aria-selected="false" data-t="card" id="t-card">足迹明信片</button>
+        <button class="tab" role="tab" aria-selected="false" data-t="ops" id="t-ops">运营看板</button>
+        <button class="tab" role="tab" aria-selected="false" data-t="kb" id="t-kb">村委知识库<span class="dot" id="pendDot" hidden>0</span></button>
       </div>
 
       <div class="pane" id="p-chat">
         <div class="log" id="log"></div>
         <div class="quick" id="quick"></div>
-        <form class="ask" id="ask"><input id="askInput" placeholder="问问村长：有什么好玩的？" autocomplete="off"><button class="btn">发送</button></form>
-        <p class="note">知识库内置于本地，覆盖景点、非遗、特产、民宿、路线、交通等问题。</p>
+        <form class="ask" id="ask"><input class="inp" id="askInput" placeholder="问问村长：有什么好玩的？" autocomplete="off"><button class="btn">发送</button></form>
+        <p class="note">回答只来自村落知识库。答不上的问题村长会如实说明，并自动转给村委补充。</p>
       </div>
 
       <div class="pane" id="p-see" hidden>
@@ -212,14 +209,14 @@ footer{font-size:12px;color:var(--muted);text-align:center}
           <label class="btn ghost" for="upload" style="cursor:pointer">上传自己的照片</label>
           <input type="file" id="upload" accept="image/*" hidden>
           <img id="preview" alt="上传的照片预览" hidden>
-          <span class="note">演示版按画面主色调匹配村内景物，正式版可换成本地部署的视觉模型。</span>
+          <span class="note" style="flex:1;min-width:200px">原型用颜色直方图与村内景物特征库比对，给出前三个候选；正式版替换为本地部署的轻量视觉模型。</span>
         </div>
         <div id="seeResult"></div>
       </div>
 
       <div class="pane" id="p-card" hidden>
         <div class="pc-ctrl">
-          <input id="pcName" placeholder="你的名字" value="远方来的朋友">
+          <input class="inp" id="pcName" placeholder="你的名字" value="远方来的朋友">
           <button class="btn alt" id="pcGo">生成我的明信片</button>
           <button class="btn ghost" id="pcAgain">换一种风景</button>
         </div>
@@ -230,215 +227,324 @@ footer{font-size:12px;color:var(--muted);text-align:center}
       <div class="pane" id="p-ops" hidden>
         <div class="kpis">
           <div class="kpi"><div class="l">今日接待咨询</div><div class="n" id="k1">1,286</div><div class="d">较上周 +18%</div></div>
-          <div class="kpi"><div class="l">带动特产意向单</div><div class="n" id="k2">214</div><div class="d">转化率 16.6%</div></div>
-          <div class="kpi"><div class="l">游客满意度</div><div class="n">4.8</div><div class="d">满分 5 分</div></div>
+          <div class="kpi"><div class="l">知识库应答率<span class="live">本场</span></div><div class="n" id="k2">—</div><div class="d" id="k2d">还没有提问</div></div>
+          <div class="kpi"><div class="l">带动特产意向单</div><div class="n" id="k3">214</div><div class="d">转化率 16.6%</div></div>
         </div>
-        <div class="chart"><h4>游客最关心的问题<span class="live">本场实时累加</span></h4><svg id="hot" viewBox="0 0 560 210"></svg></div>
+        <div class="chart"><h4>游客最关心的问题<span class="live">本场实时累加</span></h4><svg id="hot" viewBox="0 0 560 230"></svg></div>
         <div class="cols">
           <div class="chart"><h4>分时段客流（人次）</h4><svg id="flow" viewBox="0 0 280 170"></svg></div>
           <div class="chart"><h4>景点热度与分流建议</h4><svg id="spots" viewBox="0 0 280 170"></svg></div>
         </div>
-        <p class="note">除“本场实时累加”外均为示例数据，用于展示村委会可获得的运营洞察。</p>
+        <p class="note">标“本场”的指标随你现场的操作变化，其余为示例数据，用于展示村委会可获得的运营洞察。</p>
+      </div>
+
+      <div class="pane" id="p-kb" hidden>
+        <div class="kpis">
+          <div class="kpi"><div class="l">知识条目</div><div class="n" id="kbSize">—</div><div class="d">覆盖景点、吃住行、服务等</div></div>
+          <div class="kpi"><div class="l">知识类别</div><div class="n" id="kbCats">—</div><div class="d">按游客意图划分</div></div>
+          <div class="kpi"><div class="l">待补充问题</div><div class="n" id="kbPend">0</div><div class="d">来自村长答不上的提问</div></div>
+        </div>
+        <div class="chart"><h4>各类别知识条目数</h4><svg id="catChart" viewBox="0 0 560 150"></svg></div>
+        <div>
+          <h4 style="margin:4px 0 8px;font-size:14px">待补充问题</h4>
+          <div class="pending" id="pending"></div>
+        </div>
+        <div id="addedWrap" hidden>
+          <h4 style="margin:4px 0 8px;font-size:14px">本场新增知识</h4>
+          <div class="added" id="added"></div>
+        </div>
+        <p class="note">村委会、返乡青年或志愿者在这里补一句答案，村长马上就会了，不需要技术人员。</p>
       </div>
     </section>
   </div>
-  <footer>“云溪村”为演示用虚构村落 · 第十二届中国研究生智慧城市技术与创意设计大赛 · 定向赛道 智慧文旅与乡村振兴</footer>
+  <footer>“云溪村”及其人物、资料来源均为演示用虚构内容 · 第十二届中国研究生智慧城市技术与创意设计大赛 · 定向赛道 智慧文旅与乡村振兴</footer>
 </div>
+<div class="toast" id="toast" hidden></div>
 
+<script src="engine.js"></script>
 <script>
-/* ---------- 村子知识库（本地） ---------- */
-const KB=[
- {id:"intro",cat:"村子概况",keys:["介绍","村子","云溪","哪里","历史","来历","简介"],a:"欢迎来到云溪村！咱们村藏在海拔六百米的山坳里，有八百年历史。全村一百二十多户，靠的是三样宝贝：千年古樟、云上梯田和竹编手艺。你想先听哪个？"},
- {id:"tree",cat:"景点",spot:"千年古樟",keys:["樟树","古树","大树","樟","千年"],a:"村口那棵古樟，树龄八百多年，五个大人才抱得过来。老辈人讲，宋朝时村里先祖逃难到这儿，在树下歇脚，看这里溪水好，就落了户。现在谁家孩子考上大学，都要来树下系根红绳。"},
- {id:"terrace",cat:"景点",spot:"云上梯田",keys:["梯田","稻田","田","日出","云海","拍照","摄影"],a:"云上梯田有三百多级，春天灌水像镜子，九月稻子黄了最好看。想拍云海，早上五点半到观景台，雨后第二天概率最大。观景台离村委会步行二十分钟。"},
- {id:"hall",cat:"景点",spot:"李氏宗祠",keys:["祠堂","宗祠","老房子","古建","建筑","老宅"],a:"李氏宗祠是清朝乾隆年间修的，门口那对石狮子是原物。里面现在改成了村史馆，墙上挂着村里出过的读书人名单。每月初一十五，祠堂前有老人唱木偶戏。"},
- {id:"bamboo",cat:"非遗",spot:"竹编工坊",keys:["竹编","非遗","手艺","竹","手工","体验","文创"],a:"竹编是咱们的省级非遗。工坊在溪边，王阿婆编了五十年，一根竹子能劈成头发丝那么细。游客可以花一个小时跟着编个小杯垫带走，体验费三十元，材料都包了。"},
- {id:"food",cat:"美食",keys:["吃","美食","特色菜","饭","餐","好吃","小吃"],a:"来云溪一定要尝三样：笋干烧肉、清明粿，还有溪里的石斑鱼。村里农家乐有六家，我推荐溪边的“竹里人家”，坐着吃饭能听见水声。"},
- {id:"buy",cat:"特产",keys:["特产","买","带回","伴手礼","茶","高山茶","笋干","蜂蜜"],a:"带回家的话，高山云雾茶最实在，一斤一百六；还有笋干和土蜂蜜。都是村里合作社统一收的，扫合作社码可以直接寄到家，不用自己拎。"},
- {id:"stay",cat:"住宿",keys:["住","民宿","住宿","过夜","酒店","房间"],a:"村里有十一家民宿，都是老屋改的。想看日出就住山腰的“听云”，离观景台最近；带孩子推荐“溪畔小院”，院子里能抓小螃蟹。周末最好提前三天订。"},
- {id:"route",cat:"路线",keys:["路线","怎么玩","攻略","一日游","一天","半天","行程","安排","逛"],a:"给你排个一日游：早上五点半看梯田云海，回来吃清明粿当早饭；上午逛古樟和宗祠；中午溪边吃石斑鱼；下午去竹编工坊做个杯垫；傍晚到合作社挑点茶叶。全程走路就行。"},
- {id:"traffic",cat:"交通",keys:["交通","怎么去","怎么来","开车","停车","公交","大巴","高铁"],a:"自驾的话导航到“云溪村游客中心”，有八十个免费车位。坐高铁到县城站，每天有四班乡村公交进村，单程五块。节假日村口停车场满了，我们会在系统里提示你停到二号停车场，再坐接驳车。"},
- {id:"weather",cat:"时节",keys:["什么时候","季节","几月","最好","天气","温度"],a:"一年四季各有看头：三四月采茶、梯田灌水；七八月山里比城里凉快七八度；九月底稻子黄了最美。冬天偶尔下雪，古樟披雪也很好看。"},
- {id:"kid",cat:"亲子",keys:["孩子","小孩","亲子","儿童","家庭"],a:"带孩子来，推荐三件事：溪边抓小螃蟹、竹编工坊做杯垫、跟着村里的“小导游”认庄稼。暑假每周六晚上，晒谷场还有露天电影。"},
- {id:"who",cat:"关于村长",keys:["你是谁","村长","你好","您好","嗨","hi","hello"],a:"我是云溪村的李村长，数字人版本的！村里的事你尽管问，景点、吃住、路线我都门儿清。我说的话，村委会也会收到汇总，好帮大家把村子建得更好。"},
-];
-const HOT_SEED={"景点":46,"美食":38,"路线":33,"住宿":27,"特产":22,"交通":19,"非遗":15,"时节":9,"亲子":8};
-const hot={...HOT_SEED};
-const visited=new Set();
-const QUICK=["介绍一下云溪村","有什么好吃的？","帮我排个一日游","竹编能体验吗？","住哪家民宿好？","怎么开车过来？"];
+const { KB, createEngine } = window.CunzhangEngine;
+const engine = createEngine(KB);
+const $ = id => document.getElementById(id);
+const esc = s => String(s).replace(/[&<>"]/g, c => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]));
+function toast(t) { const el = $("toast"); el.textContent = t; el.hidden = false; clearTimeout(toast.t); toast.t = setTimeout(() => el.hidden = true, 2600); }
 
 /* ---------- 村长开口 ---------- */
-const scene=document.getElementById("scene"),bubble=document.getElementById("bubble"),voiceOn=document.getElementById("voice");
-let typing=null,talkTimer=null,zhVoice=null;
-function pickVoice(){try{const vs=speechSynthesis.getVoices();zhVoice=vs.find(v=>/zh[-_]CN/i.test(v.lang))||vs.find(v=>/^zh/i.test(v.lang))||null}catch(e){}}
-if("speechSynthesis" in window){pickVoice();speechSynthesis.onvoiceschanged=pickVoice}
-function say(text){
-  clearInterval(typing);clearTimeout(talkTimer);
-  try{speechSynthesis.cancel()}catch(e){}
-  bubble.textContent="";let i=0;
-  typing=setInterval(()=>{bubble.textContent=text.slice(0,++i);bubble.scrollTop=bubble.scrollHeight;if(i>=text.length)clearInterval(typing)},45);
+const scene = $("scene"), bubble = $("bubble"), voiceOn = $("voice");
+let typing = null, talkTimer = null, zhVoice = null;
+function pickVoice() { try { const vs = speechSynthesis.getVoices(); zhVoice = vs.find(v => /zh[-_]CN/i.test(v.lang)) || vs.find(v => /^zh/i.test(v.lang)) || null } catch (e) {} }
+if ("speechSynthesis" in window) { pickVoice(); speechSynthesis.onvoiceschanged = pickVoice }
+function say(text) {
+  clearInterval(typing); clearTimeout(talkTimer);
+  try { speechSynthesis.cancel() } catch (e) {}
+  bubble.textContent = ""; let i = 0;
+  typing = setInterval(() => { bubble.textContent = text.slice(0, ++i); bubble.scrollTop = bubble.scrollHeight; if (i >= text.length) clearInterval(typing) }, 45);
   scene.classList.add("talking");
-  const fallback=()=>{talkTimer=setTimeout(()=>scene.classList.remove("talking"),text.length*45+300)};
-  if(voiceOn.checked&&"speechSynthesis" in window){
-    try{
-      const u=new SpeechSynthesisUtterance(text);u.lang="zh-CN";u.rate=1.05;u.pitch=.85;if(zhVoice)u.voice=zhVoice;
-      u.onend=u.onerror=()=>scene.classList.remove("talking");
+  const fallback = () => { talkTimer = setTimeout(() => scene.classList.remove("talking"), text.length * 45 + 300) };
+  if (voiceOn.checked && "speechSynthesis" in window) {
+    try {
+      const u = new SpeechSynthesisUtterance(text); u.lang = "zh-CN"; u.rate = 1.05; u.pitch = .85; if (zhVoice) u.voice = zhVoice;
+      u.onend = u.onerror = () => scene.classList.remove("talking");
       speechSynthesis.speak(u);
-      talkTimer=setTimeout(()=>{if(!speechSynthesis.speaking)scene.classList.remove("talking")},1500);
-    }catch(e){fallback()}
-  }else fallback();
+      talkTimer = setTimeout(() => { if (!speechSynthesis.speaking) fallback() }, 1500);
+    } catch (e) { fallback() }
+  } else fallback();
 }
-voiceOn.addEventListener("change",()=>{if(!voiceOn.checked){try{speechSynthesis.cancel()}catch(e){}scene.classList.remove("talking")}});
+voiceOn.addEventListener("change", () => { if (!voiceOn.checked) { try { speechSynthesis.cancel() } catch (e) {} scene.classList.remove("talking") } });
+
+/* ---------- 状态 ---------- */
+const ctx = { lastSpot: null };
+const visited = new Set();
+const hot = { "景点": 46, "美食": 38, "路线": 33, "住宿": 27, "特产": 22, "交通": 19, "非遗": 15, "服务": 12, "时节": 9, "亲子": 8 };
+const stats = { asked: 0, answered: 0 };
+const pending = [
+  { q: "可以在溪里钓鱼吗", n: 6, when: "近 7 天", sample: true },
+  { q: "村里有理发店吗", n: 2, when: "近 7 天", sample: true },
+];
+const addedList = [];
 
 /* ---------- 对话 ---------- */
-const log=document.getElementById("log");
-function addMsg(text,who,tag){const d=document.createElement("div");d.className="msg "+who;d.textContent=text;
-  if(tag){const t=document.createElement("span");t.className="tag";t.textContent=tag;d.appendChild(t)}
-  log.appendChild(d);log.scrollTop=log.scrollHeight}
-function answer(q){
-  const s=q.toLowerCase();let best=null,score=0;
-  for(const k of KB){let sc=0;for(const w of k.keys)if(s.includes(w.toLowerCase()))sc+=w.length;if(sc>score){score=sc;best=k}}
-  if(!best)return{a:"这个问题村长得去问问村委会的小王，回头补到知识库里。你可以先问问我景点、美食、民宿、路线或者竹编体验。",cat:"未覆盖"};
-  if(best.spot)visited.add(best.spot);
-  if(best.id==="route"){["云上梯田","千年古樟","李氏宗祠","竹编工坊"].forEach(x=>visited.add(x))}
-  return{a:best.a,cat:best.cat};
+const log = $("log");
+function addMsg(text, who, basisHTML, miss) {
+  const d = document.createElement("div"); d.className = "msg " + who + (miss ? " miss" : "");
+  d.textContent = text;
+  if (basisHTML && $("basisOn").checked) { const b = document.createElement("span"); b.className = "basis"; b.innerHTML = basisHTML; d.appendChild(b) }
+  log.appendChild(d); log.scrollTop = log.scrollHeight;
 }
-function ask(q){if(!q.trim())return;addMsg(q,"u");const r=answer(q);
-  hot[r.cat]=(hot[r.cat]||0)+1;bumpKpi();
-  setTimeout(()=>{addMsg(r.a,"c",r.cat);say(r.a);drawHot()},250)}
-document.getElementById("ask").addEventListener("submit",e=>{e.preventDefault();const i=document.getElementById("askInput");ask(i.value);i.value=""});
-const quick=document.getElementById("quick");
-QUICK.forEach(t=>{const b=document.createElement("button");b.className="q";b.type="button";b.textContent=t;b.onclick=()=>ask(t);quick.appendChild(b)});
+function ask(q) {
+  q = q.trim(); if (!q) return;
+  addMsg(q, "u");
+  const r = engine.ask(q, ctx);
+  stats.asked++;
+  let text, basis, miss = false;
+  if (r.hit) {
+    stats.answered++;
+    const e = r.hit; text = e.a;
+    if (e.spot) { ctx.lastSpot = e.spot; visited.add(e.spot) }
+    if (e.id === "route-day") ["云上梯田", "千年古樟", "李氏宗祠", "竹编工坊"].forEach(x => visited.add(x));
+    hot[e.cat] = (hot[e.cat] || 0) + 1;
+    basis = `依据：<b>${esc(e.src)}</b> · 匹配度 ${Math.round(r.conf * 100)}%` + (r.follow ? ` · 结合上文「${esc(ctx.lastSpot)}」` : "") + ` · 用时 ${r.ms < 1 ? "<1" : r.ms.toFixed(0)} ms`;
+  } else {
+    miss = true;
+    text = "这个问题村长还真答不上来，我不能瞎说。已经帮你记下来转给村委会了，他们补充好以后我就会了。你也可以先问问我景点、吃住、路线或者竹编体验。";
+    const ex = pending.find(p => p.q === q);
+    if (ex) ex.n++; else pending.unshift({ q, n: 1, when: "刚刚" });
+    hot["未覆盖"] = (hot["未覆盖"] || 0) + 1;
+    basis = `<span class="warn">知识库未覆盖</span> · 最高匹配度 ${Math.round(r.conf * 100)}%，低于阈值 ${Math.round(engine.opt.threshold * 100)}% · 已转村委待补充`;
+    renderPending();
+  }
+  setTimeout(() => { addMsg(text, "c", basis, miss); say(text); drawHot(); updateKpi() }, 220);
+}
+$("ask").addEventListener("submit", e => { e.preventDefault(); ask($("askInput").value); $("askInput").value = "" });
+["介绍一下云溪村", "帮我排个一日游", "李氏宗祠有什么看头", "几点开门？", "看日出住哪家？", "村里有充电桩吗？"].forEach(t => {
+  const b = document.createElement("button"); b.className = "q"; b.type = "button"; b.textContent = t; b.onclick = () => ask(t); $("quick").appendChild(b);
+});
 
-/* ---------- 识物 ---------- */
-const THINGS=[
- {name:"千年古樟",conf:96,art:`<rect width="100" height="100" fill="#cfe3f0"/><rect y="78" width="100" height="22" fill="#7aa35a"/><rect x="44" y="50" width="12" height="32" fill="#6b4a2f"/><circle cx="50" cy="40" r="26" fill="#3f7a35"/><circle cx="32" cy="48" r="16" fill="#4d8a3f"/><circle cx="68" cy="48" r="16" fill="#4d8a3f"/><path d="M47 60h6" stroke="#d33" stroke-width="3"/>`,
-  text:"这是村口的千年古樟！八百多岁了。你看树干上那圈红绳，是村里考上大学的孩子系的。站在树下往东看，还能看见梯田。"},
- {name:"李氏宗祠",conf:93,art:`<rect width="100" height="100" fill="#e9e1d2"/><rect x="18" y="45" width="64" height="40" fill="#efece6" stroke="#555" stroke-width="2"/><path d="M10 47 L50 22 L90 47Z" fill="#3a3a3a"/><rect x="42" y="60" width="16" height="25" fill="#7a3b2a"/><rect y="85" width="100" height="15" fill="#9a8f80"/>`,
-  text:"这是李氏宗祠，乾隆年间盖的。马头墙、门口石狮子都是原物。里面是村史馆，进去右手边能看到云溪村八百年的族谱。"},
- {name:"竹编杯垫",conf:91,art:`<rect width="100" height="100" fill="#f3ead6"/><circle cx="50" cy="52" r="32" fill="#d8b779"/><g stroke="#a7843f" stroke-width="3" fill="none"><circle cx="50" cy="52" r="24"/><circle cx="50" cy="52" r="16"/><circle cx="50" cy="52" r="8"/><path d="M50 20v64M18 52h64M27 29l46 46M73 29l-46 46"/></g>`,
-  text:"这是咱们的非遗竹编！一根毛竹要劈成二十多层篾片。这个杯垫纹样叫“米字底”，你在工坊花一个小时就能自己编一个。"},
- {name:"云上梯田",conf:95,art:`<rect width="100" height="100" fill="#f5e7b8"/><g fill="none" stroke-width="7"><path d="M-5 30 Q50 18 105 32" stroke="#c9a23a"/><path d="M-5 46 Q50 34 105 48" stroke="#d6b04a"/><path d="M-5 62 Q50 50 105 64" stroke="#c9a23a"/><path d="M-5 78 Q50 66 105 80" stroke="#d6b04a"/><path d="M-5 94 Q50 82 105 96" stroke="#c9a23a"/></g>`,
-  text:"这是云上梯田，看这颜色应该是九月稻熟的时候。三百多级梯田是清朝开垦的，现在合作社在推“认养一亩田”，秋天把新米寄到你家。"},
+/* ---------- 识物：颜色直方图 + 最近邻 ---------- */
+const THINGS = [
+  { name: "千年古樟", kb: "tree-story", art: `<rect width="100" height="100" fill="#cfe3f0"/><rect y="78" width="100" height="22" fill="#7aa35a"/><rect x="44" y="50" width="12" height="32" fill="#6b4a2f"/><circle cx="50" cy="40" r="26" fill="#3f7a35"/><circle cx="32" cy="48" r="16" fill="#4d8a3f"/><circle cx="68" cy="48" r="16" fill="#4d8a3f"/><path d="M47 60h6" stroke="#d33" stroke-width="3"/>` },
+  { name: "李氏宗祠", kb: "hall-intro", art: `<rect width="100" height="100" fill="#e9e1d2"/><rect x="18" y="45" width="64" height="40" fill="#efece6" stroke="#555" stroke-width="2"/><path d="M10 47 L50 22 L90 47Z" fill="#3a3a3a"/><rect x="42" y="60" width="16" height="25" fill="#7a3b2a"/><rect y="85" width="100" height="15" fill="#9a8f80"/>` },
+  { name: "竹编工艺", kb: "bamboo-intro", art: `<rect width="100" height="100" fill="#f3ead6"/><circle cx="50" cy="52" r="32" fill="#d8b779"/><g stroke="#a7843f" stroke-width="3" fill="none"><circle cx="50" cy="52" r="24"/><circle cx="50" cy="52" r="16"/><circle cx="50" cy="52" r="8"/><path d="M50 20v64M18 52h64M27 29l46 46M73 29l-46 46"/></g>` },
+  { name: "云上梯田", kb: "terrace-intro", art: `<rect width="100" height="100" fill="#f5e7b8"/><g fill="none" stroke-width="7"><path d="M-5 30 Q50 18 105 32" stroke="#c9a23a"/><path d="M-5 46 Q50 34 105 48" stroke="#d6b04a"/><path d="M-5 62 Q50 50 105 64" stroke="#c9a23a"/><path d="M-5 78 Q50 66 105 80" stroke="#d6b04a"/><path d="M-5 94 Q50 82 105 96" stroke="#c9a23a"/></g>` },
+  { name: "古廊桥", kb: "bridge", art: `<rect width="100" height="100" fill="#d6e6ee"/><rect y="70" width="100" height="30" fill="#6f9fb5"/><path d="M8 66 Q50 40 92 66" stroke="#5a3d2a" stroke-width="7" fill="none"/><rect x="14" y="40" width="72" height="16" fill="#7a5236"/><path d="M10 42 L50 26 L90 42Z" fill="#3b3b3b"/>` },
+  { name: "高山云雾茶", kb: "tea", art: `<rect width="100" height="100" fill="#e3efdc"/><g fill="#5f9a46"><ellipse cx="30" cy="40" rx="12" ry="6" transform="rotate(-30 30 40)"/><ellipse cx="62" cy="34" rx="14" ry="7" transform="rotate(20 62 34)"/><ellipse cx="45" cy="62" rx="15" ry="7" transform="rotate(-10 45 62)"/><ellipse cx="72" cy="66" rx="12" ry="6" transform="rotate(35 72 66)"/></g><rect y="86" width="100" height="14" fill="#8db86f"/>` },
 ];
-const things=document.getElementById("things"),seeResult=document.getElementById("seeResult");
-THINGS.forEach((t,i)=>{const b=document.createElement("button");b.className="thing";b.type="button";
-  b.innerHTML=`<svg viewBox="0 0 100 100" aria-hidden="true">${t.art}</svg><span>${t.name}</span>`;b.onclick=()=>recognize(i);things.appendChild(b)});
-function recognize(i,src){
-  const t=THINGS[i];
-  seeResult.innerHTML=`<div class="scan"><span class="note">村长正在端详这张照片…</span></div>`;
-  setTimeout(()=>{
-    visited.add(t.name);hot[i===2?"非遗":"景点"]++;bumpKpi();drawHot();
-    seeResult.innerHTML=`<div class="result"><h3>${t.name}</h3>
-      <div class="note">识别置信度 ${t.conf}%${src?"（按照片主色调匹配）":""}</div><div class="bar"><i style="width:${t.conf}%"></i></div>
-      <p style="margin:8px 0 0">${t.text}</p></div>`;
-    say(t.text);
-  },900);
+// 显示前四个示例；全部六类进入特征库
+const things = $("things"), seeResult = $("seeResult");
+const svgURL = art => "data:image/svg+xml;charset=utf-8," + encodeURIComponent(`<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100">${art}</svg>`);
+function hist(img) {
+  const c = document.createElement("canvas"); c.width = c.height = 48; const x = c.getContext("2d");
+  x.drawImage(img, 0, 0, 48, 48); const d = x.getImageData(0, 0, 48, 48).data, h = new Float32Array(64);
+  for (let k = 0; k < d.length; k += 4) h[(d[k] >> 6) * 16 + (d[k + 1] >> 6) * 4 + (d[k + 2] >> 6)]++;
+  const n = d.length / 4; for (let k = 0; k < 64; k++) h[k] /= n; return h;
 }
-document.getElementById("upload").addEventListener("change",e=>{
-  const f=e.target.files&&e.target.files[0];if(!f)return;
-  const url=URL.createObjectURL(f),img=document.getElementById("preview");img.src=url;img.hidden=false;
-  const im=new Image();im.onload=()=>{
-    const c=document.createElement("canvas");c.width=c.height=40;const x=c.getContext("2d");x.drawImage(im,0,0,40,40);
-    const d=x.getImageData(0,0,40,40).data;let r=0,g=0,b=0;for(let k=0;k<d.length;k+=4){r+=d[k];g+=d[k+1];b+=d[k+2]}
-    const n=d.length/4;r/=n;g/=n;b/=n;
-    let idx;
-    if(g>r&&g>b)idx=0;            // 绿色多：古树
-    else if(r>g+10&&g>b+15)idx=3;  // 金黄：梯田
-    else if(r>b&&Math.abs(r-g)<25)idx=2; // 米黄木色：竹编
-    else idx=1;                    // 其他：古建
-    recognize(idx,true);
-  };im.src=url;
+const sim = (a, b) => { let s = 0; for (let k = 0; k < 64; k++) s += Math.min(a[k], b[k]); return s };
+const loadImg = src => new Promise((ok, no) => { const im = new Image(); im.onload = () => ok(im); im.onerror = no; im.src = src });
+const refs = Promise.all(THINGS.map(t => loadImg(svgURL(t.art)).then(hist)));
+THINGS.slice(0, 4).forEach((t, i) => {
+  const b = document.createElement("button"); b.className = "thing"; b.type = "button";
+  b.innerHTML = `<svg viewBox="0 0 100 100" aria-hidden="true">${t.art}</svg><span>${t.name}</span>`;
+  b.onclick = () => recognize(svgURL(t.art), true); things.appendChild(b);
+});
+async function recognize(src, isSample) {
+  seeResult.innerHTML = `<div class="scan"><span class="note">村长正在端详这张照片…</span></div>`;
+  const [R, img] = await Promise.all([refs, loadImg(src)]);
+  const h = hist(img);
+  const ranked = THINGS.map((t, i) => ({ t, s: sim(h, R[i]) })).sort((a, b) => b.s - a.s);
+  const best = ranked[0], e = engine.kb.find(k => k.id === best.t.kb);
+  setTimeout(() => {
+    visited.add(e.spot || best.t.name); if (e.spot) ctx.lastSpot = e.spot;
+    hot[e.cat] = (hot[e.cat] || 0) + 1; drawHot();
+    seeResult.innerHTML = `<div class="result"><h3>${esc(best.t.name)}</h3>
+      <div class="note">特征库比对前三名${isSample ? "（示例照片）" : ""}</div>
+      ${ranked.slice(0, 3).map(x => `<div class="cand"><span>${esc(x.t.name)}</span><span class="bar"><i style="width:${(x.s * 100).toFixed(0)}%"></i></span><span class="v">${(x.s * 100).toFixed(0)}%</span></div>`).join("")}
+      <p style="margin:10px 0 0">${esc(e.a)}</p><span class="basis">依据：<b>${esc(e.src)}</b></span></div>`;
+    say(e.a);
+  }, 700);
+}
+$("upload").addEventListener("change", e => {
+  const f = e.target.files && e.target.files[0]; if (!f) return;
+  const url = URL.createObjectURL(f); $("preview").src = url; $("preview").hidden = false; recognize(url, false);
 });
 
 /* ---------- 明信片 ---------- */
-const pc=document.getElementById("pc"),ctx=pc.getContext("2d");
-const BLESS=["山里的云，替你记住了今天。","樟树下坐过的人，都会再回来。","稻子黄了，记得回来尝新米。","竹篾编进去的，是慢下来的时间。","云溪的水，比城里的慢一点。"];
-const PALETTES=[
- {sky:["#f7d9a8","#f2a97e"],hills:["#6a8f5a","#4f7a3a","#3c5f2c"],sun:"#fff2cf"},
- {sky:["#cfe1f3","#9ab8dd"],hills:["#8aa9c7","#5f86ad","#2c4a7c"],sun:"#ffffff"},
- {sky:["#f3e6c4","#e2c27a"],hills:["#d4a843","#b98a26","#7d6420"],sun:"#fff8e0"},
- {sky:["#e7d9ef","#b7a4d6"],hills:["#8f86b8","#62598f","#3e3866"],sun:"#fff4e8"},
+const pc = $("pc"), cx2 = pc.getContext("2d");
+const BLESS = ["山里的云，替你记住了今天。", "樟树下坐过的人，都会再回来。", "稻子黄了，记得回来尝新米。", "竹篾编进去的，是慢下来的时间。", "云溪的水，比城里的慢一点。"];
+const PALETTES = [
+  { sky: ["#f7d9a8", "#f2a97e"], hills: ["#6a8f5a", "#4f7a3a", "#3c5f2c"], sun: "#fff2cf" },
+  { sky: ["#cfe1f3", "#9ab8dd"], hills: ["#8aa9c7", "#5f86ad", "#2c4a7c"], sun: "#ffffff" },
+  { sky: ["#f3e6c4", "#e2c27a"], hills: ["#d4a843", "#b98a26", "#7d6420"], sun: "#fff8e0" },
+  { sky: ["#e7d9ef", "#b7a4d6"], hills: ["#8f86b8", "#62598f", "#3e3866"], sun: "#fff4e8" },
 ];
-let pal=0,seed=1;
-function rnd(){seed=(seed*16807)%2147483647;return seed/2147483647}
-function drawCard(){
-  const W=pc.width,H=pc.height,p=PALETTES[pal];seed=pal*97+13;
-  const g=ctx.createLinearGradient(0,0,0,H);g.addColorStop(0,p.sky[0]);g.addColorStop(1,p.sky[1]);ctx.fillStyle=g;ctx.fillRect(0,0,W,H);
-  ctx.fillStyle=p.sun;ctx.globalAlpha=.9;ctx.beginPath();ctx.arc(W*.72,H*.28,56,0,7);ctx.fill();ctx.globalAlpha=1;
-  // 云
-  ctx.fillStyle="rgba(255,255,255,.55)";for(let k=0;k<5;k++){const cx=rnd()*W,cy=60+rnd()*120;for(let j=0;j<4;j++){ctx.beginPath();ctx.ellipse(cx+j*28,cy+(j%2)*6,40,14,0,0,7);ctx.fill()}}
-  // 山与梯田
-  p.hills.forEach((col,li)=>{const base=H*(.48+li*.13);ctx.fillStyle=col;ctx.beginPath();ctx.moveTo(0,H);
-    for(let x=0;x<=W;x+=10){ctx.lineTo(x,base+Math.sin(x/(140-li*25)+li*2+pal)*(38-li*8)+Math.sin(x/53+li)*8)}ctx.lineTo(W,H);ctx.fill();
-    if(li===2){ctx.strokeStyle="rgba(255,255,255,.22)";ctx.lineWidth=2;for(let t=1;t<7;t++){ctx.beginPath();for(let x=0;x<=W;x+=10){const y=base+t*22+Math.sin(x/(140-li*25)+li*2+pal)*(38-li*8)*(1-t*.1);x?ctx.lineTo(x,y):ctx.moveTo(x,y)}ctx.stroke()}}});
-  // 古樟剪影
-  ctx.fillStyle="rgba(20,30,20,.75)";ctx.fillRect(140,H*.48,14,70);ctx.beginPath();ctx.arc(147,H*.45,46,0,7);ctx.arc(118,H*.49,30,0,7);ctx.arc(176,H*.49,30,0,7);ctx.fill();
-  // 信息卡
-  const cx=W-400,cy=H-300;
-  ctx.fillStyle="rgba(255,255,255,.9)";roundRect(cx,cy,370,272,16);ctx.fill();
-  ctx.fillStyle="#1f2b24";ctx.font="40px 'ZCOOL XiaoWei', KaiTi, serif";ctx.fillText("云溪村来信",cx+26,cy+54);
-  ctx.font="16px 'Noto Sans SC', sans-serif";ctx.fillStyle="#5c6b61";
-  const name=(document.getElementById("pcName").value||"远方来的朋友").slice(0,12);
-  const d=new Date();ctx.fillText(`致 ${name} · ${d.getFullYear()}年${d.getMonth()+1}月${d.getDate()}日`,cx+26,cy+84);
-  const steps=visited.size?[...visited]:["千年古樟","云上梯田"];
-  ctx.fillStyle="#2c4a7c";ctx.fillText("今日足迹",cx+26,cy+116);
-  ctx.fillStyle="#1f2b24";let ny=wrap(steps.join(" → "),cx+26,cy+140,318,22);
-  ctx.fillStyle="#4f7a3a";ctx.font="18px 'ZCOOL XiaoWei', KaiTi, serif";wrap("“"+BLESS[(steps.length+pal)%BLESS.length]+"” —— 李村长",cx+26,Math.max(ny+36,cy+214),318,24);
-  // 邮戳
-  ctx.save();ctx.translate(90,90);ctx.rotate(-.18);ctx.strokeStyle="rgba(180,40,40,.8)";ctx.lineWidth=3;ctx.beginPath();ctx.arc(0,0,52,0,7);ctx.stroke();
-  ctx.beginPath();ctx.arc(0,0,44,0,7);ctx.stroke();ctx.fillStyle="rgba(180,40,40,.85)";ctx.font="18px 'ZCOOL XiaoWei', KaiTi, serif";ctx.textAlign="center";
-  ctx.fillText("云溪村",0,-4);ctx.font="12px 'Noto Sans SC',sans-serif";ctx.fillText("数字人村长 寄",0,18);ctx.restore();ctx.textAlign="left";
+let pal = 0, seed = 1;
+const rnd = () => { seed = (seed * 16807) % 2147483647; return seed / 2147483647 };
+function rr(x, y, w, h, r) { cx2.beginPath(); cx2.moveTo(x + r, y); cx2.arcTo(x + w, y, x + w, y + h, r); cx2.arcTo(x + w, y + h, x, y + h, r); cx2.arcTo(x, y + h, x, y, r); cx2.arcTo(x, y, x + w, y, r); cx2.closePath() }
+function wrapT(t, x, y, max, lh) { let line = ""; for (const ch of t) { if (cx2.measureText(line + ch).width > max) { cx2.fillText(line, x, y); line = ch; y += lh } else line += ch } cx2.fillText(line, x, y); return y }
+function drawCard() {
+  const W = pc.width, H = pc.height, p = PALETTES[pal]; seed = pal * 97 + 13;
+  const g = cx2.createLinearGradient(0, 0, 0, H); g.addColorStop(0, p.sky[0]); g.addColorStop(1, p.sky[1]); cx2.fillStyle = g; cx2.fillRect(0, 0, W, H);
+  cx2.fillStyle = p.sun; cx2.globalAlpha = .9; cx2.beginPath(); cx2.arc(W * .72, H * .28, 56, 0, 7); cx2.fill(); cx2.globalAlpha = 1;
+  cx2.fillStyle = "rgba(255,255,255,.55)"; for (let k = 0; k < 5; k++) { const x = rnd() * W, y = 60 + rnd() * 120; for (let j = 0; j < 4; j++) { cx2.beginPath(); cx2.ellipse(x + j * 28, y + (j % 2) * 6, 40, 14, 0, 0, 7); cx2.fill() } }
+  p.hills.forEach((col, li) => {
+    const base = H * (.48 + li * .13); cx2.fillStyle = col; cx2.beginPath(); cx2.moveTo(0, H);
+    for (let x = 0; x <= W; x += 10) cx2.lineTo(x, base + Math.sin(x / (140 - li * 25) + li * 2 + pal) * (38 - li * 8) + Math.sin(x / 53 + li) * 8);
+    cx2.lineTo(W, H); cx2.fill();
+    if (li === 2) { cx2.strokeStyle = "rgba(255,255,255,.22)"; cx2.lineWidth = 2; for (let t = 1; t < 7; t++) { cx2.beginPath(); for (let x = 0; x <= W; x += 10) { const y = base + t * 22 + Math.sin(x / (140 - li * 25) + li * 2 + pal) * (38 - li * 8) * (1 - t * .1); x ? cx2.lineTo(x, y) : cx2.moveTo(x, y) } cx2.stroke() } }
+  });
+  cx2.fillStyle = "rgba(20,30,20,.75)"; cx2.fillRect(140, H * .48, 14, 70); cx2.beginPath(); cx2.arc(147, H * .45, 46, 0, 7); cx2.arc(118, H * .49, 30, 0, 7); cx2.arc(176, H * .49, 30, 0, 7); cx2.fill();
+  const x0 = W - 400, y0 = H - 300;
+  cx2.fillStyle = "rgba(255,255,255,.9)"; rr(x0, y0, 370, 272, 16); cx2.fill();
+  cx2.fillStyle = "#1f2b24"; cx2.font = "40px 'ZCOOL XiaoWei', KaiTi, serif"; cx2.fillText("云溪村来信", x0 + 26, y0 + 54);
+  cx2.font = "16px 'Noto Sans SC', sans-serif"; cx2.fillStyle = "#5c6b61";
+  const name = ($("pcName").value || "远方来的朋友").slice(0, 12), d = new Date();
+  cx2.fillText(`致 ${name} · ${d.getFullYear()}年${d.getMonth() + 1}月${d.getDate()}日`, x0 + 26, y0 + 84);
+  const steps = visited.size ? [...visited] : ["千年古樟", "云上梯田"];
+  cx2.fillStyle = "#2c4a7c"; cx2.fillText("今日足迹", x0 + 26, y0 + 116);
+  cx2.fillStyle = "#1f2b24"; const ny = wrapT(steps.join(" → "), x0 + 26, y0 + 140, 318, 22);
+  cx2.fillStyle = "#4f7a3a"; cx2.font = "18px 'ZCOOL XiaoWei', KaiTi, serif";
+  wrapT("“" + BLESS[(steps.length + pal) % BLESS.length] + "” —— 李村长", x0 + 26, Math.max(ny + 36, y0 + 214), 318, 24);
+  cx2.save(); cx2.translate(90, 90); cx2.rotate(-.18); cx2.strokeStyle = "rgba(180,40,40,.8)"; cx2.lineWidth = 3;
+  cx2.beginPath(); cx2.arc(0, 0, 52, 0, 7); cx2.stroke(); cx2.beginPath(); cx2.arc(0, 0, 44, 0, 7); cx2.stroke();
+  cx2.fillStyle = "rgba(180,40,40,.85)"; cx2.font = "18px 'ZCOOL XiaoWei', KaiTi, serif"; cx2.textAlign = "center";
+  cx2.fillText("云溪村", 0, -4); cx2.font = "12px 'Noto Sans SC',sans-serif"; cx2.fillText("数字人村长 寄", 0, 18); cx2.restore(); cx2.textAlign = "left";
 }
-function roundRect(x,y,w,h,r){ctx.beginPath();ctx.moveTo(x+r,y);ctx.arcTo(x+w,y,x+w,y+h,r);ctx.arcTo(x+w,y+h,x,y+h,r);ctx.arcTo(x,y+h,x,y,r);ctx.arcTo(x,y,x+w,y,r);ctx.closePath()}
-function wrap(t,x,y,max,lh){let line="";for(const ch of t){if(ctx.measureText(line+ch).width>max){ctx.fillText(line,x,y);line=ch;y+=lh}else line+=ch}ctx.fillText(line,x,y);return y}
-document.getElementById("pcGo").onclick=()=>{drawCard();say("明信片做好啦！上面写着你今天走过的地方，记得常回云溪看看。")};
-document.getElementById("pcAgain").onclick=()=>{pal=(pal+1)%PALETTES.length;drawCard()};
+$("pcGo").onclick = () => { drawCard(); say("明信片做好啦！上面写着你今天走过的地方，记得常回云溪看看。") };
+$("pcAgain").onclick = () => { pal = (pal + 1) % PALETTES.length; drawCard() };
 
 /* ---------- 看板 ---------- */
-const css=n=>getComputedStyle(document.documentElement).getPropertyValue(n).trim();
-function drawHot(){
-  const svg=document.getElementById("hot");const items=Object.entries(hot).filter(([k])=>k!=="未覆盖"&&k!=="关于村长"&&k!=="村子概况").sort((a,b)=>b[1]-a[1]).slice(0,7);
-  const max=Math.max(...items.map(i=>i[1]));const W=560,left=56,right=40,bh=20,gap=8;
-  svg.innerHTML=items.map(([k,v],i)=>{const y=6+i*(bh+gap),w=(W-left-right)*v/max;
-    return `<text x="${left-8}" y="${y+15}" text-anchor="end" font-size="13" fill="${css('--fg')}">${k}</text>
-    <rect x="${left}" y="${y}" width="${w}" height="${bh}" rx="4" fill="${i===0?css('--indigo'):css('--paddy')}" opacity="${i===0?1:.75}"/>
-    <text x="${left+w+6}" y="${y+15}" font-size="12" fill="${css('--muted')}" style="font-variant-numeric:tabular-nums">${v}</text>`}).join("");
+const css = n => getComputedStyle(document.documentElement).getPropertyValue(n).trim();
+function hbars(svg, items, W, opts) {
+  const max = Math.max(1, ...items.map(i => i[1])), left = opts.left || 64, right = 44, bh = opts.bh || 20, gap = opts.gap || 8;
+  svg.innerHTML = items.map(([k, v, col], i) => {
+    const y = 6 + i * (bh + gap), w = Math.max(2, (W - left - right) * v / max);
+    return `<text x="${left - 8}" y="${y + bh * .72}" text-anchor="end" font-size="13" fill="${css('--fg')}">${esc(k)}</text>
+      <rect x="${left}" y="${y}" width="${w}" height="${bh}" rx="4" fill="${col}"/>
+      <text x="${left + w + 6}" y="${y + bh * .72}" font-size="12" fill="${css('--muted')}" style="font-variant-numeric:tabular-nums">${v}</text>`;
+  }).join("");
 }
-function drawFlow(){
-  const svg=document.getElementById("flow");const hrs=[6,8,10,12,14,16,18,20],v=[40,120,260,310,220,280,190,90];
-  const W=280,H=170,l=30,r=10,t=10,b=24,mx=320;const X=i=>l+i*(W-l-r)/(v.length-1),Y=y=>t+(H-t-b)*(1-y/mx);
-  let grid="";[0,100,200,300].forEach(g=>{grid+=`<line x1="${l}" x2="${W-r}" y1="${Y(g)}" y2="${Y(g)}" stroke="${css('--line')}"/><text x="${l-5}" y="${Y(g)+4}" text-anchor="end" font-size="10" fill="${css('--muted')}">${g}</text>`});
-  const pts=v.map((y,i)=>`${X(i)},${Y(y)}`).join(" ");
-  svg.innerHTML=grid+`<polygon points="${X(0)},${Y(0)} ${pts} ${X(v.length-1)},${Y(0)}" fill="${css('--indigo')}" opacity=".15"/>
+function drawHot() {
+  const items = Object.entries(hot).sort((a, b) => b[1] - a[1]).slice(0, 7)
+    .map(([k, v], i) => [k, v, k === "未覆盖" ? css("--warn") : i === 0 ? css("--indigo") : css("--paddy")]);
+  hbars($("hot"), items, 560, { bh: 22, gap: 9 });
+}
+function drawFlow() {
+  const svg = $("flow"), hrs = [6, 8, 10, 12, 14, 16, 18, 20], v = [40, 120, 260, 310, 220, 280, 190, 90];
+  const W = 280, H = 170, l = 30, r = 10, t = 14, b = 24, mx = 320, X = i => l + i * (W - l - r) / (v.length - 1), Y = y => t + (H - t - b) * (1 - y / mx);
+  let grid = ""; [0, 100, 200, 300].forEach(g => { grid += `<line x1="${l}" x2="${W - r}" y1="${Y(g)}" y2="${Y(g)}" stroke="${css('--line')}"/><text x="${l - 5}" y="${Y(g) + 4}" text-anchor="end" font-size="10" fill="${css('--muted')}">${g}</text>` });
+  const pts = v.map((y, i) => `${X(i)},${Y(y)}`).join(" ");
+  svg.innerHTML = grid + `<polygon points="${X(0)},${Y(0)} ${pts} ${X(v.length - 1)},${Y(0)}" fill="${css('--indigo')}" opacity=".15"/>
    <polyline points="${pts}" fill="none" stroke="${css('--indigo')}" stroke-width="2.5"/>
-   <circle cx="${X(3)}" cy="${Y(310)}" r="4" fill="${css('--amber')}"/><text x="${X(3)}" y="${Y(310)-8}" text-anchor="middle" font-size="10" fill="${css('--fg')}">午间高峰</text>`+
-   hrs.map((h,i)=>`<text x="${X(i)}" y="${H-8}" text-anchor="middle" font-size="10" fill="${css('--muted')}">${h}时</text>`).join("");
+   <circle cx="${X(3)}" cy="${Y(310)}" r="4" fill="${css('--amber')}"/><text x="${X(3)}" y="${Y(310) - 7}" text-anchor="middle" font-size="10" fill="${css('--fg')}">午间高峰</text>` +
+    hrs.map((h, i) => `<text x="${X(i)}" y="${H - 8}" text-anchor="middle" font-size="10" fill="${css('--muted')}">${h}时</text>`).join("");
 }
-function drawSpots(){
-  const svg=document.getElementById("spots");const s=[["千年古樟",92,"拥挤"],["云上梯田",78,"较忙"],["李氏宗祠",41,"舒适"],["竹编工坊",33,"舒适"],["溪畔步道",22,"空闲"]];
-  const col={拥挤:"#c0453a",较忙:css('--amber'),舒适:css('--paddy'),空闲:css('--indigo')};
-  svg.innerHTML=s.map(([n,v,st],i)=>{const y=8+i*31;return `<text x="0" y="${y+13}" font-size="12" fill="${css('--fg')}">${n}</text>
-   <rect x="70" y="${y+2}" width="150" height="14" rx="7" fill="${css('--line')}"/><rect x="70" y="${y+2}" width="${150*v/100}" height="14" rx="7" fill="${col[st]}"/>
-   <text x="228" y="${y+13}" font-size="11" fill="${col[st]}">${st}</text>`}).join("")+
-   `<text x="0" y="166" font-size="11" fill="${css('--muted')}">建议：引导古樟游客先去竹编工坊</text>`;
+function drawSpots() {
+  const s = [["千年古樟", 92, "拥挤"], ["云上梯田", 78, "较忙"], ["李氏宗祠", 41, "舒适"], ["竹编工坊", 33, "舒适"], ["溪畔步道", 22, "空闲"]];
+  const col = { 拥挤: css('--warn'), 较忙: css('--amber'), 舒适: css('--paddy'), 空闲: css('--indigo') };
+  $("spots").innerHTML = s.map(([n, v, st], i) => { const y = 8 + i * 31; return `<text x="0" y="${y + 13}" font-size="12" fill="${css('--fg')}">${n}</text>
+   <rect x="70" y="${y + 2}" width="150" height="14" rx="7" fill="${css('--line')}"/><rect x="70" y="${y + 2}" width="${150 * v / 100}" height="14" rx="7" fill="${col[st]}"/>
+   <text x="228" y="${y + 13}" font-size="11" fill="${col[st]}">${st}</text>` }).join("") +
+    `<text x="0" y="166" font-size="11" fill="${css('--muted')}">建议：古樟游客多时，引导先去竹编工坊</text>`;
 }
-let k1=1286,k2=214;
-function bumpKpi(){k1++;if(Math.random()<.3)k2++;document.getElementById("k1").textContent=k1.toLocaleString();document.getElementById("k2").textContent=k2}
+let k1 = 1286;
+function updateKpi() {
+  $("k1").textContent = (k1 + stats.asked).toLocaleString();
+  if (stats.asked) { $("k2").textContent = Math.round(stats.answered / stats.asked * 100) + "%"; $("k2d").textContent = `本场 ${stats.asked} 问，答出 ${stats.answered} 问` }
+}
+
+/* ---------- 村委知识库 ---------- */
+const CATS = ["景点", "非遗", "美食", "特产", "住宿", "路线", "交通", "时节", "活动", "亲子", "服务", "概况"];
+function renderKB() {
+  $("kbSize").textContent = engine.size();
+  const counts = {}; engine.kb.forEach(e => counts[e.cat] = (counts[e.cat] || 0) + 1);
+  $("kbCats").textContent = Object.keys(counts).length;
+  const items = Object.entries(counts).sort((a, b) => b[1] - a[1]);
+  const W = 560, n = items.length, bw = (W - 20) / n;
+  const max = Math.max(...items.map(x => x[1]));
+  $("catChart").innerHTML = items.map(([k, v], i) => {
+    const h = 96 * v / max, x = 10 + i * bw;
+    return `<rect x="${x + bw * .18}" y="${112 - h}" width="${bw * .64}" height="${h}" rx="3" fill="${css('--paddy')}" opacity=".85"/>
+      <text x="${x + bw / 2}" y="${108 - h}" text-anchor="middle" font-size="11" fill="${css('--muted')}">${v}</text>
+      <text x="${x + bw / 2}" y="130" text-anchor="middle" font-size="12" fill="${css('--fg')}">${esc(k)}</text>`;
+  }).join("");
+}
+function renderPending() {
+  const box = $("pending"); $("kbPend").textContent = pending.length;
+  const dot = $("pendDot"); const fresh = pending.filter(p => !p.sample).length;
+  dot.hidden = !fresh; dot.textContent = fresh;
+  if (!pending.length) { box.innerHTML = `<div class="empty">暂时没有待补充的问题。游客问到知识库里没有的内容时，会自动出现在这里。</div>`; return }
+  box.innerHTML = pending.map((p, i) => `<div class="pitem" data-i="${i}">
+    <div class="row"><span class="qtext">“${esc(p.q)}”</span><button class="btn sm" type="button" data-act="open">补充答案</button></div>
+    <span class="meta">${p.when} · 被问 ${p.n} 次${p.sample ? " · 示例记录" : ""}</span>
+    <form class="pform" hidden>
+      <label for="cat-${i}">类别</label><select id="cat-${i}">${CATS.map(c => `<option${c === "服务" ? " selected" : ""}>${c}</option>`).join("")}</select>
+      <label for="key-${i}">关键词</label><input class="inp" id="key-${i}" value="${esc(guessKeys(p.q))}" placeholder="用空格分开，如：充电桩 充电">
+      <label for="ans-${i}">村长的回答</label><textarea id="ans-${i}" placeholder="用村长的口吻写一两句"></textarea>
+      <span></span><div style="display:flex;gap:8px"><button class="btn alt sm" type="submit">加入知识库</button><button class="btn ghost sm" type="button" data-act="close">取消</button></div>
+    </form></div>`).join("");
+}
+function guessKeys(q) {
+  return q.replace(/[？?！!。，,]/g, "").replace(/^(请问|村里|这里|这边|你们|可以|能不能|能)/, "").replace(/(吗|呢|没有|有没有|在哪里|在哪|怎么办)$/g, "")
+    .replace(/^有/, "").replace(/有$/, "").trim();
+}
+$("pending").addEventListener("click", e => {
+  const it = e.target.closest(".pitem"); if (!it) return;
+  const f = it.querySelector("form");
+  if (e.target.dataset.act === "open") { f.hidden = false; f.querySelector("textarea").focus() }
+  if (e.target.dataset.act === "close") f.hidden = true;
+});
+$("pending").addEventListener("submit", e => {
+  e.preventDefault();
+  const it = e.target.closest(".pitem"), i = +it.dataset.i, p = pending[i];
+  const a = it.querySelector("textarea").value.trim(), keys = it.querySelector("input").value.split(/[\s,，、]+/).filter(Boolean);
+  if (!a) { toast("先写上村长的回答再保存"); return }
+  if (!keys.length) { toast("至少填一个关键词，方便游客换个说法也能问到"); return }
+  const d = new Date();
+  engine.add({ id: "u" + Date.now(), cat: it.querySelector("select").value, title: p.q, keys, qs: [p.q], a, src: `村委会补充 · ${d.getMonth() + 1}月${d.getDate()}日` });
+  addedList.unshift(p.q); pending.splice(i, 1);
+  $("addedWrap").hidden = false; $("added").innerHTML = addedList.map(q => `<div>“${esc(q)}”</div>`).join("");
+  renderPending(); renderKB();
+  $("offlineText").textContent = `本地知识库已更新，共 ${engine.size()} 条，离线可用`;
+  toast("已加入知识库，回到聊天再问一次试试");
+});
 
 /* ---------- 标签页 ---------- */
-document.querySelectorAll(".tab").forEach(t=>t.addEventListener("click",()=>{
-  document.querySelectorAll(".tab").forEach(x=>x.setAttribute("aria-selected",x===t));
-  ["chat","see","card","ops"].forEach(p=>document.getElementById("p-"+p).hidden=p!==t.dataset.t);
-  if(t.dataset.t==="card")drawCard();
-  if(t.dataset.t==="ops"){drawHot();drawFlow();drawSpots()}
-}));
-matchMedia("(prefers-color-scheme:dark)").addEventListener?.("change",()=>{drawHot();drawFlow();drawSpots()});
+const PANES = ["chat", "see", "card", "ops", "kb"];
+function show(t) {
+  document.querySelectorAll(".tab").forEach(x => x.setAttribute("aria-selected", x.dataset.t === t));
+  PANES.forEach(p => $("p-" + p).hidden = p !== t);
+  if (t === "card") drawCard();
+  if (t === "ops") { drawHot(); drawFlow(); drawSpots(); updateKpi() }
+  if (t === "kb") { renderKB(); renderPending() }
+}
+document.querySelectorAll(".tab").forEach(t => t.addEventListener("click", () => show(t.dataset.t)));
+try { matchMedia("(prefers-color-scheme:dark)").addEventListener("change", () => { drawHot(); drawFlow(); drawSpots(); renderKB() }) } catch (e) {}
 
 /* ---------- 开场 ---------- */
-const hello="乡亲们好，远方的朋友好！我是云溪村的李村长。想知道村里哪儿好玩、吃啥住啥，尽管问我；拍到什么不认识的，也可以给我看看。";
-bubble.textContent=hello;addMsg(hello,"c","开场白");
-if(document.fonts&&document.fonts.ready)document.fonts.ready.then(()=>{if(!document.getElementById("p-card").hidden)drawCard()});
+const hello = "乡亲们好，远方的朋友好！我是云溪村的李村长。想知道村里哪儿好玩、吃啥住啥，尽管问我；拍到什么不认识的，也可以给我看看。";
+bubble.textContent = hello; addMsg(hello, "c");
+$("offlineText").textContent = `本地知识库已加载，共 ${engine.size()} 条，离线可用`;
+renderPending();
+if (document.fonts && document.fonts.ready) document.fonts.ready.then(() => { if (!$("p-card").hidden) drawCard() });
 </script>
 </body>
 </html>
