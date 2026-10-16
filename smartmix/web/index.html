@@ -569,9 +569,14 @@ $('#field-send').onclick = async ()=>{
 $('#go').onclick = async ()=>{
   const b=$('#go'); b.disabled=true; b.textContent='正在计算…';
   try{
+    // 先秒出性能需求（第 1 步），推荐计算在后台进行
+    const q = await api('/api/v1/requirements', scenario());
+    renderReq(q); tab('req'); status('已生成性能需求，正在搜索候选方案…', 0);
     const r = await api('/api/v1/recommend',{scenario:scenario(),top_k:5,explain:true});
-    LAST=r; renderReq(r.requirements); renderRec(r); tab('rec');
-    if(r.candidates.length) CUR=r.candidates[0], showDetail(r.candidates[0]), tab('rec');
+    LAST=r; renderReq(r.requirements); renderRec(r);
+    if(r.candidates.length) CUR=r.candidates[0], showDetail(r.candidates[0]);
+    tab('req');
+    status(`已生成 ${r.candidates.length} 个推荐方案，见「2 推荐方案与对比」`, 4000);
   }catch(e){ status('计算失败：'+e.message.slice(0,140),6000); }
   finally{ b.disabled=false; b.textContent='生成材料方案'; }
 };
