@@ -1,0 +1,60 @@
+{
+  "_meta": {
+    "说明": "沥青混合料材料知识底座（原型版）。数值为依据规范与公开文献整理的典型范围/示意参数，用于概念验证，正式应用时应替换为企业实测与采购数据。",
+    "参考": ["JTG F40-2004 公路沥青路面施工技术规范", "JTG 5142-2019 公路沥青路面养护技术规范", "AASHTO M320 / M332 PG分级", "JTG E20-2011 公路工程沥青及沥青混合料试验规程"],
+    "版本": "0.1.0"
+  },
+  "base_binders": {
+    "50#":  {"name": "50#基质沥青",  "pen": 50,  "pg_high": 70.5, "pg_low": -17.0, "price": 3950, "carbon": 300, "mix_temp": [155, 165]},
+    "70#":  {"name": "70#基质沥青",  "pen": 70,  "pg_high": 65.5, "pg_low": -23.0, "price": 3800, "carbon": 300, "mix_temp": [150, 160]},
+    "90#":  {"name": "90#基质沥青",  "pen": 90,  "pg_high": 60.5, "pg_low": -26.5, "price": 3750, "carbon": 300, "mix_temp": [145, 155]},
+    "110#": {"name": "110#基质沥青", "pen": 110, "pg_high": 55.5, "pg_low": -30.0, "price": 3700, "carbon": 300, "mix_temp": [140, 150]}
+  },
+  "modifiers": {
+    "none": {"name": "无改性", "doses": [0], "unit": "%", "bases": ["50#", "70#", "90#", "110#"],
+             "d_high_per_dose": 0.0, "d_low_per_dose": 0.0, "price": 0, "carbon": 0, "mix_temp_add": 0},
+    "SBS":  {"name": "SBS改性", "doses": [3.5, 4.5, 5.5], "unit": "% 占沥青质量", "bases": ["70#", "90#", "110#"],
+             "d_high_per_dose": 2.6, "d_low_per_dose": -1.1, "price": 22000, "carbon": 3200, "mix_temp_add": 20,
+             "note": "高温抗车辙与低温抗裂兼顾，应用最广"},
+    "CR":   {"name": "橡胶粉改性（橡胶沥青）", "doses": [15, 18, 21], "unit": "% 占沥青质量", "bases": ["70#", "90#"],
+             "d_high_per_dose": 0.55, "d_low_per_dose": -0.35, "price": 2800, "carbon": 120, "mix_temp_add": 25,
+             "note": "抗疲劳、抗反射裂缝、降噪，消纳废旧轮胎"},
+    "HVA":  {"name": "高粘高弹改性", "doses": [8, 10, 12], "unit": "% 高粘剂占沥青质量", "bases": ["70#"],
+             "d_high_per_dose": 1.8, "d_low_per_dose": -0.7, "price": 16000, "carbon": 2600, "mix_temp_add": 25,
+             "note": "排水路面（OGFC）与桥面铺装首选，60℃动力粘度高"}
+  },
+  "gradations": {
+    "AC-10":    {"family": "AC",   "kind": "dense",    "nmas": 9.5,  "design_voids": 4.0,  "oac": 5.5, "thickness": [2.0, 3.0], "layers": ["上面层"],          "td": 0.50, "agg_price": 165, "fiber": 0,   "note": "薄层罩面"},
+    "AC-13":    {"family": "AC",   "kind": "dense",    "nmas": 13.2, "design_voids": 4.0,  "oac": 5.1, "thickness": [3.5, 5.0], "layers": ["上面层"],          "td": 0.60, "agg_price": 160, "fiber": 0,   "note": "上面层常用密级配"},
+    "AC-16":    {"family": "AC",   "kind": "dense",    "nmas": 16.0, "design_voids": 4.0,  "oac": 4.8, "thickness": [4.5, 6.0], "layers": ["上面层", "中面层"], "td": 0.65, "agg_price": 150, "fiber": 0,   "note": ""},
+    "AC-20":    {"family": "AC",   "kind": "dense",    "nmas": 19.0, "design_voids": 4.5,  "oac": 4.4, "thickness": [5.0, 8.0], "layers": ["中面层", "下面层"], "td": 0.70, "agg_price": 130, "fiber": 0,   "note": "中面层常用，抗车辙关键层"},
+    "AC-25":    {"family": "AC",   "kind": "dense",    "nmas": 26.5, "design_voids": 4.5,  "oac": 4.0, "thickness": [7.0, 10.0], "layers": ["下面层"],         "td": 0.70, "agg_price": 120, "fiber": 0,   "note": ""},
+    "SMA-10":   {"family": "SMA",  "kind": "gap",      "nmas": 9.5,  "design_voids": 3.5,  "oac": 6.3, "thickness": [2.5, 3.5], "layers": ["上面层"],          "td": 0.80, "agg_price": 210, "fiber": 0.3, "note": "薄层磨耗层"},
+    "SMA-13":   {"family": "SMA",  "kind": "gap",      "nmas": 13.2, "design_voids": 3.5,  "oac": 6.1, "thickness": [3.5, 5.0], "layers": ["上面层"],          "td": 0.95, "agg_price": 205, "fiber": 0.3, "note": "骨架密实，抗车辙、抗滑、耐久"},
+    "OGFC-13":  {"family": "OGFC", "kind": "open",     "nmas": 13.2, "design_voids": 20.0, "oac": 4.9, "thickness": [3.5, 5.0], "layers": ["上面层"],          "td": 1.40, "agg_price": 215, "fiber": 0.3, "note": "排水降噪，需高粘改性沥青", "requires_modifier": ["HVA"]},
+    "SUP-12.5": {"family": "SUP",  "kind": "dense",    "nmas": 12.5, "design_voids": 4.0,  "oac": 5.0, "thickness": [4.0, 5.0], "layers": ["上面层", "中面层"], "td": 0.62, "agg_price": 165, "fiber": 0,   "note": "Superpave体积设计"}
+  },
+  "additives": {
+    "anti_strip": {"name": "抗剥落剂", "dose": "0.3% 占沥青质量", "price_per_t_mix": 6,  "carbon_per_t_mix": 0.4, "note": "提升沥青-集料粘附性与水稳定性，酸性/花岗岩集料尤其需要"},
+    "anti_rut":   {"name": "抗车辙剂", "dose": "0.4% 占混合料质量", "price_per_t_mix": 48, "carbon_per_t_mix": 9.0, "note": "显著提高动稳定度，对低温性能略有不利"},
+    "warm_mix":   {"name": "温拌剂",   "dose": "0.5% 占沥青质量", "price_per_t_mix": 9,  "carbon_per_t_mix": 0.6, "mix_temp_drop": 25, "note": "降低拌和压实温度20-30℃，节能减排，延长低温施工窗口"},
+    "rap":        {"name": "RAP回收料+再生剂", "levels": [0, 20, 30], "note": "降低成本与碳排，掺量越高低温与疲劳风险越大，仅用于密级配", "families": ["AC", "SUP"]},
+    "fiber":      {"name": "木质素纤维", "price_per_t_mix": 8, "carbon_per_t_mix": 1.5, "note": "SMA/OGFC必加，防止析漏"}
+  },
+  "process": {
+    "plant_energy_carbon": 25.0,
+    "aggregate_carbon": 4.0,
+    "production_cost": 85,
+    "rap_price_saving_per_pct": 0.85,
+    "compaction_default": 98.0,
+    "compaction_range": [96.0, 99.5]
+  },
+  "performance_indicators": {
+    "ds":      {"name": "动稳定度",         "unit": "次/mm", "test": "60℃车辙试验 (T0719)",           "group": "高温抗车辙"},
+    "eps":     {"name": "低温弯曲破坏应变", "unit": "με",    "test": "-10℃小梁弯曲 (T0715)",          "group": "低温抗裂"},
+    "tsr":     {"name": "冻融劈裂强度比",   "unit": "%",     "test": "冻融劈裂 (T0729)",               "group": "水稳定性"},
+    "fatigue": {"name": "疲劳寿命 lgNf",    "unit": "lg次",  "test": "四点弯曲 15℃/10Hz/600με (T0739)", "group": "抗疲劳"},
+    "modulus": {"name": "动态模量 |E*|",    "unit": "MPa",   "test": "20℃/10Hz 单轴压缩 (T0738)",      "group": "结构承载"},
+    "td":      {"name": "构造深度",         "unit": "mm",    "test": "铺砂法 (T0961)",                 "group": "抗滑"}
+  }
+}

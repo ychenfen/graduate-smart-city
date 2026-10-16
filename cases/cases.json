@@ -1,0 +1,29 @@
+{
+  "_meta": {
+    "说明": "典型养护场景验证案例。expert 为依据规范与行业常见做法整理的“传统经验选型”方案，作为对比基准；正式参赛前建议请企业材料工程师复核。",
+    "数据": "场景气候参数为示例取值；性能数据来自模拟数据训练的模型，非实测。"
+  },
+  "cases": [
+    {"id": "C1", "preset": "hainan_heavy_rut",
+     "expert": {"base": "70#", "modifier": "SBS", "dose": 4.5, "gradation": "SMA-13", "anti_strip": 1},
+     "expert_note": "南方高温重载上面层车辙处治常用：SBS改性 SMA-13 + 抗剥落剂"},
+    {"id": "C2", "preset": "harbin_thermal_crack",
+     "expert": {"base": "90#", "modifier": "SBS", "dose": 4.5, "gradation": "AC-13", "anti_strip": 1},
+     "expert_note": "东北寒区常用：90#基质 SBS 改性 AC-13"},
+    {"id": "C3", "preset": "wuhan_water_damage",
+     "expert": {"base": "70#", "modifier": "SBS", "dose": 4.5, "gradation": "AC-20", "anti_strip": 1},
+     "expert_note": "多雨区中面层水损害修复：SBS改性 AC-20 + 抗剥落剂"},
+    {"id": "C4", "preset": "expressway_skid_noise",
+     "expert": {"base": "70#", "modifier": "HVA", "dose": 10, "gradation": "OGFC-13", "anti_strip": 1},
+     "expert_note": "排水降噪罩面：高粘高弹改性 OGFC-13"},
+    {"id": "C5", "preset": "northwest_reflective",
+     "expert": {"base": "70#", "modifier": "CR", "dose": 18, "gradation": "AC-13"},
+     "expert_note": "半刚性基层反射裂缝：橡胶沥青 AC-13（配合应力吸收层）"},
+    {"id": "C6", "preset": "intersection_extreme",
+     "expert": {"base": "70#", "modifier": "SBS", "dose": 4.5, "gradation": "AC-20", "anti_rut": 1},
+     "expert_note": "交叉口重载中面层：SBS改性 AC-20 + 抗车辙剂"},
+    {"id": "C7", "preset": "rural_low_carbon",
+     "expert": {"base": "70#", "modifier": "none", "dose": 0, "gradation": "AC-13", "rap": 20, "warm_mix": 1},
+     "expert_note": "低等级道路经济型：70#基质 AC-13 + 厂拌热再生 RAP20% + 温拌"}
+  ]
+}
