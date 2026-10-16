@@ -13,6 +13,17 @@
 
 ![推荐方案与对比](docs/img/02_推荐方案与对比.png)
 
+## 参赛文档（在线版，可编辑、可导出 Word/PDF）
+
+| 文档 | 对应模板 | 链接 |
+|---|---|---|
+| 项目说明书 | 附件 2 | [打开](https://claude.ai/code/artifact/18b4e745-2b46-4fc5-94d8-415b5b97967b) |
+| 商业计划书 | 附件 3（可选） | [打开](https://claude.ai/code/artifact/eb5ba4de-4187-489d-bd51-530f3b021287) |
+| 项目简表 | 附件 1 | [打开](https://claude.ai/code/artifact/c0b99681-2e52-4266-a74b-c6c18b458201) |
+| 答辩演示（14 页，含讲稿） | 决赛 8–15 分钟 | [打开](https://claude.ai/artifact/JT7d6sqDy5e74x9X4Qngn6) |
+
+链接默认仅作者可见，需在页面 Share 菜单中分享给队友。`docs/` 下的 Markdown 为早期草稿，以在线版为准。
+
 ## 快速开始
 
 ```bash
