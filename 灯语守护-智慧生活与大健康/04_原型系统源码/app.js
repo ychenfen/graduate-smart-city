@@ -360,7 +360,7 @@
     var m = h.mon.model, d0 = Math.floor(k / SPD) * SPD, ev = [];
     if (!m) return ev;
     var wake = -1;
-    for (var s = 16; s <= k - d0; s++) if (h.mon.isAct(d0 + s)) { var c2 = 0; for (var j = 1; j <= 6; j++) if (d0 + s + j <= k && h.mon.isAct(d0 + s + j)) c2++; if (c2 >= 2) { wake = s; break; } }
+    for (var s = 16; s <= k - d0; s++) if (h.mon.isAct(d0 + s)) { var c2 = 0; for (var j = 1; j <= 8; j++) if (d0 + s + j <= k && h.mon.isAct(d0 + s + j)) c2++; if (c2 >= 1) { wake = s; break; } }
     if (wake >= 0) ev.push([wake, '起床了（开灯、用水）']);
     [[24, 40, '做了早饭'], [43, 54, '做了午饭'], [66, 80, '做了晚饭']].forEach(function (w) {
       for (var s2 = w[0]; s2 < w[1] && d0 + s2 <= k; s2++) if (h.P[d0 + s2] - m.bg > 0.5) { ev.push([s2, w[2]]); break; }

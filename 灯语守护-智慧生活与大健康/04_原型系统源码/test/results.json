@@ -16,8 +16,8 @@
       "n": 30,
       "recall": 1,
       "recallRed": 1,
-      "medianDelayH": 3.1416666666666666,
-      "p90DelayH": 4.816666666666669,
+      "medianDelayH": 3.0416666666666665,
+      "p90DelayH": 4.741666666666668,
       "medianRedDelayH": 3.3083333333333336,
       "medianAfterUsualWakeH": -2.3504535180292807
     },
@@ -25,11 +25,11 @@
       "name": "睡梦中突发疾病（未起床）",
       "n": 25,
       "recall": 1,
-      "recallRed": 0.96,
-      "medianDelayH": 7.966666666666667,
-      "p90DelayH": 9.383333333333333,
-      "medianRedDelayH": 9.425,
-      "medianAfterUsualWakeH": 2.1453319222700276
+      "recallRed": 1,
+      "medianDelayH": 7.35,
+      "p90DelayH": 8.906666666666668,
+      "medianRedDelayH": 8.85,
+      "medianAfterUsualWakeH": 1.5242209597818146
     },
     "fall_bath": {
       "name": "洗澡时跌倒",
@@ -70,37 +70,37 @@
     "drift": {
       "name": "作息持续偏离",
       "n": 12,
-      "recall": 0.4166666666666667,
+      "recall": 0.75,
       "recallRed": 0,
-      "medianDelayH": 432,
-      "p90DelayH": 609.6,
+      "medianDelayH": 480,
+      "p90DelayH": 600,
       "medianRedDelayH": null
     }
   },
   "fa": {
     "redPerHouseMonth": 0.06774193548387097,
-    "yellowPerHouseMonth": 0.967741935483871,
+    "yellowPerHouseMonth": 1.1661290322580646,
     "bluePerHouseMonth": 0.15483870967741936,
     "redCount": 14,
-    "yellowCount": 200,
+    "yellowCount": 241,
     "blueCount": 32,
     "redOnUnreportedAway": 5,
     "yellowOnUnreportedAway": 59
   },
-  "avgStepMs": 0.006796296296296296,
+  "avgStepMs": 0.006690972222222222,
   "danger": {
     "n": 163,
     "recall": 1,
-    "recallRed": 0.9815950920245399,
+    "recallRed": 0.9877300613496932,
     "medianDelayH": 1.15,
-    "p90DelayH": 7.8533333333333335,
-    "medianRedDelayH": 1.125
+    "p90DelayH": 7.166666666666667,
+    "medianRedDelayH": 1.1333333333333333
   },
   "care": {
     "n": 25,
-    "recall": 0.56
+    "recall": 0.72
   },
-  "wallMs": 6669,
+  "wallMs": 6613,
   "split": "留出测试集：种子 1001–1100（100 户），每户 90 天，前 28 天学习期，后 62 天评测",
   "callAssumption": {
     "atHome": 0.85,
@@ -132,14 +132,14 @@
     {
       "seed": 1002,
       "type": "fall_night",
-      "delayH": 2.8,
+      "delayH": 3.05,
       "title": "晨起未见活动",
       "level": "yellow"
     },
     {
       "seed": 1003,
       "type": "fall_night",
-      "delayH": 6.02,
+      "delayH": 5.27,
       "title": "晨起未见活动",
       "level": "yellow"
     },
@@ -165,6 +165,13 @@
       "level": "red"
     },
     {
+      "seed": 1005,
+      "type": "drift",
+      "delayH": 480,
+      "title": "作息持续偏离",
+      "level": "yellow"
+    },
+    {
       "seed": 1006,
       "type": "never_wake",
       "delayH": 9.7,
@@ -188,7 +195,7 @@
     {
       "seed": 1007,
       "type": "never_wake",
-      "delayH": 7.88,
+      "delayH": 7.63,
       "title": "晨起未见活动",
       "level": "yellow"
     },
@@ -261,6 +268,13 @@
       "delayH": 0.7,
       "title": "持续用水且无人操作（疑似浴室跌倒）",
       "level": "red"
+    },
+    {
+      "seed": 1013,
+      "type": "drift",
+      "delayH": 408,
+      "title": "作息持续偏离",
+      "level": "yellow"
     },
     {
       "seed": 1014,
@@ -342,7 +356,7 @@
     {
       "seed": 1019,
       "type": "never_wake",
-      "delayH": 8.92,
+      "delayH": 7.17,
       "title": "晨起未见活动",
       "level": "yellow"
     },
@@ -363,7 +377,7 @@
     {
       "seed": 1021,
       "type": "drift",
-      "delayH": 312,
+      "delayH": 384,
       "title": "作息持续偏离",
       "level": "yellow"
     },
@@ -373,20 +387,6 @@
       "delayH": 9.25,
       "title": "长时间无活动",
       "level": "yellow"
-    },
-    {
-      "seed": 1022,
-      "type": "tap_on",
-      "delayH": 0.68,
-      "title": "持续用水且无人操作（疑似浴室跌倒）",
-      "level": "red"
-    },
-    {
-      "seed": 1023,
-      "type": "tap_on",
-      "delayH": 0.75,
-      "title": "持续用水且无人操作（疑似浴室跌倒）",
-      "level": "red"
     }
   ]
 }

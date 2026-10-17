@@ -40,6 +40,7 @@
     silMin: 8,             // 最短静默阈值 2 小时
     silMax: 64,            // 最长 16 小时
     escalate: 6,           // 关注 → 紧急 再等 90 分钟
+    wakePad: 4,            // 晨起未见活动：平时 95% 起床时刻再等 60 分钟
     plateauFactor: 0.8,    // 有电器一直开着时阈值打折
     oddFactor: 0.5,        // 开着的负载明显高于该时段平时的静默水平（如半夜灯一直亮）→ 阈值减半
     oddMin: 6,             // 但至少 90 分钟
@@ -95,8 +96,8 @@
         var a = act(k);
         if (a && s >= 20 && s < 92) cnt++;
         if (wake < 0 && s >= 16 && a) {
-          var c2 = 0; for (var j = 1; j <= 6; j++) if (act(k + j)) c2++;
-          if (c2 >= 2) wake = s;
+          var c2 = 0; for (var j = 1; j <= 8; j++) if (act(k + j)) c2++;
+          if (c2 >= 1) wake = s;   // 起床：此后 2 小时内还有别的动静（区别于起夜）
         }
       }
       var nc = 0; for (var s2 = opt.nightFrom; s2 < opt.nightTo; s2++) if (act(k0 + s2)) nc++;
@@ -268,9 +269,9 @@
       var lastSlot = this.lastAct % SPD;
       var startedAtNight = lastSlot >= 80 || lastSlot < 16;
       var wq = m.wake.q95;
-      // 夜里开始的安静：最晚在“平时 95% 的起床时刻 + 45 分钟”还没动静就报
+      // 夜里开始的安静：最晚在“平时 95% 的起床时刻 + 60 分钟”还没动静就报
       if (startedAtNight && isFinite(wq)) {
-        var target = Math.ceil(wq) + 3;
+        var target = Math.ceil(wq) + opt.wakePad;
         var need = lastSlot >= 80 ? SPD - lastSlot + target : target - lastSlot;
         if (need >= 4) effThr = Math.min(effThr, need);
       }
@@ -345,7 +346,7 @@
     for (var s = 0; s < SPD; s++) {
       var a = this.isAct(k0 + s);
       if (a && s >= 20 && s < 92) cnt++;
-      if (wake < 0 && s >= 16 && a) { var c2 = 0; for (var j = 1; j <= 6; j++) if (this.isAct(k0 + s + j)) c2++; if (c2 >= 2) wake = s; }
+      if (wake < 0 && s >= 16 && a) { var c2 = 0; for (var j = 1; j <= 8; j++) if (this.isAct(k0 + s + j)) c2++; if (c2 >= 1) wake = s; }
     }
     var awayDay = false; for (var s3 = 24; s3 < 88; s3 += 8) if (this.isReportedAway(k0 + s3)) awayDay = true;
     this.daily.push({ d: d, act: cnt, wake: wake, away: awayDay });

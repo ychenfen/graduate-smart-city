@@ -3,12 +3,12 @@
     "key": "full",
     "name": "完整方法（水电联合 + 个人基线 + 情境判断 + 自动外呼）",
     "dangerRecall": 1,
-    "dangerRecallRed": 0.9815950920245399,
+    "dangerRecallRed": 0.9877300613496932,
     "dangerMedianDelayH": 1.15,
-    "dangerP90DelayH": 7.8533333333333335,
-    "careRecall": 0.56,
+    "dangerP90DelayH": 7.166666666666667,
+    "careRecall": 0.72,
     "redFA": 0.06774193548387097,
-    "yellowFA": 0.967741935483871,
+    "yellowFA": 1.1661290322580646,
     "perType": {
       "fall_day": {
         "recall": 1,
@@ -16,11 +16,11 @@
       },
       "fall_night": {
         "recall": 1,
-        "medianDelayH": 3.1416666666666666
+        "medianDelayH": 3.0416666666666665
       },
       "never_wake": {
         "recall": 1,
-        "medianDelayH": 7.966666666666667
+        "medianDelayH": 7.35
       },
       "fall_bath": {
         "recall": 1,
@@ -39,8 +39,8 @@
         "medianDelayH": 29
       },
       "drift": {
-        "recall": 0.4166666666666667,
-        "medianDelayH": 432
+        "recall": 0.75,
+        "medianDelayH": 480
       }
     }
   },
@@ -48,12 +48,12 @@
     "key": "noCall",
     "name": "去掉自动外呼确认",
     "dangerRecall": 1,
-    "dangerRecallRed": 0.9815950920245399,
+    "dangerRecallRed": 0.9877300613496932,
     "dangerMedianDelayH": 1.15,
-    "dangerP90DelayH": 7.8533333333333335,
-    "careRecall": 0.56,
+    "dangerP90DelayH": 7.166666666666667,
+    "careRecall": 0.72,
     "redFA": 0.15483870967741936,
-    "yellowFA": 0.7790322580645161,
+    "yellowFA": 0.9822580645161291,
     "perType": {
       "fall_day": {
         "recall": 1,
@@ -61,11 +61,11 @@
       },
       "fall_night": {
         "recall": 1,
-        "medianDelayH": 3.1416666666666666
+        "medianDelayH": 3.0416666666666665
       },
       "never_wake": {
         "recall": 1,
-        "medianDelayH": 7.966666666666667
+        "medianDelayH": 7.35
       },
       "fall_bath": {
         "recall": 1,
@@ -84,8 +84,8 @@
         "medianDelayH": 29
       },
       "drift": {
-        "recall": 0.4166666666666667,
-        "medianDelayH": 432
+        "recall": 0.75,
+        "medianDelayH": 480
       }
     }
   },
@@ -93,12 +93,12 @@
     "key": "noContext",
     "name": "去掉情境判断（灯一直亮/只剩冰箱）",
     "dangerRecall": 1,
-    "dangerRecallRed": 0.9754601226993865,
+    "dangerRecallRed": 0.9877300613496932,
     "dangerMedianDelayH": 1.15,
-    "dangerP90DelayH": 8.856666666666667,
-    "careRecall": 0.56,
+    "dangerP90DelayH": 7.986666666666669,
+    "careRecall": 0.72,
     "redFA": 0.03870967741935484,
-    "yellowFA": 0.9774193548387097,
+    "yellowFA": 1.1758064516129032,
     "perType": {
       "fall_day": {
         "recall": 1,
@@ -106,11 +106,11 @@
       },
       "fall_night": {
         "recall": 1,
-        "medianDelayH": 7.541666666666667
+        "medianDelayH": 6.908333333333333
       },
       "never_wake": {
         "recall": 1,
-        "medianDelayH": 8.016666666666667
+        "medianDelayH": 7.366666666666666
       },
       "fall_bath": {
         "recall": 1,
@@ -129,8 +129,8 @@
         "medianDelayH": 29
       },
       "drift": {
-        "recall": 0.4166666666666667,
-        "medianDelayH": 432
+        "recall": 0.75,
+        "medianDelayH": 480
       }
     }
   },
@@ -138,12 +138,12 @@
     "key": "noHourly",
     "name": "去掉分时段静默画像（全天一个阈值）",
     "dangerRecall": 1,
-    "dangerRecallRed": 0.9754601226993865,
+    "dangerRecallRed": 0.9815950920245399,
     "dangerMedianDelayH": 1.15,
-    "dangerP90DelayH": 8.783333333333335,
-    "careRecall": 0.56,
-    "redFA": 0.05322580645161291,
-    "yellowFA": 1.5338709677419355,
+    "dangerP90DelayH": 8.59,
+    "careRecall": 0.72,
+    "redFA": 0.05806451612903226,
+    "yellowFA": 1.7225806451612904,
     "perType": {
       "fall_day": {
         "recall": 1,
@@ -155,7 +155,7 @@
       },
       "never_wake": {
         "recall": 1,
-        "medianDelayH": 7.466666666666667
+        "medianDelayH": 7.133333333333334
       },
       "fall_bath": {
         "recall": 1,
@@ -174,8 +174,8 @@
         "medianDelayH": 29
       },
       "drift": {
-        "recall": 0.4166666666666667,
-        "medianDelayH": 432
+        "recall": 0.75,
+        "medianDelayH": 480
       }
     }
   },
@@ -183,12 +183,12 @@
     "key": "noFlat",
     "name": "去掉“恒定大功率”判据",
     "dangerRecall": 1,
-    "dangerRecallRed": 0.9815950920245399,
+    "dangerRecallRed": 0.9877300613496932,
     "dangerMedianDelayH": 1.2333333333333334,
-    "dangerP90DelayH": 7.8533333333333335,
-    "careRecall": 0.56,
+    "dangerP90DelayH": 7.166666666666667,
+    "careRecall": 0.72,
     "redFA": 0.06774193548387097,
-    "yellowFA": 0.967741935483871,
+    "yellowFA": 1.1661290322580646,
     "perType": {
       "fall_day": {
         "recall": 1,
@@ -196,11 +196,11 @@
       },
       "fall_night": {
         "recall": 1,
-        "medianDelayH": 3.1416666666666666
+        "medianDelayH": 3.0416666666666665
       },
       "never_wake": {
         "recall": 1,
-        "medianDelayH": 7.966666666666667
+        "medianDelayH": 7.35
       },
       "fall_bath": {
         "recall": 1,
@@ -219,33 +219,33 @@
         "medianDelayH": 29
       },
       "drift": {
-        "recall": 0.4166666666666667,
-        "medianDelayH": 432
+        "recall": 0.75,
+        "medianDelayH": 480
       }
     }
   },
   {
     "key": "noPersonal",
     "name": "去掉个人基线（所有人统一阈值）",
-    "dangerRecall": 0.7300613496932515,
-    "dangerRecallRed": 0.6809815950920245,
-    "dangerMedianDelayH": 0.7833333333333333,
-    "dangerP90DelayH": 7.246666666666668,
-    "careRecall": 0.2,
+    "dangerRecall": 0.7239263803680982,
+    "dangerRecallRed": 0.6748466257668712,
+    "dangerMedianDelayH": 0.775,
+    "dangerP90DelayH": 7.121666666666666,
+    "careRecall": 0.24,
     "redFA": 0.7354838709677419,
-    "yellowFA": 1.9645161290322581,
+    "yellowFA": 1.9596774193548387,
     "perType": {
       "fall_day": {
         "recall": 0.48,
         "medianDelayH": 2.925
       },
       "fall_night": {
-        "recall": 0.36666666666666664,
-        "medianDelayH": 5.666666666666667
+        "recall": 0.3333333333333333,
+        "medianDelayH": 4.6
       },
       "never_wake": {
         "recall": 0.52,
-        "medianDelayH": 7.833333333333333
+        "medianDelayH": 7.166666666666667
       },
       "fall_bath": {
         "recall": 1,
@@ -264,8 +264,8 @@
         "medianDelayH": 29
       },
       "drift": {
-        "recall": 0.16666666666666666,
-        "medianDelayH": 444
+        "recall": 0.25,
+        "medianDelayH": 552
       }
     }
   },
@@ -273,12 +273,12 @@
     "key": "elecOnly",
     "name": "只用电表、不用水表",
     "dangerRecall": 0.6380368098159509,
-    "dangerRecallRed": 0.5460122699386503,
+    "dangerRecallRed": 0.558282208588957,
     "dangerMedianDelayH": 6.116666666666667,
-    "dangerP90DelayH": 10.950000000000001,
-    "careRecall": 0.12,
-    "redFA": 1.0548387096774194,
-    "yellowFA": 6.1645161290322585,
+    "dangerP90DelayH": 10.735,
+    "careRecall": 0.16,
+    "redFA": 0.682258064516129,
+    "yellowFA": 6.309677419354839,
     "perType": {
       "fall_day": {
         "recall": 0.56,
@@ -309,8 +309,8 @@
         "medianDelayH": null
       },
       "drift": {
-        "recall": 0.25,
-        "medianDelayH": 504
+        "recall": 0.3333333333333333,
+        "medianDelayH": 300
       }
     }
   },
@@ -318,12 +318,12 @@
     "key": "miss1",
     "name": "完整方法 + 1% 数据缺失",
     "dangerRecall": 1,
-    "dangerRecallRed": 0.9815950920245399,
+    "dangerRecallRed": 0.9877300613496932,
     "dangerMedianDelayH": 1.2333333333333334,
-    "dangerP90DelayH": 7.880000000000001,
-    "careRecall": 0.56,
+    "dangerP90DelayH": 7.166666666666667,
+    "careRecall": 0.64,
     "redFA": 0.09677419354838711,
-    "yellowFA": 1.0258064516129033,
+    "yellowFA": 1.224193548387097,
     "perType": {
       "fall_day": {
         "recall": 1,
@@ -331,11 +331,11 @@
       },
       "fall_night": {
         "recall": 1,
-        "medianDelayH": 3.408333333333333
+        "medianDelayH": 3.3083333333333336
       },
       "never_wake": {
         "recall": 1,
-        "medianDelayH": 7.966666666666667
+        "medianDelayH": 7.35
       },
       "fall_bath": {
         "recall": 1,
@@ -354,21 +354,21 @@
         "medianDelayH": 29
       },
       "drift": {
-        "recall": 0.4166666666666667,
-        "medianDelayH": 432
+        "recall": 0.5833333333333334,
+        "medianDelayH": 552
       }
     }
   },
   {
     "key": "miss5",
     "name": "完整方法 + 5% 数据缺失",
-    "dangerRecall": 0.9877300613496932,
-    "dangerRecallRed": 0.9754601226993865,
-    "dangerMedianDelayH": 1.3333333333333333,
-    "dangerP90DelayH": 8.483333333333333,
-    "careRecall": 0.56,
-    "redFA": 0.16451612903225807,
-    "yellowFA": 1.0161290322580645,
+    "dangerRecall": 0.9938650306748467,
+    "dangerRecallRed": 0.9815950920245399,
+    "dangerMedianDelayH": 1.35,
+    "dangerP90DelayH": 7.166666666666667,
+    "careRecall": 0.64,
+    "redFA": 0.15483870967741936,
+    "yellowFA": 1.267741935483871,
     "perType": {
       "fall_day": {
         "recall": 1,
@@ -376,11 +376,11 @@
       },
       "fall_night": {
         "recall": 1,
-        "medianDelayH": 3.716666666666667
+        "medianDelayH": 3.4333333333333336
       },
       "never_wake": {
-        "recall": 0.92,
-        "medianDelayH": 8.716666666666667
+        "recall": 0.96,
+        "medianDelayH": 7.574999999999999
       },
       "fall_bath": {
         "recall": 1,
@@ -399,8 +399,8 @@
         "medianDelayH": 29
       },
       "drift": {
-        "recall": 0.4166666666666667,
-        "medianDelayH": 504
+        "recall": 0.5833333333333334,
+        "medianDelayH": 552
       }
     }
   },
