@@ -1,0 +1,263 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>灯语守护</title>
+<style>
+/*
+ * 版式：顶栏（时间与播放）→ 主体左侧“楼宇立面”（每扇窗由该户真实用电驱动）+ 右侧“户详情”，下方预警流。
+ * 楼宇立面是唯一的视觉重点，其余界面保持安静克制。
+ */
+:root{
+  --bg:#e9edf2; --surface:#ffffff; --sunk:#f3f5f8; --fg:#1d2633; --muted:#5d6878; --line:#d3dae3;
+  --lamp:#ffc95c; --lamp-deep:#e9a23b; --water:#3d8fd6;
+  --ok:#2f8a5e; --ok-soft:#e1f1e8; --warn:#c96a10; --warn-soft:#fbeedd; --red:#cc3333; --red-soft:#f9e1df; --away:#7b879a; --away-soft:#e7eaf0;
+  --accent:#2a4f86;
+  --serif:"Noto Serif SC","Source Han Serif SC","Songti SC","STSong","SimSun",serif;
+  --sans:"Noto Sans SC","PingFang SC","Hiragino Sans GB","Microsoft YaHei",system-ui,sans-serif;
+  color-scheme:light;
+}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
+  --bg:#12161d; --surface:#1a2029; --sunk:#202733; --fg:#e3e8ef; --muted:#9aa5b5; --line:#2e3746;
+  --ok:#5fc08f; --ok-soft:#1d3329; --warn:#f0a050; --warn-soft:#3a2b1a; --red:#f07070; --red-soft:#3d2224; --away:#98a3b5; --away-soft:#262d38; --accent:#8db0e6; color-scheme:dark}}
+:root[data-theme="dark"]{
+  --bg:#12161d; --surface:#1a2029; --sunk:#202733; --fg:#e3e8ef; --muted:#9aa5b5; --line:#2e3746;
+  --ok:#5fc08f; --ok-soft:#1d3329; --warn:#f0a050; --warn-soft:#3a2b1a; --red:#f07070; --red-soft:#3d2224; --away:#98a3b5; --away-soft:#262d38; --accent:#8db0e6; color-scheme:dark}
+*{box-sizing:border-box}
+[hidden]{display:none!important}
+html,body{margin:0;background:var(--bg);color:var(--fg);font:15px/1.6 var(--sans);-webkit-font-smoothing:antialiased}
+button{font:inherit;color:inherit;cursor:pointer}
+button:focus-visible,[tabindex]:focus-visible,select:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+.num{font-variant-numeric:tabular-nums}
+
+/* 顶栏 */
+.top{display:flex;align-items:center;gap:20px;padding:12px 24px;background:var(--surface);border-bottom:1px solid var(--line);flex-wrap:wrap}
+.brand{display:flex;align-items:center;gap:12px;min-width:0}
+.brand h1{font:700 22px/1.1 var(--serif);margin:0;letter-spacing:.06em}
+.brand small{display:block;color:var(--muted);font-size:13px;letter-spacing:0;font-family:var(--sans);font-weight:400;margin-top:2px}
+.tabs{display:flex;gap:4px;background:var(--sunk);padding:4px;border-radius:10px}
+.tabs button{border:0;background:transparent;padding:6px 14px;border-radius:7px;color:var(--muted)}
+.tabs button[aria-selected="true"]{background:var(--surface);color:var(--fg);box-shadow:0 1px 2px rgba(20,30,50,.12)}
+.clock{margin-left:auto;display:flex;align-items:center;gap:14px}
+.clock .time{font:600 26px/1 var(--serif);letter-spacing:.02em}
+.clock .date{color:var(--muted);font-size:13px;line-height:1.2}
+.ctrl{display:flex;gap:6px;align-items:center}
+.ctrl button,.ctrl select{border:1px solid var(--line);background:var(--surface);border-radius:8px;padding:6px 10px;color:var(--fg);font:inherit}
+.ctrl .play{min-width:68px}
+.tally{display:flex;gap:10px;font-size:13px;color:var(--muted)}
+.tally b{font-weight:600;color:var(--fg);margin-left:2px}
+.dot{display:inline-block;width:9px;height:9px;border-radius:50%;margin-right:4px;vertical-align:baseline}
+
+/* 主体 */
+main{padding:18px 24px 40px;max-width:1500px;margin:0 auto}
+.grid{display:grid;grid-template-columns:minmax(0,1.08fr) minmax(0,1fr);gap:18px;align-items:start}
+.panel{background:var(--surface);border:1px solid var(--line);border-radius:14px}
+.panel h2{font:600 17px/1.3 var(--serif);margin:0;letter-spacing:.03em}
+.ph{display:flex;align-items:baseline;justify-content:space-between;gap:12px;padding:14px 18px 0}
+.ph .hint{color:var(--muted);font-size:13px}
+
+/* 楼宇立面 */
+.facade{position:relative;border-radius:14px;overflow:hidden;background:#0d1730}
+.facade svg{display:block;width:100%;height:auto}
+.facade .cap{position:absolute;left:16px;top:12px;color:#dfe7f5;font:600 15px/1.3 var(--serif);text-shadow:0 1px 6px rgba(0,0,0,.5);letter-spacing:.05em}
+.facade .cap small{display:block;font:400 12px/1.4 var(--sans);opacity:.8;letter-spacing:0}
+.facade .legend{position:absolute;right:14px;top:12px;display:flex;gap:10px;color:#dfe7f5;font-size:12px;background:rgba(5,10,25,.45);padding:4px 10px;border-radius:20px}
+.win{cursor:pointer}
+.win:focus{outline:none}
+.win:focus-visible .frame{stroke:#9cc3ff;stroke-width:3}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:.25}}
+.pulse{animation:pulse 1.1s ease-in-out infinite}
+@media (prefers-reduced-motion:reduce){.pulse{animation:none}}
+
+/* 户详情 */
+.detail{padding:0 0 16px}
+.who{display:flex;gap:14px;align-items:center;padding:14px 18px 10px;flex-wrap:wrap}
+.who .unit{font:700 30px/1 var(--serif);color:var(--accent)}
+.who .nm{font:600 19px/1.2 var(--serif)}
+.who .meta{color:var(--muted);font-size:13px}
+.pill{display:inline-flex;align-items:center;gap:6px;padding:3px 10px;border-radius:20px;font-size:13px;font-weight:600}
+.pill.ok{background:var(--ok-soft);color:var(--ok)} .pill.warn{background:var(--warn-soft);color:var(--warn)} .pill.red{background:var(--red-soft);color:var(--red)} .pill.away{background:var(--away-soft);color:var(--away)}
+.status-line{padding:0 18px;color:var(--fg);font-size:14px;min-height:22px}
+.chartwrap{padding:6px 12px 0}
+canvas{display:block;width:100%}
+.facts{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:1px;background:var(--line);border-top:1px solid var(--line);border-bottom:1px solid var(--line);margin:10px 0 0}
+.facts div{background:var(--surface);padding:10px 14px}
+.facts span{display:block;color:var(--muted);font-size:12px}
+.facts b{font:600 18px/1.3 var(--serif)}
+.sub{font:600 14px/1.3 var(--serif);margin:14px 18px 6px;display:flex;justify-content:space-between;align-items:baseline;gap:10px}
+.sub em{font:400 12px var(--sans);color:var(--muted);font-style:normal}
+.inject{display:flex;flex-wrap:wrap;gap:8px;padding:2px 18px 0}
+.inject button{border:1px solid var(--line);background:var(--sunk);border-radius:8px;padding:6px 11px;font-size:13px}
+.inject button:hover{border-color:var(--accent)}
+.inject .note{width:100%;color:var(--muted);font-size:12px;margin-top:2px}
+
+/* 预警流 */
+.feed{margin-top:18px}
+.feed-list{display:grid;grid-template-columns:repeat(auto-fill,minmax(330px,1fr));gap:12px;padding:12px 18px 18px}
+.alert{border:1px solid var(--line);border-left:5px solid var(--warn);border-radius:10px;padding:10px 14px 12px;background:var(--surface)}
+.alert.red{border-left-color:var(--red)} .alert.blue{border-left-color:var(--accent)} .alert.done{opacity:.6}
+.alert.fresh{box-shadow:0 0 0 3px var(--red-soft)}
+.alert .h{display:flex;justify-content:space-between;gap:8px;font-size:13px;color:var(--muted)}
+.alert .t{font:600 15px/1.4 var(--serif);margin:3px 0 4px;color:var(--fg)}
+.alert .why{font-size:13px;color:var(--fg);margin:0}
+.steps{display:flex;gap:6px;margin:8px 0 0;padding:0;list-style:none;flex-wrap:wrap}
+.steps li{font-size:12px;padding:2px 8px;border-radius:12px;background:var(--sunk);color:var(--muted)}
+.steps li.on{background:var(--warn-soft);color:var(--warn)} .steps li.go{background:var(--red-soft);color:var(--red)} .steps li.safe{background:var(--ok-soft);color:var(--ok)}
+.alert .acts{display:flex;gap:8px;margin-top:8px}
+.alert .acts button{border:1px solid var(--line);background:var(--sunk);border-radius:7px;padding:3px 10px;font-size:12px}
+.empty{color:var(--muted);padding:6px 18px 18px;font-size:14px}
+
+/* 家属端 */
+.fam{display:grid;grid-template-columns:380px minmax(0,1fr);gap:28px;align-items:start}
+.phone{width:360px;margin:0 auto;border:10px solid #1b1f27;border-radius:42px;background:#f6f7f9;color:#1d2633;overflow:hidden;box-shadow:0 18px 40px rgba(10,20,40,.25)}
+.phone .bar{height:30px;display:flex;justify-content:space-between;align-items:center;padding:0 22px;font-size:12px;color:#333}
+.phone .app{padding:6px 16px 22px;min-height:640px}
+.phone h3{font:700 22px/1.3 var(--serif);margin:6px 0 2px}
+.phone .sm{color:#667085;font-size:13px}
+.card{background:#fff;border-radius:16px;padding:14px 16px;margin-top:12px;box-shadow:0 1px 2px rgba(0,0,0,.06)}
+.card .big{font:700 20px/1.3 var(--serif)}
+.card.alarm{background:#fdecea;color:#8a1f1f}
+.card.calm{background:#e7f4ec;color:#1f5a3c}
+.tl{list-style:none;margin:8px 0 0;padding:0}
+.tl li{display:flex;gap:10px;padding:6px 0;border-bottom:1px dashed #e3e6eb;font-size:14px}
+.tl li:last-child{border:0}
+.tl time{color:#667085;min-width:46px}
+.phone button.primary{width:100%;border:0;border-radius:12px;background:#2a4f86;color:#fff;padding:11px;font-size:15px;margin-top:12px}
+.phone button.ghost{width:100%;border:1px solid #c9d1dc;border-radius:12px;background:#fff;padding:10px;font-size:15px;margin-top:8px}
+.fam-explain{max-width:62ch}
+.fam-explain h2{font:600 20px/1.4 var(--serif);margin:0 0 10px}
+.fam-explain p{margin:0 0 12px;color:var(--fg)}
+.fam-explain .muted{color:var(--muted);font-size:14px}
+
+/* 方法与指标 */
+.doc{max-width:1100px;margin:0 auto}
+.doc h2{font:600 22px/1.4 var(--serif);margin:8px 0 6px}
+.doc h3{font:600 17px/1.4 var(--serif);margin:24px 0 8px}
+.doc p{max-width:72ch;margin:0 0 10px}
+.doc .muted{color:var(--muted);font-size:14px}
+.kpis{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px;margin:14px 0}
+.kpi{background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:14px 16px}
+.kpi b{display:block;font:700 30px/1.15 var(--serif);color:var(--accent)}
+.kpi span{color:var(--muted);font-size:13px}
+table{border-collapse:collapse;width:100%;background:var(--surface);border:1px solid var(--line);border-radius:12px;overflow:hidden;font-size:14px}
+th,td{text-align:left;padding:8px 12px;border-bottom:1px solid var(--line)}
+th{background:var(--sunk);font-weight:600;color:var(--muted);font-size:13px}
+td.n,th.n{text-align:right;font-variant-numeric:tabular-nums}
+tr.hl td{background:var(--ok-soft)}
+.flow{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:10px;margin:10px 0}
+.flow div{background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:12px 14px;font-size:14px;position:relative}
+.flow div b{display:block;font:600 15px/1.4 var(--serif);margin-bottom:4px}
+.flow div:not(:last-child)::after{content:"";position:absolute;right:-9px;top:50%;width:8px;height:2px;background:var(--line)}
+footer{color:var(--muted);font-size:12px;text-align:center;padding:10px 24px 30px}
+
+@media (max-width:1100px){.grid{grid-template-columns:1fr}.fam{grid-template-columns:1fr}.kpis{grid-template-columns:repeat(2,1fr)}.flow{grid-template-columns:1fr 1fr}}
+@media (max-width:640px){
+  main{padding:12px 12px 30px}.top{padding:10px 12px;gap:10px}.clock{margin-left:0;width:100%;justify-content:space-between}
+  .facts{grid-template-columns:repeat(2,1fr)}.phone{width:100%;max-width:360px}.feed-list{grid-template-columns:1fr;padding:10px}
+  .tally{display:none}.flow{grid-template-columns:1fr}
+}
+</style>
+</head>
+<body>
+<header class="top">
+  <div class="brand">
+    <svg width="38" height="38" viewBox="0 0 38 38" aria-hidden="true"><rect x="3" y="3" width="32" height="32" rx="7" fill="#1b2a4a"/><rect x="9" y="9" width="9" height="9" rx="1.5" fill="#ffc95c"/><rect x="20" y="9" width="9" height="9" rx="1.5" fill="#3a4c70"/><rect x="9" y="20" width="9" height="9" rx="1.5" fill="#3a4c70"/><rect x="20" y="20" width="9" height="9" rx="1.5" fill="#ffc95c"/></svg>
+    <h1>灯语守护<small>幸福里社区 3 号楼 · 独居老人居家安全看护台</small></h1>
+  </div>
+  <nav class="tabs" role="tablist" aria-label="视图">
+    <button role="tab" aria-selected="true" data-view="board">社区看护台</button>
+    <button role="tab" aria-selected="false" data-view="family">家属手机端</button>
+    <button role="tab" aria-selected="false" data-view="method">方法与实测</button>
+  </nav>
+  <div class="clock">
+    <div><div class="time num" id="clockTime">--:--</div><div class="date" id="clockDate">正在生成数据…</div></div>
+    <div class="ctrl">
+      <button class="play" id="btnPlay" aria-label="播放或暂停">▶ 播放</button>
+      <select id="speed" aria-label="播放速度">
+        <option value="1">1 秒 = 15 分钟</option>
+        <option value="4" selected>1 秒 = 1 小时</option>
+        <option value="16">1 秒 = 4 小时</option>
+      </select>
+    </div>
+    <div class="tally" id="tally"></div>
+  </div>
+</header>
+
+<main>
+  <!-- 看护台 -->
+  <section id="view-board">
+    <div class="grid">
+      <div>
+        <div class="facade" id="facade">
+          <div class="cap">幸福里 3 号楼 · 36 户独居老人<small>每扇窗的明暗由该户此刻的用电量驱动，不装摄像头</small></div>
+          <div class="legend" aria-hidden="true"><span><i class="dot" style="background:#ffc95c"></i>有人活动</span><span><i class="dot" style="background:#f08a2b"></i>关注</span><span><i class="dot" style="background:#ff4a4a"></i>紧急</span><span><i class="dot" style="background:#8fa0bb"></i>报备外出</span></div>
+          <svg id="facadeSvg" viewBox="0 0 760 560" role="group" aria-label="楼宇立面，每扇窗代表一户"></svg>
+        </div>
+      </div>
+      <div class="panel detail" id="detail" aria-live="polite">
+        <div class="who">
+          <div class="unit num" id="dUnit">—</div>
+          <div><div class="nm" id="dName">点击一扇窗查看</div><div class="meta" id="dMeta"></div></div>
+          <span class="pill ok" id="dPill" style="margin-left:auto">平稳</span>
+        </div>
+        <div class="status-line" id="dStatus"></div>
+        <div class="sub">今天的用电（kW）与用水<em>蓝色区间为 TA 过去 28 天同一时刻的常见范围</em></div>
+        <div class="chartwrap"><canvas id="cvDay" height="190" aria-label="今日用电曲线"></canvas></div>
+        <div class="facts">
+          <div><span>平时起床</span><b class="num" id="fWake">—</b></div>
+          <div><span>平时入睡</span><b class="num" id="fBed">—</b></div>
+          <div><span>此刻已安静</span><b class="num" id="fGap">—</b></div>
+          <div><span>此刻的静默阈值</span><b class="num" id="fThr">—</b></div>
+        </div>
+        <div class="sub">作息指纹<em>近 28 天，每格 15 分钟，颜色越深表示越常有活动</em></div>
+        <div class="chartwrap"><canvas id="cvPrint" height="150" aria-label="近28天作息热力图"></canvas></div>
+        <div class="sub">现场演示<em>给这一户注入一个情况，系统会快进到它发现为止</em></div>
+        <div class="inject" id="inject">
+          <button data-inj="fall_day">在家跌倒</button>
+          <button data-inj="fall_night">夜里起夜跌倒</button>
+          <button data-inj="fall_bath">洗澡时跌倒</button>
+          <button data-inj="stove_on">电磁炉忘关</button>
+          <button data-inj="tap_on">水龙头忘关</button>
+          <button data-inj="away">报备外出两天</button>
+          <div class="note">演示只改动这一户之后的电表、水表读数，算法本身并不知道注入了什么。</div>
+        </div>
+      </div>
+    </div>
+    <div class="panel feed">
+      <div class="ph"><h2>预警流</h2><span class="hint" id="feedHint">按时间倒序 · 黄色先由系统自动外呼老人确认，红色立即通知家属与网格员</span></div>
+      <div class="feed-list" id="feed"></div>
+      <div class="empty" id="feedEmpty">暂时没有预警。按“播放”让时间流动起来，或在右侧给某一户注入一个情况。</div>
+    </div>
+  </section>
+
+  <!-- 家属端 -->
+  <section id="view-family" hidden>
+    <div class="fam">
+      <div class="phone" aria-label="家属手机端示意">
+        <div class="bar"><span class="num" id="phTime">--:--</span><span>灯语守护</span><span>●●●</span></div>
+        <div class="app" id="phoneApp"></div>
+      </div>
+      <div class="fam-explain">
+        <h2>子女不在身边，也能知道“妈妈今天挺好”</h2>
+        <p>家属端不展示用电曲线，只把数据翻译成家人关心的几句话：几点起的床、做没做饭、出没出门。没有异常时，每天晚上推送一条“今天作息正常”，不打扰。</p>
+        <p>出现关注级情况时，系统先自动给老人打电话，老人按任意键就算报平安，家属只收到一条记录；电话没人接或出现紧急情况，家属和社区网格员同时收到提醒，谁先到谁处理。</p>
+        <p>出门旅游或去子女家住几天，在这里点一下“报备外出”，这几天就不会因为家里没动静而误报；但如果期间家里的电磁炉、水龙头出了状况，照样会提醒。</p>
+        <p class="muted">左侧显示的是看护台当前选中的那一户。回到“社区看护台”换一扇窗，这里会跟着变。</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- 方法与实测 -->
+  <section id="view-method" hidden>
+    <div class="doc" id="methodDoc"></div>
+  </section>
+</main>
+<footer>原型系统 · 全部数据为模拟生成，人名均为虚构 · 本页不联网、不调用任何外部接口 · 数据只含每 15 分钟的用电量与用水量，不含图像和声音</footer>
+
+<script src="simulator.js"></script>
+<script src="engine.js"></script>
+<script src="test/results.js"></script>
+<script src="app.js"></script>
+</body>
+</html>
