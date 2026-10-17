@@ -191,7 +191,8 @@
     drawDay(h); drawPrint(h);
   }
   function canvasCtx(cv) {
-    var dpr = window.devicePixelRatio || 1, w = cv.clientWidth, hgt = +cv.getAttribute('height');
+    if (!cv.dataset.h) cv.dataset.h = cv.getAttribute('height');
+    var dpr = window.devicePixelRatio || 1, w = cv.clientWidth, hgt = +cv.dataset.h;
     if (cv.width !== Math.round(w * dpr)) { cv.width = Math.round(w * dpr); cv.height = Math.round(hgt * dpr); cv.style.height = hgt + 'px'; }
     var c = cv.getContext('2d'); c.setTransform(dpr, 0, 0, dpr, 0, 0); c.clearRect(0, 0, w, hgt);
     return { c: c, w: w, h: hgt };
@@ -215,7 +216,7 @@
     var muted = css('--muted'), line = css('--line'), fg = css('--fg');
     c.font = '11px ' + css('--sans'); c.fillStyle = muted; c.strokeStyle = line; c.lineWidth = 1;
     for (var g = 0; g <= 24; g += 6) { c.beginPath(); c.moveTo(x(g * 4), T); c.lineTo(x(g * 4), T + ph + wh + 6); c.stroke(); c.fillText(g + '时', x(g * 4) - (g === 24 ? 22 : 0), H - 4); }
-    [0, ymax / 2, ymax].forEach(function (v) { c.fillText(v.toFixed(1), 2, y(v) + 4); });
+    [0, ymax / 2, ymax].forEach(function (v) { c.fillText(String(+v.toFixed(2)), 2, y(v) + 4); });
     // 个人常见范围
     c.fillStyle = 'rgba(80,130,200,.18)'; c.beginPath();
     for (var s3 = 0; s3 < SPD; s3++) c.lineTo(x(s3 + .5), y(prof.p90[s3]));
@@ -255,7 +256,7 @@
         var col = sunk;
         if (h.mon.isReportedAway(kk)) { col = 'rgba(140,155,180,.35)'; away = true; }
         if (h.mon.isAct(kk)) col = h.W[kk] > 1 && Math.abs(h.P[kk] - h.P[kk - 1]) <= m.delta ? '#5fa3e0' : '#e9a23b';
-        else if (h.P[kk] - m.bg > 0.03) col = 'rgba(233,162,59,.32)';
+        else if (h.P[kk] - m.bg > m.sleepLevel.q90 + m.sleepLevel.m + 0.02) col = 'rgba(233,162,59,.32)';
         c.fillStyle = col; c.fillRect(L + s * cw, T + r * ch, Math.max(1, cw - .4), Math.max(1, ch - .6));
       }
     }
