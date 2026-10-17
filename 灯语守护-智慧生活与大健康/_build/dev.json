@@ -1,0 +1,103 @@
+{
+ "households": 40,
+ "testDays": 2480,
+ "perType": {
+  "fall_day": {
+   "name": "白天在家跌倒/突发失能",
+   "n": 10,
+   "recall": 1,
+   "recallRed": 1,
+   "medianDelayH": 3.5666666666666664,
+   "p90DelayH": 6.446666666666667,
+   "medianRedDelayH": 5.066666666666666
+  },
+  "fall_night": {
+   "name": "夜间起夜跌倒",
+   "n": 11,
+   "recall": 1,
+   "recallRed": 1,
+   "medianDelayH": 3.066666666666667,
+   "p90DelayH": 4.75,
+   "medianRedDelayH": 3.066666666666667,
+   "medianAfterUsualWakeH": -2.0907302579174334
+  },
+  "never_wake": {
+   "name": "睡梦中突发疾病（未起床）",
+   "n": 9,
+   "recall": 1,
+   "recallRed": 1,
+   "medianDelayH": 7.55,
+   "p90DelayH": 8.573333333333334,
+   "medianRedDelayH": 9.05,
+   "medianAfterUsualWakeH": 1.4375805461032238
+  },
+  "fall_bath": {
+   "name": "洗澡时跌倒",
+   "n": 12,
+   "recall": 1,
+   "recallRed": 1,
+   "medianDelayH": 0.6666666666666667,
+   "p90DelayH": 0.715,
+   "medianRedDelayH": 0.6666666666666667
+  },
+  "stove_on": {
+   "name": "电磁炉忘关",
+   "n": 11,
+   "recall": 1,
+   "recallRed": 1,
+   "medianDelayH": 0.9833333333333333,
+   "p90DelayH": 1.1,
+   "medianRedDelayH": 0.9833333333333333
+  },
+  "tap_on": {
+   "name": "水龙头忘关",
+   "n": 12,
+   "recall": 1,
+   "recallRed": 1,
+   "medianDelayH": 0.7583333333333333,
+   "p90DelayH": 0.815,
+   "medianRedDelayH": 0.7583333333333333
+  },
+  "night_restless": {
+   "name": "连续夜间频繁起夜",
+   "n": 5,
+   "recall": 0.8,
+   "recallRed": 0,
+   "medianDelayH": 53,
+   "p90DelayH": 53,
+   "medianRedDelayH": null
+  },
+  "drift": {
+   "name": "作息持续偏离",
+   "n": 5,
+   "recall": 0.6,
+   "recallRed": 0,
+   "medianDelayH": 528,
+   "p90DelayH": 566.4,
+   "medianRedDelayH": null
+  }
+ },
+ "fa": {
+  "redPerHouseMonth": 0.04838709677419355,
+  "yellowPerHouseMonth": 1.1491935483870968,
+  "bluePerHouseMonth": 0.14516129032258063,
+  "redCount": 4,
+  "yellowCount": 95,
+  "blueCount": 12,
+  "redOnUnreportedAway": 2,
+  "yellowOnUnreportedAway": 28
+ },
+ "avgStepMs": 0.007158564814814815,
+ "danger": {
+  "n": 65,
+  "recall": 1,
+  "recallRed": 1,
+  "medianDelayH": 1.0333333333333334,
+  "p90DelayH": 6.513333333333334,
+  "medianRedDelayH": 1.0333333333333334
+ },
+ "care": {
+  "n": 10,
+  "recall": 0.7
+ }
+}
