@@ -11,6 +11,7 @@
 })(typeof self !== 'undefined' ? self : this, function (KB) {
   'use strict';
 
+  const ENGINE_ID = 'SZXC-2.0';
   const IND = ['pgHigh', 'pgLow', 'ds', 'strain', 'tsr', 'fatigue', 'td'];
   const IND_NAME = {
     pgHigh: '高温分级 PG高温', pgLow: '低温分级 PG低温', ds: '高温抗车辙 动稳定度',
@@ -97,7 +98,7 @@
     const scn = Object.assign({
       roadClass: 'highway', traffic: 'heavy', speed: 'normal', treatment: 'MR_UP', aggregate: 'limestone',
       distresses: [], ambientT: 22, haulMin: 40, targetReliability: null, budgetPerM2: null, nightWork: false,
-      samples: 400, seed: 20261021,
+      samples: 400, seed: 20261021, selection: 'point',
     }, s || {});
     scn.distresses = (scn.distresses || []).map((d) => (typeof d === 'string' ? { id: d, severity: 1 } : d));
     scn.distresses = scn.distresses.map(d => Object.assign({ severity: 1 }, d));
@@ -182,7 +183,7 @@
     const agg = byId(KB.aggregates, scn.aggregate);
     const tMm = trt.thicknessCm * 10;
     for (const g of KB.gradations) {
-      if (tMm < 2.5 * g.nmas || tMm > 4.0 * g.nmas) { reject('R08 层厚与公称最大粒径不匹配(2.5–4.0倍)'); continue; }
+      if (tMm < 2.5 * g.nmas || tMm > 4.0 * g.nmas) { reject(RT.R08); continue; }
       for (const b0 of KB.binders) {
         const b = resolveBinder(b0.id);
         const fibers = g.type === 'dense' ? ['none', 'basalt'] : ['lignin', 'basalt'];
@@ -196,20 +197,37 @@
     }
     return { candidates: out, rejected };
   }
+  // 规则目录：reject 键与图谱规则节点共用同一份文本，避免两处漂移。
+  // involves 仅描述规则涉及的对象类别，供知识图谱导出；判断逻辑以 rule() 为准。
+  const RULES = [
+    { key: 'R01', text: 'R01 SMA 须用改性沥青', involves: ['grad:sma', 'binder:modified'] },
+    { key: 'R02', text: 'R02 OGFC 须用高粘高弹沥青', involves: ['grad:ogfc', 'binder:HVA'] },
+    { key: 'R03a', text: 'R03 冬寒/严寒区不用排水路面(冻融堵塞)', involves: ['grad:ogfc', 'zone:cold'] },
+    { key: 'R03b', text: 'R03 停滞重载不用排水路面(剪切松散)', involves: ['grad:ogfc', 'speed:standing'] },
+    { key: 'R04', text: 'R04 SMA/OGFC 表层不掺RAP', involves: ['grad:sma', 'grad:ogfc', 'rap:R15', 'rap:R30'] },
+    { key: 'R05', text: 'R05 硬质沥青仅用于 AC-16 且限非寒区', involves: ['binder:B30', 'grad:AC16'] },
+    { key: 'R06', text: 'R06 酸性石料用于重交通须抗剥落措施', involves: ['agg:granite', 'water:amine', 'water:lime'] },
+    { key: 'R07', text: 'R07 施工气温低于铺筑下限', involves: ['ambient'] },
+    { key: 'R08', text: 'R08 层厚与公称最大粒径不匹配(2.5–4.0倍)', involves: ['thickness', 'grad'] },
+    { key: 'R09', text: 'R09 OGFC/高粘沥青不再加抗车辙剂', involves: ['grad:ogfc', 'binder:HVA', 'rut:antirut'] },
+    { key: 'R11', text: 'R11 RAP 不与高粘/橡胶/硬质沥青组合', involves: ['rap:R15', 'rap:R30', 'binder:HVA', 'binder:CR20', 'binder:B30'] },
+    { key: 'R12', text: 'R12 高RAP 掺量不再加纤维', involves: ['rap:R30', 'fiber:lignin', 'fiber:basalt'] },
+  ];
+  const RT = Object.fromEntries(RULES.map((x) => [x.key, x.text]));
   function rule(scn, clim, g, b, w, r, wm, rap, f, agg) {
     const lowCode = clim.zone.low.code, heavy = ['heavy', 'vheavy', 'xheavy'].includes(scn.traffic);
-    if (g.type === 'sma' && !b.modified) return 'R01 SMA 须用改性沥青';
-    if (g.type === 'ogfc' && b.id !== 'HVA') return 'R02 OGFC 须用高粘高弹沥青';
-    if (g.type === 'ogfc' && lowCode <= 2) return 'R03 冬寒/严寒区不用排水路面(冻融堵塞)';
-    if (g.type === 'ogfc' && scn.speed === 'standing') return 'R03 停滞重载不用排水路面(剪切松散)';
-    if (g.type !== 'dense' && rap.pct > 0) return 'R04 SMA/OGFC 表层不掺RAP';
-    if (b.id === 'B30' && (g.id !== 'AC16' || lowCode <= 2)) return 'R05 硬质沥青仅用于 AC-16 且限非寒区';
-    if (agg.acidic && heavy && w.id === 'none') return 'R06 酸性石料用于重交通须抗剥落措施';
+    if (g.type === 'sma' && !b.modified) return RT.R01;
+    if (g.type === 'ogfc' && b.id !== 'HVA') return RT.R02;
+    if (g.type === 'ogfc' && lowCode <= 2) return RT.R03a;
+    if (g.type === 'ogfc' && scn.speed === 'standing') return RT.R03b;
+    if (g.type !== 'dense' && rap.pct > 0) return RT.R04;
+    if (b.id === 'B30' && (g.id !== 'AC16' || lowCode <= 2)) return RT.R05;
+    if (agg.acidic && heavy && w.id === 'none') return RT.R06;
     const minT = (b.modified ? KB.model.pavingMinT.modified : KB.model.pavingMinT.ordinary) - (wm.id === 'warm' ? KB.model.pavingMinT.warmRelief : 0);
-    if (scn.ambientT < minT) return 'R07 施工气温低于铺筑下限';
-    if (r.id !== 'none' && (g.type === 'ogfc' || b.id === 'HVA')) return 'R09 OGFC/高粘沥青不再加抗车辙剂';
-    if (rap.pct > 0 && (b.id === 'HVA' || b.id === 'CR20' || b.id === 'B30')) return 'R11 RAP 不与高粘/橡胶/硬质沥青组合';
-    if (g.type === 'dense' && f.id !== 'none' && rap.pct === 30) return 'R12 高RAP 掺量不再加纤维';
+    if (scn.ambientT < minT) return RT.R07;
+    if (r.id !== 'none' && (g.type === 'ogfc' || b.id === 'HVA')) return RT.R09;
+    if (rap.pct > 0 && (b.id === 'HVA' || b.id === 'CR20' || b.id === 'B30')) return RT.R11;
+    if (g.type === 'dense' && f.id !== 'none' && rap.pct === 30) return RT.R12;
     return null;
   }
 
@@ -397,6 +415,119 @@
     return IND.slice().sort((a, b) => s[b] - s[a]).map((k) => ({ ind: k, name: IND_NAME[k], scarcity: round(s[k], 3) }));
   }
 
+  // ---------- 9b. 候选重建、独立种子复验、Shapley 归因、雷达数据 ----------
+  function buildCand(id, aggId) {
+    const [g, b, w, r, wm, rap, f] = id.split('/'), A = KB.additives;
+    const cand = { id, grad: byId(KB.gradations, g), binder: byId(KB.binders, b) && resolveBinder(b), water: byId(A.water, w), rut: byId(A.rut, r), warm: byId(A.warm, wm), rap: byId(A.rap, rap), fiber: byId(A.fiber, f), agg: byId(KB.aggregates, aggId) };
+    for (const [k, v] of Object.entries(cand)) if (!v) throw new Error('无法重建候选方案：' + id + '（' + k + '）');
+    return cand;
+  }
+
+  // 在选优所用噪声之外，用独立种子和更大样本复算被选方案，揭示“同一批噪声上选最优”的乐观偏差。
+  // 仅是抽样意义上的复验，不是对材料先验或模型结构的外部验证。
+  const VALIDATION_SAMPLES = 4000, SALT_REPORT = 0x9E3779B1, SALT_SELECT = 0x85EBCA6B;
+  function validatePick(scn, clim, tgt, row, opts) {
+    const seed = (scn.seed ^ SALT_REPORT) | 0;
+    const v = evaluate(scn, clim, tgt, row.cand, makeNoise(VALIDATION_SAMPLES, seed), opts);
+    return {
+      independent: true, samples: VALIDATION_SAMPLES, seed,
+      reliability: round(v.reliability, 3), reliabilityInterval95: v.reliabilityInterval95,
+      selectionGap: round(row.reliability - v.reliability, 3),
+      meetsTargetPoint: v.reliability >= scn.targetReliability,
+      meetsTargetLower95: v.reliabilityInterval95[0] >= scn.targetReliability,
+      lifeMean: round(v.lifeMean, 1), euac: round(v.euac, 2),
+    };
+  }
+
+  // 稳健选优（selection:'validated'）：按年值成本从低到高，在独立噪声上复算接近目标的候选，
+  // 取第一个复算通过者。选优噪声与最终报告噪声（SALT_REPORT）互相独立，避免对同一批抽样做二次挑选。
+  // 若没有候选通过，则取复算可靠度最高者并标记未达标。
+  function chooseValidated(rows, scn, clim, tgt, opts) {
+    const T = scn.targetReliability, MAXV = 200;
+    let pool = rows.filter((r) => r.reliability >= T - 0.05).sort((a, b) => a.euac - b.euac || a.carbonYr - b.carbonYr);
+    if (!pool.length) pool = rows.slice().sort((a, b) => b.reliability - a.reliability).slice(0, 30);
+    const noise = makeNoise(VALIDATION_SAMPLES, (scn.seed ^ SALT_SELECT) | 0);
+    let best = null, tested = 0;
+    for (const r of pool) {
+      if (tested >= MAXV) break;
+      tested++;
+      const v = evaluate(scn, clim, tgt, r.cand, noise, opts);
+      if (v.reliability >= T) return { pick: r, reached: true, tested };
+      if (!best || v.reliability > best.rel + 1e-12 || (Math.abs(v.reliability - best.rel) <= 1e-12 && r.euac < best.row.euac)) best = { row: r, rel: v.reliability };
+    }
+    return { pick: best.row, reached: false, tested };
+  }
+
+  // 精确 Shapley 归因（7 个组成维度，128 个联盟全枚举）。
+  // 解释对象是本作品的机理先验预测式，而非训练得到的数据模型；参考配方为 AC-13 + 70# + 全部不加。
+  // 联盟中的中间组合可能违反施工规则，仅用于计算贡献，不代表可实施方案。
+  const REF_MIX = 'AC13/B70/none/none/none/R0/none';
+  function shapley(cand) {
+    const ref = buildCand(REF_MIX, cand.agg.id), n = DIMS.length, N = 1 << n;
+    const mu = new Array(N);
+    for (let m = 0; m < N; m++) {
+      const c = Object.assign({}, ref);
+      DIMS.forEach((d, i) => { if (m & (1 << i)) c[d] = cand[d]; });
+      mu[m] = predictMean(c, null);
+    }
+    const fact = [1]; for (let i = 1; i <= n; i++) fact[i] = fact[i - 1] * i;
+    const popcount = (m) => { let c = 0; while (m) { c += m & 1; m >>= 1; } return c; };
+    const indicators = IND.map((k) => {
+      const f = (m) => (k === 'ds' ? Math.log(mu[m].ds) : mu[m][k]);
+      const phi = DIMS.map((d, i) => {
+        let sum = 0;
+        for (let m = 0; m < N; m++) {
+          if (m & (1 << i)) continue;
+          const sz = popcount(m);
+          sum += (fact[sz] * fact[n - sz - 1] / fact[n]) * (f(m | (1 << i)) - f(m));
+        }
+        return sum;
+      });
+      const log = k === 'ds', dec = k === 'td' || k === 'fatigue' ? 3 : 2;
+      return {
+        ind: k, name: IND_NAME[k], unit: IND_UNIT[k], scale: log ? 'log' : 'linear',
+        reference: round(mu[0][k], dec), predicted: round(mu[N - 1][k], dec),
+        total: round(f(N - 1) - f(0), 4),
+        contributions: DIMS.map((d, i) => ({
+          dim: d, dimName: DIM_NAME[d], from: ref[d].name, to: cand[d].name,
+          changed: ref[d].id !== cand[d].id, value: round(phi[i], 4), factor: log ? round(Math.exp(phi[i]), 3) : null,
+        })).filter((c) => c.changed || Math.abs(c.value) > 1e-9).map((c) => { delete c.changed; return c; })
+          .sort((a, b) => Math.abs(b.value) - Math.abs(a.value)),
+      };
+    });
+    return {
+      method: '精确 Shapley 值（全联盟枚举）', target: '机理先验预测式（不含反馈偏差修正）',
+      reference: { id: REF_MIX, label: describe({ cand: ref }) },
+      note: '动稳定度在对数空间归因，factor 为乘性影响；其余指标为加性影响。联盟内中间组合可能违反施工规则，仅用于计算贡献。',
+      indicators,
+    };
+  }
+
+  // 多维对比（雷达图）：各轴取 0–1，越大越好。归一化范围为“满足全部约束后的候选集”，只在同一场景内可比。
+  const RADAR_AXES = [
+    { id: 'reliability', name: '联合可靠度' }, { id: 'weakest', name: '短板指标达标率' }, { id: 'life', name: '估计寿命' },
+    { id: 'economy', name: '年值经济性' }, { id: 'carbon', name: '低碳' }, { id: 'workability', name: '施工容错' },
+  ];
+  function radarOf(plans, pool, scn, clim, noise, opts) {
+    const span = (f) => { const v = pool.map(f); return [Math.min(...v), Math.max(...v)]; };
+    const [l0, l1] = span((r) => r.lifeMean), [e0, e1] = span((r) => r.euac), [c0, c1] = span((r) => r.carbonYr);
+    const norm = (x, a, b, inv) => (b - a < 1e-9 ? 1 : clamp(inv ? (b - x) / (b - a) : (x - a) / (b - a), 0, 1));
+    const seen = new Set(), series = [];
+    for (const { role, row } of plans) {
+      if (seen.has(row.id)) continue; seen.add(row.id);
+      const rb = processAdvice(scn, clim, row, noise, opts).robustness;
+      series.push({
+        id: row.id, label: describe(row), role,
+        values: [row.reliability, row.passRate[row.bottleneck], norm(row.lifeMean, l0, l1), norm(row.euac, e0, e1, true), norm(row.carbonYr, c0, c1, true), clamp(1 + Math.min(rb.colder8, rb.va1), 0, 1)].map((x) => round(x, 3)),
+      });
+    }
+    return {
+      axes: RADAR_AXES,
+      note: '寿命、年值、碳排按当前约束后候选集的最小—最大范围归一化；施工容错=1+min(施工气温降8°C后可靠度变化, 空隙率偏大1%后可靠度变化)，下限 0。',
+      series,
+    };
+  }
+
   // ---------- 10. 基准方法（用于对比） ----------
   function experienceBaseline(scn, clim) {
     const thin = treatmentOf(scn).thicknessCm <= 2.5;
@@ -446,6 +577,9 @@
     if (!Number.isInteger(scn.samples) || scn.samples < 1 || scn.samples > 10000) throw new Error('采样数须为 1–10000 的整数');
     if (!Number.isFinite(scn.targetReliability) || scn.targetReliability <= 0 || scn.targetReliability > 1) throw new Error('目标可靠度须大于 0 且不超过 1');
     if (scn.budgetPerM2 != null && (!Number.isFinite(scn.budgetPerM2) || scn.budgetPerM2 < 0)) throw new Error('预算须为非负有限数值');
+    if (scn.carbonCapYr != null && (!Number.isFinite(scn.carbonCapYr) || scn.carbonCapYr < 0)) throw new Error('年均碳排上限须为非负有限数值');
+    if (!Number.isInteger(scn.seed)) throw new Error('随机种子须为整数');
+    if (!['point', 'validated'].includes(scn.selection)) throw new Error('选优模式须为 point 或 validated');
     const trt = treatmentOf(scn);
     if (!trt) throw new Error('未知养护工法 ' + scn.treatment);
     const clim = climateOf(scn);
@@ -455,41 +589,47 @@
     const noise = makeNoise(scn.samples, scn.seed);
     let rows = candidates.map((c) => evaluate(scn, clim, tgt, c, noise, opts));
     const nAll = rows.length;
-    let budgetCut = 0;
+    let budgetCut = 0, carbonCut = 0;
     if (scn.budgetPerM2 != null) { const keep = rows.filter((r) => r.costM2 <= scn.budgetPerM2); budgetCut = rows.length - keep.length; rows = keep; }
+    if (scn.carbonCapYr != null) { const keep = rows.filter((r) => r.carbonYr <= scn.carbonCapYr); carbonCut = rows.length - keep.length; rows = keep; }
     if (!rows.length) return {
-      engine: 'SZXC-1.0', module: 'infeasible', scenario: scn,
+      engine: ENGINE_ID, module: 'infeasible', scenario: scn,
       targetReached: false, recommended: null, alternatives: [], pareto: [], cloud: [],
-      reason: nAll ? '预算内无可行方案，请调整预算或养护工法。' : '当前施工条件下无可行方案，请调整施工气温、工法或材料条件。',
-      stats: { feasible: nAll, budgetCut, rejected, samples: scn.samples },
+      reason: !nAll ? '当前施工条件下无可行方案，请调整施工气温、工法或材料条件。'
+        : scn.carbonCapYr != null && scn.budgetPerM2 != null ? '预算与碳排约束内无可行方案，请放宽预算、碳排上限或调整养护工法。'
+        : scn.carbonCapYr != null ? '碳排上限内无可行方案，请放宽上限或调整养护工法。'
+        : '预算内无可行方案，请调整预算或养护工法。',
+      stats: { feasible: nAll, budgetCut, carbonCut, rejected, samples: scn.samples },
     };
-    const { pick, reached } = choose(rows, scn.targetReliability);
+    const picked = scn.selection === 'validated' ? chooseValidated(rows, scn, clim, tgt, opts) : choose(rows, scn.targetReliability);
+    const { pick, reached } = picked;
     const front = pareto(rows);
     const cheapest = rows.reduce((a, b) => (b.costM2 < a.costM2 ? b : a));
     const expId = experienceBaseline(scn, clim);
-    const exp = rows.find((r) => r.id === expId) || evaluate(scn, clim, tgt, Object.assign({}, rebuild(expId, scn)), noise, opts);
+    const exp = rows.find((r) => r.id === expId) || evaluate(scn, clim, tgt, buildCand(expId, scn.aggregate), noise, opts);
     const ws = weightedSumPick(rows);
     const alts = front.filter((r) => r !== pick).sort((a, b) => Math.abs(a.euac - pick.euac) - Math.abs(b.euac - pick.euac)).slice(0, 4);
     const pg = { high: pgGradeHigh(clim.pavHigh98 + 6 * tgt.bump), low: pgGradeLow(clim.pavLow98 - tgt.pgLowExtra) };
+    const recSummary = summarize(pick, true); recSummary.validation = validatePick(scn, clim, tgt, pick, opts);
+    const expSummary = summarize(exp); expSummary.validation = validatePick(scn, clim, tgt, exp, opts);
+    const radar = radarOf([{ role: 'recommended', row: pick }].concat(alts.map((r) => ({ role: 'alternative', row: r })), [{ role: 'experience', row: exp }]), rows, scn, clim, noise, opts);
     return {
-      engine: 'SZXC-1.0', elapsedMs: Date.now() - t0, scenario: scn, tags: tagScenario(scn),
+      engine: ENGINE_ID, elapsedMs: Date.now() - t0, scenario: scn, tags: tagScenario(scn),
       climate: { city: clim.name, zone: clim.zone.code, zoneName: `${clim.zone.high.name}·${clim.zone.low.name}·${clim.zone.rain.name}`,
         pavHigh98: round(clim.pavHigh98, 1), pavLow98: round(clim.pavLow98, 1), pgRequired98: `PG ${pg.high}-${-pg.low}` },
       requirements: IND.map((k) => ({ ind: k, name: IND_NAME[k], unit: IND_UNIT[k], sceneTarget: k === 'pgHigh' ? round(clim.pavHighMean + 6 * tgt.bump, 1) : k === 'pgLow' ? round(clim.pavLowMean - tgt.pgLowExtra, 1) : round(tgt[k], 2), why: tgt.why[k] })),
       priorities: scarcity(rows),
-      stats: { enumerated: nAll + Object.values(rejected).reduce((a, b) => a + b, 0), feasible: nAll, budgetCut, rejected, samples: scn.samples },
+      stats: { enumerated: nAll + Object.values(rejected).reduce((a, b) => a + b, 0), feasible: nAll, budgetCut, carbonCut, rejected, samples: scn.samples },
       targetReliability: scn.targetReliability, targetReached: reached,
-      recommended: summarize(pick, true), process: processAdvice(scn, clim, pick, noise, opts),
+      recommended: recSummary, process: processAdvice(scn, clim, pick, noise, opts),
+      selection: { mode: scn.selection, validatedCandidates: picked.tested || 0, note: scn.selection === 'validated' ? '按成本升序在独立噪声上复算候选，取首个通过者；最终复验使用另一组独立噪声。' : '在同一批抽样上选优，recommended.validation 给出独立种子复验结果以揭示乐观偏差。' },
+      explain: shapley(pick.cand), radar,
       counterfactuals: counterfactuals(pick, rows, scn.targetReliability).slice(0, 12),
       alternatives: alts.map((r) => summarize(r)),
       pareto: front.map((r) => summarize(r)),
-      baselines: { experience: summarize(exp), weightedSum: summarize(ws), cheapest: summarize(cheapest) },
+      baselines: { experience: expSummary, weightedSum: summarize(ws), cheapest: summarize(cheapest) },
       cloud: rows.map((r) => [round(r.reliability, 3), round(r.euac, 2), round(r.carbonYr, 2), r.id]),
     };
-    function rebuild(id, s) {
-      const [g, b, w, r, wm, rap, f] = id.split('/'), A = KB.additives;
-      return { id, grad: byId(KB.gradations, g), binder: resolveBinder(b), water: byId(A.water, w), rut: byId(A.rut, r), warm: byId(A.warm, wm), rap: byId(A.rap, rap), fiber: byId(A.fiber, f), agg: byId(KB.aggregates, s.aggregate) };
-    }
   }
   function summarize(r, full) {
     const o = {
@@ -517,7 +657,7 @@
     const ok = KB.sealants.filter((s) => s.lowTest <= lowNeed && s.softening >= highNeed);
     const pick = (ok.length ? ok : KB.sealants.slice().sort((a, b) => a.lowTest - b.lowTest)).sort((a, b) => a.price - b.price)[0];
     return {
-      engine: 'SZXC-1.0', module: 'crack', scenario: scn, tags: tagScenario(scn),
+      engine: ENGINE_ID, module: 'crack', scenario: scn, tags: tagScenario(scn),
       climate: { city: clim.name, zone: clim.zone.code, pavHigh98: round(clim.pavHigh98, 1), pavLow98: round(clim.pavLow98, 1) },
       method: rule.method, sealant: pick, feasibleSealants: ok.map((s) => s.name),
       reason: `路表低温(98%) ${round(lowNeed, 1)}°C，要求低温拉伸试验温度不高于该值；路表高温 ${round(clim.pavHigh98, 1)}°C，软化点宜≥${round(highNeed, 0)}°C`,
@@ -545,5 +685,5 @@
     return st;
   }
 
-  return { KB, IND, IND_NAME, IND_UNIT, recommend, climateOf, normalizeScenario, tagScenario, similarity, sceneTargets, enumerate, evaluate, makeNoise, resolveBinder, predictMean, updateBias, describe, experienceBaseline, pgGradeHigh, pgGradeLow };
+  return { KB, ENGINE_ID, RULES, IND, IND_NAME, IND_UNIT, DIMS, DIM_NAME, buildCand, shapley, predictMean, recommend, VALIDATION_SAMPLES, climateOf, normalizeScenario, tagScenario, similarity, sceneTargets, enumerate, evaluate, makeNoise, resolveBinder, predictMean, updateBias, describe, experienceBaseline, pgGradeHigh, pgGradeLow };
 });

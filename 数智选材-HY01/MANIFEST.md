@@ -1,5 +1,15 @@
 # 数智选材 HY-01 工作清单
 
+## v2 状态：2026-10-22（分支 optimized-v2）
+
+- 详见 `CHANGELOG_v2.md`。36 项测试通过；七案例默认数值与 v1 逐项一致；无头 Chromium 界面检查通过（`paper/verification_v2/ui/receipt.json`）。
+- 新增：`engine/graph.js`、`engine/validate.js`、`tests/v2.test.js`、`tests/fixtures/v1_core.json`、`tools/robustness.js`、`tools/ui_check.py`、`paper/verification_v2/`、`deliverables/文档_v2/`。
+- v1 冻结包 `提交包/数智选材_完整交付_20261022.zip` 保留不动；v2 包见 `提交包/数智选材_完整交付_20261022_v2.zip`（63,362,531 字节，73 个文件，SHA256 `912e26ae3e3a1c97fda216602126d901957e134afc03c5ced6337d6f575c9db7`；CRC、清单哈希、独立解压后 36 项测试、离线页面字节一致重建、案例重放均通过）。
+- 关键发现：默认种子下 C1 的独立复验可靠度 83.8%，低于 85% 目标；v1 材料中 C1“模型内达成”的表述应改为“选优抽样内达成、独立复验未达”或改用稳健选优。
+- 仍待：真实身份字段、官网登录核对、PPT/视频更新（需 Codex 运行时与 macOS 语音）、材料试验标定。未向比赛官网提交。
+
+## 以下为 v1 状态记录
+
 ## 当前验收状态：2026-10-22 完整本地交付
 
 - 最高完成门槛：verified_locally；以下旧记录为过程历史，以本节为准。

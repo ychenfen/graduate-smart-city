@@ -79,14 +79,29 @@ svg text{fill:var(--ink2);font-size:11px;font-family:var(--mono)}
 .fb{display:grid;grid-template-columns:repeat(4,minmax(0,1fr)) auto;gap:8px;align-items:end;background:var(--card);border:1px solid var(--rule);padding:10px}
 .empty{color:var(--ink3);padding:30px;text-align:center;border:1px dashed var(--rule)}
 footer{color:var(--ink3);font-size:11px;padding:8px 24px;border-top:1px solid var(--rule)}
+.tabs{display:flex;flex-wrap:wrap;gap:6px;margin:6px 0}
+.tabs button{background:transparent;color:var(--ink);border-color:var(--rule);padding:3px 8px;font-size:12px}
+.tabs button[aria-pressed=true]{background:var(--accent);border-color:var(--ink);color:#1d1c1a}
+.contrib{display:grid;grid-template-columns:minmax(110px,1.1fr) minmax(120px,3fr) minmax(86px,.9fr);gap:5px 10px;align-items:center;font-size:12px;background:var(--card);border:1px solid var(--rule);padding:10px}
+.cbar{position:relative;height:14px}
+.cbar::before{content:"";position:absolute;left:50%;top:-2px;bottom:-2px;width:1px;background:var(--ink3)}
+.cbar i{position:absolute;top:2px;bottom:2px}
+.cbar i.p{background:var(--ok)} .cbar i.n{background:var(--warn)}
+.rlegend{display:flex;gap:12px;flex-wrap:wrap;font-size:12px;color:var(--ink2);margin-top:6px}
+.rlegend span::before{content:"";display:inline-block;width:14px;height:0;border-top:3px solid var(--sw);margin-right:5px;vertical-align:3px}
+.rlegend span.dash::before{border-top-style:dashed}
+details.gnode{background:var(--card);border:1px solid var(--rule);padding:6px 10px;margin-top:6px;font-size:12px}
+details.gnode summary{cursor:pointer;color:var(--ink2)}
+.sr{position:absolute;left:-9999px}
+@media print{aside,.tools,.run,.fb,.tabs,footer,.casepick{display:none!important} .wrap{display:block} aside+main{padding:0}}
 @media (max-width:900px){table{display:block;overflow-x:auto} .wrap{grid-template-columns:1fr} aside{border-right:0;border-bottom:1px solid var(--rule)} .grid2{grid-template-columns:1fr} .fb{grid-template-columns:1fr 1fr} main{padding:12px 16px 40px} header{padding:14px 16px 8px}}
 </style>
 </head>
 <body>
 <header>
   <h1>数智选材</h1>
-  <span class="sub">养护场景 → 性能需求包络 → 达标可靠度选材 · 演示原型 v1.0</span>
-  <span class="tools"><button class="ghost" id="themeBtn" type="button" title="切换明暗">明/暗</button></span>
+  <span class="sub">养护场景 → 性能需求包络 → 达标可靠度选材 · 演示原型 v2.0</span>
+  <span class="tools"><button class="ghost" id="exportBtn" type="button" title="把当前输入和结果保存为 JSON 文件" disabled>导出 JSON</button><button class="ghost" id="themeBtn" type="button" title="切换明暗">明/暗</button></span>
 </header>
 <div class="wrap">
 <aside>
@@ -114,27 +129,33 @@ footer{color:var(--ink3);font-size:11px;padding:8px 24px;border-top:1px solid va
     <div><label for="targetRel">目标可靠度</label><input type="number" id="targetRel" step="0.05" min="0.5" max="0.99" placeholder="按等级缺省"></div>
     <div><label for="budget">造价上限 元/m²</label><input type="number" id="budget" step="1" placeholder="不限"></div>
   </div>
+  <div class="row2">
+    <div><label for="carbonCap">年均碳排上限 kgCO₂e/m²·年</label><input type="number" id="carbonCap" step="0.05" min="0" placeholder="不限"></div>
+    <div><label for="samples">抽样次数</label><select id="samples"><option value="200">200（快）</option><option value="400" selected>400（默认）</option><option value="1000">1000</option><option value="2000">2000（慢）</option></select></div>
+  </div>
   <label style="display:flex;gap:6px;align-items:center"><input type="checkbox" id="nightWork"> 夜间封道施工</label>
+  <label style="display:flex;gap:6px;align-items:flex-start" title="按成本从低到高，在独立噪声上复算接近目标的候选，取第一个通过者；缺省按 v1 在同一批抽样上选优"><input type="checkbox" id="selMode" style="margin-top:3px"> <span>稳健选优：在独立噪声上复算候选，减少“挑中运气好的方案”</span></label>
   <div id="crackBox" style="display:none"><label for="crackW">裂缝宽度 mm</label><input type="number" id="crackW" value="8"></div>
   <button class="run" id="runBtn" type="button">生成材料方案</button>
-  <div class="note" style="margin-top:10px">引擎在本地浏览器运行，不联网。每个候选方案做 400 次蒙特卡洛抽样（公共随机数）。</div>
+  <div class="note" style="margin-top:10px">引擎在本地浏览器运行，不联网。每个候选方案按所选次数做蒙特卡洛抽样（公共随机数）；结论另用独立种子复验。</div>
 </aside>
-<main id="out"><div class="empty">在左侧选择案例或输入场景后点击“生成材料方案”。</div></main>
+<main id="out" aria-live="polite"><div class="empty">在左侧选择案例或输入场景后点击“生成材料方案”。</div></main>
 </div>
 <footer>构造案例与演示先验。模型内通过比例不代表工程成功概率，寿命、费用与碳排均为假设测算；规则须按原始条文和企业试验逐项复核。</footer>
 
 <script>/*@KB*/</script>
 <script>/*@ENGINE*/</script>
+<script>/*@GRAPH*/</script>
 <script>window.SZXC_CASES = /*@CASES*/[];</script>
 <script>
 (function(){
 'use strict';
-const E = window.SZXC, KB = E.KB, CASES = window.SZXC_CASES;
+const E = window.SZXC, G = window.SZXC_GRAPH, KB = E.KB, CASES = window.SZXC_CASES;
 const $ = (id) => document.getElementById(id);
 const fmt = (x, d=2) => (x==null||isNaN(x)) ? '—' : Number(x).toFixed(d);
 const pct = (x) => (x*100).toFixed(1) + '%';
 const esc = (s) => String(s).replace(/[&<>"]/g, (c) => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
-let biasState = {}; let last = null; let selectedId = null; let currentCase = null;
+let biasState = {}; let last = null; let lastInput = null; let selectedId = null; let currentCase = null;
 
 // ---------- 主题 ----------
 try { const t = localStorage.getItem('szxc-theme'); if (t) document.documentElement.dataset.theme = t; } catch(e) {}
@@ -166,6 +187,7 @@ function loadCase(id, run) {
   document.querySelectorAll('[data-dis]').forEach((el) => { const d = (s.distresses||[]).find((x) => x.id === el.dataset.dis); el.value = d ? String(d.severity) : ''; });
   $('ambientT').value = s.ambientT ?? 22; $('haulMin').value = s.haulMin ?? 40; $('nightWork').checked = !!s.nightWork;
   $('targetRel').value = s.targetReliability ?? ''; $('budget').value = s.budgetPerM2 ?? ''; $('crackW').value = s.crackWidthMm ?? 8;
+  $('carbonCap').value = s.carbonCapYr ?? ''; $('selMode').checked = s.selection === 'validated'; $('samples').value = String(s.samples ?? 400);
   $('treatment').onchange();
   if (run) runNow();
 }
@@ -175,34 +197,47 @@ function readForm() {
     distresses: [...document.querySelectorAll('[data-dis]')].filter((el) => el.value !== '').map((el) => ({ id: el.dataset.dis, severity: +el.value })) };
   if ($('targetRel').value) s.targetReliability = +$('targetRel').value;
   if ($('budget').value) s.budgetPerM2 = +$('budget').value;
+  if ($('carbonCap').value !== '') s.carbonCapYr = +$('carbonCap').value;
+  s.samples = +$('samples').value; s.selection = $('selMode').checked ? 'validated' : 'point';
   if (s.treatment === 'CRACK') s.crackWidthMm = +$('crackW').value;
   return s;
 }
 function runNow() {
-  $('runBtn').textContent = '计算中…';
+  $('runBtn').textContent = '计算中…'; $('runBtn').disabled = true; $('out').setAttribute('aria-busy', 'true');
   setTimeout(() => {
-    try { last = E.recommend(readForm(), { biasState }); selectedId = last.recommended ? last.recommended.id : null; render(last); }
-    catch (e) { last = null; selectedId = null; $('out').innerHTML = `<div class="empty">出错：${esc(e.message)}</div>`; }
-    $('runBtn').textContent = '生成材料方案';
+    try { lastInput = readForm(); last = E.recommend(lastInput, { biasState }); selectedId = last.recommended ? last.recommended.id : null; render(last); }
+    catch (e) { last = null; selectedId = null; $('out').innerHTML = `<div class="empty" role="alert">出错：${esc(e.message)}</div>`; }
+    $('runBtn').textContent = '生成材料方案'; $('runBtn').disabled = false; $('out').removeAttribute('aria-busy');
+    $('exportBtn').disabled = !last;
   }, 20);
 }
 $('runBtn').onclick = runNow;
+$('exportBtn').onclick = () => {
+  if (!last) return;
+  const payload = { exportedAt: new Date().toISOString(), engine: last.engine, note: '构造案例与演示先验；模型内通过比例不代表工程成功概率。', input: lastInput, feedbackState: biasState, output: Object.assign({}, last, { cloud: undefined }) };
+  const a = document.createElement('a');
+  a.href = URL.createObjectURL(new Blob([JSON.stringify(payload, null, 2)], { type: 'application/json' }));
+  a.download = 'szxc-result.json'; document.body.appendChild(a); a.click();
+  setTimeout(() => { URL.revokeObjectURL(a.href); a.remove(); }, 500);
+};
 
 // ---------- 渲染 ----------
 function render(o) {
   if (o.module === 'crack') return renderCrack(o);
   if (o.module === 'infeasible') {
-    $('out').innerHTML = `<div class="empty">${esc(o.reason)}<br>规则筛选后 ${o.stats.feasible} 个候选，预算剔除 ${o.stats.budgetCut} 个。</div>`;
+    $('out').innerHTML = `<div class="empty">${esc(o.reason)}<br>规则筛选后 ${o.stats.feasible} 个候选，预算剔除 ${o.stats.budgetCut} 个，碳排上限剔除 ${o.stats.carbonCut || 0} 个。</div>`;
     return;
   }
   const r = o.recommended;
-  const sim = CASES.map((c) => ({ c, s: E.similarity(o.tags, E.tagScenario(c.input)) })).filter((x) => !currentCase || x.c.id !== currentCase.id || true).sort((a,b) => b.s - a.s).slice(0, 3);
+  const sim = CASES.map((c) => ({ c, s: E.similarity(o.tags, E.tagScenario(c.input)) })).sort((a,b) => b.s - a.s).slice(0, 3);
+  const v = r.validation;
   $('out').innerHTML = `
   <h2><span class="n">02</span>结论 <span class="hint">${o.climate.city} · ${o.climate.zone} ${o.climate.zoneName} · 候选 ${o.stats.feasible}/${o.stats.enumerated} · ${o.elapsedMs} ms</span></h2>
   <div class="verdict">
     <div class="big">${esc(r.label)}</div>
     <span class="k">模型内联合通过比例</span><span class="v">${pct(r.reliability)}　目标 ${pct(o.targetReliability)}　${o.targetReached ? '<span class="pill ok">模型内达成</span>' : '<span class="pill no">模型内未达目标，须人工复核</span>'}</span>
     <span class="k">95%抽样区间</span><span class="v">${r.reliabilityInterval95.map(pct).join('–')}（${r.samples}次抽样，仅含抽样误差，不含模型与先验误差）</span>
+    <span class="k">独立种子复验</span><span class="v">${pct(v.reliability)}（${v.reliabilityInterval95.map(pct).join('–')}，${v.samples}次）${v.meetsTargetPoint ? '<span class="pill ok">复验仍达标</span>' : '<span class="pill no">复验未达标</span>'}　选优时 ${pct(r.reliability)}，偏差 ${(v.selectionGap*100).toFixed(1)} pt${o.selection.mode === 'validated' ? '（已按独立噪声复算 ' + o.selection.validatedCandidates + ' 个候选后选优）' : ''}</span>
     <span class="k">最可能先出问题的指标</span><span class="v">${esc(r.bottleneckName)}（单项达标 ${pct(r.passRate[r.bottleneck])}）</span>
     <span class="k">场景所需结合料等级(98%)</span><span class="v">${o.climate.pgRequired98}；所选结合料 ${r.formula.binderPG}</span>
   </div>
@@ -234,12 +269,23 @@ function render(o) {
   </div>
   <div class="legend"><span class="l1">可行方案</span><span class="l2">Pareto 前沿</span><span class="l3">推荐</span><span class="l4">经验选型</span></div>
 
-  <h2><span class="n">05</span>如果……会怎样：单变量反事实</h2>
+  <h2><span class="n">05</span>多维对比：雷达图 <span class="hint">推荐 / 候选 / 经验基线，越靠外越好</span></h2>
+  <div class="grid2">
+    <div class="chartbox" id="radar"></div>
+    <div id="radarSide"></div>
+  </div>
+
+  <h2><span class="n">06</span>为什么是这个配方：Shapley 归因 <span class="hint">解释机理先验预测式，不是数据驱动模型</span></h2>
+  <div class="tabs" id="exTabs" role="group" aria-label="选择指标"></div>
+  <div id="exBody"></div>
+  <div class="note" id="exNote"></div>
+
+  <h2><span class="n">07</span>如果……会怎样：单变量反事实</h2>
   <table class="cf"><thead><tr><th>只改一项</th><th style="text-align:right">可靠度变化</th><th style="text-align:right">年值成本变化</th><th style="text-align:right">年均碳排变化</th><th>结果</th></tr></thead><tbody>
   ${o.counterfactuals.slice(0,8).map((c) => `<tr><td>${esc(c.change)}</td><td class="num ${c.dRel>=0?'pos':'neg'}">${c.dRel>=0?'+':''}${(c.dRel*100).toFixed(1)} pt</td><td class="num ${c.dEuac<=0?'pos':'neg'}">${c.dEuac>=0?'+':''}${fmt(c.dEuac)}</td><td class="num ${c.dCarbonYr<=0?'pos':'neg'}">${c.dCarbonYr>=0?'+':''}${fmt(c.dCarbonYr)}</td><td>${c.meets?'<span class="pill ok">仍达标</span>':`<span class="pill no">${esc(E.IND_NAME[c.bottleneck])} ${pct(c.bottleneckRate)}</span>`}</td></tr>`).join('')}
   </tbody></table>
 
-  <h2><span class="n">06</span>材料—工艺协同</h2>
+  <h2><span class="n">08</span>材料—工艺协同</h2>
   <table><tbody>
     <tr><td>拌和温度</td><td class="num">${o.process.mixTemp[0]}–${o.process.mixTemp[1]} °C</td><td class="why">初压开始温度不低于 ${o.process.compactionStartMin} °C</td></tr>
     <tr><td>允许铺筑的最低气温</td><td class="num">${o.process.minAmbient} °C</td><td class="why">当前施工期气温 ${o.scenario.ambientT} °C${o.scenario.nightWork?'，夜间施工':''}</td></tr>
@@ -248,12 +294,12 @@ function render(o) {
     <tr><td>若现场空隙率比设计大 1%</td><td class="num ${o.process.robustness.va1<0?'neg':''}">${(o.process.robustness.va1*100).toFixed(1)} pt</td><td class="why">可靠度变化：数值越接近 0，施工容错越高</td></tr>
   </tbody></table>
 
-  <h2><span class="n">07</span>和常见做法比</h2>
+  <h2><span class="n">09</span>和常见做法比</h2>
   <table><thead><tr><th>方法</th><th>方案</th><th style="text-align:right">可靠度</th><th style="text-align:right">寿命</th><th style="text-align:right">造价</th><th style="text-align:right">年值成本</th><th style="text-align:right">年均碳排</th></tr></thead><tbody>
   ${[['本系统', r], ['经验选型', o.baselines.experience], ['加权打分(AHP式)', o.baselines.weightedSum], ['最低造价', o.baselines.cheapest]].map(([n, x]) => `<tr><td>${n}</td><td>${esc(x.label)}</td><td class="num">${pct(x.reliability)}</td><td class="num">${fmt(x.lifeMean,1)}</td><td class="num">${fmt(x.costM2,1)}</td><td class="num">${fmt(x.euac)}</td><td class="num">${fmt(x.carbonYr)}</td></tr>`).join('')}
   </tbody></table>
 
-  <h2><span class="n">08</span>监测反馈：让推荐随工程数据进化</h2>
+  <h2><span class="n">10</span>监测反馈：让推荐随工程数据进化</h2>
   <div class="fb">
     <div><label for="fbFam">结合料类别</label><select id="fbFam"><option value="sbs">SBS改性</option><option value="rubber">橡胶改性</option><option value="hva">高粘高弹</option><option value="base">基质</option><option value="hard">硬质</option></select></div>
     <div><label for="fbGrad">级配类型</label><select id="fbGrad"><option value="dense">密级配 AC</option><option value="sma">SMA</option><option value="ogfc">OGFC</option></select></div>
@@ -263,11 +309,21 @@ function render(o) {
   </div>
   <div class="note" id="fbState" style="margin-top:6px">${Object.keys(biasState).length ? '已修正：' + Object.entries(biasState).map(([k,v]) => `${k} 偏差 ${(Math.exp(v.mean)*100-100).toFixed(1)}%（n=${v.n}）`).join('；') : '尚无回流数据，模型使用先验。'} <a href="#" id="fbReset">清空</a></div>
 
-  <h2><span class="n">09</span>相似案例</h2>
+  <h2><span class="n">11</span>相似案例</h2>
   <table><tbody>${sim.map((x) => `<tr><td class="num" style="width:60px">${(x.s*100).toFixed(0)}%</td><td>${esc(x.c.id)} ${esc(x.c.title)}</td></tr>`).join('')}</tbody></table>
   <div class="note">按场景标签（气候分区、交通、工法、病害、集料）计算 Jaccard 相似度，案例库可随项目积累扩充。</div>
+
+  <h2><span class="n">12</span>材料—性能关联查询 <span class="hint">由知识库与机理先验导出，非实测图谱</span></h2>
+  <div class="row2" style="max-width:520px">
+    <div><label for="gInd">想改善的指标</label><select id="gInd">${E.IND.map((k) => `<option value="${k}">${E.IND_NAME[k]}</option>`).join('')}</select></div>
+    <div><label for="gCls">限定材料类别</label><select id="gCls"><option value="">全部</option><option value="binder">结合料</option><option value="grad">级配</option><option value="water">抗水损措施</option><option value="rut">抗车辙剂</option><option value="warm">拌和工艺</option><option value="rap">RAP</option><option value="fiber">纤维</option></select></div>
+  </div>
+  <div id="gOut" style="margin-top:8px"></div>
   `;
   drawChart(o);
+  drawRadar(o);
+  initExplain(o);
+  initGraph();
   showFormula(o, selectedId);
   $('fbBtn').onclick = () => {
     const obs = Array.from({length:10}, () => ({ binderFamily: $('fbFam').value, gradType: $('fbGrad').value, indicator: $('fbInd').value, ratio: +$('fbRatio').value }));
@@ -311,6 +367,62 @@ function drawChart(o) {
   });
   box.querySelector('svg').addEventListener('mouseleave', () => { tip.style.display = 'none'; });
   box.querySelector('svg').addEventListener('click', (e) => { const id = e.target.dataset && e.target.dataset.id; if (id) { selectedId = id; showFormula(o, id); } });
+}
+function drawRadar(o) {
+  const box = $('radar'), R = o.radar, n = R.axes.length;
+  const W = Math.max(300, Math.min(520, box.clientWidth - 16)), H = Math.round(W * 0.92), cx = W / 2, cy = H / 2 + 6, rad = Math.min(W, H) / 2 - 54;
+  const css = getComputedStyle(document.documentElement), C = (v) => css.getPropertyValue(v).trim();
+  const ang = (i) => -Math.PI / 2 + i * 2 * Math.PI / n;
+  const pt = (i, v) => [cx + Math.cos(ang(i)) * rad * v, cy + Math.sin(ang(i)) * rad * v];
+  let s = `<svg width="${W}" height="${H}" role="img" aria-label="多维对比雷达图，数据见右侧表格">`;
+  for (const g of [0.25, 0.5, 0.75, 1]) s += `<polygon points="${R.axes.map((_, i) => pt(i, g).join(',')).join(' ')}" fill="none" stroke="${C('--rule')}"/>`;
+  R.axes.forEach((a, i) => { const [x, y] = pt(i, 1), [lx, ly] = pt(i, 1.17); s += `<line x1="${cx}" y1="${cy}" x2="${x}" y2="${y}" stroke="${C('--rule')}"/><text x="${lx}" y="${ly + 4}" text-anchor="${Math.abs(lx - cx) < 6 ? 'middle' : lx > cx ? 'start' : 'end'}">${esc(a.name)}</text>`; });
+  const style = (se, k) => se.role === 'recommended' ? { stroke: C('--ink'), fill: C('--accent'), fo: 0.35, w: 2.2, d: '' }
+    : se.role === 'experience' ? { stroke: C('--warn'), fill: 'none', fo: 0, w: 2, d: '6 4' } : { stroke: C('--dot'), fill: 'none', fo: 0, w: 1.2, d: '' };
+  R.series.slice().reverse().forEach((se) => { const st = style(se); s += `<polygon points="${se.values.map((v, i) => pt(i, v).join(',')).join(' ')}" fill="${st.fill}" fill-opacity="${st.fo}" stroke="${st.stroke}" stroke-width="${st.w}" ${st.d ? `stroke-dasharray="${st.d}"` : ''}><title>${esc(se.label)}</title></polygon>`; });
+  s += '</svg>';
+  box.innerHTML = s + `<div class="rlegend"><span style="--sw:${C('--ink')}">推荐</span><span style="--sw:${C('--dot')}">备选（Pareto）</span><span class="dash" style="--sw:${C('--warn')}">经验选型</span></div>`;
+  const names = R.series.map((se, i) => se.role === 'recommended' ? '推荐' : se.role === 'experience' ? '经验' : '备选' + i);
+  $('radarSide').innerHTML = `<table aria-label="雷达图数据"><thead><tr><th>维度</th>${names.map((x) => `<th style="text-align:right">${x}</th>`).join('')}</tr></thead><tbody>${R.axes.map((a, i) => `<tr><td>${esc(a.name)}</td>${R.series.map((se) => `<td class="num">${(se.values[i] * 100).toFixed(0)}</td>`).join('')}</tr>`).join('')}</tbody></table>
+  <div class="note" style="margin-top:6px">${esc(R.note)}</div>
+  <div class="note" style="margin-top:6px">${R.series.map((se, i) => esc(names[i] + '：' + se.label)).join('<br>')}</div>`;
+}
+function initExplain(o) {
+  const ex = o.explain, def = ex.indicators.some((x) => x.ind === o.recommended.bottleneck) ? o.recommended.bottleneck : 'ds';
+  $('exNote').textContent = ex.note + ' 参考配方：' + ex.reference.label + '。';
+  const show = (ind) => {
+    document.querySelectorAll('#exTabs button').forEach((b) => b.setAttribute('aria-pressed', String(b.dataset.ind === ind)));
+    const x = ex.indicators.find((q) => q.ind === ind), log = x.scale === 'log';
+    const eff = (c) => log ? (c.factor - 1) * 100 : c.value;
+    const max = Math.max(1e-9, ...x.contributions.map((c) => Math.abs(eff(c))));
+    const dec = ind === 'td' || ind === 'fatigue' ? 3 : 1;
+    const unit = log ? '%' : (x.unit === '%' ? ' 百分点' : ' ' + x.unit);
+    $('exBody').innerHTML = `<div class="note" style="margin-bottom:4px">${esc(x.name)}：参考配方 ${fmt(x.reference, ind==='ds'||ind==='strain'?0:dec)} → 所选方案 ${fmt(x.predicted, ind==='ds'||ind==='strain'?0:dec)} ${esc(x.unit)}。各组成的贡献相加等于总变化${log ? '（在对数空间相加，下表为乘性影响）' : ''}。</div>
+    <div class="contrib">${x.contributions.map((c) => { const v = eff(c), w = Math.abs(v) / max * 50;
+      return `<div>${esc(c.dimName)}<div class="note">${esc(c.from)} → ${esc(c.to)}</div></div><div class="cbar"><i class="${v >= 0 ? 'p' : 'n'}" style="${v >= 0 ? 'left:50%' : 'right:50%'};width:${w}%"></i></div><div class="num" style="text-align:right;font-family:var(--mono)">${v >= 0 ? '+' : ''}${v.toFixed(dec)}${unit}</div>`; }).join('') || '<div>与参考配方一致，无差异</div>'}</div>`;
+  };
+  $('exTabs').innerHTML = ex.indicators.map((x) => `<button type="button" data-ind="${x.ind}" aria-pressed="false">${esc(x.name.split(' ')[0])}</button>`).join('');
+  $('exTabs').onclick = (e) => { const b = e.target.closest('[data-ind]'); if (b) show(b.dataset.ind); };
+  show(def);
+}
+function initGraph() {
+  const g = G.graph();
+  const run = () => {
+    const ind = $('gInd').value, items = G.improvers(g, ind, { top: 8, cls: $('gCls').value || undefined });
+    const unitOf = (x) => x.unit;
+    $('gOut').innerHTML = items.length ? `<table><thead><tr><th>材料</th><th style="text-align:right">对该指标的效应</th><th>同时带来的代价</th><th>受哪些规则约束</th></tr></thead><tbody>${items.map((x) => `<tr data-node="${esc(x.id)}" style="cursor:pointer"><td>${esc(x.name)} <span class="tag">${esc(x.className)}</span></td><td class="num pos">${x.effect >= 0 ? '+' : ''}${x.effect} ${esc(unitOf(x))}</td><td class="why">${x.tradeoffs.map((t) => `${esc(t.name.split(' ')[0])} ${t.effect >= 0 ? '+' : ''}${t.effect}${esc(t.unit)}`).join('；') || '—'}</td><td class="why">${x.restrictedBy.join('、') || '—'}</td></tr>`).join('')}</tbody></table>
+      <div class="note" style="margin-top:4px">效应为参考配方（AC-13 + 70# + 无助剂）上单一组成替换的预测差异；规则编号见下方展开。点击一行查看该材料的全部影响。</div><div id="gProfile"></div>`
+      : '<div class="empty">当前指标下没有可提升它的材料。</div>';
+  };
+  $('gInd').onchange = run; $('gCls').onchange = run;
+  $('gOut').onclick = (e) => {
+    const tr = e.target.closest('[data-node]'); if (!tr) return;
+    const pr = G.profile(g, tr.dataset.node), f = (x) => `${esc(x.name.split(' ')[0])} ${x.effect >= 0 ? '+' : ''}${x.effect}${esc(x.unit)}`;
+    $('gProfile').innerHTML = `<details class="gnode" open><summary>${esc(pr.node.name)}：全部影响与约束</summary>
+      <div>改善：${pr.improves.map(f).join('；') || '—'}</div><div>变差：${pr.worsens.map(f).join('；') || '—'}</div>
+      <div>规则：${pr.restrictedBy.map((r) => esc(r.text)).join('；') || '无'}</div></details>`;
+  };
+  run();
 }
 function niceStep(x) { const p = Math.pow(10, Math.floor(Math.log10(x))); const f = x / p; return (f < 1.5 ? 1 : f < 3.5 ? 2 : f < 7.5 ? 5 : 10) * p; }
 function labelOf(id) {

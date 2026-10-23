@@ -9,6 +9,7 @@ const safe = (s) => s.replace(/<\/script/gi, '<\\/script');
 let html = read('prototype/app.template.html');
 html = html.replace('/*@KB*/', () => safe(read('engine/kb.js')))
            .replace('/*@ENGINE*/', () => safe(read('engine/engine.js')))
+           .replace('/*@GRAPH*/', () => safe(read('engine/graph.js')))
            .replace('/*@CASES*/[]', () => safe(JSON.stringify(JSON.parse(read('cases/cases.json')))));
 fs.writeFileSync(path.join(R, 'prototype/index.html'), html);
 fs.writeFileSync(path.join(R, 'data/kb.json'), JSON.stringify(require(path.join(R, 'engine/kb.js')), (k, v) => (v === Infinity ? 'Infinity' : v === -Infinity ? '-Infinity' : v), 2));

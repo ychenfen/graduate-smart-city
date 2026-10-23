@@ -1,0 +1,164 @@
+{
+  "page": "prototype/index.html",
+  "checks": [
+    {
+      "name": "首屏自动载入 C1 并出结论",
+      "ok": true,
+      "detail": "SMA-13 + 橡胶改性沥青(20%胶粉) + 消石灰替代1.5%矿粉 + 抗车辙剂(0.4%混合料) + 木质素纤维0.3%"
+    },
+    {
+      "name": "结论页包含 02–12 共 11 个章节",
+      "ok": true,
+      "detail": "11"
+    },
+    {
+      "name": "雷达图至少 3 条多边形",
+      "ok": true,
+      "detail": "10"
+    },
+    {
+      "name": "雷达图数据表 6 行",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "Shapley 指标页签 7 个",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "Shapley 贡献条存在",
+      "ok": true,
+      "detail": "5"
+    },
+    {
+      "name": "切换 Shapley 指标页签生效",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "知识图谱查询有结果行",
+      "ok": true,
+      "detail": "8"
+    },
+    {
+      "name": "点击图谱行展开材料影响",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "图谱按指标与类别筛选",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "独立复验行可见",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "案例 C1 渲染结论",
+      "ok": true,
+      "detail": "SMA-13 + 橡胶改性沥青(20%胶粉) + 消石灰替代1.5%矿粉 + 抗"
+    },
+    {
+      "name": "案例 C2 渲染结论",
+      "ok": true,
+      "detail": "AC-16 + SBS改性沥青(110#基, 5.5%) + 消石灰替代1.5%"
+    },
+    {
+      "name": "案例 C3 渲染结论",
+      "ok": true,
+      "detail": "SMA-13 + 橡胶改性沥青(20%胶粉) + 消石灰替代1.5%矿粉 + 表"
+    },
+    {
+      "name": "案例 C4 渲染结论",
+      "ok": true,
+      "detail": "OGFC-10 + 高粘高弹改性沥青 + 消石灰替代1.5%矿粉 + 木质素纤维"
+    },
+    {
+      "name": "案例 C5 渲染结论",
+      "ok": true,
+      "detail": "SMA-13 + SBS改性沥青(90#基, 5.5%) + 胺类抗剥落剂(0."
+    },
+    {
+      "name": "案例 C6 渲染结论",
+      "ok": true,
+      "detail": "AC-16 + SBS改性沥青(90#基, 5.5%) + 消石灰替代1.5%矿"
+    },
+    {
+      "name": "案例 C7 渲染结论",
+      "ok": true,
+      "detail": "开槽灌缝（槽宽 10–15mm） · 寒冷型加热灌缝胶"
+    },
+    {
+      "name": "C7 裂缝页不含雷达/Shapley",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "零预算给出无解提示",
+      "ok": true,
+      "detail": "预算内无可行方案，请调整预算或养护工法。\n规则筛选后 1488 个候选，预算剔除 1488 个，碳排上限剔除 0 个。"
+    },
+    {
+      "name": "极低施工气温给出无解提示",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "极小碳排上限给出无解提示且统计碳排剔除",
+      "ok": true,
+      "detail": "碳排上限内无可行方案，请放宽上限或调整养护工法。\n规则筛选后 992 个候选，预算剔除 0 个，碳排上限剔除 992 个。"
+    },
+    {
+      "name": "碳排上限 0.9 仍可推荐且不超限",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "稳健选优显示复算候选数",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "非法运输时长显示错误提示",
+      "ok": true,
+      "detail": "出错：施工温度和运输时长须为有效数值，运输时长不可为负"
+    },
+    {
+      "name": "回流反馈后状态栏出现修正",
+      "ok": true,
+      "detail": "已修正：sbs|dense|tsr 偏差 -10.3%（n=10） 清空"
+    },
+    {
+      "name": "清空反馈",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "导出 JSON 含输入与输出",
+      "ok": true,
+      "detail": "szxc-result.json"
+    },
+    {
+      "name": "暗色主题重绘雷达图",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "移动端页面无横向溢出",
+      "ok": true,
+      "detail": "scrollWidth=390 innerWidth=390"
+    },
+    {
+      "name": "移动端雷达图不超出视口",
+      "ok": true,
+      "detail": "340"
+    }
+  ],
+  "console_errors": [],
+  "page_errors": [],
+  "all_passed": true,
+  "generated": "2026-10-22 23:13:19"
+}

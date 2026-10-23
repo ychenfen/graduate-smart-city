@@ -1,0 +1,328 @@
+{
+ "C1": {
+  "recommended": {
+   "id": "SMA13/CR20/lime/antirut/none/R0/lignin",
+   "reliability": 0.865,
+   "euac": 10.42,
+   "costM2": 67,
+   "lifeMean": 7.6,
+   "carbonYr": 0.97
+  },
+  "experience": {
+   "id": "SMA13/SBS70_4/amine/none/none/R0/lignin",
+   "reliability": 0.425,
+   "euac": 11.08,
+   "costM2": 65.5,
+   "lifeMean": 6.9,
+   "carbonYr": 1.07
+  },
+  "weightedSum": {
+   "id": "SMA13/SBS70_5/lime/none/none/R0/lignin",
+   "reliability": 0.815,
+   "euac": 10.5,
+   "costM2": 66.5,
+   "lifeMean": 7.5,
+   "carbonYr": 1.03
+  },
+  "cheapest": {
+   "id": "AC16/B110/lime/none/warm/R30/none",
+   "reliability": 0,
+   "euac": 16.08,
+   "costM2": 43.3,
+   "lifeMean": 2.9,
+   "carbonYr": 1.75
+  },
+  "pareto": [
+   "AC13/SBS90_5/lime/none/warm/R30/none",
+   "AC16/SBS90_5/lime/none/warm/R30/none",
+   "AC16/CR20/lime/none/warm/R0/none",
+   "AC13/SBS70_5/lime/none/warm/R15/none",
+   "AC13/SBS70_5/lime/none/none/R15/none",
+   "AC16/CR20/amine/none/warm/R0/none",
+   "AC13/SBS70_5/amine/none/warm/R15/none",
+   "AC13/CR20/amine/none/warm/R0/none",
+   "SMA13/CR20/lime/none/warm/R0/lignin",
+   "SMA13/CR20/lime/antirut/none/R0/lignin",
+   "SMA13/CR20/lime/none/none/R0/lignin",
+   "SMA13/CR20/amine/none/warm/R0/lignin",
+   "SMA13/CR20/lime/antirut/warm/R0/lignin",
+   "SMA13/SBS70_5/lime/antirut/none/R0/lignin",
+   "SMA13/CR20/lime/antirut/none/R0/basalt",
+   "SMA13/CR20/lime/antirut/warm/R0/basalt",
+   "SMA13/SBS70_5/lime/antirut/none/R0/basalt",
+   "SMA13/HVA/lime/none/none/R0/lignin",
+   "SMA13/HVA/lime/none/warm/R0/lignin",
+   "SMA13/HVA/lime/none/none/R0/basalt",
+   "SMA13/HVA/lime/none/warm/R0/basalt"
+  ],
+  "targetReached": true,
+  "feasible": 992
+ },
+ "C2": {
+  "recommended": {
+   "id": "AC16/SBS110_5/lime/antirut/warm/R0/basalt",
+   "reliability": 0.74,
+   "euac": 10.98,
+   "costM2": 68.1,
+   "lifeMean": 7.3,
+   "carbonYr": 1.08
+  },
+  "experience": {
+   "id": "AC13/SBS110_5/none/none/none/R0/none",
+   "reliability": 0.035,
+   "euac": 11.19,
+   "costM2": 58.7,
+   "lifeMean": 6,
+   "carbonYr": 1.14
+  },
+  "weightedSum": {
+   "id": "SMA13/CR20/lime/none/warm/R0/lignin",
+   "reliability": 0.378,
+   "euac": 11.52,
+   "costM2": 63.8,
+   "lifeMean": 6.5,
+   "carbonYr": 0.88
+  },
+  "cheapest": {
+   "id": "AC16/B110/none/none/warm/R30/none",
+   "reliability": 0,
+   "euac": 12.12,
+   "costM2": 44.9,
+   "lifeMean": 4.2,
+   "carbonYr": 1.21
+  },
+  "pareto": [
+   "AC16/SBS110_5/lime/none/warm/R30/none",
+   "AC16/SBS110_5/amine/none/warm/R30/none",
+   "AC16/SBS110_5/lime/none/warm/R15/none",
+   "AC16/SBS110_5/lime/antirut/warm/R30/none",
+   "AC16/SBS110_5/amine/antirut/warm/R30/none",
+   "AC13/SBS110_5/lime/antirut/warm/R30/none",
+   "AC16/SBS110_5/lime/antirut/warm/R15/none",
+   "AC16/SBS110_5/amine/antirut/warm/R15/none",
+   "AC16/SBS90_5/lime/none/warm/R0/none",
+   "AC16/SBS90_5/amine/none/warm/R0/none",
+   "AC16/CR20/amine/none/warm/R0/none",
+   "AC16/SBS110_5/lime/antirut/warm/R0/none",
+   "AC13/CR20/lime/none/warm/R0/none",
+   "AC16/SBS110_5/amine/antirut/warm/R0/none",
+   "AC13/CR20/amine/none/warm/R0/none",
+   "AC16/SBS110_5/lime/antirut/warm/R15/basalt",
+   "SMA13/CR20/lime/none/warm/R0/lignin",
+   "SMA13/CR20/amine/none/warm/R0/lignin"
+  ],
+  "targetReached": false,
+  "feasible": 966
+ },
+ "C3": {
+  "recommended": {
+   "id": "SMA13/CR20/lime/none/warm/R0/lignin",
+   "reliability": 0.975,
+   "euac": 9.07,
+   "costM2": 61.8,
+   "lifeMean": 8.1,
+   "carbonYr": 0.71
+  },
+  "experience": {
+   "id": "AC13/SBS70_4/amine/none/none/R0/none",
+   "reliability": 0.308,
+   "euac": 9.88,
+   "costM2": 56.6,
+   "lifeMean": 6.7,
+   "carbonYr": 1.01
+  },
+  "weightedSum": {
+   "id": "AC16/CR20/lime/none/none/R0/none",
+   "reliability": 0.553,
+   "euac": 8.77,
+   "costM2": 52.1,
+   "lifeMean": 7,
+   "carbonYr": 0.85
+  },
+  "cheapest": {
+   "id": "AC16/B110/none/none/warm/R30/none",
+   "reliability": 0,
+   "euac": 13.21,
+   "costM2": 43.3,
+   "lifeMean": 3.7,
+   "carbonYr": 1.37
+  },
+  "pareto": [
+   "AC16/SBS90_5/lime/none/warm/R30/none",
+   "AC16/SBS90_5/amine/none/warm/R30/none",
+   "AC16/CR20/lime/none/warm/R0/none",
+   "AC16/CR20/lime/none/none/R0/none",
+   "AC16/CR20/amine/none/warm/R0/none",
+   "SMA13/CR20/lime/none/warm/R0/lignin",
+   "SMA13/CR20/amine/none/warm/R0/lignin",
+   "SMA13/SBS70_5/lime/none/none/R0/lignin",
+   "SMA13/CR20/lime/antirut/none/R0/lignin",
+   "SMA13/SBS70_5/lime/none/warm/R0/lignin",
+   "SMA13/CR20/lime/antirut/warm/R0/lignin",
+   "SMA13/CR20/lime/none/warm/R0/basalt",
+   "SMA13/CR20/lime/antirut/none/R0/basalt",
+   "SMA13/CR20/lime/antirut/warm/R0/basalt"
+  ],
+  "targetReached": true,
+  "feasible": 1488
+ },
+ "C4": {
+  "recommended": {
+   "id": "OGFC10/HVA/lime/none/none/R0/lignin",
+   "reliability": 0.96,
+   "euac": 6.12,
+   "costM2": 32,
+   "lifeMean": 6,
+   "carbonYr": 0.59
+  },
+  "experience": {
+   "id": "SMA10/SBS70_4/none/none/none/R0/lignin",
+   "reliability": 0.713,
+   "euac": 7.36,
+   "costM2": 35,
+   "lifeMean": 5.4,
+   "carbonYr": 0.72
+  },
+  "weightedSum": {
+   "id": "OGFC10/HVA/lime/none/none/R0/lignin",
+   "reliability": 0.96,
+   "euac": 6.12,
+   "costM2": 32,
+   "lifeMean": 6,
+   "carbonYr": 0.59
+  },
+  "cheapest": {
+   "id": "AC10/B110/none/none/warm/R30/none",
+   "reliability": 0,
+   "euac": 7.29,
+   "costM2": 22,
+   "lifeMean": 3.3,
+   "carbonYr": 0.74
+  },
+  "pareto": [
+   "AC10/B70/none/none/warm/R30/none",
+   "OGFC10/HVA/lime/none/none/R0/lignin",
+   "OGFC10/HVA/lime/none/warm/R0/lignin",
+   "OGFC10/HVA/lime/none/none/R0/basalt",
+   "SMA10/CR20/lime/none/warm/R0/lignin",
+   "SMA10/CR20/none/none/warm/R0/lignin",
+   "SMA10/CR20/amine/none/warm/R0/lignin"
+  ],
+  "targetReached": true,
+  "feasible": 828
+ },
+ "C5": {
+  "recommended": {
+   "id": "SMA13/SBS90_5/amine/antirut/none/R0/basalt",
+   "reliability": 0.808,
+   "euac": 10.57,
+   "costM2": 75.9,
+   "lifeMean": 8.8,
+   "carbonYr": 1.03
+  },
+  "experience": {
+   "id": "SMA13/SBS110_5/none/none/none/R0/lignin",
+   "reliability": 0.083,
+   "euac": 10.79,
+   "costM2": 66.1,
+   "lifeMean": 7.2,
+   "carbonYr": 1.05
+  },
+  "weightedSum": {
+   "id": "SMA13/CR20/lime/none/none/R0/lignin",
+   "reliability": 0.495,
+   "euac": 9.65,
+   "costM2": 62,
+   "lifeMean": 7.8,
+   "carbonYr": 0.82
+  },
+  "cheapest": {
+   "id": "AC16/B110/none/none/warm/R30/none",
+   "reliability": 0,
+   "euac": 11.91,
+   "costM2": 43.3,
+   "lifeMean": 4.1,
+   "carbonYr": 1.23
+  },
+  "pareto": [
+   "AC16/SBS110_5/none/none/warm/R30/none",
+   "AC16/SBS90_5/none/none/warm/R30/none",
+   "AC16/SBS90_5/none/none/warm/R15/none",
+   "AC16/SBS110_5/none/antirut/warm/R30/none",
+   "AC16/CR20/none/none/warm/R0/none",
+   "AC16/SBS110_5/none/antirut/warm/R15/none",
+   "AC16/SBS90_5/none/none/warm/R0/none",
+   "AC16/CR20/none/none/warm/R0/basalt",
+   "AC16/SBS90_5/none/antirut/warm/R0/none",
+   "AC16/SBS90_5/none/antirut/none/R0/none",
+   "AC16/SBS90_5/lime/antirut/warm/R0/none",
+   "AC16/SBS90_5/amine/antirut/warm/R0/none",
+   "AC16/SBS110_5/none/antirut/warm/R15/basalt",
+   "SMA13/CR20/none/none/warm/R0/lignin",
+   "SMA13/CR20/none/none/none/R0/lignin",
+   "SMA13/CR20/lime/none/warm/R0/lignin",
+   "SMA13/CR20/amine/none/warm/R0/lignin",
+   "AC16/HVA/none/none/warm/R0/none",
+   "SMA13/SBS90_5/none/none/warm/R0/lignin",
+   "SMA13/SBS90_5/amine/none/warm/R0/lignin",
+   "SMA13/CR20/none/none/warm/R0/basalt",
+   "SMA13/SBS90_5/none/antirut/warm/R0/lignin",
+   "SMA13/CR20/lime/none/warm/R0/basalt",
+   "SMA13/SBS90_5/lime/antirut/warm/R0/lignin",
+   "SMA13/CR20/amine/none/warm/R0/basalt",
+   "SMA13/SBS90_5/amine/antirut/warm/R0/lignin",
+   "SMA13/SBS90_5/lime/antirut/warm/R0/basalt",
+   "SMA13/SBS90_5/amine/antirut/warm/R0/basalt",
+   "SMA13/HVA/lime/none/warm/R0/lignin"
+  ],
+  "targetReached": false,
+  "feasible": 1452
+ },
+ "C6": {
+  "recommended": {
+   "id": "AC16/SBS90_5/lime/none/warm/R30/none",
+   "reliability": 0.773,
+   "euac": 7.04,
+   "costM2": 49.2,
+   "lifeMean": 8.4,
+   "carbonYr": 0.7
+  },
+  "experience": {
+   "id": "AC13/SBS70_4/none/none/none/R0/none",
+   "reliability": 0.663,
+   "euac": 8.15,
+   "costM2": 55.9,
+   "lifeMean": 8.2,
+   "carbonYr": 0.82
+  },
+  "weightedSum": {
+   "id": "AC16/SBS90_5/lime/none/warm/R30/none",
+   "reliability": 0.773,
+   "euac": 7.04,
+   "costM2": 49.2,
+   "lifeMean": 8.4,
+   "carbonYr": 0.7
+  },
+  "cheapest": {
+   "id": "AC16/B110/none/none/warm/R30/none",
+   "reliability": 0,
+   "euac": 8.91,
+   "costM2": 43.3,
+   "lifeMean": 5.6,
+   "carbonYr": 0.91
+  },
+  "pareto": [
+   "AC16/SBS90_5/lime/none/warm/R30/none",
+   "AC16/SBS90_5/lime/none/none/R30/none",
+   "AC16/SBS90_5/amine/none/warm/R30/none",
+   "AC16/CR20/lime/none/warm/R0/none"
+  ],
+  "targetReached": true,
+  "feasible": 1488
+ },
+ "C7": {
+  "module": "crack",
+  "sealant": "S_COLD",
+  "method": "开槽灌缝（槽宽 10–15mm）"
+ }
+}

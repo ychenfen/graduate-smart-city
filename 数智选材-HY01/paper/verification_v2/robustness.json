@@ -1,0 +1,216 @@
+{
+  "seeds": [
+    20261021,
+    20268940,
+    20276859,
+    20284778,
+    20292697,
+    20300616,
+    20308535,
+    20316454,
+    20324373,
+    20332292,
+    20340211,
+    20348130
+  ],
+  "rows": [
+    {
+      "id": "C1",
+      "title": "海南洋浦·疏港重载道路车辙处治",
+      "modes": {
+        "point": {
+          "seeds": 12,
+          "distinctRecommendations": 3,
+          "modalAgreement": 0.6666666666666666,
+          "modalLabel": "SMA-13 + SBS改性沥青(70#基, 5.5%) + 消石灰替代1.5%矿粉 + 抗车辙剂(0.4%混合料) + 木质素纤维0.3%",
+          "selectionReliabilityMean": 0.886,
+          "validatedReliabilityMean": 0.882,
+          "validatedReliabilitySd": 0.029,
+          "optimismGapMean": 0.004,
+          "validatedMeetsTargetRate": 0.75,
+          "targetReachedRate": 1,
+          "euacMean": 10.8
+        },
+        "validated": {
+          "seeds": 12,
+          "distinctRecommendations": 2,
+          "modalAgreement": 0.9166666666666666,
+          "modalLabel": "SMA-13 + SBS改性沥青(70#基, 5.5%) + 消石灰替代1.5%矿粉 + 抗车辙剂(0.4%混合料) + 木质素纤维0.3%",
+          "selectionReliabilityMean": 0.9,
+          "validatedReliabilityMean": 0.897,
+          "validatedReliabilitySd": 0.014,
+          "optimismGapMean": 0.002,
+          "validatedMeetsTargetRate": 1,
+          "targetReachedRate": 1,
+          "euacMean": 10.91
+        }
+      },
+      "target": 0.85
+    },
+    {
+      "id": "C2",
+      "title": "哈尔滨·城市主干路低温裂缝，晚秋施工",
+      "modes": {
+        "point": {
+          "seeds": 12,
+          "distinctRecommendations": 2,
+          "modalAgreement": 0.6666666666666666,
+          "modalLabel": "AC-16 + SBS改性沥青(110#基, 5.5%) + 消石灰替代1.5%矿粉 + 抗车辙剂(0.4%混合料) + 表面活性剂温拌(0.5%油重) + 玄武岩纤维0.3%",
+          "selectionReliabilityMean": 0.73,
+          "validatedReliabilityMean": 0.725,
+          "validatedReliabilitySd": 0.006,
+          "optimismGapMean": 0.004,
+          "validatedMeetsTargetRate": 0,
+          "targetReachedRate": 0,
+          "euacMean": 11.5
+        },
+        "validated": {
+          "seeds": 12,
+          "distinctRecommendations": 2,
+          "modalAgreement": 0.9166666666666666,
+          "modalLabel": "AC-16 + SBS改性沥青(110#基, 5.5%) + 消石灰替代1.5%矿粉 + 抗车辙剂(0.4%混合料) + 表面活性剂温拌(0.5%油重) + 玄武岩纤维0.3%",
+          "selectionReliabilityMean": 0.722,
+          "validatedReliabilityMean": 0.726,
+          "validatedReliabilitySd": 0.007,
+          "optimismGapMean": -0.005,
+          "validatedMeetsTargetRate": 0,
+          "targetReachedRate": 0,
+          "euacMean": 11.21
+        }
+      },
+      "target": 0.85
+    },
+    {
+      "id": "C3",
+      "title": "重庆·山区高速水损害路段修复",
+      "modes": {
+        "point": {
+          "seeds": 12,
+          "distinctRecommendations": 2,
+          "modalAgreement": 0.6666666666666666,
+          "modalLabel": "SMA-13 + 橡胶改性沥青(20%胶粉) + 消石灰替代1.5%矿粉 + 表面活性剂温拌(0.5%油重) + 木质素纤维0.3%",
+          "selectionReliabilityMean": 0.975,
+          "validatedReliabilityMean": 0.972,
+          "validatedReliabilitySd": 0.002,
+          "optimismGapMean": 0.002,
+          "validatedMeetsTargetRate": 1,
+          "targetReachedRate": 1,
+          "euacMean": 9.1
+        },
+        "validated": {
+          "seeds": 12,
+          "distinctRecommendations": 2,
+          "modalAgreement": 0.6666666666666666,
+          "modalLabel": "SMA-13 + 橡胶改性沥青(20%胶粉) + 消石灰替代1.5%矿粉 + 表面活性剂温拌(0.5%油重) + 木质素纤维0.3%",
+          "selectionReliabilityMean": 0.975,
+          "validatedReliabilityMean": 0.972,
+          "validatedReliabilitySd": 0.002,
+          "optimismGapMean": 0.002,
+          "validatedMeetsTargetRate": 1,
+          "targetReachedRate": 1,
+          "euacMean": 9.1
+        }
+      },
+      "target": 0.9
+    },
+    {
+      "id": "C4",
+      "title": "武汉·城市快速路抗滑不足，夜间薄层罩面",
+      "modes": {
+        "point": {
+          "seeds": 12,
+          "distinctRecommendations": 1,
+          "modalAgreement": 1,
+          "modalLabel": "OGFC-10 + 高粘高弹改性沥青 + 消石灰替代1.5%矿粉 + 木质素纤维0.3%",
+          "selectionReliabilityMean": 0.933,
+          "validatedReliabilityMean": 0.926,
+          "validatedReliabilitySd": 0.003,
+          "optimismGapMean": 0.007,
+          "validatedMeetsTargetRate": 1,
+          "targetReachedRate": 1,
+          "euacMean": 6.14
+        },
+        "validated": {
+          "seeds": 12,
+          "distinctRecommendations": 1,
+          "modalAgreement": 1,
+          "modalLabel": "OGFC-10 + 高粘高弹改性沥青 + 消石灰替代1.5%矿粉 + 木质素纤维0.3%",
+          "selectionReliabilityMean": 0.933,
+          "validatedReliabilityMean": 0.926,
+          "validatedReliabilitySd": 0.003,
+          "optimismGapMean": 0.007,
+          "validatedMeetsTargetRate": 1,
+          "targetReachedRate": 1,
+          "euacMean": 6.14
+        }
+      },
+      "target": 0.85
+    },
+    {
+      "id": "C5",
+      "title": "乌鲁木齐·国道温缩裂缝与车辙并存",
+      "modes": {
+        "point": {
+          "seeds": 12,
+          "distinctRecommendations": 4,
+          "modalAgreement": 0.5,
+          "modalLabel": "SMA-13 + SBS改性沥青(90#基, 5.5%) + 胺类抗剥落剂(0.4%油重) + 抗车辙剂(0.4%混合料) + 玄武岩纤维0.3%",
+          "selectionReliabilityMean": 0.787,
+          "validatedReliabilityMean": 0.788,
+          "validatedReliabilitySd": 0.014,
+          "optimismGapMean": -0.001,
+          "validatedMeetsTargetRate": 0,
+          "targetReachedRate": 0,
+          "euacMean": 10.46
+        },
+        "validated": {
+          "seeds": 12,
+          "distinctRecommendations": 1,
+          "modalAgreement": 1,
+          "modalLabel": "SMA-13 + SBS改性沥青(90#基, 5.5%) + 消石灰替代1.5%矿粉 + 抗车辙剂(0.4%混合料) + 表面活性剂温拌(0.5%油重) + 玄武岩纤维0.3%",
+          "selectionReliabilityMean": 0.786,
+          "validatedReliabilityMean": 0.794,
+          "validatedReliabilitySd": 0.006,
+          "optimismGapMean": -0.009,
+          "validatedMeetsTargetRate": 0,
+          "targetReachedRate": 0,
+          "euacMean": 10.59
+        }
+      },
+      "target": 0.9
+    },
+    {
+      "id": "C6",
+      "title": "西安·市政次干路低预算罩面",
+      "modes": {
+        "point": {
+          "seeds": 12,
+          "distinctRecommendations": 3,
+          "modalAgreement": 0.75,
+          "modalLabel": "AC-16 + SBS改性沥青(90#基, 5.5%) + 消石灰替代1.5%矿粉 + 表面活性剂温拌(0.5%油重) + RAP 30%+再生剂",
+          "selectionReliabilityMean": 0.778,
+          "validatedReliabilityMean": 0.774,
+          "validatedReliabilitySd": 0.03,
+          "optimismGapMean": 0.004,
+          "validatedMeetsTargetRate": 0.8333333333333334,
+          "targetReachedRate": 1,
+          "euacMean": 7.1
+        },
+        "validated": {
+          "seeds": 12,
+          "distinctRecommendations": 1,
+          "modalAgreement": 1,
+          "modalLabel": "AC-16 + SBS改性沥青(90#基, 5.5%) + 消石灰替代1.5%矿粉 + 表面活性剂温拌(0.5%油重) + RAP 30%+再生剂",
+          "selectionReliabilityMean": 0.759,
+          "validatedReliabilityMean": 0.769,
+          "validatedReliabilitySd": 0.006,
+          "optimismGapMean": -0.01,
+          "validatedMeetsTargetRate": 1,
+          "targetReachedRate": 1,
+          "euacMean": 7.05
+        }
+      },
+      "target": 0.75
+    }
+  ]
+}

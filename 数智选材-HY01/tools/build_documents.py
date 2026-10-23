@@ -1,7 +1,7 @@
 """使用原始官网模板制作评审文档，原件不改写。依赖 python-docx / lxml。"""
 from pathlib import Path
 from copy import deepcopy
-import hashlib, json, re, zipfile
+import hashlib, json, os, re, zipfile
 import uuid
 from lxml import etree as ET
 from docx import Document
@@ -9,7 +9,8 @@ from docx.shared import Pt
 
 ROOT=Path(__file__).resolve().parents[1]
 REF=ROOT/'00_赛题/官网附件_20261022'
-OUT=ROOT/'deliverables/文档'
+OUT=ROOT/os.environ.get('SZXC_DOC_OUT','deliverables/文档')
+CASES=ROOT/os.environ.get('SZXC_CASES','paper/verification_20261022/cases.json')
 QA=ROOT/'.work/qa'
 OUT.mkdir(parents=True,exist_ok=True); QA.mkdir(parents=True,exist_ok=True)
 NS={'w':'http://schemas.openxmlformats.org/wordprocessingml/2006/main'}
@@ -176,7 +177,7 @@ for line in (ROOT/'paper/技术交接与数据证据.md').read_text().splitlines
     elif line.strip():d.add_paragraph(plain(line))
 d.save(OUT/'04_技术交接与数据证据.docx')
 
-data=json.loads((ROOT/'paper/verification_20261022/cases.json').read_text())
+data=json.loads(CASES.read_text())
 d=appendix('数智选材 七案例推荐与验证')
 d.add_paragraph('七个案例均为合理构造的测试案例。气候为近似演示值，材料和费用为待标定先验。表中结果为同一模型内比较，不能证明工程精度、实际降本或延寿。95%区间仅含抽样误差。')
 for c in data:
@@ -189,6 +190,10 @@ for c in data:
     for x,s in zip(tb.rows[0].cells,['方法','联合比例','成本 元/m²','估计寿命 年','年值成本']):x.text=s
     for n,v in [('推荐',r),('规则经验',o['baselines']['experience']),('加权评分',o['baselines']['weightedSum']),('最低成本',o['baselines']['cheapest'])]:
         for x,s in zip(tb.add_row().cells,[n,v['reliability'],v['costM2'],v['lifeMean'],v['euac']]):x.text=str(s)
+    v=r.get('validation')
+    if v:d.add_paragraph(f"独立种子复验（{v['samples']}次）：联合比例{v['reliability']}，区间{v['reliabilityInterval95']}，选优偏差{v['selectionGap']}，{'仍达到' if v['meetsTargetPoint'] else '未达到'}目标。")
+    w=c.get('outputValidated')
+    if w and w.get('recommended'):d.add_paragraph(f"稳健选优方案：{w['recommended']['label']}；复验联合比例{w['recommended']['validation']['reliability']}，年值成本{w['recommended']['euac']}。")
     d.add_paragraph('年均碳排估计：'+str(r['carbonYr'])+' kgCO₂e/(m²·年)。经验基线未必满足全部施工规则，不能直接作为可实施方案。')
     d.add_paragraph('解释：'+next(q['why'] for q in o['requirements'] if q['ind']==r['bottleneck']))
 d.add_heading('验证范围',1);d.add_paragraph('本报告检验场景录入、约束筛选、选优与解释逻辑。六个混合料案例及一个裂缝案例满足不少于五例的展示数量，覆盖至少三类需求；全部结果来自同一个先验评价器，不作为外部独立验证。完整输入输出在随附JSON中。')
