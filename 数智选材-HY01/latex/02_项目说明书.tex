@@ -1,0 +1,76 @@
+\documentclass[UTF8,fontset=none,zihao=-4,a4paper]{ctexart}
+\usepackage[top=2.5cm,bottom=2.4cm,left=2.6cm,right=2.6cm]{geometry}
+\usepackage{fontspec}
+\setmainfont{Noto Serif CJK SC}
+\setsansfont{Noto Sans CJK SC}
+\setmonofont{Noto Sans Mono CJK SC}[Scale=0.88]
+\setCJKmainfont{Noto Serif CJK SC}
+\setCJKsansfont{Noto Sans CJK SC}
+\setCJKmonofont{Noto Sans Mono CJK SC}[Scale=0.88]
+\usepackage{booktabs,longtable,array,graphicx,xcolor,amssymb,amsmath}
+\usepackage{fancyhdr,url,enumitem,tcolorbox}
+\usepackage[hidelinks,pdfauthor={},pdfcreator={XeLaTeX},pdftitle={数智选材 道路养护材料方案推荐原型}]{hyperref}
+\urlstyle{same}
+\def\UrlBreaks{\do\/\do\-\do\_\do\.\do\=\do\?\do\&}
+\setlength{\parindent}{2em}
+\linespread{1.32}
+\setlist{itemsep=2pt,topsep=4pt}
+\ctexset{section={format=\Large\bfseries\sffamily,beforeskip=1.6ex plus .3ex,afterskip=1.0ex},
+         subsection={format=\large\bfseries\sffamily,beforeskip=1.2ex,afterskip=.6ex}}
+\pagestyle{fancy}\fancyhf{}
+\fancyhead[L]{\small\sffamily 项目说明书}
+\fancyhead[R]{\small\sffamily 匿名评审版}
+\fancyfoot[C]{\small\thepage}
+\renewcommand{\headrulewidth}{0.3pt}
+\definecolor{note}{RGB}{245,241,230}
+\newtcolorbox{notebox}{colback=note,colframe=black!35,boxrule=.4pt,left=6pt,right=6pt,top=4pt,bottom=4pt}
+\newcommand{\ck}{$\boxtimes$}
+\newcommand{\uck}{$\square$}
+\begin{document}
+\begin{center}{\Large\bfseries\sffamily 数智选材 道路养护材料方案推荐原型}\\[4pt]{\large 项目说明书（附件 2 栏目）}\end{center}
+\vspace{2pt}
+\section*{一、立项依据}
+本项目响应海韵企业HY-01课题一。养护决策系统输出工法后，材料选型仍需要综合气候、荷载、病害、材料与施工条件。高温抗车辙和低温抗裂等需求相互制约，单一指标评分不能充分说明取舍；低温施工、长距离运输或预算不足，也可能使理论配方难以实施。
+
+课题要求建立场景需求映射、材料推荐、性能预测与反馈闭环，并允许使用合理构造案例完成概念验证。本作品选择先实现可检查的决策链条：让每项场景需求有解释，让被剔除方案有原因，让未达标和不可行情况能显式呈现。目标是辅助工程师形成候选清单，不替代规范审查、材料检测和配合比设计。
+
+已有基础包括结构化知识库、七个构造案例、浏览器与Node共用引擎、离线界面及HTTP接口。城市气候为近似演示输入；知识库的规范门槛仍需逐项核对现行版本，材料与工艺参数尚未由独立试验标定。因此不据此主张预测精度或工程领先性。
+
+\section*{二、项目创新内容}
+\subsection*{1. 总体思路}
+把场景解析、需求映射、规则剪枝、性能评价、方案选优及反馈更新拆成模块。以同一场景和相同随机扰动比较候选，输出联合达标比例、性能瓶颈、成本及碳排估计；在目标约束下选择年值成本较低的候选，同时保留Pareto方案供人工权衡。
+
+\subsection*{2. 可行性分析}
+原型采用零依赖JavaScript，可在浏览器离线演示，也可通过Node服务接入外部养护决策系统。知识库将材料、级配、助剂、工法与规则显式存储，便于企业逐条替换和校准。七案例覆盖高温重载、低温裂缝、水损害、抗滑不足与预算限制，能够检查核心流程。裂缝灌缝按独立规则处理，避免误用混合料评价模块。
+
+\subsection*{3. 特色与边界}
+第一，将材料与施工条件共同纳入筛选和评价，例如施工气温、运输时间与夜间施工影响压实扰动。第二，用单维替代方案解释“更换某项材料会发生什么”，并展示短板指标。第三，预算无解时明确拒绝超预算推荐；无候选时返回不可行结果。第四，演示按材料家族接收观测并更新偏差状态。第五，对被选方案用独立种子和4000次抽样复验，并给出选优时与复验时可靠度的差距，避免在同一批抽样上挑出的“最优”被当作无偏结果。第六，用精确Shapley值把预测性能拆分到级配、结合料、助剂等七个组成维度，并用雷达图并列推荐、备选与经验方案；材料—性能关联图可回答“改善某指标可用哪些材料、代价是什么、受哪些规则约束”。
+
+这些特色目前是软件和方法的实现，不是经独立实验确证的新材料规律。多指标结果来自机理趋势与工程先验，不属于已训练并经外部测试的多任务AI模型；解释呈现规则与模型内部关联，不构成因果识别；Shapley归因针对的是本作品的机理先验预测式，关联图边权来自同一预测式在参考配方上的单一组成替换，二者都不是由实测数据学得。
+
+\section*{三、实施方案}
+\subsection*{数据与需求映射}
+输入包含城市或气候、道路等级、交通、车速、病害与严重程度、工法、集料、施工气温、运输时长、预算和目标可靠度。气候模块生成分区及路面设计温度；需求模块结合交通和病害生成高低温、抗车辙、抗裂、水稳定、疲劳与抗滑目标，并保留解释文本。道路结构当前仅通过工法和层厚间接表示，尚未建立完整结构力学模型。
+
+\subsection*{候选生成与预测}
+枚举级配、结合料、抗水损措施、抗车辙剂、温拌措施、再生料和纤维组合，通过材料兼容、寒区适用性、层厚粒径匹配及施工气温等规则剪枝。对剩余候选计算性能先验均值，叠加气候、材料与压实扰动。蒙特卡洛统计各指标和联合通过比例；寿命、成本与碳排由显式假设模型估计。该通过比例是给定假设下的模型内统计量，不能直接解释成工程保证概率。
+
+\subsection*{选择与解释}
+先执行预算约束，再在达到目标比例的候选中按年值成本选择，并以碳排作为同成本下的辅助条件。若有候选但全部未达到目标，显示目标未达；若预算或规则使候选集为空，返回不可行原因。界面展示候选、瓶颈、替代方案和施工建议，最终由工程师复核。默认在同一批抽样上选优，同时给出独立复验结果；可选“稳健选优”模式，按成本升序在独立噪声上复算接近目标的候选，取首个通过者。多种子实验显示，同批抽样选优的方案在12个种子中并非总能通过独立复验，稳健选优使推荐更稳定，二者结论仍属模型内统计。还可设置年均碳排上限作为环保约束。对输出舍入值附近的目标判断，以引擎未舍入结果为准。
+
+\subsection*{验证设计}
+运行 \texttt{node -\allowbreak{}-\allowbreak{}test tests/\allowbreak{}*.\allowbreak{}test.\allowbreak{}js} 检查确定性、规则、预算与碳排约束、Pareto、反馈方向、Shapley效率性、接口及边界，其中回归测试锁定七案例的既有数值。离线页面另用无头Chromium在桌面和移动视口逐项检查（七案例、无解提示、导出、暗色），这不等同于真机或用户测试。\texttt{node tools/\allowbreak{}robustness.\allowbreak{}js} 输出多种子稳定性。运行 \texttt{node tools/\allowbreak{}case\_\allowbreak{}report.\allowbreak{}js} 生成七案例输入、结果与基线报告。六个混合料案例比较规则经验、加权评分和最低初始成本；第七个裂缝案例展示规则适用性，不纳入同类收益统计。基线和推荐共用评价器，仅用于检查决策逻辑，不证明模型预测能力。对经验基线须另行检查施工可行性。
+
+后续验证分三步：企业复核规范与产品参数；使用独立材料试验集评价误差、分材料家族检验适用域；再用历史工程或试点观察验证成本、寿命和监测闭环。应保留原始记录，避免把同一项目或同一配方的重复样本同时放入训练集和测试集。
+
+\subsection*{系统交接}
+\texttt{engine/\allowbreak{}schema.\allowbreak{}json} 定义输入字段，\texttt{engine/\allowbreak{}server.\allowbreak{}js} 提供推荐、输入校验、反馈、知识库、关联图查询和健康检查接口，并对输入逐字段按schema校验。\texttt{cases/\allowbreak{}cases.\allowbreak{}json} 保存可重放场景；\texttt{engine/\allowbreak{}kb.\allowbreak{}js} 为可维护知识底座；\texttt{tools/\allowbreak{}build.\allowbreak{}js} 生成离线页面。反馈状态目前在服务内存保存，重启会丢失，正式应用须增加持久化、权限和审计。系统不具备生产部署验收条件。
+
+\section*{四、应用前景分析}
+本原型可用于养护设计初期的材料方案检索、约束核对和讨论记录，帮助材料与养护工程师使用同一组场景字段交流。与企业合作时，优先补齐真实产品台账、适用规则和独立试验数据，再开展历史案例回放与有限试点。当前可以展示决策流程及假设下的方案取舍，不能据此承诺实际降本、延寿、减碳或缩短研发周期。商业化以验证效果、责任边界和数据授权为前提，暂无已实现收入和客户采用证据。
+
+\section*{来源与附件}
+依据：官网 2026 参赛指南第 6—7 页与 HY-01 课题一第 1—5 页。数据来源分级与适用边界见技术交接附件。
+
+
+\end{document}

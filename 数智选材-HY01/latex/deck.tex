@@ -1,0 +1,23 @@
+\documentclass[UTF8,fontset=none,aspectratio=169,10pt]{ctexbeamer}
+\usepackage{fontspec,booktabs}
+\setmainfont{Noto Sans CJK SC}\setCJKmainfont{Noto Sans CJK SC}\setCJKsansfont{Noto Sans CJK SC}
+\usetheme{default}\usecolortheme{seahorse}\setbeamertemplate{navigation symbols}{}
+\setbeamertemplate{footline}{\hfill\small 匿名评审版\quad\insertframenumber/\inserttotalframenumber\hspace{1em}\vspace{.4em}}
+\setbeamerfont{frametitle}{size=\Large,series=\bfseries}
+\hypersetup{pdfauthor={},pdftitle={数智选材 汇报稿}}
+\begin{document}
+\begin{frame}{数智选材：道路养护材料方案推荐}\centering{\Large 概念验证原型 v2}\\[1em]HY-01 课题一\\[1em]\small 匿名评审版 \quad 案例与参数均为演示用途\end{frame}
+\begin{frame}{问题：工法确定之后，材料怎么选}\begin{itemize}\item 气候、交通、病害、施工条件共同约束\item 规则筛选先排除不兼容方案\item 预算或低温无解时明确提示，不用评分掩盖硬约束\end{itemize}\end{frame}
+\begin{frame}{流水线}\centering 场景 $\to$ 需求包络 $\to$ 三千七百余个候选枚举与规则剪枝\\$\to$ 机理先验预测与蒙特卡洛\\$\to$ 联合通过比例、寿命、年值成本、碳排\\$\to$ 选优、对照与解释\end{frame}
+\begin{frame}{第二版发现的问题：选优乐观偏差}\begin{itemize}\item 在同一批抽样上先算再挑最优，被选方案的可靠度会被高估\item C1：选优时 0.865，独立种子复验 0.838，目标 0.85\item 复验未达标\end{itemize}\end{frame}
+\begin{frame}{七案例独立复验}\small\begin{tabular}{lcccc}\toprule 案例&目标&选优时&独立复验&复验达标\\\midrule C1 & 0.85 & 0.865 & 0.838 & 否 \\
+C2 & 0.85 & 0.740 & 0.735 & 否 \\
+C3 & 0.90 & 0.975 & 0.970 & 是 \\
+C4 & 0.85 & 0.960 & 0.926 & 是 \\
+C5 & 0.90 & 0.808 & 0.801 & 否 \\
+C6 & 0.75 & 0.773 & 0.779 & 是 \\\\\bottomrule\end{tabular}\\[.6em]{\scriptsize 同一先验模型内的统计，不是工程验证}\end{frame}
+\begin{frame}{多种子稳定性}\begin{itemize}\item 六个案例，十二个种子，选优四百次抽样，复验四千次\item 平均乐观偏差只有零点几个百分点，但案例一在同批抽样选优下仅 75\% 的种子通过复验\item 新增“稳健选优”：在独立噪声上复算候选，首个通过者胜出\end{itemize}\end{frame}
+\begin{frame}{可解释与新约束}\begin{itemize}\item 精确 Shapley：七个组成维度，一百二十八个联盟，效率性有测试\item 六轴雷达图、材料—指标—规则关联图\item 年均碳排上限作为环保硬约束\item 解释对象是机理先验公式，不是数据驱动模型\end{itemize}\end{frame}
+\begin{frame}{工程质量}\begin{itemize}\item 测试由 24 项增至 36 项\item 无头 Chromium 界面检查 31 项，桌面与移动视口\item 服务端修复路径穿越与超限请求挂起，跨域仅放行本机来源\item 输入按 schema 逐字段校验\end{itemize}\end{frame}
+\begin{frame}{边界与下一步}\begin{itemize}\item 材料性能、费用、碳排、寿命均为待标定先验\item 规范门槛尚未逐条核对现行条文\item 没有客户合同、收入或工程降本数据\item 下一步：企业材料数据与独立试验\end{itemize}\end{frame}
+\end{document}

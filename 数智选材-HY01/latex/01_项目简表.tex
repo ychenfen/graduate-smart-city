@@ -1,0 +1,73 @@
+\documentclass[UTF8,fontset=none,zihao=-4,a4paper]{ctexart}
+\usepackage[top=2.5cm,bottom=2.4cm,left=2.6cm,right=2.6cm]{geometry}
+\usepackage{fontspec}
+\setmainfont{Noto Serif CJK SC}
+\setsansfont{Noto Sans CJK SC}
+\setmonofont{Noto Sans Mono CJK SC}[Scale=0.88]
+\setCJKmainfont{Noto Serif CJK SC}
+\setCJKsansfont{Noto Sans CJK SC}
+\setCJKmonofont{Noto Sans Mono CJK SC}[Scale=0.88]
+\usepackage{booktabs,longtable,array,graphicx,xcolor,amssymb,amsmath}
+\usepackage{fancyhdr,url,enumitem,tcolorbox}
+\usepackage[hidelinks,pdfauthor={},pdfcreator={XeLaTeX},pdftitle={数智选材 道路养护材料方案推荐原型}]{hyperref}
+\urlstyle{same}
+\def\UrlBreaks{\do\/\do\-\do\_\do\.\do\=\do\?\do\&}
+\setlength{\parindent}{2em}
+\linespread{1.32}
+\setlist{itemsep=2pt,topsep=4pt}
+\ctexset{section={format=\Large\bfseries\sffamily,beforeskip=1.6ex plus .3ex,afterskip=1.0ex},
+         subsection={format=\large\bfseries\sffamily,beforeskip=1.2ex,afterskip=.6ex}}
+\pagestyle{fancy}\fancyhf{}
+\fancyhead[L]{\small\sffamily 项目简表}
+\fancyhead[R]{\small\sffamily 匿名评审版}
+\fancyfoot[C]{\small\thepage}
+\renewcommand{\headrulewidth}{0.3pt}
+\definecolor{note}{RGB}{245,241,230}
+\newtcolorbox{notebox}{colback=note,colframe=black!35,boxrule=.4pt,left=6pt,right=6pt,top=4pt,bottom=4pt}
+\newcommand{\ck}{$\boxtimes$}
+\newcommand{\uck}{$\square$}
+\begin{document}
+\begin{center}{\Large\bfseries\sffamily 数智选材 道路养护材料方案推荐原型}\\[4pt]{\large 项目简表（附件 1 栏目）}\end{center}
+\vspace{2pt}
+{\small\noindent 参照官网附件 1 栏目编排；该 PDF 为 LaTeX 排版件，官方 DOCX 模板填写版另见随附可编辑文档。\par}
+\begin{longtable}{>{\bfseries\sffamily}p{3.2cm}p{\dimexpr\textwidth-3.2cm-4\tabcolsep}}
+\toprule
+作品名称 & 数智选材 道路养护材料方案推荐原型 \\
+\midrule
+团队名称 & 待确认（匿名团队名，不得含培养单位） \\
+\midrule
+参赛赛道/赛题 & \ck\ 13.企业揭榜赛道\quad HY-01 课题一 \\
+\midrule
+队长姓名/联系电话 & 匿名评审版 \\
+\midrule
+团队成员 & 匿名评审版，身份信息按报名系统登记 \\
+\midrule
+\multicolumn{2}{l}{\bfseries\sffamily （1）项目背景\quad{\small\mdseries（不超过 300 字，实际 146 字）}} \\
+\multicolumn{2}{p{\dimexpr\textwidth-2\tabcolsep}}{\setlength{\parindent}{2em}养护决策给出铣刨重铺、薄层罩面或裂缝处治工法后，工程师仍需把气候、交通、病害和施工条件转化为材料方案。不同性能要求可能相互冲突，单纯经验选型难以同时解释预算、施工和性能取舍。本项目依据HY-01课题一需求，设计可追溯的场景—性能—材料推荐原型，帮助工程师筛选候选方案并识别仍需试验复核的环节。\par } \\
+\midrule
+\multicolumn{2}{l}{\bfseries\sffamily （2）立项思路\quad{\small\mdseries（不超过 300 字，实际 155 字）}} \\
+\multicolumn{2}{p{\dimexpr\textwidth-2\tabcolsep}}{\setlength{\parindent}{2em}将需求映射、材料组合规则、性能先验和方案比较分开实现。先排除材料与施工条件不兼容的组合，再用相同随机扰动比较联合达标情况、估计年值成本和碳排，保留Pareto候选。对未达目标或预算不可行的情况明确提示，避免把最优候选误作已验证可用方案。已有零依赖JavaScript引擎、离线界面、结构化知识库和七个构造案例。\par } \\
+\midrule
+\multicolumn{2}{l}{\bfseries\sffamily （3）解决方案\quad{\small\mdseries（不超过 600 字，实际 326 字）}} \\
+\multicolumn{2}{p{\dimexpr\textwidth-2\tabcolsep}}{\setlength{\parindent}{2em}输入城市或气候参数、交通等级、病害及严重程度、养护工法、施工温度、运输时间和预算。需求映射模块输出关键性能目标及规则解释；组合枚举模块选择级配、结合料、助剂与再生料方案，并执行兼容性筛选。性能模块依据待标定先验和工艺扰动，估计多项性能的联合通过比例；决策模块在目标可靠度约束下优先比较年值成本，并展示成本、碳排、瓶颈和单维替代方案。裂缝处治采用独立规则模块。监测接口演示按材料家族更新偏差状态。\par 特色在于把材料选择与施工条件放在同一决策流程中，并保留需求解释、规则剔除及不可行结果。七案例覆盖重载车辙、寒区裂缝、水损害等场景，与规则经验、加权评分和最低初始成本进行模型内对照。当前知识库、气候与费用均包含演示假设，尚不具备替代配合比设计及工程试验的依据。\par } \\
+\midrule
+\multicolumn{2}{l}{\bfseries\sffamily （4）商业模式和预期效益\quad{\small\mdseries（不超过 300 字，实际 150 字）}} \\
+\multicolumn{2}{p{\dimexpr\textwidth-2\tabcolsep}}{\setlength{\parindent}{2em}面向养护设计和材料研发团队，探索以规则库维护、方案比选及系统接口服务提供辅助工具。先与企业共同核对材料台账和试验数据，再开展历史案例回放与盲测；验证后才讨论服务采购或授权。预期价值是减少重复检索、保留决策依据和尽早暴露不可行条件。当前无客户收入、实际工期缩短或工程降本证据，不填未经验证的收益百分比。\par } \\
+\midrule
+作品所处研发阶段 & \ck\ 创意设计类\quad \uck\ 基础研究类\quad \uck\ 软硬件开发类\quad \uck\ 工程实施类 \\
+\midrule
+先进性 & \uck\ 国际领先\quad \uck\ 国际先进\quad \uck\ 国内领先\quad \uck\ 国内先进\quad \uck\ 国内一般\quad \ck\ 无法判断 \\
+\midrule
+成果交付物类型 & \uck\ 硬件\quad \ck\ 软件\quad \uck\ 工艺\quad \ck\ 方法\quad \uck\ 服务\quad \uck\ 商业模式 \\
+\midrule
+技术成熟度（单选） & \uck\ 第 1 级\quad \uck\ 第 2 级\quad \ck\ 第 3 级\quad \uck\ 第 4--9 级。自评：概念验证，未开展工程试验。 \\
+\midrule
+国内外对比参照物 & \ck\ 无产品对标参照物。方法基线：程序化经验规则、加权评分和最低初始成本。无同条件商业产品实测。 \\
+\midrule
+关键指标提升情况 & {\small\setlength{\tabcolsep}{4pt}\begin{tabular}{@{}lllll@{}}\toprule 指标名称&指标值&参照值&提升度\%&参照对象\\\midrule 材料性能提升&未验证&未验证&不适用&无独立试验\\ 工程成本降低&未验证&未验证&不适用&无工程试点\\ 实际寿命提升&未验证&未验证&不适用&无长期监测\\ 实际减碳收益&未验证&未验证&不适用&无完整清单\\ 软件验证&见案例附件&方法基线&不作工程提升&本地测试\\\bottomrule\end{tabular}} \\
+\midrule
+提升维度 & \uck\ 质量提升（未实测）\quad \uck\ 成本降低（未实测）\quad \uck\ 效率提升（未计时验证）\quad \uck\ 交付周期缩短（未实测）\quad \ck\ 新功能实现：约束筛选、候选解释、独立复验、无解提示和反馈演示 \\
+\bottomrule
+\end{longtable}
+
+\end{document}

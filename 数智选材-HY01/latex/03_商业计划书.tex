@@ -1,0 +1,72 @@
+\documentclass[UTF8,fontset=none,zihao=-4,a4paper]{ctexart}
+\usepackage[top=2.5cm,bottom=2.4cm,left=2.6cm,right=2.6cm]{geometry}
+\usepackage{fontspec}
+\setmainfont{Noto Serif CJK SC}
+\setsansfont{Noto Sans CJK SC}
+\setmonofont{Noto Sans Mono CJK SC}[Scale=0.88]
+\setCJKmainfont{Noto Serif CJK SC}
+\setCJKsansfont{Noto Sans CJK SC}
+\setCJKmonofont{Noto Sans Mono CJK SC}[Scale=0.88]
+\usepackage{booktabs,longtable,array,graphicx,xcolor,amssymb,amsmath}
+\usepackage{fancyhdr,url,enumitem,tcolorbox}
+\usepackage[hidelinks,pdfauthor={},pdfcreator={XeLaTeX},pdftitle={数智选材 道路养护材料方案推荐原型}]{hyperref}
+\urlstyle{same}
+\def\UrlBreaks{\do\/\do\-\do\_\do\.\do\=\do\?\do\&}
+\setlength{\parindent}{2em}
+\linespread{1.32}
+\setlist{itemsep=2pt,topsep=4pt}
+\ctexset{section={format=\Large\bfseries\sffamily,beforeskip=1.6ex plus .3ex,afterskip=1.0ex},
+         subsection={format=\large\bfseries\sffamily,beforeskip=1.2ex,afterskip=.6ex}}
+\pagestyle{fancy}\fancyhf{}
+\fancyhead[L]{\small\sffamily 商业计划书}
+\fancyhead[R]{\small\sffamily 匿名评审版}
+\fancyfoot[C]{\small\thepage}
+\renewcommand{\headrulewidth}{0.3pt}
+\definecolor{note}{RGB}{245,241,230}
+\newtcolorbox{notebox}{colback=note,colframe=black!35,boxrule=.4pt,left=6pt,right=6pt,top=4pt,bottom=4pt}
+\newcommand{\ck}{$\boxtimes$}
+\newcommand{\uck}{$\square$}
+\begin{document}
+\begin{center}{\Large\bfseries\sffamily 数智选材 道路养护材料方案推荐原型}\\[4pt]{\large 商业计划书（附件 3 栏目）}\end{center}
+\vspace{2pt}
+\section*{一、项目方案概述}
+数智选材面向道路养护设计和材料研发，提供场景录入、约束筛选、候选比较及依据追溯工具。当前产品为可运行的概念验证原型，采用构造案例和待标定参数。近期目标是与企业共同复核规则、采集产品试验数据并完成历史案例回放，达到验证标准后再开展付费试点。
+
+\section*{二、项目团队}
+项目需要道路材料、养护设计、软件开发和质量验证等岗位协作。材料岗位负责规范和试验记录，算法岗位负责模型及不确定性，软件岗位负责接口与界面，验证岗位负责案例复核和证据归档。此处为拟定职责分工，不代表已经具备相应专家或合作机构；真实成员信息按报名系统登记，评审材料保持匿名。
+
+\section*{三、项目产品服务化}
+\subsection*{1. 产品特性}
+产品以可维护规则库和推荐引擎为核心，输出候选方案、性能需求、约束原因、估计成本及短板。离线界面适合方案讨论，HTTP接口用于对接养护系统。与单项性能预测工具相比，本产品重点处理多约束选型和结果解释，现阶段不提供检测认证或自动批准施工。用户最终确认和检测责任应在服务合同中明确。
+
+\subsection*{2. 实施计划}
+首阶段完成企业产品字段映射和规则复核，交付带版本的数据字典及来源台账。第二阶段选择历史案例进行封存回放，由材料工程师独立给出可接受方案范围，比较系统的覆盖、拒绝和人工修改情况。第三阶段使用独立试验数据评价预测误差与适用域，达到双方预先约定的验收条件后开展有限试点。第四阶段才增加权限、日志、持久化和升级机制。本计划以验收门槛推进，不以缺乏依据的固定交付周期承诺效果。
+
+\section*{四、市场与竞争}
+\subsection*{1. 市场概述}
+潜在用户包括养护设计单位、材料供应企业及既有养护平台研发团队。需求线索来自HY-01公开赛题，尚未完成客户访谈或市场规模调查。采用先验证单一工作流、再扩展客户的方式，避免把行业公路规模直接当作可付费市场规模。
+
+\subsection*{2. 竞争优势分析}
+人工经验具有现场知识和责任判断优势，但记录方式可能分散；表格与加权评分易部署，但对约束与不确定性的表达有限；养护平台可能具备长期病害数据，却需要材料数据库与推荐接口。数智选材拟通过显式规则、施工约束、候选对照和可重放案例提供补充能力。当前没有对商业平台的同条件实测，不作优于具体产品的排名。
+
+\subsection*{3. 风险及应对}
+材料参数不可信时暂停工程推荐，仅显示缺失字段；地域和材料分布变化时重新标定，独立检查误差；客户数据须明确授权和脱敏，原始检测记录保持可追溯；模型误判通过人工审核和实验室验证控制；系统集成在权限、持久化与审计验收完成前只用于本地演示。客户付费意愿、交付人力和采购周期均需试点确认。
+
+\section*{五、商业模式}
+\subsection*{1. 开发与服务策略}
+保留通用引擎，将客户材料台账与规则作为独立版本维护。服务内容可包括数据整理、知识库配置、历史案例验证、接口适配和后续维护。客户试验数据不默认进入其他客户模型，模型更新需记录版本、样本范围和回归结果。
+
+\subsection*{2. 营销策略}
+优先通过公开赛题技术对接获取业务反馈，展示可重放案例和不可行条件识别，而非演示收益承诺。在取得客户授权后，才形成可公开的案例材料。尚无客户、合同和合作背书，不把拟合作单位列为已合作客户。
+
+\subsection*{3. 获利方式}
+拟采用一次性数据与接口实施费，以及按年度提供规则更新和维护服务的方式。具体报价由工作量、试验要求、责任与采购规则确定，当前没有成交价。付费前应先约定验收案例、输入质量、人工审核方式及不适用范围。
+
+\subsection*{4. 后续发展计划}
+当前不设虚构的融资额或估值。先验证材料参数、客户使用频率和维护成本；若不能稳定支持实际工作流，则调整服务范围或终止产品化。只有取得授权数据、通过技术验证并明确知识产权后，才讨论成立企业或扩大推广。
+
+\section*{六、预期经济效益分析}
+当前暂无营业收入、订单和实测降本。经济性采用可复核框架：客户收益等于经计时确认的人工节省价值，加上经工程验证的材料与维护成本变化，再扣除软件及验证支出；服务方贡献利润等于合同收入扣除数据整理、接口实施、试验、维护和基础设施成本。先分别记录基准流程与使用工具后的同类任务耗时，保留人员、任务复杂度和复核次数，不能仅用引擎运行时间替代完整设计周期。费用与价格敏感性应在试点报价后计算，当前不提供缺乏依据的盈利预测。
+
+
+\end{document}

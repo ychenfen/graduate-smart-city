@@ -1,0 +1,118 @@
+\documentclass[UTF8,fontset=none,zihao=-4,a4paper]{ctexart}
+\usepackage[top=2.5cm,bottom=2.4cm,left=2.6cm,right=2.6cm]{geometry}
+\usepackage{fontspec}
+\setmainfont{Noto Serif CJK SC}
+\setsansfont{Noto Sans CJK SC}
+\setmonofont{Noto Sans Mono CJK SC}[Scale=0.88]
+\setCJKmainfont{Noto Serif CJK SC}
+\setCJKsansfont{Noto Sans CJK SC}
+\setCJKmonofont{Noto Sans Mono CJK SC}[Scale=0.88]
+\usepackage{booktabs,longtable,array,graphicx,xcolor,amssymb,amsmath}
+\usepackage{fancyhdr,url,enumitem,tcolorbox}
+\usepackage[hidelinks,pdfauthor={},pdfcreator={XeLaTeX},pdftitle={数智选材 道路养护材料方案推荐原型}]{hyperref}
+\urlstyle{same}
+\def\UrlBreaks{\do\/\do\-\do\_\do\.\do\=\do\?\do\&}
+\setlength{\parindent}{2em}
+\linespread{1.32}
+\setlist{itemsep=2pt,topsep=4pt}
+\ctexset{section={format=\Large\bfseries\sffamily,beforeskip=1.6ex plus .3ex,afterskip=1.0ex},
+         subsection={format=\large\bfseries\sffamily,beforeskip=1.2ex,afterskip=.6ex}}
+\pagestyle{fancy}\fancyhf{}
+\fancyhead[L]{\small\sffamily 技术交接与数据证据}
+\fancyhead[R]{\small\sffamily 匿名评审版}
+\fancyfoot[C]{\small\thepage}
+\renewcommand{\headrulewidth}{0.3pt}
+\definecolor{note}{RGB}{245,241,230}
+\newtcolorbox{notebox}{colback=note,colframe=black!35,boxrule=.4pt,left=6pt,right=6pt,top=4pt,bottom=4pt}
+\newcommand{\ck}{$\boxtimes$}
+\newcommand{\uck}{$\square$}
+\begin{document}
+\begin{center}{\Large\bfseries\sffamily 数智选材 道路养护材料方案推荐原型}\\[4pt]{\large 技术交接与数据证据}\end{center}
+\vspace{2pt}
+\section*{交付范围}
+本作品完成场景需求映射、规则筛选、多指标先验评价、候选推荐与解释、裂缝规则模块及反馈更新演示。v2 增加独立种子复验、可选稳健选优、年均碳排约束、精确Shapley归因、雷达对比数据、材料—性能关联图查询、运行时输入校验和服务端加固。默认选优逻辑未改，七案例既有数值由回归测试锁定。可运行原型和源码支持企业继续研发。当前未完成独立试验标定、工程试点或第三方检测。
+
+\section*{输入输出与状态}
+完整字段定义见随附 \texttt{engine/\allowbreak{}schema.\allowbreak{}json}。输入包含气候、交通、车速、道路等级、病害和严重程度、工法、集料、施工温度、运输时间、预算、年均碳排上限、目标比例、选优模式及随机种子。输出包括需求解释、规则剔除统计、推荐和候选、短板、估计费用和碳排、施工扰动、抽样区间、独立复验（validation）、Shapley归因（explain）和雷达数据（radar）。裂缝和无解结果通过module字段区分。
+
+模型内未达目标的最高通过率候选仍须人工复核。预算内无候选时recommended为null，禁止取用不存在的配方。反馈在服务内存保存，进程重启即清空。当前服务仅绑定127.0.0.1，无外部认证和生产部署功能。
+
+\section*{算法与计算口径}
+候选由级配、结合料、抗水损、抗车辙、温拌、RAP和纤维组合得到。按兼容性、厚度粒径比和施工气温等条件筛除候选。材料性能由显式先验计算，未训练通用神经网络。使用公共随机数比较候选，联合通过比例为全部指标同时满足的模拟次数除以抽样数。95\% Wilson区间表示有限次抽样误差，不包含知识库偏差、材料差异、先验不确定性或模型失配；对选优后的候选也不是独立验证区间。为此 v2 在 recommended.validation 中给出独立种子、4000次抽样的复验可靠度、区间及选优偏差（selectionGap）；复验同样只含抽样误差。
+
+等额年值成本使用成本乘以按折现率与寿命计算的资本回收因子，并对模拟寿命取平均。碳排年化采用初始碳排除以平均寿命。两者不是相同的期望口径，也不是含全部维护与回收阶段的完整生命周期清单。寿命由最弱裕度经验模型估计，所有经济结果仅作同模型情景对比。
+
+默认目标是在达到联合比例阈值的候选中选择年值成本较低者；selection 为 validated 时，按成本升序在独立噪声上复算接近目标的候选（至多200个），取首个通过者，最终复验另用一组独立噪声。并展示可靠度、年值成本、年均碳排的Pareto前沿。工程规则先筛选，不能用评分补偿硬约束。展示精度会合并相近Pareto点；场景相似度使用标签Jaccard值，不等于地理或工程效果相似。
+
+\section*{解释、关联图与稳定性证据}
+Shapley归因以 AC-13 + 70\# 基质沥青 + 无助剂为参考配方，对七个组成维度做128个联盟的全枚举，各维贡献相加等于参考到所选配方的总变化（测试覆盖该效率性）。动稳定度在对数空间归因，以乘性因子表示。联盟内的中间组合可能违反施工规则，仅用于计算贡献。归因对象是本作品的机理先验预测式，不是训练得到的数据模型，不能当作SHAP或LIME对真实数据模型的解释。
+
+关联图由知识库和预测式导出：材料→指标边的效应是参考配方上单一组成替换的预测差异；病害、交通、车速→指标目标边来自知识库参数；规则→材料边来自规则目录，目录文本与引擎实际剔除原因由测试校验一致。接口见 \texttt{/\allowbreak{}api/\allowbreak{}v1/\allowbreak{}graph}、\texttt{/\allowbreak{}graph/\allowbreak{}improvers}、\texttt{/\allowbreak{}graph/\allowbreak{}profile}、\texttt{/\allowbreak{}graph/\allowbreak{}drivers}。它是可查询的结构化底座，不应称为由工程数据构建的知识图谱。
+
+多种子实验（tools/robustness.js，6个混合料案例×12个种子，结果见 paper/verification\_v2/robustness.md）显示：选优偏差的跨种子均值很小，但单个种子可达数个百分点，默认种子下C1为2.7个百分点，使其复验可靠度低于目标；同批抽样选优的C1在12个种子中75\%通过独立复验，稳健选优为100\%；C6由83\%升至100\%。C2、C5在所有种子上均未达到目标，这一结论稳定。以上均为同一先验模型内的统计。
+
+界面已用无头Chromium检查桌面与移动视口（tools/ui\_check.py，收据与截图见 paper/verification\_v2/ui/）。检查覆盖七案例、零预算、极低气温、碳排上限、稳健选优、反馈回流、导出和暗色主题，无控制台错误；不等同于真机、读屏软件或用户测试。
+
+\section*{来源分级与查证记录}
+\begingroup\small\setlength{\parindent}{0pt}\linespread{1.15}
+\begin{longtable}{>{\raggedright\arraybackslash}p{0.220\dimexpr\textwidth-6\tabcolsep\relax}>{\raggedright\arraybackslash}p{0.380\dimexpr\textwidth-6\tabcolsep\relax}>{\raggedright\arraybackslash}p{0.400\dimexpr\textwidth-6\tabcolsep\relax}}
+\toprule
+\textbf{内容} & \textbf{可查依据} & \textbf{本作品使用边界} \\
+\midrule
+\endhead
+交付范围与案例数量 & 官网HY-01课题一第4—5页 & 允许公开或合理构造案例，不要求完整工程实现 \\
+初赛材料与匿名规则 & 官网2026参赛指南第6页 & 简表、说明书必交，软件须附原创原型与源码 \\
+JTG F40—2004标准名称与发布 & 交通运输部发布公告；国家标准馆目录列为现行 & 仅验证标准元信息，未完成每一门槛的条文影像核对 \\
+气候与PG选型方法背景 & FHWA-HRT-17-010 LTPPBind Online User Guide & 支持方法背景；当前简化换算不等同于完整LTPPBind模型 \\
+材料均值、工艺效应、寿命、费用和碳排 & 当前知识库中的演示先验 & 无企业产品检验报告，不作为真实性能或市场报价 \\
+城市气候 & 演示近似值 & 不是气象站30年序列，正式使用须替换 \\
+\bottomrule
+\end{longtable}
+\endgroup
+可核验链接：
+
+\begin{itemize}
+\item \url{https://cpipc.acge.org.cn/cw/contestNews/detail/1/2c9080189fb0808c019fc63d2f083049?page=1}
+\item \url{https://cpipc.acge.org.cn/cw/contestNews/detail/1/2c9080189ef4ecee019f038802d55c4b?page=1}
+\item \url{https://xxgk.mot.gov.cn/2020/jigou/glj/202006/t20200623_3312403.html}
+\item \url{https://ndls.cnis.ac.cn/standard/detail/ebe2e99444691dde158545b3380ad38c}
+\item \url{https://www.fhwa.dot.gov/publications/research/infrastructure/pavements/ltpp/17010/}
+\end{itemize}
+知识库STD/LIT/ENG标记仅为整理层级。当前未逐项取得原始条文和可标定数据的字段都必须按未验证演示先验管理，不得以STD或LIT标签替代引用。
+
+\section*{独立验证与企业数据需求}
+每条试验记录应包含样品ID、材料家族、批次、供应商脱敏标识、级配、油石比和助剂剂量，附试验标准及版本、试验温度、荷载频率、老化条件、平行试验、设备及时间。将同一批次或配方的重复样本放在同一数据分组，按时间或材料批次划分独立测试集。
+
+先复核字段和单位，再分别评价各指标的MAE、RMSE和偏差，按材料家族报告样本数和失败案例。多指标联合判断需独立校准。对无数据或超出训练范围的材料拒绝预测。对反馈更新开展时间顺序回放，避免把未来观测泄漏到历史推荐。只有独立验证通过后才开展工程收益测量。
+
+\section*{演示与复现}
+安装Node.js后，依次运行 \texttt{node -\allowbreak{}-\allowbreak{}test tests/\allowbreak{}*.\allowbreak{}test.\allowbreak{}js}、\texttt{node tools/\allowbreak{}build.\allowbreak{}js}、\texttt{node tools/\allowbreak{}case\_\allowbreak{}report.\allowbreak{}js}。服务运行命令为 \texttt{node engine/\allowbreak{}server.\allowbreak{}js 8765}。输入输出示例来自cases目录，v1 报告在paper/verification\_20261022（已冻结），v2 报告、稳定性实验和界面检查收据在paper/verification\_v2。界面检查另需 playwright。复现时记录引擎、知识库和场景文件哈希、样本数、种子与反馈状态；不可只保存界面截图。
+
+\section*{可解释性和失败处理}
+需求解释提供映射规则，替代方案说明只改一个材料维度时的模型差异。该解释不构成因果结论。常见失败包括低温规则无解、预算无解、先验错误、结构条件未建模和材料分布变化。正式应用中工程师必须复核施工温度、产品证书及现场条件，不以模拟寿命替代检测结论。
+
+\section*{附表：多种子稳定性与选优乐观偏差}
+{\small 6 个混合料案例 $\times$ 12 个种子；选优 400 次抽样，复验为独立种子 4000 次抽样。同一先验模型内的统计，不是工程验证。\par}
+\begingroup\small\setlength{\parindent}{0pt}\linespread{1.15}
+\begin{longtable}{>{\raggedright\arraybackslash}p{0.080\dimexpr\textwidth-16\tabcolsep\relax}>{\raggedright\arraybackslash}p{0.080\dimexpr\textwidth-16\tabcolsep\relax}>{\raggedright\arraybackslash}p{0.140\dimexpr\textwidth-16\tabcolsep\relax}>{\raggedright\arraybackslash}p{0.160\dimexpr\textwidth-16\tabcolsep\relax}>{\raggedright\arraybackslash}p{0.130\dimexpr\textwidth-16\tabcolsep\relax}>{\raggedright\arraybackslash}p{0.130\dimexpr\textwidth-16\tabcolsep\relax}>{\raggedright\arraybackslash}p{0.130\dimexpr\textwidth-16\tabcolsep\relax}>{\raggedright\arraybackslash}p{0.150\dimexpr\textwidth-16\tabcolsep\relax}}
+\toprule
+\textbf{案例} & \textbf{目标} & \textbf{选优方式} & \textbf{同一推荐占比} & \textbf{选优均值} & \textbf{复验均值} & \textbf{偏差均值} & \textbf{复验达标比例} \\
+\midrule
+\endhead
+C1 & 0.85 & 同批抽样 & 67\% & 0.886 & 0.882 & +0.004 & 75\% \\
+C1 & 0.85 & 独立复算 & 92\% & 0.900 & 0.897 & +0.002 & 100\% \\
+C2 & 0.85 & 同批抽样 & 67\% & 0.730 & 0.725 & +0.004 & 0\% \\
+C2 & 0.85 & 独立复算 & 92\% & 0.722 & 0.726 & -0.005 & 0\% \\
+C3 & 0.90 & 同批抽样 & 67\% & 0.975 & 0.972 & +0.002 & 100\% \\
+C3 & 0.90 & 独立复算 & 67\% & 0.975 & 0.972 & +0.002 & 100\% \\
+C4 & 0.85 & 同批抽样 & 100\% & 0.933 & 0.926 & +0.007 & 100\% \\
+C4 & 0.85 & 独立复算 & 100\% & 0.933 & 0.926 & +0.007 & 100\% \\
+C5 & 0.90 & 同批抽样 & 50\% & 0.787 & 0.788 & -0.001 & 0\% \\
+C5 & 0.90 & 独立复算 & 100\% & 0.786 & 0.794 & -0.009 & 0\% \\
+C6 & 0.75 & 同批抽样 & 75\% & 0.778 & 0.774 & +0.004 & 83\% \\
+C6 & 0.75 & 独立复算 & 100\% & 0.759 & 0.769 & -0.010 & 100\% \\
+\bottomrule
+\end{longtable}
+\endgroup
+
+\end{document}

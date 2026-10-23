@@ -1,0 +1,212 @@
+\documentclass[UTF8,fontset=none,zihao=-4,a4paper]{ctexart}
+\usepackage[top=2.5cm,bottom=2.4cm,left=2.6cm,right=2.6cm]{geometry}
+\usepackage{fontspec}
+\setmainfont{Noto Serif CJK SC}
+\setsansfont{Noto Sans CJK SC}
+\setmonofont{Noto Sans Mono CJK SC}[Scale=0.88]
+\setCJKmainfont{Noto Serif CJK SC}
+\setCJKsansfont{Noto Sans CJK SC}
+\setCJKmonofont{Noto Sans Mono CJK SC}[Scale=0.88]
+\usepackage{booktabs,longtable,array,graphicx,xcolor,amssymb,amsmath}
+\usepackage{fancyhdr,url,enumitem,tcolorbox}
+\usepackage[hidelinks,pdfauthor={},pdfcreator={XeLaTeX},pdftitle={数智选材 道路养护材料方案推荐原型}]{hyperref}
+\urlstyle{same}
+\def\UrlBreaks{\do\/\do\-\do\_\do\.\do\=\do\?\do\&}
+\setlength{\parindent}{2em}
+\linespread{1.32}
+\setlist{itemsep=2pt,topsep=4pt}
+\ctexset{section={format=\Large\bfseries\sffamily,beforeskip=1.6ex plus .3ex,afterskip=1.0ex},
+         subsection={format=\large\bfseries\sffamily,beforeskip=1.2ex,afterskip=.6ex}}
+\pagestyle{fancy}\fancyhf{}
+\fancyhead[L]{\small\sffamily 七案例推荐与验证}
+\fancyhead[R]{\small\sffamily 匿名评审版}
+\fancyfoot[C]{\small\thepage}
+\renewcommand{\headrulewidth}{0.3pt}
+\definecolor{note}{RGB}{245,241,230}
+\newtcolorbox{notebox}{colback=note,colframe=black!35,boxrule=.4pt,left=6pt,right=6pt,top=4pt,bottom=4pt}
+\newcommand{\ck}{$\boxtimes$}
+\newcommand{\uck}{$\square$}
+\begin{document}
+\begin{center}{\Large\bfseries\sffamily 数智选材 道路养护材料方案推荐原型}\\[4pt]{\large 七案例推荐与验证}\end{center}
+\vspace{2pt}
+七个案例均为合理构造的测试案例。气候为近似演示值，材料和费用为待标定先验。表中结果为同一模型内比较，不能证明工程精度、实际降本或延寿。95\% 区间仅含抽样误差。
+
+\section*{C1 海南洋浦·疏港重载道路车辙处治}
+港区集疏运道路，重载集装箱车低速渠化行驶，夏季路表温度高、降雨集中；上面层出现严重车辙并伴随局部水损害。当地常用花岗岩集料（酸性）。养护决策输出：铣刨重铺上面层 4cm。
+
+\textbf{推荐：}SMA-13 + 橡胶改性沥青(20\%胶粉) + 消石灰替代1.5\%矿粉 + 抗车辙剂(0.4\%混合料) + 木质素纤维0.3\%
+
+规则后候选 992 个，目标 0.85，选优抽样内达到目标；瓶颈指标：水稳定性 冻融劈裂比；95\% 抽样区间 0.828--0.895（400 次）。
+
+\textbf{独立种子复验}（4000 次）：联合比例 0.838，区间 0.826--0.8489，选优偏差 +0.027，\textbf{未达到}目标。
+
+稳健选优方案：SMA-13 + SBS改性沥青(70\#基, 5.5\%) + 消石灰替代1.5\%矿粉 + 抗车辙剂(0.4\%混合料) + 木质素纤维0.3\%；复验联合比例 0.897，年值成本 10.85（默认 10.42）。
+
+\begingroup\small\setlength{\parindent}{0pt}\linespread{1.15}
+\begin{longtable}{>{\raggedright\arraybackslash}p{0.180\dimexpr\textwidth-12\tabcolsep\relax}>{\raggedright\arraybackslash}p{0.140\dimexpr\textwidth-12\tabcolsep\relax}>{\raggedright\arraybackslash}p{0.170\dimexpr\textwidth-12\tabcolsep\relax}>{\raggedright\arraybackslash}p{0.170\dimexpr\textwidth-12\tabcolsep\relax}>{\raggedright\arraybackslash}p{0.170\dimexpr\textwidth-12\tabcolsep\relax}>{\raggedright\arraybackslash}p{0.170\dimexpr\textwidth-12\tabcolsep\relax}}
+\toprule
+\textbf{方法} & \textbf{联合比例} & \textbf{成本 元/m\textsuperscript{2}} & \textbf{估计寿命 年} & \textbf{年值成本} & \textbf{碳排} \\
+\midrule
+\endhead
+推荐 & 0.865 & 67 & 7.6 & 10.42 & 0.97 \\
+规则经验 & 0.425 & 65.5 & 6.9 & 11.08 & 1.07 \\
+加权评分 & 0.815 & 66.5 & 7.5 & 10.5 & 1.03 \\
+最低成本 & 0 & 43.3 & 2.9 & 16.08 & 1.75 \\
+\bottomrule
+\end{longtable}
+\endgroup
+{\small 年均碳排单位 kgCO$_2$e/(m$^2\cdot$年)。经验基线未必满足全部施工规则，不能直接作为可实施方案。\par}
+
+\textbf{瓶颈指标的需求依据：}规范 年降水≥500mm 改性沥青 80\% + 水损害病害 2\%
+
+\section*{C2 哈尔滨·城市主干路低温裂缝，晚秋施工}
+冬严寒区城市主干路，横向温缩裂缝密集；工期安排在 10 月中旬，施工期日均气温约 9°C。养护决策输出：铣刨重铺上面层 4cm。
+
+\textbf{推荐：}AC-16 + SBS改性沥青(110\#基, 5.5\%) + 消石灰替代1.5\%矿粉 + 抗车辙剂(0.4\%混合料) + 表面活性剂温拌(0.5\%油重) + 玄武岩纤维0.3\%
+
+规则后候选 966 个，目标 0.85，选优抽样内未达目标；瓶颈指标：高温抗车辙 动稳定度；95\% 抽样区间 0.6949--0.7806（400 次）。
+
+\textbf{独立种子复验}（4000 次）：联合比例 0.735，区间 0.7214--0.7487，选优偏差 +0.005，\textbf{未达到}目标。
+
+稳健选优与默认选优为同一方案。
+
+\begingroup\small\setlength{\parindent}{0pt}\linespread{1.15}
+\begin{longtable}{>{\raggedright\arraybackslash}p{0.180\dimexpr\textwidth-12\tabcolsep\relax}>{\raggedright\arraybackslash}p{0.140\dimexpr\textwidth-12\tabcolsep\relax}>{\raggedright\arraybackslash}p{0.170\dimexpr\textwidth-12\tabcolsep\relax}>{\raggedright\arraybackslash}p{0.170\dimexpr\textwidth-12\tabcolsep\relax}>{\raggedright\arraybackslash}p{0.170\dimexpr\textwidth-12\tabcolsep\relax}>{\raggedright\arraybackslash}p{0.170\dimexpr\textwidth-12\tabcolsep\relax}}
+\toprule
+\textbf{方法} & \textbf{联合比例} & \textbf{成本 元/m\textsuperscript{2}} & \textbf{估计寿命 年} & \textbf{年值成本} & \textbf{碳排} \\
+\midrule
+\endhead
+推荐 & 0.74 & 68.1 & 7.3 & 10.98 & 1.08 \\
+规则经验 & 0.035 & 58.7 & 6 & 11.19 & 1.14 \\
+加权评分 & 0.378 & 63.8 & 6.5 & 11.52 & 0.88 \\
+最低成本 & 0 & 44.9 & 4.2 & 12.12 & 1.21 \\
+\bottomrule
+\end{longtable}
+\endgroup
+{\small 年均碳排单位 kgCO$_2$e/(m$^2\cdot$年)。经验基线未必满足全部施工规则，不能直接作为可实施方案。\par}
+
+\textbf{瓶颈指标的需求依据：}规范改性沥青 2000 次/mm（2-1 区）× 重交通 1
+
+\section*{C3 重庆·山区高速水损害路段修复}
+湿热多雨山区高速，坑槽、松散成片，伴随轻度网裂；夏季路表高温突出。养护决策输出：铣刨重铺上面层 4cm。
+
+\textbf{推荐：}SMA-13 + 橡胶改性沥青(20\%胶粉) + 消石灰替代1.5\%矿粉 + 表面活性剂温拌(0.5\%油重) + 木质素纤维0.3\%
+
+规则后候选 1488 个，目标 0.90，选优抽样内达到目标；瓶颈指标：高温抗车辙 动稳定度；95\% 抽样区间 0.9546--0.9864（400 次）。
+
+\textbf{独立种子复验}（4000 次）：联合比例 0.97，区间 0.9645--0.9751，选优偏差 +0.005，仍达到目标。
+
+稳健选优与默认选优为同一方案。
+
+\begingroup\small\setlength{\parindent}{0pt}\linespread{1.15}
+\begin{longtable}{>{\raggedright\arraybackslash}p{0.180\dimexpr\textwidth-12\tabcolsep\relax}>{\raggedright\arraybackslash}p{0.140\dimexpr\textwidth-12\tabcolsep\relax}>{\raggedright\arraybackslash}p{0.170\dimexpr\textwidth-12\tabcolsep\relax}>{\raggedright\arraybackslash}p{0.170\dimexpr\textwidth-12\tabcolsep\relax}>{\raggedright\arraybackslash}p{0.170\dimexpr\textwidth-12\tabcolsep\relax}>{\raggedright\arraybackslash}p{0.170\dimexpr\textwidth-12\tabcolsep\relax}}
+\toprule
+\textbf{方法} & \textbf{联合比例} & \textbf{成本 元/m\textsuperscript{2}} & \textbf{估计寿命 年} & \textbf{年值成本} & \textbf{碳排} \\
+\midrule
+\endhead
+推荐 & 0.975 & 61.8 & 8.1 & 9.07 & 0.71 \\
+规则经验 & 0.308 & 56.6 & 6.7 & 9.88 & 1.01 \\
+加权评分 & 0.553 & 52.1 & 7 & 8.77 & 0.85 \\
+最低成本 & 0 & 43.3 & 3.7 & 13.21 & 1.37 \\
+\bottomrule
+\end{longtable}
+\endgroup
+{\small 年均碳排单位 kgCO$_2$e/(m$^2\cdot$年)。经验基线未必满足全部施工规则，不能直接作为可实施方案。\par}
+
+\textbf{瓶颈指标的需求依据：}规范改性沥青 2800 次/mm（1-4 区）× 重交通 1
+
+\section*{C4 武汉·城市快速路抗滑不足，夜间薄层罩面}
+城市快速路表面磨光、构造深度不足，结构完好；只能夜间封道施工，施工期气温约 16°C。养护决策输出：薄层罩面 2.5cm。
+
+\textbf{推荐：}OGFC-10 + 高粘高弹改性沥青 + 消石灰替代1.5\%矿粉 + 木质素纤维0.3\%
+
+规则后候选 828 个，目标 0.85，选优抽样内达到目标；瓶颈指标：水稳定性 冻融劈裂比；95\% 抽样区间 0.936--0.9752（400 次）。
+
+\textbf{独立种子复验}（4000 次）：联合比例 0.926，区间 0.9172--0.9335，选优偏差 +0.034，仍达到目标。
+
+稳健选优与默认选优为同一方案。
+
+\begingroup\small\setlength{\parindent}{0pt}\linespread{1.15}
+\begin{longtable}{>{\raggedright\arraybackslash}p{0.180\dimexpr\textwidth-12\tabcolsep\relax}>{\raggedright\arraybackslash}p{0.140\dimexpr\textwidth-12\tabcolsep\relax}>{\raggedright\arraybackslash}p{0.170\dimexpr\textwidth-12\tabcolsep\relax}>{\raggedright\arraybackslash}p{0.170\dimexpr\textwidth-12\tabcolsep\relax}>{\raggedright\arraybackslash}p{0.170\dimexpr\textwidth-12\tabcolsep\relax}>{\raggedright\arraybackslash}p{0.170\dimexpr\textwidth-12\tabcolsep\relax}}
+\toprule
+\textbf{方法} & \textbf{联合比例} & \textbf{成本 元/m\textsuperscript{2}} & \textbf{估计寿命 年} & \textbf{年值成本} & \textbf{碳排} \\
+\midrule
+\endhead
+推荐 & 0.96 & 32 & 6 & 6.12 & 0.59 \\
+规则经验 & 0.713 & 35 & 5.4 & 7.36 & 0.72 \\
+加权评分 & 0.96 & 32 & 6 & 6.12 & 0.59 \\
+最低成本 & 0 & 22 & 3.3 & 7.29 & 0.74 \\
+\bottomrule
+\end{longtable}
+\endgroup
+{\small 年均碳排单位 kgCO$_2$e/(m$^2\cdot$年)。经验基线未必满足全部施工规则，不能直接作为可实施方案。\par}
+
+\textbf{瓶颈指标的需求依据：}规范 年降水≥500mm 改性沥青 80\%
+
+\section*{C5 乌鲁木齐·国道温缩裂缝与车辙并存}
+冬严寒、夏炎热的大温差地区，特重交通国道同时出现横向裂缝和车辙，高低温需求互相掣肘。养护决策输出：铣刨重铺上面层 4cm。
+
+\textbf{推荐：}SMA-13 + SBS改性沥青(90\#基, 5.5\%) + 胺类抗剥落剂(0.4\%油重) + 抗车辙剂(0.4\%混合料) + 玄武岩纤维0.3\%
+
+规则后候选 1452 个，目标 0.90，选优抽样内未达目标；瓶颈指标：低温分级 PG低温；95\% 抽样区间 0.766--0.8431（400 次）。
+
+\textbf{独立种子复验}（4000 次）：联合比例 0.801，区间 0.7886--0.8133，选优偏差 +0.006，\textbf{未达到}目标。
+
+稳健选优方案：SMA-13 + SBS改性沥青(90\#基, 5.5\%) + 消石灰替代1.5\%矿粉 + 抗车辙剂(0.4\%混合料) + 表面活性剂温拌(0.5\%油重) + 玄武岩纤维0.3\%；复验联合比例 0.801，年值成本 10.51（默认 10.57）。
+
+\begingroup\small\setlength{\parindent}{0pt}\linespread{1.15}
+\begin{longtable}{>{\raggedright\arraybackslash}p{0.180\dimexpr\textwidth-12\tabcolsep\relax}>{\raggedright\arraybackslash}p{0.140\dimexpr\textwidth-12\tabcolsep\relax}>{\raggedright\arraybackslash}p{0.170\dimexpr\textwidth-12\tabcolsep\relax}>{\raggedright\arraybackslash}p{0.170\dimexpr\textwidth-12\tabcolsep\relax}>{\raggedright\arraybackslash}p{0.170\dimexpr\textwidth-12\tabcolsep\relax}>{\raggedright\arraybackslash}p{0.170\dimexpr\textwidth-12\tabcolsep\relax}}
+\toprule
+\textbf{方法} & \textbf{联合比例} & \textbf{成本 元/m\textsuperscript{2}} & \textbf{估计寿命 年} & \textbf{年值成本} & \textbf{碳排} \\
+\midrule
+\endhead
+推荐 & 0.808 & 75.9 & 8.8 & 10.57 & 1.03 \\
+规则经验 & 0.083 & 66.1 & 7.2 & 10.79 & 1.05 \\
+加权评分 & 0.495 & 62 & 7.8 & 9.65 & 0.82 \\
+最低成本 & 0 & 43.3 & 4.1 & 11.91 & 1.23 \\
+\bottomrule
+\end{longtable}
+\endgroup
+{\small 年均碳排单位 kgCO$_2$e/(m$^2\cdot$年)。经验基线未必满足全部施工规则，不能直接作为可实施方案。\par}
+
+\textbf{瓶颈指标的需求依据：}SHRP 公式: 年极端低温均值 -33.5°C → 路面 -27.1°C
+
+\section*{C6 西安·市政次干路低预算罩面}
+市政次干路表面老化、轻度网裂，预算受限（初始造价不超过 52 元/m\textsuperscript{2}），希望消纳本市铣刨料。养护决策输出：铣刨重铺上面层 4cm。
+
+\textbf{推荐：}AC-16 + SBS改性沥青(90\#基, 5.5\%) + 消石灰替代1.5\%矿粉 + 表面活性剂温拌(0.5\%油重) + RAP 30\%+再生剂
+
+规则后候选 1488 个，目标 0.75，选优抽样内达到目标；瓶颈指标：高温抗车辙 动稳定度；95\% 抽样区间 0.7289--0.8109（400 次）。
+
+\textbf{独立种子复验}（4000 次）：联合比例 0.779，区间 0.7654--0.7911，选优偏差 -0.006，仍达到目标。
+
+稳健选优与默认选优为同一方案。
+
+\begingroup\small\setlength{\parindent}{0pt}\linespread{1.15}
+\begin{longtable}{>{\raggedright\arraybackslash}p{0.180\dimexpr\textwidth-12\tabcolsep\relax}>{\raggedright\arraybackslash}p{0.140\dimexpr\textwidth-12\tabcolsep\relax}>{\raggedright\arraybackslash}p{0.170\dimexpr\textwidth-12\tabcolsep\relax}>{\raggedright\arraybackslash}p{0.170\dimexpr\textwidth-12\tabcolsep\relax}>{\raggedright\arraybackslash}p{0.170\dimexpr\textwidth-12\tabcolsep\relax}>{\raggedright\arraybackslash}p{0.170\dimexpr\textwidth-12\tabcolsep\relax}}
+\toprule
+\textbf{方法} & \textbf{联合比例} & \textbf{成本 元/m\textsuperscript{2}} & \textbf{估计寿命 年} & \textbf{年值成本} & \textbf{碳排} \\
+\midrule
+\endhead
+推荐 & 0.773 & 49.2 & 8.4 & 7.04 & 0.7 \\
+规则经验 & 0.663 & 55.9 & 8.2 & 8.15 & 0.82 \\
+加权评分 & 0.773 & 49.2 & 8.4 & 7.04 & 0.7 \\
+最低成本 & 0 & 43.3 & 5.6 & 8.91 & 0.91 \\
+\bottomrule
+\end{longtable}
+\endgroup
+{\small 年均碳排单位 kgCO$_2$e/(m$^2\cdot$年)。经验基线未必满足全部施工规则，不能直接作为可实施方案。\par}
+
+\textbf{瓶颈指标的需求依据：}规范普通沥青 1000 次/mm（1-3 区）× 交通系数 1.5
+
+\section*{C7 哈尔滨·横向裂缝灌缝处治}
+与 C2 同一城市，另一路段裂缝宽度 6–10mm，路面结构尚好，养护决策输出：裂缝处治。
+
+规则方案：开槽灌缝（槽宽 10–15mm）；寒冷型加热灌缝胶。路表低温(98\%) -31.2°C，要求低温拉伸试验温度不高于该值；路表高温 52.7°C，软化点宜≥68°C。
+
+无独立材料试验和专家对照，此例仅检查规则适用流程。
+
+\section*{验证范围}
+本报告检验场景录入、约束筛选、选优与解释逻辑。六个混合料案例及一个裂缝案例满足不少于五例的展示数量，覆盖至少三类需求；全部结果来自同一个先验评价器，不作为外部独立验证。完整输入输出见随附 JSON。
+
+\end{document}
