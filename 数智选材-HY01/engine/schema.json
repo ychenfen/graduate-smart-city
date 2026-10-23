@@ -1,0 +1,92 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "szxc/v1",
+  "title": "数智选材 · 养护决策系统 ↔ 材料推荐引擎 接口规范 v1",
+  "$defs": {
+    "ScenarioInput": {
+      "type": "object",
+      "description": "养护决策系统输出、作为材料推荐引擎输入的场景参数",
+      "properties": {
+        "cityId": { "type": "string", "description": "内置城市气候编号；与 climate 二选一" },
+        "climate": {
+          "type": "object", "description": "自定义气候（气象站数据）",
+          "properties": {
+            "name": { "type": "string" }, "lat": { "type": "number" },
+            "julyAvgMax": { "type": "number", "description": "最热月平均最高气温 °C" },
+            "t7max": { "type": "number", "description": "年最热连续7天平均最高气温 °C" }, "t7maxSd": { "type": "number" },
+            "extremeMin": { "type": "number", "description": "极端最低气温 °C" }, "tminSd": { "type": "number" },
+            "rain": { "type": "number", "description": "年降水量 mm" }
+          },
+          "required": ["lat", "julyAvgMax", "t7max", "t7maxSd", "extremeMin", "tminSd", "rain"]
+        },
+        "roadClass": { "enum": ["highway", "arterial", "local"], "default": "highway" },
+        "traffic": { "enum": ["light", "medium", "heavy", "vheavy", "xheavy"], "description": "设计交通荷载等级(JTG D50)" },
+        "speed": { "enum": ["normal", "slow", "standing"] },
+        "treatment": { "enum": ["MR_UP", "THIN", "MR_UM", "CRACK"], "description": "养护决策给出的工法" },
+        "aggregate": { "enum": ["limestone", "basalt", "granite"] },
+        "distresses": {
+          "type": "array",
+          "items": { "type": "object", "properties": {
+            "id": { "enum": ["rutting", "thermalCrack", "fatigueCrack", "moisture", "skid", "aging"] },
+            "severity": { "enum": [0, 1, 2], "description": "0轻 1中 2重" } }, "required": ["id"] }
+        },
+        "ambientT": { "type": "number", "description": "施工期日均气温 °C" },
+        "haulMin": { "type": "number", "description": "运距时间 min" },
+        "nightWork": { "type": "boolean" },
+        "targetReliability": { "type": "number", "exclusiveMinimum": 0, "maximum": 1, "description": "模型内目标比例，缺省按道路等级 0.90/0.85/0.75" },
+        "budgetPerM2": { "type": "number", "minimum": 0, "description": "初始造价上限 元/m²（可选，0为零预算）" },
+        "crackWidthMm": { "type": "number", "exclusiveMinimum": 0, "description": "仅 CRACK 工法" },
+        "samples": { "type": "integer", "minimum": 1, "maximum": 10000, "default": 400 },
+        "seed": { "type": "integer" }
+      },
+      "required": ["treatment"]
+    },
+    "Plan": {
+      "type": "object",
+      "properties": {
+        "id": { "type": "string", "description": "级配/结合料/抗水损/抗车辙/拌和/RAP/纤维 编码" },
+        "label": { "type": "string" },
+        "reliability": { "type": "number", "description": "演示模型内联合通过比例，不是工程成功概率" },
+        "reliabilityInterval95": { "type": "array", "minItems": 2, "maxItems": 2, "items": { "type": "number" }, "description": "Wilson 95%抽样区间，不含模型与先验误差" },
+        "samples": { "type": "integer" },
+        "passRate": { "type": "object", "description": "各指标单项达标概率" },
+        "bottleneck": { "type": "string" },
+        "lifeMean": { "type": "number", "description": "期望使用寿命 年" }, "lifeP10": { "type": "number" },
+        "costM2": { "type": "number", "description": "初始造价 元/m²" },
+        "euac": { "type": "number", "description": "等额年值成本 元/(m²·年)" },
+        "carbonM2": { "type": "number" }, "carbonYr": { "type": "number", "description": "年均碳排 kgCO2e/(m²·年)" },
+        "formula": { "type": "object" }, "predicted": { "type": "object" }
+      }
+    },
+    "RecommendationOutput": {
+      "type": "object",
+      "properties": {
+        "engine": { "type": "string" },
+        "tags": { "type": "array", "items": { "type": "string" }, "description": "场景标签，用于案例检索" },
+        "climate": { "type": "object" },
+        "requirements": { "type": "array", "description": "需求包络：每条含目标值与出处说明 why" },
+        "priorities": { "type": "array", "description": "按稀缺度排序的性能优先级" },
+        "targetReliability": { "type": "number" }, "targetReached": { "type": "boolean" },
+        "module": { "enum": ["crack", "infeasible"] },
+        "reason": { "type": "string" },
+        "recommended": { "anyOf": [{ "$ref": "#/$defs/Plan" }, { "type": "null" }] },
+        "process": { "type": "object", "description": "施工窗口与工艺容错" },
+        "counterfactuals": { "type": "array" },
+        "alternatives": { "type": "array", "items": { "$ref": "#/$defs/Plan" } },
+        "pareto": { "type": "array", "items": { "$ref": "#/$defs/Plan" } },
+        "baselines": { "type": "object" }
+      }
+    },
+    "Observation": {
+      "type": "object",
+      "description": "路用性能监测回流：实测/预测 比值（疲劳用 lg 差值）",
+      "properties": {
+        "binderFamily": { "enum": ["base", "hard", "sbs", "rubber", "hva"] },
+        "gradType": { "enum": ["dense", "sma", "ogfc"] },
+        "indicator": { "enum": ["ds", "strain", "tsr", "fatigue"] },
+        "ratio": { "type": "number" }, "sectionId": { "type": "string" }, "monitoredAt": { "type": "string" }
+      },
+      "required": ["binderFamily", "gradType", "indicator", "ratio"]
+    }
+  }
+}

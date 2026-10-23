@@ -1,0 +1,1098 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>数智选材 原型</title>
+<style>
+:root{
+  --paper:#f6f3ec; --card:#fffdf8; --ink:#1d1c1a; --ink2:#5b5850; --ink3:#8d887c; --rule:#d9d3c5;
+  --accent:#e0a100; --accent-ink:#5a4100; --ok:#2f7d4f; --warn:#b5531c; --dot:#b9b2a2; --front:#1d1c1a;
+  --mono: ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+}
+@media (prefers-color-scheme: dark){ :root:not([data-theme="light"]){
+  --paper:#171614; --card:#201f1c; --ink:#ece7dc; --ink2:#b5ae9f; --ink3:#857f72; --rule:#3a3730;
+  --accent:#f0b51e; --accent-ink:#f6d27a; --ok:#6cc08f; --warn:#e88a55; --dot:#5c574d; --front:#ece7dc; } }
+:root[data-theme="dark"]{ --paper:#171614; --card:#201f1c; --ink:#ece7dc; --ink2:#b5ae9f; --ink3:#857f72; --rule:#3a3730;
+  --accent:#f0b51e; --accent-ink:#f6d27a; --ok:#6cc08f; --warn:#e88a55; --dot:#5c574d; --front:#ece7dc; }
+*{box-sizing:border-box}
+html,body{margin:0;background:var(--paper);color:var(--ink);font:14px/1.6 -apple-system,"PingFang SC","Microsoft YaHei",sans-serif}
+header{display:flex;align-items:baseline;gap:16px;flex-wrap:wrap;padding:18px 24px 10px;border-bottom:2px solid var(--ink)}
+header h1{font-size:20px;margin:0;letter-spacing:.06em}
+header .sub{color:var(--ink2);font-size:13px}
+header .tools{margin-left:auto;display:flex;gap:8px;align-items:center}
+.wrap{display:grid;grid-template-columns:320px 1fr;gap:0;min-height:calc(100vh - 60px)}
+aside{border-right:1px solid var(--rule);padding:16px 18px;background:var(--card)}
+main{padding:16px 24px 48px;min-width:0}
+h2{font-size:13px;letter-spacing:.12em;color:var(--ink2);margin:22px 0 8px;font-weight:600;border-bottom:1px solid var(--rule);padding-bottom:4px;display:flex;gap:8px;align-items:baseline}
+h2 .n{font-family:var(--mono);color:var(--accent-ink);background:var(--accent);color:#1d1c1a;padding:0 6px;border-radius:2px;font-size:12px}
+h2 .hint{margin-left:auto;font-weight:400;letter-spacing:0;color:var(--ink3);font-size:12px}
+label{display:block;font-size:12px;color:var(--ink2);margin:10px 0 3px}
+select,input[type=number],input[type=text]{width:100%;padding:6px 8px;border:1px solid var(--rule);background:var(--paper);color:var(--ink);border-radius:3px;font:inherit}
+.row2{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.dis{display:grid;grid-template-columns:1fr 92px;gap:4px 8px;align-items:center;font-size:13px}
+.dis select{padding:3px 6px}
+button{font:inherit;border:1px solid var(--ink);background:var(--ink);color:var(--paper);padding:7px 14px;border-radius:3px;cursor:pointer}
+button.ghost{background:transparent;color:var(--ink)}
+button:focus-visible,select:focus-visible,input:focus-visible{outline:2px solid var(--accent);outline-offset:1px}
+.run{width:100%;margin-top:16px;padding:10px}
+.casepick{display:flex;flex-wrap:wrap;gap:6px;margin-top:6px}
+.casepick button{background:transparent;color:var(--ink);border-color:var(--rule);padding:3px 8px;font-size:12px}
+.casepick button.on{border-color:var(--ink);background:var(--accent);color:#1d1c1a}
+.bg{font-size:12px;color:var(--ink2);margin-top:8px;line-height:1.5}
+.verdict{display:grid;grid-template-columns:auto 1fr;gap:4px 18px;padding:14px 16px;background:var(--card);border:1px solid var(--rule);border-left:6px solid var(--accent)}
+.verdict .big{font-size:22px;font-weight:700;line-height:1.3;grid-column:1/-1}
+.verdict .k{color:var(--ink3);font-size:12px}
+.verdict .v{font-family:var(--mono)}
+.kpis{display:flex;flex-wrap:wrap;gap:0;margin-top:10px;border:1px solid var(--rule);background:var(--card)}
+.kpi{padding:8px 14px;border-right:1px solid var(--rule);min-width:120px}
+.kpi:last-child{border-right:0}
+.kpi .k{font-size:11px;color:var(--ink3)}
+.kpi .v{font-family:var(--mono);font-size:18px}
+.kpi .v small{font-size:11px;color:var(--ink3)}
+table{border-collapse:collapse;width:100%;background:var(--card);font-size:13px}
+th,td{border-bottom:1px solid var(--rule);padding:6px 8px;text-align:left;vertical-align:top}
+th{font-weight:600;color:var(--ink2);font-size:12px;background:var(--paper)}
+td.num{font-family:var(--mono);text-align:right;white-space:nowrap}
+td.why{color:var(--ink2);font-size:12px}
+.tag{display:inline-block;font-size:11px;padding:0 5px;border:1px solid var(--rule);border-radius:2px;color:var(--ink2);margin-right:2px}
+.tag.std{border-color:var(--ink3)}
+.tag.scene{border-color:var(--accent);color:var(--accent-ink)}
+.bar{position:relative;height:14px;background:var(--paper);border:1px solid var(--rule);min-width:120px}
+.bar i{position:absolute;left:0;top:0;bottom:0;background:var(--ink)}
+.bar i.low{background:var(--warn)}
+.bar b{position:absolute;top:-3px;bottom:-3px;width:2px;background:var(--accent)}
+.grid2{display:grid;grid-template-columns:minmax(0,1.25fr) minmax(0,1fr);gap:18px}
+.chartbox{background:var(--card);border:1px solid var(--rule);padding:8px;position:relative}
+svg text{fill:var(--ink2);font-size:11px;font-family:var(--mono)}
+.tip{position:absolute;pointer-events:none;background:var(--ink);color:var(--paper);font-size:12px;padding:6px 8px;border-radius:3px;max-width:320px;display:none;z-index:2}
+.legend{display:flex;gap:14px;font-size:12px;color:var(--ink2);margin:6px 2px 0;flex-wrap:wrap}
+.legend span::before{content:"";display:inline-block;width:9px;height:9px;margin-right:5px;vertical-align:-1px;border-radius:50%}
+.legend .l1::before{background:var(--dot)} .legend .l2::before{background:var(--front)} .legend .l3::before{background:var(--accent);border-radius:0;transform:rotate(45deg)} .legend .l4::before{border:2px solid var(--warn);background:transparent;border-radius:0}
+.formula{font-family:var(--mono);font-size:13px;background:var(--card);border:1px dashed var(--ink3);padding:10px 12px;line-height:1.8}
+.formula b{font-family:-apple-system,"PingFang SC",sans-serif;font-weight:600;color:var(--ink2);display:inline-block;min-width:76px;font-size:12px}
+.note{font-size:12px;color:var(--ink3)}
+.cf td:first-child{max-width:330px}
+.pos{color:var(--ok)} .neg{color:var(--warn)}
+.pill{font-size:11px;padding:1px 6px;border-radius:9px;background:var(--paper);border:1px solid var(--rule)}
+.pill.ok{border-color:var(--ok);color:var(--ok)} .pill.no{border-color:var(--warn);color:var(--warn)}
+.fb{display:grid;grid-template-columns:repeat(4,minmax(0,1fr)) auto;gap:8px;align-items:end;background:var(--card);border:1px solid var(--rule);padding:10px}
+.empty{color:var(--ink3);padding:30px;text-align:center;border:1px dashed var(--rule)}
+footer{color:var(--ink3);font-size:11px;padding:8px 24px;border-top:1px solid var(--rule)}
+@media (max-width:900px){table{display:block;overflow-x:auto} .wrap{grid-template-columns:1fr} aside{border-right:0;border-bottom:1px solid var(--rule)} .grid2{grid-template-columns:1fr} .fb{grid-template-columns:1fr 1fr} main{padding:12px 16px 40px} header{padding:14px 16px 8px}}
+</style>
+</head>
+<body>
+<header>
+  <h1>数智选材</h1>
+  <span class="sub">养护场景 → 性能需求包络 → 达标可靠度选材 · 演示原型 v1.0</span>
+  <span class="tools"><button class="ghost" id="themeBtn" type="button" title="切换明暗">明/暗</button></span>
+</header>
+<div class="wrap">
+<aside>
+  <h2><span class="n">01</span>场景输入</h2>
+  <div class="note">载入典型案例，或直接修改参数：</div>
+  <div class="casepick" id="casePick"></div>
+  <div class="bg" id="caseBg"></div>
+  <label for="city">所在城市（气候数据）</label><select id="city"></select>
+  <div class="row2">
+    <div><label for="roadClass">道路等级</label><select id="roadClass"><option value="highway">高速/一级</option><option value="arterial">城市主干/快速路</option><option value="local">次干/支路</option></select></div>
+    <div><label for="treatment">养护工法</label><select id="treatment"></select></div>
+  </div>
+  <div class="row2">
+    <div><label for="traffic">交通荷载等级</label><select id="traffic"></select></div>
+    <div><label for="speed">车速/渠化</label><select id="speed"></select></div>
+  </div>
+  <label for="aggregate">粗集料</label><select id="aggregate"></select>
+  <label>病害与严重程度</label>
+  <div class="dis" id="disBox"></div>
+  <div class="row2">
+    <div><label for="ambientT">施工期气温 °C</label><input type="number" id="ambientT" step="1"></div>
+    <div><label for="haulMin">运输时间 min</label><input type="number" id="haulMin" step="5"></div>
+  </div>
+  <div class="row2">
+    <div><label for="targetRel">目标可靠度</label><input type="number" id="targetRel" step="0.05" min="0.5" max="0.99" placeholder="按等级缺省"></div>
+    <div><label for="budget">造价上限 元/m²</label><input type="number" id="budget" step="1" placeholder="不限"></div>
+  </div>
+  <label style="display:flex;gap:6px;align-items:center"><input type="checkbox" id="nightWork"> 夜间封道施工</label>
+  <div id="crackBox" style="display:none"><label for="crackW">裂缝宽度 mm</label><input type="number" id="crackW" value="8"></div>
+  <button class="run" id="runBtn" type="button">生成材料方案</button>
+  <div class="note" style="margin-top:10px">引擎在本地浏览器运行，不联网。每个候选方案做 400 次蒙特卡洛抽样（公共随机数）。</div>
+</aside>
+<main id="out"><div class="empty">在左侧选择案例或输入场景后点击“生成材料方案”。</div></main>
+</div>
+<footer>构造案例与演示先验。模型内通过比例不代表工程成功概率，寿命、费用与碳排均为假设测算；规则须按原始条文和企业试验逐项复核。</footer>
+
+<script>/*
+ * 数智选材 · 场景—材料结构化知识库 (Knowledge Base)
+ *
+ * 取值分三类，每条都带 src 字段说明来源层级：
+ *   STD  —— 按现行行业规范整理的门槛值（JTG F40—2004 等），提交前应按最新版本逐条核对；
+ *   LIT  —— 依据公开文献的典型趋势设定的先验值，用于演示，需企业数据标定；
+ *   ENG  —— 本作品设定的工程参数（企业可调），属于方法的一部分而非事实陈述。
+ * 城市气候数据为公开气象资料的近似值，仅用于演示，正式应用应替换为气象站 30 年序列。
+ */
+(function (root, factory) {
+  if (typeof module === 'object' && module.exports) module.exports = factory();
+  else root.SZXC_KB = factory();
+})(typeof self !== 'undefined' ? self : this, function () {
+  'use strict';
+
+  const meta = {
+    version: '1.0.0',
+    updated: '2026-10-21',
+    note: '演示版知识库；STD 门槛需按现行规范核对，LIT/ENG 参数需企业数据标定',
+  };
+
+  // ---------- 1. 气候：城市样本（近似值，src: LIT） ----------
+  // julyAvgMax: 最热月平均最高气温; t7max: 年最热连续7天平均最高气温; extremeMin: 极端最低气温;
+  // rain: 年降水量 mm; sd: 年际标准差 (°C)
+  const cities = [
+    { id: 'yangpu',   name: '海南洋浦', lat: 19.7, julyAvgMax: 33.0, t7max: 35.0, t7maxSd: 1.0, extremeMin: 6.0,   tminSd: 2.0, rain: 1100 },
+    { id: 'haikou',   name: '海口',     lat: 20.0, julyAvgMax: 33.2, t7max: 35.3, t7maxSd: 1.0, extremeMin: 4.9,   tminSd: 2.0, rain: 1680 },
+    { id: 'guangzhou',name: '广州',     lat: 23.1, julyAvgMax: 33.0, t7max: 35.5, t7maxSd: 1.1, extremeMin: 0.0,   tminSd: 2.2, rain: 1720 },
+    { id: 'chongqing',name: '重庆',     lat: 29.6, julyAvgMax: 34.5, t7max: 38.3, t7maxSd: 1.4, extremeMin: -1.8,  tminSd: 1.8, rain: 1100 },
+    { id: 'wuhan',    name: '武汉',     lat: 30.6, julyAvgMax: 33.0, t7max: 37.0, t7maxSd: 1.3, extremeMin: -18.1, tminSd: 3.5, rain: 1260 },
+    { id: 'nanjing',  name: '南京',     lat: 32.0, julyAvgMax: 32.3, t7max: 36.5, t7maxSd: 1.3, extremeMin: -14.0, tminSd: 3.0, rain: 1100 },
+    { id: 'xian',     name: '西安',     lat: 34.3, julyAvgMax: 32.5, t7max: 37.5, t7maxSd: 1.5, extremeMin: -20.6, tminSd: 3.2, rain: 580 },
+    { id: 'beijing',  name: '北京',     lat: 39.9, julyAvgMax: 31.0, t7max: 35.5, t7maxSd: 1.5, extremeMin: -27.4, tminSd: 3.5, rain: 550 },
+    { id: 'lanzhou',  name: '兰州',     lat: 36.1, julyAvgMax: 29.5, t7max: 33.0, t7maxSd: 1.4, extremeMin: -23.1, tminSd: 3.0, rain: 310 },
+    { id: 'lhasa',    name: '拉萨',     lat: 29.6, julyAvgMax: 23.0, t7max: 26.5, t7maxSd: 1.0, extremeMin: -16.5, tminSd: 2.5, rain: 450 },
+    { id: 'kunming',  name: '昆明',     lat: 25.0, julyAvgMax: 24.5, t7max: 27.5, t7maxSd: 1.0, extremeMin: -7.8,  tminSd: 2.0, rain: 1000 },
+    { id: 'urumqi',   name: '乌鲁木齐', lat: 43.8, julyAvgMax: 31.0, t7max: 35.0, t7maxSd: 1.5, extremeMin: -41.5, tminSd: 4.0, rain: 290 },
+    { id: 'harbin',   name: '哈尔滨',   lat: 45.8, julyAvgMax: 28.0, t7max: 31.5, t7maxSd: 1.3, extremeMin: -38.1, tminSd: 3.5, rain: 530 },
+  ];
+
+  // ---------- 2. 沥青路面使用性能气候分区（src: STD, JTG F40 附录 A 三级指标） ----------
+  const climateZoning = {
+    src: 'STD',
+    ref: 'JTG F40—2004 附录A 沥青路面使用性能气候分区',
+    high: [ { max: Infinity, min: 30, code: 1, name: '夏炎热区' }, { max: 30, min: 20, code: 2, name: '夏热区' }, { max: 20, min: -Infinity, code: 3, name: '夏凉区' } ],
+    low:  [ { lt: -37.0, code: 1, name: '冬严寒区' }, { lt: -21.5, code: 2, name: '冬寒区' }, { lt: -9.0, code: 3, name: '冬冷区' }, { lt: Infinity, code: 4, name: '冬温区' } ],
+    rain: [ { gt: 1000, code: 1, name: '潮湿区' }, { gt: 500, code: 2, name: '湿润区' }, { gt: 250, code: 3, name: '半干区' }, { gt: -Infinity, code: 4, name: '干旱区' } ],
+  };
+
+  // ---------- 3. 合规底线（src: STD, JTG F40—2004 表5.3.3 系列整理值，提交前核对现行版） ----------
+  const standards = {
+    ref: 'JTG F40—2004 第5.3.3条 沥青混合料技术要求（整理值）',
+    // 车辙试验动稳定度 (次/mm)，键为 高温区-低温区 组合
+    dsDense: {
+      ordinary: { '1-1': 800, '1-2': 800, '1-3': 1000, '1-4': 1000, '2-1': 600, '2-2': 800, '2-3': 800, '2-4': 800, '3': 600 },
+      modified: { '1-1': 2400, '1-2': 2400, '1-3': 2800, '1-4': 2800, '2-1': 2000, '2-2': 2400, '2-3': 2400, '2-4': 2400, '3': 1800 },
+    },
+    dsSMA: { ordinary: 1500, modified: 3000 },
+    dsOGFC: { normal: 1500, heavy: 3000 },
+    // 低温弯曲试验破坏应变 (με)，按低温区
+    strain: { ordinary: { 1: 2600, 2: 2300, 3: 2000, 4: 2000 }, modified: { 1: 3000, 2: 2800, 3: 2500, 4: 2500 } },
+    // 浸水马歇尔残留稳定度 (%)，按年降水 ≥500 / <500
+    ms0: { wet: { ordinary: 80, modified: 85 }, dry: { ordinary: 75, modified: 80 }, sma: { ordinary: 75, modified: 80 } },
+    // 冻融劈裂强度比 TSR (%)
+    tsr: { wet: { ordinary: 75, modified: 80 }, dry: { ordinary: 70, modified: 75 }, sma: { ordinary: 75, modified: 80 } },
+  };
+
+  // ---------- 4. 交通荷载等级与场景增强系数（src: ENG，等级划分参照 JTG D50—2017） ----------
+  const traffic = {
+    levels: [
+      { id: 'light',  name: '轻',   esal: '<4×10^6',      dsFactor: null, fatigueTarget: 4.5, pgBump: 0 },
+      { id: 'medium', name: '中等', esal: '4–8×10^6',     dsFactor: null, fatigueTarget: 4.8, pgBump: 0 },
+      { id: 'heavy',  name: '重',   esal: '8–19×10^6',    dsFactor: 1.0,  fatigueTarget: 5.1, pgBump: 0 },
+      { id: 'vheavy', name: '特重', esal: '19–100×10^6',  dsFactor: 1.2,  fatigueTarget: 5.3, pgBump: 1 },
+      { id: 'xheavy', name: '极重', esal: '>100×10^6',    dsFactor: 1.4,  fatigueTarget: 5.5, pgBump: 1 },
+    ],
+    // 车速：Superpave 加级思路（AASHTO M323 的慢速 +1 级、停滞 +2 级）
+    speed: [
+      { id: 'normal',   name: '正常行驶 (>70 km/h)', pgBump: 0, dsFactor: 1.0 },
+      { id: 'slow',     name: '慢速 (20–70 km/h)',   pgBump: 1, dsFactor: 1.15 },
+      { id: 'standing', name: '停滞/渠化 (<20 km/h)',pgBump: 2, dsFactor: 1.3 },
+    ],
+    src: 'ENG',
+    note: '轻/中等交通的 DS 目标取规范普通沥青值×1.0/1.5；重及以上取改性沥青值×dsFactor',
+  };
+
+  // ---------- 5. 病害与养护工法（src: ENG，工法名称对应 JTG 5142—2019 养护工程分类） ----------
+  const distresses = [
+    { id: 'rutting',     name: '车辙',       drives: { ds: [1.0, 1.05, 1.10] } },
+    { id: 'thermalCrack',name: '横向/温度裂缝', drives: { strain: [1.0, 1.03, 1.05], pgLowExtra: [0, 0, 3] } },
+    { id: 'fatigueCrack',name: '网裂/疲劳裂缝', drives: { fatigue: [0.1, 0.2, 0.3] } },
+    { id: 'moisture',    name: '水损害/坑槽松散', drives: { tsr: [0, 2, 4] } },
+    { id: 'skid',        name: '抗滑不足',   drives: { td: [0.60, 0.70, 0.80] } },
+    { id: 'aging',       name: '老化/表面磨损', drives: {} },
+  ];
+  const severities = ['轻', '中', '重'];
+
+  const treatments = [
+    { id: 'MR_UP', name: '铣刨重铺上面层', thicknessCm: 4.0, baseLife: 8, milling: true,  mix: true },
+    { id: 'THIN',  name: '薄层罩面',       thicknessCm: 2.5, baseLife: 6, milling: false, mix: true },
+    { id: 'MR_UM', name: '铣刨重铺中上面层(本系统设计上面层)', thicknessCm: 4.0, baseLife: 10, milling: true, mix: true },
+    { id: 'CRACK', name: '裂缝处治',       mix: false },
+  ];
+
+  // ---------- 6. 沥青结合料（src: LIT 典型值；price 元/t、carbon kgCO2e/t 为演示参数） ----------
+  // trueHigh/trueLow: 连续分级温度 (°C)；visc: 压实难度系数(相对 70#)；mixT: 推荐拌和温度
+  const binders = [
+    { id: 'B110', name: '110#A 道路石油沥青',    family: 'base', modified: false, trueHigh: 56.5, trueLow: -27.0, visc: 0.85, mixT: 145, price: 3820, carbon: 230, strainBonus: 0,   tsr: 0,  fatigue: 0.25 },
+    { id: 'B90',  name: '90#A 道路石油沥青',     family: 'base', modified: false, trueHigh: 60.5, trueLow: -23.0, visc: 0.9, mixT: 150, price: 3850, carbon: 230, strainBonus: 0,   tsr: 0,  fatigue: 0.15 },
+    { id: 'B70',  name: '70#A 道路石油沥青',     family: 'base', modified: false, trueHigh: 66.0, trueLow: -19.0, visc: 1.0, mixT: 155, price: 3900, carbon: 230, strainBonus: 0,   tsr: 0,  fatigue: 0 },
+    { id: 'B50',  name: '50#A 道路石油沥青',     family: 'base', modified: false, trueHigh: 70.0, trueLow: -15.0, visc: 1.1, mixT: 160, price: 3950, carbon: 235, strainBonus: 0,   tsr: 1,  fatigue: -0.15 },
+    { id: 'B30',  name: '30# 硬质沥青(高模量)',  family: 'hard', modified: false, trueHigh: 79.0, trueLow: -8.0,  visc: 1.3, mixT: 170, price: 4300, carbon: 240, strainBonus: 0,   tsr: 2,  fatigue: -0.45 },
+    { id: 'SBS70_3', name: 'SBS改性沥青(70#基, 3.5%)', family: 'sbs', modified: true, base: 'B70', dose: 3.5 },
+    { id: 'SBS70_4', name: 'SBS改性沥青(70#基, 4.5%)', family: 'sbs', modified: true, base: 'B70', dose: 4.5 },
+    { id: 'SBS70_5', name: 'SBS改性沥青(70#基, 5.5%)', family: 'sbs', modified: true, base: 'B70', dose: 5.5 },
+    { id: 'SBS90_4', name: 'SBS改性沥青(90#基, 4.5%)', family: 'sbs', modified: true, base: 'B90', dose: 4.5 },
+    { id: 'SBS90_5', name: 'SBS改性沥青(90#基, 5.5%)', family: 'sbs', modified: true, base: 'B90', dose: 5.5 },
+    { id: 'SBS110_5', name: 'SBS改性沥青(110#基, 5.5%)', family: 'sbs', modified: true, base: 'B110', dose: 5.5 },
+    { id: 'CR20', name: '橡胶改性沥青(20%胶粉)', family: 'rubber', modified: true, trueHigh: 76.0, trueLow: -27.0, visc: 1.6, mixT: 180, price: 4550, carbon: 205, strainBonus: 250, tsr: 2, fatigue: 0.6 },
+    { id: 'HVA',  name: '高粘高弹改性沥青',     family: 'hva',  modified: true, trueHigh: 86.0, trueLow: -30.0, visc: 1.8, mixT: 185, price: 7600, carbon: 600, strainBonus: 300, tsr: 5,  fatigue: 0.75 },
+  ];
+  // SBS 剂量效应（src: LIT 趋势）：高温 +2.3°C/%，低温 -1.3°C/%，加工及 SBS 费用、碳排
+  const sbsModel = { dHigh: 2.3, dLow: -1.3, viscPerPct: 0.09, mixT: 175, pricePerPct: 230, priceProcess: 250, carbonPerPct: 33, carbonProcess: 15, strainBonus: 150, tsr: 3, fatiguePerPct: 0.11, src: 'LIT' };
+
+  // ---------- 7. 级配（src: LIT 典型值；性能为 70# 基质、目标空隙率下的基准） ----------
+  // ds 次/mm, strain με, tsr %, fatigue log10(Nf @600με, 15°C, 10Hz), td mm 构造深度
+  const gradations = [
+    { id: 'AC10',   name: 'AC-10',   type: 'dense', nmas: 9.5,  pb: 5.4, density: 2.38, va: 4.0, ds: 900,  strain: 2350, tsr: 85, fatigue: 5.10, td: 0.45, aggPrice: 92 },
+    { id: 'AC13',   name: 'AC-13',   type: 'dense', nmas: 13.2, pb: 4.9, density: 2.40, va: 4.0, ds: 1100, strain: 2250, tsr: 84, fatigue: 5.00, td: 0.55, aggPrice: 88 },
+    { id: 'AC16',   name: 'AC-16',   type: 'dense', nmas: 16.0, pb: 4.6, density: 2.42, va: 4.0, ds: 1250, strain: 2150, tsr: 83, fatigue: 4.90, td: 0.62, aggPrice: 85 },
+    { id: 'SMA10',  name: 'SMA-10',  type: 'sma',   nmas: 9.5,  pb: 6.1, density: 2.42, va: 3.5, ds: 1500, strain: 2650, tsr: 87, fatigue: 5.30, td: 0.80, aggPrice: 110 },
+    { id: 'SMA13',  name: 'SMA-13',  type: 'sma',   nmas: 13.2, pb: 5.9, density: 2.44, va: 3.5, ds: 1600, strain: 2600, tsr: 87, fatigue: 5.30, td: 0.90, aggPrice: 108 },
+    { id: 'OGFC10', name: 'OGFC-10', type: 'ogfc',  nmas: 9.5,  pb: 5.0, density: 1.98, va: 18.0, ds: 600, strain: 2500, tsr: 77, fatigue: 4.60, td: 1.30, aggPrice: 108 },
+    { id: 'OGFC13', name: 'OGFC-13', type: 'ogfc',  nmas: 13.2, pb: 4.8, density: 1.95, va: 20.0, ds: 650, strain: 2450, tsr: 77, fatigue: 4.60, td: 1.60, aggPrice: 105 },
+  ];
+
+  // ---------- 8. 功能助剂 / 再生 / 纤维（src: LIT 趋势 + ENG 成本） ----------
+  // costMix: 元/t 混合料; carbonMix: kgCO2e/t 混合料
+  const additives = {
+    water: [
+      { id: 'none',  name: '无',                 tsr: 0, costMix: 0,  carbonMix: 0 },
+      { id: 'amine', name: '胺类抗剥落剂(0.4%油重)', tsr: 6, costMix: 7,  carbonMix: 0.3 },
+      { id: 'lime',  name: '消石灰替代1.5%矿粉',   tsr: 7, costMix: 4,  carbonMix: 1.2 },
+    ],
+    rut: [
+      { id: 'none',   name: '无',                 dsMul: 1.0, strain: 0,    costMix: 0,  carbonMix: 0 },
+      { id: 'antirut',name: '抗车辙剂(0.4%混合料)', dsMul: 1.6, strain: -150, costMix: 56, carbonMix: 10 },
+    ],
+    warm: [
+      { id: 'none', name: '热拌',               dT: 0,   viscMul: 1.0,  tsr: 0,  costMix: 0, fuelMul: 1.0 },
+      { id: 'warm', name: '表面活性剂温拌(0.5%油重)', dT: -25, viscMul: 0.55, tsr: -1, costMix: 6, fuelMul: 0.75 },
+    ],
+    rap: [
+      { id: 'R0',  name: '不掺RAP',         pct: 0,  dsMul: 1.00, strain: 0,    fatigue: 0,     tsr: 0,  costMul: 1.00, carbonMul: 1.00 },
+      { id: 'R15', name: 'RAP 15%',         pct: 15, dsMul: 1.12, strain: -150, fatigue: -0.10, tsr: -1, costMul: 0.89, carbonMul: 0.91 },
+      { id: 'R30', name: 'RAP 30%+再生剂',  pct: 30, dsMul: 1.25, strain: -330, fatigue: -0.22, tsr: -2, costMul: 0.80, carbonMul: 0.83 },
+    ],
+    fiber: [
+      { id: 'none',    name: '无',            strain: 0,   fatigue: 0,    costMix: 0,  carbonMix: 0 },
+      { id: 'lignin',  name: '木质素纤维0.3%', strain: 0,   fatigue: 0,    costMix: 18, carbonMix: 1.5 },
+      { id: 'basalt',  name: '玄武岩纤维0.3%', strain: 150, fatigue: 0.10, costMix: 54, carbonMix: 6 },
+    ],
+  };
+
+  const aggregates = [
+    { id: 'limestone', name: '石灰岩', acidic: false, tsr: 0,  td: 0,    price: 0 },
+    { id: 'basalt',    name: '玄武岩', acidic: false, tsr: -3, td: 0.05, price: 22 },
+    { id: 'granite',   name: '花岗岩', acidic: true,  tsr: -9, td: 0.03, price: -5 },
+  ];
+
+  // ---------- 9. 预测不确定性、工艺敏感性、经济与碳参数（src: ENG/LIT） ----------
+  const model = {
+    sd: { dsLog: 0.22, strain: 200, tsr: 3.5, fatigue: 0.22, td: 0.08, pg: 1.5 },
+    // 空隙率每偏大 1% 的性能折减（src: LIT 经验规律，如“空隙率每增 1%，寿命约降 10%”）
+    perVa: { dsMul: 0.88, strain: -60, tsr: -3.0, fatigue: -0.08, td: 0.02 },
+    // 压实欠缺：d = visc×viscMul × max(0, Tref−Tamb)/10 × (1 + haul/120) × (薄层?1.5:1)
+    compaction: { Tref: 15, vaPerD: 1.2, vaSd0: 0.6, vaSdPerD: 0.4, thinFactor: 1.5 },
+    pavingMinT: { modified: 10, ordinary: 5, warmRelief: 5, src: '参照 JTG F40 施工气温限制（需核对）' },
+    life: { betaDs: 0.35, betaStrain: 1.0, betaTsr: 2.0, betaFatigue: 1.15, min: 0.35, max: 1.35, severeFactor: 0.88 },
+    econ: { discount: 0.04, production: 75, laying: 45, milling: 12, warmProdSave: 8 },
+    carbon: { aggregate: 8, production: 26, transport: 5, milling: 1.2 },
+    reliabilityByRoad: { highway: 0.90, arterial: 0.85, local: 0.75 },
+  };
+
+  // ---------- 10. 裂缝处治：灌缝材料（src: ENG，分型思路参照 JT/T 740） ----------
+  const sealants = [
+    { id: 'S_HOT',  name: '高温型加热灌缝胶', lowTest: -10, softening: 95, price: 13, note: '夏炎热区、冬温区' },
+    { id: 'S_STD',  name: '普通型加热灌缝胶', lowTest: -20, softening: 88, price: 12, note: '大部分地区' },
+    { id: 'S_LOW',  name: '低温型加热灌缝胶', lowTest: -30, softening: 82, price: 14, note: '冬寒区' },
+    { id: 'S_COLD', name: '寒冷型加热灌缝胶', lowTest: -40, softening: 78, price: 16, note: '冬严寒区' },
+  ];
+  const crackRules = [
+    { maxWidth: 3,   method: '雾封层或不处理，纳入观察', unitPriceFactor: 0.3 },
+    { maxWidth: 10,  method: '开槽灌缝（槽宽 10–15mm）', unitPriceFactor: 1.0 },
+    { maxWidth: 25,  method: '开槽灌缝（槽宽 15–20mm）+ 贴缝带', unitPriceFactor: 1.4 },
+    { maxWidth: 999, method: '挖补或填缝料修补，并核查基层', unitPriceFactor: 3.0 },
+  ];
+
+  return { meta, cities, climateZoning, standards, traffic, distresses, severities, treatments, binders, sbsModel, gradations, additives, aggregates, model, sealants, crackRules };
+});
+</script>
+<script>/*
+ * 数智选材 · 材料方案推荐引擎（浏览器与 Node 通用，零依赖）
+ *
+ * 流程：场景标准化 → 需求包络（带出处） → 候选方案枚举与规则剪枝 →
+ *       机理先验预测 + 工艺扰动 + 蒙特卡洛 → 达标可靠度 / 寿命 / 年均成本 / 年均碳排 →
+ *       Pareto 前沿与选优 → 瓶颈、反事实、施工容错解释 → 监测反馈（贝叶斯偏差修正）
+ */
+(function (root, factory) {
+  if (typeof module === 'object' && module.exports) module.exports = factory(require('./kb.js'));
+  else root.SZXC = factory(root.SZXC_KB);
+})(typeof self !== 'undefined' ? self : this, function (KB) {
+  'use strict';
+
+  const IND = ['pgHigh', 'pgLow', 'ds', 'strain', 'tsr', 'fatigue', 'td'];
+  const IND_NAME = {
+    pgHigh: '高温分级 PG高温', pgLow: '低温分级 PG低温', ds: '高温抗车辙 动稳定度',
+    strain: '低温抗裂 破坏应变', tsr: '水稳定性 冻融劈裂比', fatigue: '疲劳寿命', td: '抗滑 构造深度',
+  };
+  const IND_UNIT = { pgHigh: '°C', pgLow: '°C', ds: '次/mm', strain: 'με', tsr: '%', fatigue: 'lg次', td: 'mm' };
+
+  // ---------- 工具 ----------
+  function mulberry32(seed) {
+    return function () {
+      seed |= 0; seed = (seed + 0x6D2B79F5) | 0;
+      let t = Math.imul(seed ^ (seed >>> 15), 1 | seed);
+      t = (t + Math.imul(t ^ (t >>> 7), 61 | t)) ^ t;
+      return ((t ^ (t >>> 14)) >>> 0) / 4294967296;
+    };
+  }
+  function normals(n, rng) {
+    const out = new Float64Array(n);
+    for (let i = 0; i < n; i += 2) {
+      const u = Math.max(rng(), 1e-12), v = rng();
+      const r = Math.sqrt(-2 * Math.log(u));
+      out[i] = r * Math.cos(2 * Math.PI * v);
+      if (i + 1 < n) out[i + 1] = r * Math.sin(2 * Math.PI * v);
+    }
+    return out;
+  }
+  const clamp = (x, a, b) => Math.max(a, Math.min(b, x));
+  const byId = (arr, id) => arr.find((x) => x.id === id);
+  const round = (x, d = 0) => { const k = Math.pow(10, d); return Math.round(x * k) / k; };
+  const crf = (i, L) => (i * Math.pow(1 + i, L)) / (Math.pow(1 + i, L) - 1);
+  const pgGradeHigh = (t) => Math.ceil((t - 4) / 6) * 6 + 4; // 52,58,64,70,76,82...
+  const pgGradeLow = (t) => Math.min(-10, -Math.ceil((-t - 4) / 6) * 6 - 4); // -10,-16,-22,-28,-34,-40
+  // Wilson 区间仅描述有限次蒙特卡洛抽样误差，不包含先验或模型误差。
+  function wilson(k, n) {
+    const z = 1.96, p = k / n, den = 1 + z * z / n;
+    const c = (p + z * z / (2 * n)) / den;
+    const d = z * Math.sqrt(p * (1 - p) / n + z * z / (4 * n * n)) / den;
+    return [round(Math.max(0, c - d), 4), round(Math.min(1, c + d), 4)];
+  }
+
+  // ---------- 1. 结合料解析 ----------
+  function resolveBinder(id) {
+    const b = byId(KB.binders, id);
+    if (!b) throw new Error('未知结合料 ' + id);
+    if (b.family !== 'sbs') return b;
+    const base = byId(KB.binders, b.base), m = KB.sbsModel, d = b.dose;
+    return Object.assign({}, b, {
+      trueHigh: base.trueHigh + m.dHigh * d,
+      trueLow: base.trueLow + m.dLow * d,
+      visc: base.visc + m.viscPerPct * d,
+      mixT: m.mixT,
+      price: base.price + m.pricePerPct * d + m.priceProcess,
+      carbon: base.carbon + m.carbonPerPct * d + m.carbonProcess,
+      strainBonus: m.strainBonus,
+      tsr: m.tsr,
+      fatigue: base.fatigue + m.fatiguePerPct * d,
+    });
+  }
+
+  // ---------- 2. 气候与分区 ----------
+  function climateOf(scn) {
+    const c = scn.climate || byId(KB.cities, scn.cityId);
+    if (!c) throw new Error('缺少气候信息：请给出 cityId 或 climate');
+    const z = KB.climateZoning;
+    const h = z.high.find((r) => c.julyAvgMax > r.min && c.julyAvgMax <= r.max) || z.high[2];
+    const l = z.low.find((r) => c.extremeMin < r.lt);
+    const r = z.rain.find((x) => c.rain > x.gt);
+    const code = `${h.code}-${l.code}-${r.code}`;
+    // Superpave/LTPPBind 路面温度换算（20mm 深度高温；SHRP 低温）
+    const lat = c.lat;
+    const pav20 = (tair) => (tair - 0.00618 * lat * lat + 0.2289 * lat + 42.2) * 0.9545 - 17.78;
+    const pavLow = (tmin) => 0.859 * tmin + 1.7;
+    const annualMinMean = c.extremeMin + 2 * c.tminSd; // 30 年极端值约为年极小值均值 − 2σ
+    return Object.assign({}, c, {
+      zone: { code, high: h, low: l, rain: r, dsKey: h.code === 3 ? '3' : `${h.code}-${l.code}` },
+      pav20, pavLow, annualMinMean,
+      pavHighMean: pav20(c.t7max), pavLowMean: pavLow(annualMinMean),
+      pavHigh98: pav20(c.t7max + 2.054 * c.t7maxSd), pavLow98: pavLow(annualMinMean - 2.054 * c.tminSd),
+    });
+  }
+
+  // ---------- 3. 场景标准化与标签 ----------
+  function normalizeScenario(s) {
+    const scn = Object.assign({
+      roadClass: 'highway', traffic: 'heavy', speed: 'normal', treatment: 'MR_UP', aggregate: 'limestone',
+      distresses: [], ambientT: 22, haulMin: 40, targetReliability: null, budgetPerM2: null, nightWork: false,
+      samples: 400, seed: 20261021,
+    }, s || {});
+    scn.distresses = (scn.distresses || []).map((d) => (typeof d === 'string' ? { id: d, severity: 1 } : d));
+    scn.distresses = scn.distresses.map(d => Object.assign({ severity: 1 }, d));
+    if (scn.targetReliability == null) scn.targetReliability = KB.model.reliabilityByRoad[scn.roadClass] || 0.85;
+    return scn;
+  }
+  function tagScenario(s) {
+    const scn = normalizeScenario(s), c = climateOf(scn);
+    const tags = [
+      'CZ:' + c.zone.code, 'CZH:' + c.zone.high.code, 'CZL:' + c.zone.low.code, 'CZR:' + c.zone.rain.code,
+      'TL:' + scn.traffic, 'SPD:' + scn.speed, 'TRT:' + scn.treatment, 'AGG:' + scn.aggregate, 'ROAD:' + scn.roadClass,
+    ];
+    scn.distresses.forEach((d) => { tags.push('DIS:' + d.id); tags.push('DIS:' + d.id + ':' + KB.severities[d.severity]); });
+    return tags;
+  }
+  function similarity(a, b) {
+    const A = new Set(a), B = new Set(b); let inter = 0;
+    A.forEach((x) => { if (B.has(x)) inter++; });
+    return inter / (A.size + B.size - inter);
+  }
+
+  // ---------- 4. 需求包络 ----------
+  // 返回与候选无关的“场景目标” + 依候选类型变化的“规范底线”函数
+  function sceneTargets(scn, clim) {
+    const tl = byId(KB.traffic.levels, scn.traffic), sp = byId(KB.traffic.speed, scn.speed);
+    const std = KB.standards, z = clim.zone;
+    const dis = {}; scn.distresses.forEach((d) => { dis[d.id] = d.severity; });
+    const why = {};
+    // PG：路面设计温度 + 交通加级
+    const bump = Math.min(2, tl.pgBump + sp.pgBump);
+    const pgLowExtra = dis.thermalCrack != null ? KB.distresses[1].drives.pgLowExtra[dis.thermalCrack] : 0;
+    why.pgHigh = `简化温度换算演示: 7日最高气温 ${clim.t7max}°C → 路面20mm处 ${round(clim.pavHighMean, 1)}°C；交通/车速加级 +${bump} 级(每级6°C)，待项目校核`;
+    why.pgLow = `SHRP 公式: 年极端低温均值 ${round(clim.annualMinMean, 1)}°C → 路面 ${round(clim.pavLowMean, 1)}°C` + (pgLowExtra ? `；温缩裂缝严重，再降 ${pgLowExtra}°C` : '');
+    // DS
+    let ds;
+    if (tl.dsFactor == null) {
+      ds = std.dsDense.ordinary[z.dsKey] * (scn.traffic === 'medium' ? 1.5 : 1.0);
+      why.ds = `规范普通沥青 ${std.dsDense.ordinary[z.dsKey]} 次/mm（${z.dsKey} 区）× 交通系数 ${scn.traffic === 'medium' ? 1.5 : 1.0}`;
+    } else {
+      ds = std.dsDense.modified[z.dsKey] * tl.dsFactor;
+      why.ds = `规范改性沥青 ${std.dsDense.modified[z.dsKey]} 次/mm（${z.dsKey} 区）× ${tl.name}交通 ${tl.dsFactor}`;
+    }
+    ds *= sp.dsFactor; if (sp.dsFactor !== 1) why.ds += ` × ${sp.name} ${sp.dsFactor}`;
+    if (dis.rutting != null) { const f = KB.distresses[0].drives.ds[dis.rutting]; ds *= f; if (f !== 1) why.ds += ` × 车辙病害 ${f}`; }
+    // 低温应变
+    const lowCode = z.low.code;
+    const needMod = ['heavy', 'vheavy', 'xheavy'].includes(scn.traffic) || lowCode <= 2 || dis.thermalCrack != null;
+    let strain = (needMod ? std.strain.modified : std.strain.ordinary)[lowCode];
+    why.strain = `规范${needMod ? '改性' : '普通'}沥青 ${strain} με（${z.low.name}）`;
+    if (dis.thermalCrack != null) { const f = KB.distresses[1].drives.strain[dis.thermalCrack]; strain *= f; if (f !== 1) why.strain += ` × 裂缝病害 ${f}`; }
+    // TSR
+    const wet = clim.rain >= 500;
+    const tsrMod = z.rain.code === 1 || ['heavy', 'vheavy', 'xheavy'].includes(scn.traffic);
+    let tsr = (wet ? std.tsr.wet : std.tsr.dry)[tsrMod ? 'modified' : 'ordinary'];
+    why.tsr = `规范 ${wet ? '年降水≥500mm' : '年降水<500mm'} ${tsrMod ? '改性' : '普通'}沥青 ${tsr}%`;
+    if (dis.moisture != null) { const a = KB.distresses[3].drives.tsr[dis.moisture]; tsr += a; why.tsr += ` + 水损害病害 ${a}%`; }
+    // 疲劳
+    let fatigue = tl.fatigueTarget; why.fatigue = `${tl.name}交通对应 lgNf ≥ ${tl.fatigueTarget}（四点弯曲 600με）`;
+    if (dis.fatigueCrack != null) { const a = KB.distresses[2].drives.fatigue[dis.fatigueCrack]; fatigue += a; why.fatigue += ` + 网裂病害 ${a}`; }
+    // 抗滑
+    let td = scn.roadClass === 'local' ? 0.45 : 0.55; why.td = `${scn.roadClass === 'local' ? '一般道路' : '高等级道路'}构造深度 ${td} mm`;
+    if (dis.skid != null) { td = Math.max(td, KB.distresses[4].drives.td[dis.skid]); why.td = `抗滑不足病害，目标构造深度 ${td} mm`; }
+    return { bump, pgLowExtra, ds, strain, tsr, fatigue, td, why };
+  }
+  function standardFloor(scn, clim, cand) {
+    const std = KB.standards, z = clim.zone, mod = cand.binder.modified, g = cand.grad;
+    const wet = clim.rain >= 500, cls = mod ? 'modified' : 'ordinary';
+    let ds;
+    if (g.type === 'sma') ds = std.dsSMA[cls];
+    else if (g.type === 'ogfc') ds = ['heavy', 'vheavy', 'xheavy'].includes(scn.traffic) ? std.dsOGFC.heavy : std.dsOGFC.normal;
+    else ds = std.dsDense[cls][z.dsKey];
+    const tsr = g.type === 'sma' ? std.tsr.sma[cls] : (wet ? std.tsr.wet : std.tsr.dry)[cls];
+    const strain = std.strain[cls][z.low.code];
+    return { ds, tsr, strain };
+  }
+
+  // ---------- 5. 候选方案枚举 ----------
+  function treatmentOf(scn) { return byId(KB.treatments, scn.treatment); }
+  function enumerate(scn, clim) {
+    const trt = treatmentOf(scn), A = KB.additives, out = [], rejected = {};
+    const reject = (code) => { rejected[code] = (rejected[code] || 0) + 1; };
+    const agg = byId(KB.aggregates, scn.aggregate);
+    const tMm = trt.thicknessCm * 10;
+    for (const g of KB.gradations) {
+      if (tMm < 2.5 * g.nmas || tMm > 4.0 * g.nmas) { reject('R08 层厚与公称最大粒径不匹配(2.5–4.0倍)'); continue; }
+      for (const b0 of KB.binders) {
+        const b = resolveBinder(b0.id);
+        const fibers = g.type === 'dense' ? ['none', 'basalt'] : ['lignin', 'basalt'];
+        for (const w of A.water) for (const r of A.rut) for (const wm of A.warm) for (const rap of A.rap) for (const fid of fibers) {
+          const f = byId(A.fiber, fid);
+          const why = rule(scn, clim, g, b, w, r, wm, rap, f, agg);
+          if (why) { reject(why); continue; }
+          out.push({ id: [g.id, b.id, w.id, r.id, wm.id, rap.id, f.id].join('/'), grad: g, binder: b, water: w, rut: r, warm: wm, rap, fiber: f, agg });
+        }
+      }
+    }
+    return { candidates: out, rejected };
+  }
+  function rule(scn, clim, g, b, w, r, wm, rap, f, agg) {
+    const lowCode = clim.zone.low.code, heavy = ['heavy', 'vheavy', 'xheavy'].includes(scn.traffic);
+    if (g.type === 'sma' && !b.modified) return 'R01 SMA 须用改性沥青';
+    if (g.type === 'ogfc' && b.id !== 'HVA') return 'R02 OGFC 须用高粘高弹沥青';
+    if (g.type === 'ogfc' && lowCode <= 2) return 'R03 冬寒/严寒区不用排水路面(冻融堵塞)';
+    if (g.type === 'ogfc' && scn.speed === 'standing') return 'R03 停滞重载不用排水路面(剪切松散)';
+    if (g.type !== 'dense' && rap.pct > 0) return 'R04 SMA/OGFC 表层不掺RAP';
+    if (b.id === 'B30' && (g.id !== 'AC16' || lowCode <= 2)) return 'R05 硬质沥青仅用于 AC-16 且限非寒区';
+    if (agg.acidic && heavy && w.id === 'none') return 'R06 酸性石料用于重交通须抗剥落措施';
+    const minT = (b.modified ? KB.model.pavingMinT.modified : KB.model.pavingMinT.ordinary) - (wm.id === 'warm' ? KB.model.pavingMinT.warmRelief : 0);
+    if (scn.ambientT < minT) return 'R07 施工气温低于铺筑下限';
+    if (r.id !== 'none' && (g.type === 'ogfc' || b.id === 'HVA')) return 'R09 OGFC/高粘沥青不再加抗车辙剂';
+    if (rap.pct > 0 && (b.id === 'HVA' || b.id === 'CR20' || b.id === 'B30')) return 'R11 RAP 不与高粘/橡胶/硬质沥青组合';
+    if (g.type === 'dense' && f.id !== 'none' && rap.pct === 30) return 'R12 高RAP 掺量不再加纤维';
+    return null;
+  }
+
+  // ---------- 6. 预测（机理先验） ----------
+  function biasOf(state, cand, ind) {
+    if (!state) return { m: 0, v: 0 };
+    const k = `${cand.binder.family}|${cand.grad.type}|${ind}`;
+    return state[k] ? { m: state[k].mean, v: state[k].var } : { m: 0, v: 0 };
+  }
+  function predictMean(cand, bias) {
+    const g = cand.grad, b = cand.binder;
+    const rapShiftH = cand.rap.pct === 30 ? 2.5 : cand.rap.pct === 15 ? 1.5 : 0;
+    const rapShiftL = cand.rap.pct === 30 ? 3.0 : cand.rap.pct === 15 ? 1.5 : 0;
+    const p = {
+      pgHigh: b.trueHigh + rapShiftH,
+      pgLow: b.trueLow + rapShiftL,
+      ds: g.ds * Math.exp(0.11 * (b.trueHigh - 66)) * cand.rut.dsMul * cand.rap.dsMul,
+      strain: g.strain + 90 * (-19 - b.trueLow) + b.strainBonus + cand.rut.strain + cand.rap.strain + cand.fiber.strain,
+      tsr: g.tsr + b.tsr + cand.water.tsr + cand.agg.tsr + cand.warm.tsr + cand.rap.tsr,
+      fatigue: g.fatigue + b.fatigue + cand.rap.fatigue + cand.fiber.fatigue,
+      td: g.td + cand.agg.td,
+    };
+    if (bias) {
+      p.ds *= Math.exp(bias(cand, 'ds').m); p.strain *= Math.exp(bias(cand, 'strain').m);
+      p.tsr *= Math.exp(bias(cand, 'tsr').m); p.fatigue += bias(cand, 'fatigue').m;
+    }
+    return p;
+  }
+
+  // ---------- 7. 工艺扰动：压实欠缺 → 空隙率增量 ----------
+  function compaction(scn, cand, ambientOverride) {
+    const C = KB.model.compaction, trt = treatmentOf(scn);
+    const T = ambientOverride != null ? ambientOverride : scn.ambientT;
+    const thin = trt.thicknessCm <= 2.5 ? C.thinFactor : 1;
+    const d = cand.binder.visc * cand.warm.viscMul * Math.max(0, C.Tref - T) / 10 * (1 + scn.haulMin / 120) * thin
+            + (scn.nightWork ? 0.15 * cand.binder.visc * cand.warm.viscMul : 0);
+    return { d, vaMean: C.vaPerD * d, vaSd: C.vaSd0 + C.vaSdPerD * d };
+  }
+
+  // ---------- 8. 蒙特卡洛评估 ----------
+  function makeNoise(n, seed) {
+    const rng = mulberry32(seed);
+    const k = {}; ['tair', 'tmin', 'pgH', 'pgL', 'ds', 'st', 'tsr', 'fat', 'td', 'va'].forEach((x) => { k[x] = normals(n, rng); });
+    const rho = -0.4; // 高温与低温误差负相关（偏硬的料抗车辙好、抗裂差）
+    for (let i = 0; i < n; i++) k.st[i] = rho * k.ds[i] + Math.sqrt(1 - rho * rho) * k.st[i];
+    return k;
+  }
+  function evaluate(scn, clim, tgt, cand, noise, opts) {
+    opts = opts || {};
+    const S = KB.model.sd, P = KB.model.perVa, Lm = KB.model.life, n = noise.ds.length;
+    const bias = opts.biasState ? (c, ind) => biasOf(opts.biasState, c, ind) : null;
+    const mu = predictMean(cand, bias);
+    const fl = standardFloor(scn, clim, cand);
+    const req = {
+      ds: Math.max(tgt.ds, fl.ds), strain: Math.max(tgt.strain, fl.strain), tsr: Math.max(tgt.tsr, fl.tsr),
+      fatigue: tgt.fatigue, td: tgt.td,
+    };
+    const binding = { ds: tgt.ds >= fl.ds ? 'scene' : 'std', strain: tgt.strain >= fl.strain ? 'scene' : 'std', tsr: tgt.tsr >= fl.tsr ? 'scene' : 'std' };
+    const comp = compaction(scn, cand, opts.ambientT);
+    const vaShift = opts.vaShift || 0;
+    const bv = bias ? { ds: bias(cand, 'ds').v, st: bias(cand, 'strain').v, tsr: bias(cand, 'tsr').v, fat: bias(cand, 'fatigue').v } : { ds: 0, st: 0, tsr: 0, fat: 0 };
+    const sdDs = Math.sqrt(S.dsLog * S.dsLog + bv.ds), sdSt = Math.sqrt(1 + bv.st) * S.strain, sdTsr = Math.sqrt(1 + bv.tsr) * S.tsr, sdFat = Math.sqrt(S.fatigue * S.fatigue + bv.fat);
+    const ogfcVa = cand.grad.type === 'ogfc' ? 0.5 : 1;
+    const pass = { pgHigh: 0, pgLow: 0, ds: 0, strain: 0, tsr: 0, fatigue: 0, td: 0 };
+    let all = 0, lifeSum = 0, crfSum = 0; const lives = new Float64Array(n);
+    const trt = treatmentOf(scn);
+    const severe = scn.distresses.some((d) => d.severity === 2) ? Lm.severeFactor : 1;
+    const i_ = KB.model.econ.discount;
+    for (let i = 0; i < n; i++) {
+      const reqH = clim.pav20(clim.t7max + clim.t7maxSd * noise.tair[i]) + 6 * tgt.bump;
+      const reqL = clim.pavLow(clim.annualMinMean + clim.tminSd * noise.tmin[i]) - tgt.pgLowExtra;
+      const dva = Math.max(-0.5, comp.vaMean + comp.vaSd * noise.va[i] + vaShift) * ogfcVa;
+      const pgH = mu.pgHigh + S.pg * noise.pgH[i];
+      const pgL = mu.pgLow + S.pg * noise.pgL[i];
+      const ds = mu.ds * Math.exp(sdDs * noise.ds[i]) * Math.pow(P.dsMul, dva);
+      const st = mu.strain + sdSt * noise.st[i] + P.strain * dva;
+      const ts = mu.tsr + sdTsr * noise.tsr[i] + P.tsr * dva;
+      const fa = mu.fatigue + sdFat * noise.fat[i] + P.fatigue * dva;
+      const td = mu.td + S.td * noise.td[i] + P.td * dva;
+      const ok = { pgHigh: pgH >= reqH, pgLow: pgL <= reqL, ds: ds >= req.ds, strain: st >= req.strain, tsr: ts >= req.tsr, fatigue: fa >= req.fatigue, td: td >= req.td };
+      let okAll = true;
+      for (const k of IND) { if (ok[k]) pass[k]++; else okAll = false; }
+      if (okAll) all++;
+      // 寿命：最弱裕度决定
+      const m = Math.min(
+        Math.exp(0.06 * (pgH - reqH)), Math.exp(0.06 * (reqL - pgL)),
+        Math.pow(ds / req.ds, Lm.betaDs), Math.pow(Math.max(st, 1) / req.strain, Lm.betaStrain),
+        Math.pow(Math.max(ts, 1) / req.tsr, Lm.betaTsr), Math.pow(10, Lm.betaFatigue * 0.5 * (fa - req.fatigue)),
+        Math.pow(Math.max(td, 0.05) / req.td, 0.5)
+      );
+      const L = trt.baseLife * severe * clamp(m, Lm.min, Lm.max);
+      lives[i] = L; lifeSum += L; crfSum += crf(i_, L);
+    }
+    const passRate = {}; for (const k of IND) passRate[k] = pass[k] / n;
+    const sorted = Array.from(lives).sort((a, b) => a - b);
+    const econ = costCarbon(scn, cand);
+    const lifeMean = lifeSum / n;
+    return {
+      id: cand.id, cand, mean: mu, req, binding, comp,
+      reliability: all / n, passRate,
+      reliabilityInterval95: wilson(all, n), samples: n,
+      bottleneck: IND.reduce((a, k) => (passRate[k] < passRate[a] ? k : a), IND[0]),
+      lifeMean, lifeP10: sorted[Math.floor(0.1 * n)],
+      costM2: econ.costM2, euac: econ.costM2 * (crfSum / n), carbonM2: econ.carbonM2, carbonYr: econ.carbonM2 / lifeMean,
+      costBreak: econ.parts,
+    };
+  }
+  function costCarbon(scn, cand) {
+    const E = KB.model.econ, Cc = KB.model.carbon, trt = treatmentOf(scn), g = cand.grad, b = cand.binder;
+    const pb = g.pb / 100;
+    const materials = (pb * b.price + (1 - pb) * (g.aggPrice + cand.agg.price)) * cand.rap.costMul;
+    const adds = cand.water.costMix + cand.rut.costMix + cand.warm.costMix + cand.fiber.costMix;
+    const prod = E.production - (cand.warm.id === 'warm' ? E.warmProdSave : 0);
+    const perT = materials + adds + prod + E.laying;
+    const tPerM2 = (trt.thicknessCm / 100) * g.density;
+    const costM2 = tPerM2 * perT + (trt.milling ? E.milling : 0);
+    const matC = (pb * b.carbon + (1 - pb) * Cc.aggregate) * cand.rap.carbonMul;
+    const cPerT = matC + Cc.production * cand.warm.fuelMul + Cc.transport + cand.water.carbonMix + cand.rut.carbonMix + cand.fiber.carbonMix;
+    const carbonM2 = tPerM2 * cPerT + (trt.milling ? Cc.milling : 0);
+    return { costM2, carbonM2, parts: { materials: tPerM2 * materials, additives: tPerM2 * adds, production: tPerM2 * (prod + E.laying), milling: trt.milling ? E.milling : 0 } };
+  }
+
+  // ---------- 9. 选优、Pareto、解释 ----------
+  function pareto(rows) {
+    // 目标：可靠度↑、年均成本↓、年均碳排↓
+    // 按展示精度比较，避免“显示相同、内部差 1e-6”造成的伪支配；完全相同的点只保留一个
+    const key = (r) => [round(r.reliability, 3), round(r.euac, 2), round(r.carbonYr, 2)];
+    const ks = rows.map(key), front = [], seen = new Set();
+    for (let i = 0; i < rows.length; i++) {
+      const [ra, ea, ca] = ks[i];
+      let dominated = false;
+      for (let j = 0; j < rows.length && !dominated; j++) {
+        if (i === j) continue;
+        const [rb, eb, cb] = ks[j];
+        if (rb >= ra && eb <= ea && cb <= ca && (rb > ra || eb < ea || cb < ca)) dominated = true;
+      }
+      const sig = ks[i].join('|');
+      if (!dominated && !seen.has(sig)) { seen.add(sig); front.push(rows[i]); }
+    }
+    return front.sort((x, y) => x.euac - y.euac);
+  }
+  function choose(rows, target) {
+    const ok = rows.filter((r) => r.reliability >= target);
+    if (ok.length) return { pick: ok.reduce((a, b) => (b.euac < a.euac - 1e-9 || (Math.abs(b.euac - a.euac) < 1e-9 && b.carbonYr < a.carbonYr) ? b : a)), reached: true };
+    return { pick: rows.reduce((a, b) => (b.reliability > a.reliability ? b : a)), reached: false };
+  }
+  const DIMS = ['grad', 'binder', 'water', 'rut', 'warm', 'rap', 'fiber'];
+  const DIM_NAME = { grad: '级配', binder: '结合料', water: '抗水损措施', rut: '抗车辙剂', warm: '拌和工艺', rap: 'RAP掺量', fiber: '纤维' };
+  function diffDims(a, b) { return DIMS.filter((d) => a.cand[d].id !== b.cand[d].id); }
+  function counterfactuals(best, rows, target) {
+    const nb = rows.filter((r) => r !== best && diffDims(r, best).length === 1);
+    return nb.map((r) => {
+      const d = diffDims(r, best)[0];
+      return {
+        change: `${DIM_NAME[d]}：${best.cand[d].name} → ${r.cand[d].name}`, dim: d, id: r.id,
+        dRel: r.reliability - best.reliability, dEuac: r.euac - best.euac, dCarbonYr: r.carbonYr - best.carbonYr,
+        meets: r.reliability >= target, bottleneck: r.bottleneck, bottleneckRate: r.passRate[r.bottleneck],
+      };
+    }).sort((a, b) => a.dEuac - b.dEuac);
+  }
+  function describe(r) {
+    const c = r.cand, parts = [c.grad.name, c.binder.name];
+    if (c.water.id !== 'none') parts.push(c.water.name);
+    if (c.rut.id !== 'none') parts.push(c.rut.name);
+    if (c.warm.id !== 'none') parts.push(c.warm.name);
+    if (c.rap.id !== 'R0') parts.push(c.rap.name);
+    if (c.fiber.id !== 'none') parts.push(c.fiber.name);
+    return parts.join(' + ');
+  }
+  function processAdvice(scn, clim, r, noise, opts) {
+    const c = r.cand, mixT = c.binder.mixT + c.warm.dT;
+    const minT = (c.binder.modified ? KB.model.pavingMinT.modified : KB.model.pavingMinT.ordinary) - (c.warm.id === 'warm' ? KB.model.pavingMinT.warmRelief : 0);
+    const tgt = sceneTargets(scn, clim);
+    const cold = evaluate(scn, clim, tgt, c, noise, Object.assign({}, opts, { ambientT: scn.ambientT - 8 }));
+    const loose = evaluate(scn, clim, tgt, c, noise, Object.assign({}, opts, { vaShift: 1.0 }));
+    return {
+      mixTemp: [mixT - 5, mixT + 5], compactionStartMin: mixT - 25, minAmbient: minT,
+      vaDesign: c.grad.va, vaExpectedExcess: round(r.comp.vaMean, 2),
+      robustness: { colder8: round(cold.reliability - r.reliability, 3), va1: round(loose.reliability - r.reliability, 3) },
+    };
+  }
+  function scarcity(rows) {
+    const s = {};
+    for (const k of IND) s[k] = 1 - rows.reduce((a, r) => a + r.passRate[k], 0) / rows.length;
+    return IND.slice().sort((a, b) => s[b] - s[a]).map((k) => ({ ind: k, name: IND_NAME[k], scarcity: round(s[k], 3) }));
+  }
+
+  // ---------- 10. 基准方法（用于对比） ----------
+  function experienceBaseline(scn, clim) {
+    const thin = treatmentOf(scn).thicknessCm <= 2.5;
+    const heavy = ['vheavy', 'xheavy'].includes(scn.traffic) || scn.speed === 'standing';
+    const cold = clim.zone.low.code <= 2, hot = clim.zone.high.code === 1;
+    // 经验选型：重载/停滞 → SMA；抗滑不足 → SMA；严寒/寒区 → 软基质 SBS；炎热或重交通 → 70# 基 SBS；
+    //         酸性石料或水损害 → 抗剥落剂；温缩裂缝严重 → 提高 SBS 剂量
+    const has = (id) => scn.distresses.some((d) => d.id === id);
+    let g = thin ? 'AC10' : 'AC13', b = 'B70', f = 'none';
+    const cold1 = clim.zone.low.code === 1;
+    if (heavy || has('skid')) { g = thin ? 'SMA10' : 'SMA13'; f = 'lignin'; b = cold1 ? 'SBS110_5' : cold ? 'SBS90_4' : 'SBS70_4'; }
+    else if (cold) b = cold1 ? 'SBS110_5' : 'SBS90_4';
+    else if (hot || ['heavy'].includes(scn.traffic)) b = 'SBS70_4';
+    if (has('thermalCrack') && b === 'SBS90_4') b = 'SBS90_5';
+    const agg = byId(KB.aggregates, scn.aggregate);
+    const w = agg.acidic || has('moisture') ? 'amine' : 'none';
+    return [g, b, w, 'none', 'none', 'R0', f].join('/');
+  }
+  function weightedSumPick(rows) {
+    // 常见 AHP 式加权打分：各指标“均值/要求”截断后加权，减去成本项
+    const W = { ds: 0.25, strain: 0.2, tsr: 0.2, fatigue: 0.15, td: 0.05 }, wc = 0.15;
+    const cMin = Math.min(...rows.map((r) => r.costM2)), cMax = Math.max(...rows.map((r) => r.costM2));
+    let best = null, bs = -Infinity;
+    for (const r of rows) {
+      let s = 0; for (const k in W) s += W[k] * Math.min(1.3, k === 'fatigue' ? Math.pow(10, r.mean[k] - r.req[k]) : r.mean[k] / r.req[k]);
+      s -= wc * (r.costM2 - cMin) / (cMax - cMin || 1);
+      if (s > bs) { bs = s; best = r; }
+    }
+    return best;
+  }
+
+  // ---------- 11. 主入口 ----------
+  function recommend(input, opts) {
+    opts = opts || {};
+    const t0 = Date.now();
+    const scn = normalizeScenario(input);
+    for (const [key, values] of Object.entries({roadClass:['highway','arterial','local'], traffic:KB.traffic.levels.map(x=>x.id), speed:KB.traffic.speed.map(x=>x.id), aggregate:KB.aggregates.map(x=>x.id)})) {
+      if (!values.includes(scn[key])) throw new Error('未知场景字段 ' + key);
+    }
+    if (!Number.isFinite(scn.ambientT) || !Number.isFinite(scn.haulMin) || scn.haulMin < 0) throw new Error('施工温度和运输时长须为有效数值，运输时长不可为负');
+    if (scn.crackWidthMm != null && (!Number.isFinite(scn.crackWidthMm) || scn.crackWidthMm <= 0)) throw new Error('裂缝宽度须为正数');
+    for (const d of scn.distresses) if (!KB.distresses.some(x=>x.id===d.id) || ![0,1,2].includes(d.severity)) throw new Error('病害编号或严重程度无效');
+    if (scn.climate) {
+      for (const k of ['lat','julyAvgMax','t7max','t7maxSd','extremeMin','tminSd','rain']) if (!Number.isFinite(scn.climate[k])) throw new Error('自定义气候字段无效：' + k);
+      if (Math.abs(scn.climate.lat)>90 || ['rain','t7maxSd','tminSd'].some(k=>scn.climate[k]<0)) throw new Error('自定义气候超出有效范围');
+    }
+    if (!Number.isInteger(scn.samples) || scn.samples < 1 || scn.samples > 10000) throw new Error('采样数须为 1–10000 的整数');
+    if (!Number.isFinite(scn.targetReliability) || scn.targetReliability <= 0 || scn.targetReliability > 1) throw new Error('目标可靠度须大于 0 且不超过 1');
+    if (scn.budgetPerM2 != null && (!Number.isFinite(scn.budgetPerM2) || scn.budgetPerM2 < 0)) throw new Error('预算须为非负有限数值');
+    const trt = treatmentOf(scn);
+    if (!trt) throw new Error('未知养护工法 ' + scn.treatment);
+    const clim = climateOf(scn);
+    if (!trt.mix) return crackRecommend(scn, clim);
+    const tgt = sceneTargets(scn, clim);
+    const { candidates, rejected } = enumerate(scn, clim);
+    const noise = makeNoise(scn.samples, scn.seed);
+    let rows = candidates.map((c) => evaluate(scn, clim, tgt, c, noise, opts));
+    const nAll = rows.length;
+    let budgetCut = 0;
+    if (scn.budgetPerM2 != null) { const keep = rows.filter((r) => r.costM2 <= scn.budgetPerM2); budgetCut = rows.length - keep.length; rows = keep; }
+    if (!rows.length) return {
+      engine: 'SZXC-1.0', module: 'infeasible', scenario: scn,
+      targetReached: false, recommended: null, alternatives: [], pareto: [], cloud: [],
+      reason: nAll ? '预算内无可行方案，请调整预算或养护工法。' : '当前施工条件下无可行方案，请调整施工气温、工法或材料条件。',
+      stats: { feasible: nAll, budgetCut, rejected, samples: scn.samples },
+    };
+    const { pick, reached } = choose(rows, scn.targetReliability);
+    const front = pareto(rows);
+    const cheapest = rows.reduce((a, b) => (b.costM2 < a.costM2 ? b : a));
+    const expId = experienceBaseline(scn, clim);
+    const exp = rows.find((r) => r.id === expId) || evaluate(scn, clim, tgt, Object.assign({}, rebuild(expId, scn)), noise, opts);
+    const ws = weightedSumPick(rows);
+    const alts = front.filter((r) => r !== pick).sort((a, b) => Math.abs(a.euac - pick.euac) - Math.abs(b.euac - pick.euac)).slice(0, 4);
+    const pg = { high: pgGradeHigh(clim.pavHigh98 + 6 * tgt.bump), low: pgGradeLow(clim.pavLow98 - tgt.pgLowExtra) };
+    return {
+      engine: 'SZXC-1.0', elapsedMs: Date.now() - t0, scenario: scn, tags: tagScenario(scn),
+      climate: { city: clim.name, zone: clim.zone.code, zoneName: `${clim.zone.high.name}·${clim.zone.low.name}·${clim.zone.rain.name}`,
+        pavHigh98: round(clim.pavHigh98, 1), pavLow98: round(clim.pavLow98, 1), pgRequired98: `PG ${pg.high}-${-pg.low}` },
+      requirements: IND.map((k) => ({ ind: k, name: IND_NAME[k], unit: IND_UNIT[k], sceneTarget: k === 'pgHigh' ? round(clim.pavHighMean + 6 * tgt.bump, 1) : k === 'pgLow' ? round(clim.pavLowMean - tgt.pgLowExtra, 1) : round(tgt[k], 2), why: tgt.why[k] })),
+      priorities: scarcity(rows),
+      stats: { enumerated: nAll + Object.values(rejected).reduce((a, b) => a + b, 0), feasible: nAll, budgetCut, rejected, samples: scn.samples },
+      targetReliability: scn.targetReliability, targetReached: reached,
+      recommended: summarize(pick, true), process: processAdvice(scn, clim, pick, noise, opts),
+      counterfactuals: counterfactuals(pick, rows, scn.targetReliability).slice(0, 12),
+      alternatives: alts.map((r) => summarize(r)),
+      pareto: front.map((r) => summarize(r)),
+      baselines: { experience: summarize(exp), weightedSum: summarize(ws), cheapest: summarize(cheapest) },
+      cloud: rows.map((r) => [round(r.reliability, 3), round(r.euac, 2), round(r.carbonYr, 2), r.id]),
+    };
+    function rebuild(id, s) {
+      const [g, b, w, r, wm, rap, f] = id.split('/'), A = KB.additives;
+      return { id, grad: byId(KB.gradations, g), binder: resolveBinder(b), water: byId(A.water, w), rut: byId(A.rut, r), warm: byId(A.warm, wm), rap: byId(A.rap, rap), fiber: byId(A.fiber, f), agg: byId(KB.aggregates, s.aggregate) };
+    }
+  }
+  function summarize(r, full) {
+    const o = {
+      id: r.id, label: describe(r), reliability: round(r.reliability, 3), reliabilityInterval95: r.reliabilityInterval95, samples: r.samples, passRate: Object.fromEntries(IND.map((k) => [k, round(r.passRate[k], 3)])),
+      bottleneck: r.bottleneck, bottleneckName: IND_NAME[r.bottleneck], lifeMean: round(r.lifeMean, 1), lifeP10: round(r.lifeP10, 1),
+      costM2: round(r.costM2, 1), euac: round(r.euac, 2), carbonM2: round(r.carbonM2, 1), carbonYr: round(r.carbonYr, 2),
+    };
+    if (full) {
+      o.formula = {
+        gradation: r.cand.grad.name, binder: r.cand.binder.name, binderContent: r.cand.grad.pb, aggregate: r.cand.agg.name,
+        water: r.cand.water.name, rut: r.cand.rut.name, warm: r.cand.warm.name, rap: r.cand.rap.name, fiber: r.cand.fiber.name,
+        binderPG: `PG ${pgGradeHigh(r.cand.binder.trueHigh)}-${-pgGradeLow(r.cand.binder.trueLow)}`,
+      };
+      o.predicted = Object.fromEntries(IND.map((k) => [k, { mean: round(r.mean[k], k === 'td' ? 2 : k === 'fatigue' ? 2 : 1), req: k in r.req ? round(r.req[k], 2) : null, binding: r.binding[k] || 'scene' }]));
+      o.costBreak = Object.fromEntries(Object.entries(r.costBreak).map(([k, v]) => [k, round(v, 1)]));
+    }
+    return o;
+  }
+
+  // ---------- 12. 裂缝处治模块 ----------
+  function crackRecommend(scn, clim) {
+    const w = scn.crackWidthMm || 6;
+    const rule = KB.crackRules.find((r) => w <= r.maxWidth);
+    const lowNeed = clim.pavLow98, highNeed = clim.pavHigh98 + 15; // 灌缝胶软化点需高于路表最高温约 15°C（ENG）
+    const ok = KB.sealants.filter((s) => s.lowTest <= lowNeed && s.softening >= highNeed);
+    const pick = (ok.length ? ok : KB.sealants.slice().sort((a, b) => a.lowTest - b.lowTest)).sort((a, b) => a.price - b.price)[0];
+    return {
+      engine: 'SZXC-1.0', module: 'crack', scenario: scn, tags: tagScenario(scn),
+      climate: { city: clim.name, zone: clim.zone.code, pavHigh98: round(clim.pavHigh98, 1), pavLow98: round(clim.pavLow98, 1) },
+      method: rule.method, sealant: pick, feasibleSealants: ok.map((s) => s.name),
+      reason: `路表低温(98%) ${round(lowNeed, 1)}°C，要求低温拉伸试验温度不高于该值；路表高温 ${round(clim.pavHigh98, 1)}°C，软化点宜≥${round(highNeed, 0)}°C`,
+      note: ok.length ? '' : '无完全满足的型号，按低温优先取最耐寒型，并建议夏季加强巡查',
+    };
+  }
+
+  // ---------- 13. 监测反馈：贝叶斯偏差修正 ----------
+  // obs: [{binderFamily, gradType, indicator, ratio}]  ratio = 实测/预测 (fatigue 用 lg 差值)
+  function updateBias(state, obs, prior) {
+    prior = prior || { tau: 0.15, sigma: 0.20 };
+    if (!Number.isFinite(prior.tau) || prior.tau<=0 || !Number.isFinite(prior.sigma) || prior.sigma<=0) throw new Error('反馈先验参数须为正数');
+    if (!Array.isArray(obs) || obs.length>1000) throw new Error('反馈观测须为不超过1000项的数组');
+    const st = JSON.parse(JSON.stringify(state || {}));
+    for (const o of obs) {
+      if (!['base','hard','sbs','rubber','hva'].includes(o.binderFamily) || !['dense','sma','ogfc'].includes(o.gradType) || !['ds','strain','tsr','fatigue'].includes(o.indicator) || !Number.isFinite(o.ratio) || (o.indicator!=='fatigue' && o.ratio<=0)) throw new Error('反馈字段无效，比值须为正数');
+      const k = `${o.binderFamily}|${o.gradType}|${o.indicator}`;
+      const y = o.indicator === 'fatigue' ? o.ratio : Math.log(o.ratio);
+      const cur = st[k] || { mean: 0, var: prior.tau * prior.tau, n: 0 };
+      if (!Number.isFinite(cur.mean) || !Number.isFinite(cur.var) || cur.var<=0 || !Number.isInteger(cur.n) || cur.n<0) throw new Error('反馈状态无效');
+      const prec = 1 / cur.var + 1 / (prior.sigma * prior.sigma);
+      const mean = (cur.mean / cur.var + y / (prior.sigma * prior.sigma)) / prec;
+      st[k] = { mean, var: 1 / prec, n: cur.n + 1 };
+    }
+    return st;
+  }
+
+  return { KB, IND, IND_NAME, IND_UNIT, recommend, climateOf, normalizeScenario, tagScenario, similarity, sceneTargets, enumerate, evaluate, makeNoise, resolveBinder, predictMean, updateBias, describe, experienceBaseline, pgGradeHigh, pgGradeLow };
+});
+</script>
+<script>window.SZXC_CASES = [{"id":"C1","title":"海南洋浦·疏港重载道路车辙处治","background":"港区集疏运道路，重载集装箱车低速渠化行驶，夏季路表温度高、降雨集中；上面层出现严重车辙并伴随局部水损害。当地常用花岗岩集料（酸性）。养护决策输出：铣刨重铺上面层 4cm。","input":{"cityId":"yangpu","roadClass":"arterial","traffic":"xheavy","speed":"slow","treatment":"MR_UP","aggregate":"granite","distresses":[{"id":"rutting","severity":2},{"id":"moisture","severity":1}],"ambientT":28,"haulMin":30}},{"id":"C2","title":"哈尔滨·城市主干路低温裂缝，晚秋施工","background":"冬严寒区城市主干路，横向温缩裂缝密集；工期安排在 10 月中旬，施工期日均气温约 9°C。养护决策输出：铣刨重铺上面层 4cm。","input":{"cityId":"harbin","roadClass":"arterial","traffic":"heavy","speed":"normal","treatment":"MR_UP","aggregate":"basalt","distresses":[{"id":"thermalCrack","severity":2}],"ambientT":9,"haulMin":50}},{"id":"C3","title":"重庆·山区高速水损害路段修复","background":"湿热多雨山区高速，坑槽、松散成片，伴随轻度网裂；夏季路表高温突出。养护决策输出：铣刨重铺上面层 4cm。","input":{"cityId":"chongqing","roadClass":"highway","traffic":"heavy","speed":"normal","treatment":"MR_UP","aggregate":"limestone","distresses":[{"id":"moisture","severity":2},{"id":"fatigueCrack","severity":1}],"ambientT":22,"haulMin":45}},{"id":"C4","title":"武汉·城市快速路抗滑不足，夜间薄层罩面","background":"城市快速路表面磨光、构造深度不足，结构完好；只能夜间封道施工，施工期气温约 16°C。养护决策输出：薄层罩面 2.5cm。","input":{"cityId":"wuhan","roadClass":"arterial","traffic":"medium","speed":"normal","treatment":"THIN","aggregate":"basalt","distresses":[{"id":"skid","severity":2},{"id":"aging","severity":1}],"ambientT":16,"haulMin":40,"nightWork":true}},{"id":"C5","title":"乌鲁木齐·国道温缩裂缝与车辙并存","background":"冬严寒、夏炎热的大温差地区，特重交通国道同时出现横向裂缝和车辙，高低温需求互相掣肘。养护决策输出：铣刨重铺上面层 4cm。","input":{"cityId":"urumqi","roadClass":"highway","traffic":"vheavy","speed":"normal","treatment":"MR_UP","aggregate":"limestone","distresses":[{"id":"thermalCrack","severity":1},{"id":"rutting","severity":1}],"ambientT":18,"haulMin":60}},{"id":"C6","title":"西安·市政次干路低预算罩面","background":"市政次干路表面老化、轻度网裂，预算受限（初始造价不超过 52 元/m²），希望消纳本市铣刨料。养护决策输出：铣刨重铺上面层 4cm。","input":{"cityId":"xian","roadClass":"local","traffic":"medium","speed":"normal","treatment":"MR_UP","aggregate":"limestone","distresses":[{"id":"aging","severity":1},{"id":"fatigueCrack","severity":0}],"ambientT":20,"haulMin":35,"budgetPerM2":52}},{"id":"C7","title":"哈尔滨·横向裂缝灌缝处治","background":"与 C2 同一城市，另一路段裂缝宽度 6–10mm，路面结构尚好，养护决策输出：裂缝处治。","input":{"cityId":"harbin","roadClass":"arterial","traffic":"heavy","treatment":"CRACK","crackWidthMm":8}}];</script>
+<script>
+(function(){
+'use strict';
+const E = window.SZXC, KB = E.KB, CASES = window.SZXC_CASES;
+const $ = (id) => document.getElementById(id);
+const fmt = (x, d=2) => (x==null||isNaN(x)) ? '—' : Number(x).toFixed(d);
+const pct = (x) => (x*100).toFixed(1) + '%';
+const esc = (s) => String(s).replace(/[&<>"]/g, (c) => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+let biasState = {}; let last = null; let selectedId = null; let currentCase = null;
+
+// ---------- 主题 ----------
+try { const t = localStorage.getItem('szxc-theme'); if (t) document.documentElement.dataset.theme = t; } catch(e) {}
+$('themeBtn').onclick = () => {
+  const cur = document.documentElement.dataset.theme || (matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+  const nx = cur === 'dark' ? 'light' : 'dark'; document.documentElement.dataset.theme = nx;
+  try { localStorage.setItem('szxc-theme', nx); } catch(e) {}
+  if (last) render(last);
+};
+
+// ---------- 表单 ----------
+const opt = (sel, arr, f) => { sel.innerHTML = arr.map((x) => `<option value="${x.id}">${esc(f(x))}</option>`).join(''); };
+opt($('city'), KB.cities, (c) => `${c.name}（${E.climateOf({cityId:c.id}).zone.code}）`);
+opt($('treatment'), KB.treatments, (t) => t.name.replace('(本系统设计上面层)',''));
+opt($('traffic'), KB.traffic.levels, (t) => `${t.name}（${t.esal}）`);
+opt($('speed'), KB.traffic.speed, (t) => t.name);
+opt($('aggregate'), KB.aggregates, (a) => a.name + (a.acidic ? '（酸性）' : ''));
+$('disBox').innerHTML = KB.distresses.map((d) => `<span>${d.name}</span><select data-dis="${d.id}" aria-label="${d.name}严重程度"><option value="">无</option><option value="0">轻</option><option value="1">中</option><option value="2">重</option></select>`).join('');
+$('treatment').onchange = () => { $('crackBox').style.display = $('treatment').value === 'CRACK' ? '' : 'none'; };
+$('casePick').innerHTML = CASES.map((c) => `<button type="button" data-case="${c.id}">${c.id} ${esc(c.title.split('·')[0])}</button>`).join('');
+$('casePick').onclick = (e) => { const b = e.target.closest('[data-case]'); if (b) loadCase(b.dataset.case, true); };
+
+function loadCase(id, run) {
+  const c = CASES.find((x) => x.id === id); currentCase = c; const s = c.input;
+  document.querySelectorAll('#casePick button').forEach((b) => b.classList.toggle('on', b.dataset.case === id));
+  $('caseBg').textContent = c.title + '。' + c.background;
+  $('city').value = s.cityId; $('roadClass').value = s.roadClass || 'highway'; $('treatment').value = s.treatment;
+  $('traffic').value = s.traffic || 'heavy'; $('speed').value = s.speed || 'normal'; $('aggregate').value = s.aggregate || 'limestone';
+  document.querySelectorAll('[data-dis]').forEach((el) => { const d = (s.distresses||[]).find((x) => x.id === el.dataset.dis); el.value = d ? String(d.severity) : ''; });
+  $('ambientT').value = s.ambientT ?? 22; $('haulMin').value = s.haulMin ?? 40; $('nightWork').checked = !!s.nightWork;
+  $('targetRel').value = s.targetReliability ?? ''; $('budget').value = s.budgetPerM2 ?? ''; $('crackW').value = s.crackWidthMm ?? 8;
+  $('treatment').onchange();
+  if (run) runNow();
+}
+function readForm() {
+  const s = { cityId: $('city').value, roadClass: $('roadClass').value, treatment: $('treatment').value, traffic: $('traffic').value,
+    speed: $('speed').value, aggregate: $('aggregate').value, ambientT: +$('ambientT').value, haulMin: +$('haulMin').value, nightWork: $('nightWork').checked,
+    distresses: [...document.querySelectorAll('[data-dis]')].filter((el) => el.value !== '').map((el) => ({ id: el.dataset.dis, severity: +el.value })) };
+  if ($('targetRel').value) s.targetReliability = +$('targetRel').value;
+  if ($('budget').value) s.budgetPerM2 = +$('budget').value;
+  if (s.treatment === 'CRACK') s.crackWidthMm = +$('crackW').value;
+  return s;
+}
+function runNow() {
+  $('runBtn').textContent = '计算中…';
+  setTimeout(() => {
+    try { last = E.recommend(readForm(), { biasState }); selectedId = last.recommended ? last.recommended.id : null; render(last); }
+    catch (e) { last = null; selectedId = null; $('out').innerHTML = `<div class="empty">出错：${esc(e.message)}</div>`; }
+    $('runBtn').textContent = '生成材料方案';
+  }, 20);
+}
+$('runBtn').onclick = runNow;
+
+// ---------- 渲染 ----------
+function render(o) {
+  if (o.module === 'crack') return renderCrack(o);
+  if (o.module === 'infeasible') {
+    $('out').innerHTML = `<div class="empty">${esc(o.reason)}<br>规则筛选后 ${o.stats.feasible} 个候选，预算剔除 ${o.stats.budgetCut} 个。</div>`;
+    return;
+  }
+  const r = o.recommended;
+  const sim = CASES.map((c) => ({ c, s: E.similarity(o.tags, E.tagScenario(c.input)) })).filter((x) => !currentCase || x.c.id !== currentCase.id || true).sort((a,b) => b.s - a.s).slice(0, 3);
+  $('out').innerHTML = `
+  <h2><span class="n">02</span>结论 <span class="hint">${o.climate.city} · ${o.climate.zone} ${o.climate.zoneName} · 候选 ${o.stats.feasible}/${o.stats.enumerated} · ${o.elapsedMs} ms</span></h2>
+  <div class="verdict">
+    <div class="big">${esc(r.label)}</div>
+    <span class="k">模型内联合通过比例</span><span class="v">${pct(r.reliability)}　目标 ${pct(o.targetReliability)}　${o.targetReached ? '<span class="pill ok">模型内达成</span>' : '<span class="pill no">模型内未达目标，须人工复核</span>'}</span>
+    <span class="k">95%抽样区间</span><span class="v">${r.reliabilityInterval95.map(pct).join('–')}（${r.samples}次抽样，仅含抽样误差，不含模型与先验误差）</span>
+    <span class="k">最可能先出问题的指标</span><span class="v">${esc(r.bottleneckName)}（单项达标 ${pct(r.passRate[r.bottleneck])}）</span>
+    <span class="k">场景所需结合料等级(98%)</span><span class="v">${o.climate.pgRequired98}；所选结合料 ${r.formula.binderPG}</span>
+  </div>
+  <div class="kpis">
+    <div class="kpi"><div class="k">模型估计寿命</div><div class="v">${fmt(r.lifeMean,1)}<small> 年（P10 ${fmt(r.lifeP10,1)}）</small></div></div>
+    <div class="kpi"><div class="k">初始造价</div><div class="v">${fmt(r.costM2,1)}<small> 元/m²</small></div></div>
+    <div class="kpi"><div class="k">等额年值成本</div><div class="v">${fmt(r.euac,2)}<small> 元/m²·年</small></div></div>
+    <div class="kpi"><div class="k">年均碳排</div><div class="v">${fmt(r.carbonYr,2)}<small> kgCO₂e/m²·年</small></div></div>
+  </div>
+
+  <h2><span class="n">03</span>需求包络：这个场景要什么，依据是什么</h2>
+  <table><thead><tr><th>性能指标</th><th style="text-align:right">场景目标</th><th style="text-align:right">所选方案预测</th><th>达标概率</th><th>依据</th></tr></thead><tbody>
+  ${o.requirements.map((q) => { const p = r.predicted[q.ind]; const pr = r.passRate[q.ind];
+    const reqShow = q.ind==='pgHigh'||q.ind==='pgLow' ? q.sceneTarget : (p.req ?? q.sceneTarget);
+    return `<tr><td>${q.name}</td><td class="num">${q.ind==='pgLow'?'≤ ':'≥ '}${fmt(reqShow, q.ind==='ds'||q.ind==='strain'?0:q.ind==='td'?2:1)} ${q.unit}</td><td class="num">${fmt(p.mean, q.ind==='ds'||q.ind==='strain'?0:q.ind==='td'?2:1)}</td>
+    <td><div class="bar" title="${pct(pr)}"><i class="${pr < o.targetReliability ? 'low':''}" style="width:${pr*100}%"></i><b style="left:${o.targetReliability*100}%"></b></div></td>
+    <td class="why">${p.binding==='std' ? '<span class="tag std">规范底线</span>' : '<span class="tag scene">场景驱动</span>'} ${esc(q.why)}</td></tr>`; }).join('')}
+  </tbody></table>
+  <div class="note">PG 两行的目标是年均气候下的中值，达标概率按气候年际波动抽样计算；黄色竖线为目标可靠度。</div>
+
+  <h2><span class="n">04</span>方案空间 <span class="hint">点击任一点查看该方案</span></h2>
+  <div class="grid2">
+    <div class="chartbox" id="chart"><div class="tip" id="tip"></div></div>
+    <div>
+      <div class="formula" id="formula"></div>
+      <div class="note" style="margin-top:8px">优先级（按稀缺度：可行方案中多少比例难以满足该项）</div>
+      <table style="margin-top:4px"><tbody>${o.priorities.slice(0,5).map((p,i) => `<tr><td style="width:24px" class="num">${i+1}</td><td>${p.name}</td><td style="width:45%"><div class="bar"><i style="width:${p.scarcity*100}%"></i></div></td></tr>`).join('')}</tbody></table>
+    </div>
+  </div>
+  <div class="legend"><span class="l1">可行方案</span><span class="l2">Pareto 前沿</span><span class="l3">推荐</span><span class="l4">经验选型</span></div>
+
+  <h2><span class="n">05</span>如果……会怎样：单变量反事实</h2>
+  <table class="cf"><thead><tr><th>只改一项</th><th style="text-align:right">可靠度变化</th><th style="text-align:right">年值成本变化</th><th style="text-align:right">年均碳排变化</th><th>结果</th></tr></thead><tbody>
+  ${o.counterfactuals.slice(0,8).map((c) => `<tr><td>${esc(c.change)}</td><td class="num ${c.dRel>=0?'pos':'neg'}">${c.dRel>=0?'+':''}${(c.dRel*100).toFixed(1)} pt</td><td class="num ${c.dEuac<=0?'pos':'neg'}">${c.dEuac>=0?'+':''}${fmt(c.dEuac)}</td><td class="num ${c.dCarbonYr<=0?'pos':'neg'}">${c.dCarbonYr>=0?'+':''}${fmt(c.dCarbonYr)}</td><td>${c.meets?'<span class="pill ok">仍达标</span>':`<span class="pill no">${esc(E.IND_NAME[c.bottleneck])} ${pct(c.bottleneckRate)}</span>`}</td></tr>`).join('')}
+  </tbody></table>
+
+  <h2><span class="n">06</span>材料—工艺协同</h2>
+  <table><tbody>
+    <tr><td>拌和温度</td><td class="num">${o.process.mixTemp[0]}–${o.process.mixTemp[1]} °C</td><td class="why">初压开始温度不低于 ${o.process.compactionStartMin} °C</td></tr>
+    <tr><td>允许铺筑的最低气温</td><td class="num">${o.process.minAmbient} °C</td><td class="why">当前施工期气温 ${o.scenario.ambientT} °C${o.scenario.nightWork?'，夜间施工':''}</td></tr>
+    <tr><td>预计压实欠缺带来的空隙率增量</td><td class="num">+${fmt(o.process.vaExpectedExcess,2)} %</td><td class="why">设计空隙率 ${o.process.vaDesign}%</td></tr>
+    <tr><td>若施工气温再低 8 °C</td><td class="num ${o.process.robustness.colder8<0?'neg':''}">${(o.process.robustness.colder8*100).toFixed(1)} pt</td><td class="why">可靠度变化</td></tr>
+    <tr><td>若现场空隙率比设计大 1%</td><td class="num ${o.process.robustness.va1<0?'neg':''}">${(o.process.robustness.va1*100).toFixed(1)} pt</td><td class="why">可靠度变化：数值越接近 0，施工容错越高</td></tr>
+  </tbody></table>
+
+  <h2><span class="n">07</span>和常见做法比</h2>
+  <table><thead><tr><th>方法</th><th>方案</th><th style="text-align:right">可靠度</th><th style="text-align:right">寿命</th><th style="text-align:right">造价</th><th style="text-align:right">年值成本</th><th style="text-align:right">年均碳排</th></tr></thead><tbody>
+  ${[['本系统', r], ['经验选型', o.baselines.experience], ['加权打分(AHP式)', o.baselines.weightedSum], ['最低造价', o.baselines.cheapest]].map(([n, x]) => `<tr><td>${n}</td><td>${esc(x.label)}</td><td class="num">${pct(x.reliability)}</td><td class="num">${fmt(x.lifeMean,1)}</td><td class="num">${fmt(x.costM2,1)}</td><td class="num">${fmt(x.euac)}</td><td class="num">${fmt(x.carbonYr)}</td></tr>`).join('')}
+  </tbody></table>
+
+  <h2><span class="n">08</span>监测反馈：让推荐随工程数据进化</h2>
+  <div class="fb">
+    <div><label for="fbFam">结合料类别</label><select id="fbFam"><option value="sbs">SBS改性</option><option value="rubber">橡胶改性</option><option value="hva">高粘高弹</option><option value="base">基质</option><option value="hard">硬质</option></select></div>
+    <div><label for="fbGrad">级配类型</label><select id="fbGrad"><option value="dense">密级配 AC</option><option value="sma">SMA</option><option value="ogfc">OGFC</option></select></div>
+    <div><label for="fbInd">指标</label><select id="fbInd"><option value="tsr">水稳定性</option><option value="ds">动稳定度</option><option value="strain">低温应变</option></select></div>
+    <div><label for="fbRatio">实测/预测（每段）</label><input type="number" id="fbRatio" value="0.88" step="0.01"></div>
+    <button type="button" id="fbBtn">回流 10 段数据并重算</button>
+  </div>
+  <div class="note" id="fbState" style="margin-top:6px">${Object.keys(biasState).length ? '已修正：' + Object.entries(biasState).map(([k,v]) => `${k} 偏差 ${(Math.exp(v.mean)*100-100).toFixed(1)}%（n=${v.n}）`).join('；') : '尚无回流数据，模型使用先验。'} <a href="#" id="fbReset">清空</a></div>
+
+  <h2><span class="n">09</span>相似案例</h2>
+  <table><tbody>${sim.map((x) => `<tr><td class="num" style="width:60px">${(x.s*100).toFixed(0)}%</td><td>${esc(x.c.id)} ${esc(x.c.title)}</td></tr>`).join('')}</tbody></table>
+  <div class="note">按场景标签（气候分区、交通、工法、病害、集料）计算 Jaccard 相似度，案例库可随项目积累扩充。</div>
+  `;
+  drawChart(o);
+  showFormula(o, selectedId);
+  $('fbBtn').onclick = () => {
+    const obs = Array.from({length:10}, () => ({ binderFamily: $('fbFam').value, gradType: $('fbGrad').value, indicator: $('fbInd').value, ratio: +$('fbRatio').value }));
+    try { biasState = E.updateBias(biasState, obs); runNow(); }
+    catch (e) { $('fbState').textContent = e.message; }
+  };
+  $('fbReset').onclick = (e) => { e.preventDefault(); biasState = {}; runNow(); };
+}
+
+function drawChart(o) {
+  const box = $('chart'), W = Math.max(320, box.clientWidth - 16), H = 300, m = {l:46, r:12, t:12, b:36};
+  const css = getComputedStyle(document.documentElement);
+  const C = (v) => css.getPropertyValue(v).trim();
+  // 横轴只覆盖“有意义”的方案（可靠度≥10%），超出部分贴边绘制
+  const pts = o.cloud; const xs = pts.map((p) => p[1]);
+  const xsUseful = pts.filter((p) => p[0] >= 0.1).map((p) => p[1]).concat([o.baselines.experience.euac, o.recommended.euac]);
+  const x0 = Math.min(...xs) - 0.2, x1 = Math.max(x0 + 1, Math.max(...xsUseful) * 1.04);
+  const X = (v) => m.l + (Math.min(v, x1) - x0) / (x1 - x0) * (W - m.l - m.r);
+  const Y = (v) => m.t + (1 - v) * (H - m.t - m.b);
+  const front = new Set(o.pareto.map((p) => p.id));
+  let s = `<svg width="${W}" height="${H}" role="img" aria-label="可靠度与年值成本散点图">`;
+  for (let g = 0; g <= 1.0001; g += 0.25) s += `<line x1="${m.l}" x2="${W-m.r}" y1="${Y(g)}" y2="${Y(g)}" stroke="${C('--rule')}"/><text x="${m.l-6}" y="${Y(g)+4}" text-anchor="end">${(g*100).toFixed(0)}%</text>`;
+  const step = niceStep((x1 - x0) / 5);
+  for (let v = Math.ceil(x0/step)*step; v <= x1; v += step) s += `<text x="${X(v)}" y="${H-m.b+16}" text-anchor="middle">${v.toFixed(step<1?1:0)}</text>`;
+  s += `<text x="${(W+m.l)/2}" y="${H-4}" text-anchor="middle">等额年值成本 元/(m²·年) →</text>`;
+  s += `<line x1="${m.l}" x2="${W-m.r}" y1="${Y(o.targetReliability)}" y2="${Y(o.targetReliability)}" stroke="${C('--accent')}" stroke-dasharray="5 4" stroke-width="1.5"/>`;
+  s += `<text x="${W-m.r-2}" y="${Y(o.targetReliability)-4}" text-anchor="end" style="fill:${C('--accent-ink')}">目标可靠度</text>`;
+  for (const p of pts) if (!front.has(p[3])) s += `<circle cx="${X(p[1]).toFixed(1)}" cy="${Y(p[0]).toFixed(1)}" r="2.2" fill="${C('--dot')}" data-id="${p[3]}"/>`;
+  for (const p of pts) if (front.has(p[3])) s += `<circle cx="${X(p[1]).toFixed(1)}" cy="${Y(p[0]).toFixed(1)}" r="3.6" fill="${C('--front')}" data-id="${p[3]}"/>`;
+  const ex = o.baselines.experience; s += `<rect x="${X(ex.euac)-5}" y="${Y(ex.reliability)-5}" width="10" height="10" fill="none" stroke="${C('--warn')}" stroke-width="2" data-id="${ex.id}"/>`;
+  const r = o.recommended; s += `<rect x="${X(r.euac)-6}" y="${Y(r.reliability)-6}" width="12" height="12" fill="${C('--accent')}" stroke="${C('--ink')}" transform="rotate(45 ${X(r.euac)} ${Y(r.reliability)})" data-id="${r.id}"/>`;
+  s += `</svg>`;
+  box.insertAdjacentHTML('beforeend', s);
+  const tip = $('tip'), byId = new Map(pts.map((p) => [p[3], p]));
+  box.querySelector('svg').addEventListener('mousemove', (e) => {
+    const id = e.target.dataset && e.target.dataset.id; if (!id) { tip.style.display = 'none'; return; }
+    const p = byId.get(id) || [ex.reliability, ex.euac, ex.carbonYr, id];
+    tip.innerHTML = `${esc(labelOf(id))}<br>可靠度 ${pct(p[0])} · 年值 ${fmt(p[1])} · 碳 ${fmt(p[2])}`;
+    const bb = box.getBoundingClientRect(); tip.style.display = 'block';
+    tip.style.left = Math.min(e.clientX - bb.left + 12, bb.width - 300) + 'px'; tip.style.top = (e.clientY - bb.top + 12) + 'px';
+  });
+  box.querySelector('svg').addEventListener('mouseleave', () => { tip.style.display = 'none'; });
+  box.querySelector('svg').addEventListener('click', (e) => { const id = e.target.dataset && e.target.dataset.id; if (id) { selectedId = id; showFormula(o, id); } });
+}
+function niceStep(x) { const p = Math.pow(10, Math.floor(Math.log10(x))); const f = x / p; return (f < 1.5 ? 1 : f < 3.5 ? 2 : f < 7.5 ? 5 : 10) * p; }
+function labelOf(id) {
+  const [g, b, w, r, wm, rap, f] = id.split('/'), A = KB.additives, by = (a, i) => a.find((x) => x.id === i);
+  const parts = [by(KB.gradations, g).name, E.resolveBinder(b).name];
+  if (w !== 'none') parts.push(by(A.water, w).name); if (r !== 'none') parts.push(by(A.rut, r).name);
+  if (wm !== 'none') parts.push(by(A.warm, wm).name); if (rap !== 'R0') parts.push(by(A.rap, rap).name); if (f !== 'none') parts.push(by(A.fiber, f).name);
+  return parts.join(' + ');
+}
+function showFormula(o, id) {
+  const r = o.recommended, isRec = id === r.id;
+  const p = o.cloud.find((x) => x[3] === id);
+  const [g, b, w, rut, wm, rap, f] = id.split('/'), A = KB.additives, by = (a, i) => a.find((x) => x.id === i);
+  const bd = E.resolveBinder(b), gd = by(KB.gradations, g);
+  $('formula').innerHTML = `<div style="margin-bottom:6px">${isRec ? '<span class="pill ok">推荐方案</span>' : '<span class="pill">所选方案</span>'} ${isRec ? '' : `可靠度 ${pct(p[0])} · 年值 ${fmt(p[1])}`}</div>
+    <b>级配</b>${gd.name}（油石比约 ${gd.pb}%，设计空隙率 ${gd.va}%）<br>
+    <b>结合料</b>${bd.name}，约 PG ${E.pgGradeHigh(bd.trueHigh)}-${-E.pgGradeLow(bd.trueLow)}<br>
+    <b>集料</b>${by(KB.aggregates, o.scenario.aggregate).name}<br>
+    <b>抗水损</b>${by(A.water, w).name}<br><b>抗车辙</b>${by(A.rut, rut).name}<br>
+    <b>拌和</b>${by(A.warm, wm).name}<br><b>RAP</b>${by(A.rap, rap).name}<br><b>纤维</b>${by(A.fiber, f).name}`;
+}
+function renderCrack(o) {
+  $('out').innerHTML = `
+  <h2><span class="n">02</span>结论 <span class="hint">${o.climate.city} · ${o.climate.zone}</span></h2>
+  <div class="verdict"><div class="big">${esc(o.method)} · ${esc(o.sealant.name)}</div>
+  <span class="k">选型依据</span><span class="v">${esc(o.reason)}</span>
+  <span class="k">满足条件的型号</span><span class="v">${esc(o.feasibleSealants.join('、') || '无')}</span>
+  <span class="k">参考单价</span><span class="v">${o.sealant.price} 元/延米（演示值）</span></div>
+  <p class="note">${esc(o.note || '裂缝处治模块按路表温度包络筛选灌缝材料型号，再按缝宽确定工艺。')}</p>`;
+}
+
+loadCase((CASES.find((c) => "#" + c.id === location.hash) || CASES[0]).id, true);
+})();
+</script>
+</body>
+</html>

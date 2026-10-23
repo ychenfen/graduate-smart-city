@@ -1,0 +1,119 @@
+[
+ {
+  "id": "yangpu",
+  "name": "海南洋浦",
+  "zone": "1-4-1",
+  "pavHigh98": 59.9,
+  "pavLow98": 6.8,
+  "pg": "PG 64-10",
+  "range": 53.1
+ },
+ {
+  "id": "haikou",
+  "name": "海口",
+  "zone": "1-4-1",
+  "pavHigh98": 60.2,
+  "pavLow98": 5.8,
+  "pg": "PG 64-10",
+  "range": 54.3
+ },
+ {
+  "id": "guangzhou",
+  "name": "广州",
+  "zone": "1-4-1",
+  "pavHigh98": 60.4,
+  "pavLow98": 1.6,
+  "pg": "PG 64-10",
+  "range": 58.8
+ },
+ {
+  "id": "chongqing",
+  "name": "重庆",
+  "zone": "1-4-1",
+  "pavHigh98": 63.1,
+  "pavLow98": 0.1,
+  "pg": "PG 64-10",
+  "range": 63
+ },
+ {
+  "id": "wuhan",
+  "name": "武汉",
+  "zone": "1-3-1",
+  "pavHigh98": 61.5,
+  "pavLow98": -14,
+  "pg": "PG 64-16",
+  "range": 75.5
+ },
+ {
+  "id": "nanjing",
+  "name": "南京",
+  "zone": "1-3-1",
+  "pavHigh98": 60.8,
+  "pavLow98": -10.5,
+  "pg": "PG 64-16",
+  "range": 71.3
+ },
+ {
+  "id": "xian",
+  "name": "西安",
+  "zone": "1-3-2",
+  "pavHigh98": 61.8,
+  "pavLow98": -16.1,
+  "pg": "PG 64-22",
+  "range": 77.9
+ },
+ {
+  "id": "beijing",
+  "name": "北京",
+  "zone": "1-2-2",
+  "pavHigh98": 58.7,
+  "pavLow98": -22,
+  "pg": "PG 64-22",
+  "range": 80.7
+ },
+ {
+  "id": "lanzhou",
+  "name": "兰州",
+  "zone": "2-2-3",
+  "pavHigh98": 56.9,
+  "pavLow98": -18.3,
+  "pg": "PG 58-22",
+  "range": 75.2
+ },
+ {
+  "id": "lhasa",
+  "name": "拉萨",
+  "zone": "2-3-3",
+  "pavHigh98": 51.1,
+  "pavLow98": -12.6,
+  "pg": "PG 52-16",
+  "range": 63.6
+ },
+ {
+  "id": "kunming",
+  "name": "昆明",
+  "zone": "2-4-2",
+  "pavHigh98": 52.5,
+  "pavLow98": -5.1,
+  "pg": "PG 58-10",
+  "range": 57.6
+ },
+ {
+  "id": "urumqi",
+  "name": "乌鲁木齐",
+  "zone": "1-1-3",
+  "pavHigh98": 57.1,
+  "pavLow98": -34.1,
+  "pg": "PG 58-40",
+  "range": 91.2
+ },
+ {
+  "id": "harbin",
+  "name": "哈尔滨",
+  "zone": "2-1-2",
+  "pavHigh98": 52.7,
+  "pavLow98": -31.2,
+  "pg": "PG 58-34",
+  "range": 83.9
+ }
+]

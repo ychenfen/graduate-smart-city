@@ -1,0 +1,134 @@
+[
+ {
+  "case": "C1",
+  "n": 50,
+  "relMean": 0.9013333333333333,
+  "relSd": 0.037923900408874375,
+  "truthRel": 0.901,
+  "pickOkTrue": 0.9666666666666667,
+  "regretMean": -0.12999999999999984,
+  "regretMax": 0.41999999999999993,
+  "distinctPicks": 5
+ },
+ {
+  "case": "C1",
+  "n": 100,
+  "relMean": 0.8989999999999999,
+  "relSd": 0.03091385881229755,
+  "truthRel": 0.901,
+  "pickOkTrue": 1,
+  "regretMean": -0.20333333333333314,
+  "regretMax": 0.41999999999999993,
+  "distinctPicks": 4
+ },
+ {
+  "case": "C1",
+  "n": 200,
+  "relMean": 0.8961666666666667,
+  "relSd": 0.017639129482173704,
+  "truthRel": 0.901,
+  "pickOkTrue": 1,
+  "regretMean": -0.0866666666666666,
+  "regretMax": 0.03999999999999915,
+  "distinctPicks": 3
+ },
+ {
+  "case": "C1",
+  "n": 400,
+  "relMean": 0.8989000000000001,
+  "relSd": 0.01565747957580233,
+  "truthRel": 0.901,
+  "pickOkTrue": 1,
+  "regretMean": -0.0866666666666666,
+  "regretMax": 0.03999999999999915,
+  "distinctPicks": 3
+ },
+ {
+  "case": "C1",
+  "n": 800,
+  "relMean": 0.9045666666666666,
+  "relSd": 0.0079064671138393,
+  "truthRel": 0.901,
+  "pickOkTrue": 1,
+  "regretMean": -0.10266666666666655,
+  "regretMax": 0,
+  "distinctPicks": 2
+ },
+ {
+  "case": "C1",
+  "n": 1600,
+  "relMean": 0.9007,
+  "relSd": 0.00787464284904402,
+  "truthRel": 0.901,
+  "pickOkTrue": 1,
+  "regretMean": -0.0293333333333333,
+  "regretMax": 0,
+  "distinctPicks": 2
+ },
+ {
+  "case": "C3",
+  "n": 50,
+  "relMean": 0.9720000000000003,
+  "relSd": 0.021664102412362565,
+  "truthRel": 0.974,
+  "pickOkTrue": 1,
+  "regretMean": 0,
+  "regretMax": 0,
+  "distinctPicks": 2
+ },
+ {
+  "case": "C3",
+  "n": 100,
+  "relMean": 0.9749999999999999,
+  "relSd": 0.014776106839534349,
+  "truthRel": 0.974,
+  "pickOkTrue": 1,
+  "regretMean": 0,
+  "regretMax": 0,
+  "distinctPicks": 2
+ },
+ {
+  "case": "C3",
+  "n": 200,
+  "relMean": 0.9691666666666665,
+  "relSd": 0.010253725610181359,
+  "truthRel": 0.974,
+  "pickOkTrue": 1,
+  "regretMean": 0,
+  "regretMax": 0,
+  "distinctPicks": 2
+ },
+ {
+  "case": "C3",
+  "n": 400,
+  "relMean": 0.9715,
+  "relSd": 0.008077747210701763,
+  "truthRel": 0.974,
+  "pickOkTrue": 1,
+  "regretMean": 0,
+  "regretMax": 0,
+  "distinctPicks": 2
+ },
+ {
+  "case": "C3",
+  "n": 800,
+  "relMean": 0.9718666666666668,
+  "relSd": 0.004580635569680506,
+  "truthRel": 0.974,
+  "pickOkTrue": 1,
+  "regretMean": 0,
+  "regretMax": 0,
+  "distinctPicks": 2
+ },
+ {
+  "case": "C3",
+  "n": 1600,
+  "relMean": 0.9702666666666667,
+  "relSd": 0.004471639023395739,
+  "truthRel": 0.974,
+  "pickOkTrue": 1,
+  "regretMean": 0,
+  "regretMax": 0,
+  "distinctPicks": 2
+ }
+]

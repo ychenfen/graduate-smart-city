@@ -1,0 +1,5235 @@
+{
+ "C1": {
+  "engine": "SZXC-1.0",
+  "elapsedMs": 144,
+  "scenario": {
+   "roadClass": "arterial",
+   "traffic": "xheavy",
+   "speed": "slow",
+   "treatment": "MR_UP",
+   "aggregate": "granite",
+   "distresses": [
+    {
+     "id": "rutting",
+     "severity": 2
+    },
+    {
+     "id": "moisture",
+     "severity": 1
+    }
+   ],
+   "ambientT": 28,
+   "haulMin": 30,
+   "targetReliability": 0.85,
+   "budgetPerM2": null,
+   "nightWork": false,
+   "samples": 400,
+   "seed": 20261021,
+   "cityId": "yangpu"
+  },
+  "tags": [
+   "CZ:1-4-1",
+   "CZH:1",
+   "CZL:4",
+   "CZR:1",
+   "TL:xheavy",
+   "SPD:slow",
+   "TRT:MR_UP",
+   "AGG:granite",
+   "ROAD:arterial",
+   "DIS:rutting",
+   "DIS:rutting:重",
+   "DIS:moisture",
+   "DIS:moisture:中"
+  ],
+  "climate": {
+   "city": "海南洋浦",
+   "zone": "1-4-1",
+   "zoneName": "夏炎热区·冬温区·潮湿区",
+   "pavHigh98": 59.9,
+   "pavLow98": 6.8,
+   "pgRequired98": "PG 76-10"
+  },
+  "requirements": [
+   {
+    "ind": "pgHigh",
+    "name": "高温分级 PG高温",
+    "unit": "°C",
+    "sceneTarget": 69.9,
+    "why": "LTPPBind 公式: 7日最高气温 35°C → 路面20mm处 57.9°C；交通/车速加级 +2 级(每级6°C)"
+   },
+   {
+    "ind": "pgLow",
+    "name": "低温分级 PG低温",
+    "unit": "°C",
+    "sceneTarget": 10.3,
+    "why": "SHRP 公式: 年极端低温均值 10°C → 路面 10.3°C"
+   },
+   {
+    "ind": "ds",
+    "name": "高温抗车辙 动稳定度",
+    "unit": "次/mm",
+    "sceneTarget": 4958.8,
+    "why": "规范改性沥青 2800 次/mm（1-4 区）× 极重交通 1.4 × 慢速 (20–70 km/h) 1.15 × 车辙病害 1.1"
+   },
+   {
+    "ind": "strain",
+    "name": "低温抗裂 破坏应变",
+    "unit": "με",
+    "sceneTarget": 2500,
+    "why": "规范改性沥青 2500 με（冬温区）"
+   },
+   {
+    "ind": "tsr",
+    "name": "水稳定性 冻融劈裂比",
+    "unit": "%",
+    "sceneTarget": 82,
+    "why": "规范 年降水≥500mm 改性沥青 80% + 水损害病害 2%"
+   },
+   {
+    "ind": "fatigue",
+    "name": "疲劳寿命",
+    "unit": "lg次",
+    "sceneTarget": 5.5,
+    "why": "极重交通对应 lgNf ≥ 5.5（四点弯曲 600με）"
+   },
+   {
+    "ind": "td",
+    "name": "抗滑 构造深度",
+    "unit": "mm",
+    "sceneTarget": 0.55,
+    "why": "高等级道路构造深度 0.55 mm"
+   }
+  ],
+  "priorities": [
+   {
+    "ind": "ds",
+    "name": "高温抗车辙 动稳定度",
+    "scarcity": 0.749
+   },
+   {
+    "ind": "fatigue",
+    "name": "疲劳寿命",
+    "scarcity": 0.585
+   },
+   {
+    "ind": "tsr",
+    "name": "水稳定性 冻融劈裂比",
+    "scarcity": 0.507
+   },
+   {
+    "ind": "pgHigh",
+    "name": "高温分级 PG高温",
+    "scarcity": 0.324
+   },
+   {
+    "ind": "strain",
+    "name": "低温抗裂 破坏应变",
+    "scarcity": 0.284
+   },
+   {
+    "ind": "td",
+    "name": "抗滑 构造深度",
+    "scarcity": 0.207
+   },
+   {
+    "ind": "pgLow",
+    "name": "低温分级 PG低温",
+    "scarcity": 0
+   }
+  ],
+  "stats": {
+   "enumerated": 3747,
+   "feasible": 992,
+   "budgetCut": 0,
+   "rejected": {
+    "R08 层厚与公称最大粒径不匹配(2.5–4.0倍)": 3,
+    "R06 酸性石料用于重交通须抗剥落措施": 672,
+    "R12 高RAP 掺量不再加纤维": 160,
+    "R05 硬质沥青仅用于 AC-16 且限非寒区": 72,
+    "R11 RAP 不与高粘/橡胶/硬质沥青组合": 128,
+    "R09 OGFC/高粘沥青不再加抗车辙剂": 64,
+    "R01 SMA 须用改性沥青": 360,
+    "R04 SMA/OGFC 表层不掺RAP": 432,
+    "R02 OGFC 须用高粘高弹沥青": 864
+   },
+   "samples": 400
+  },
+  "targetReliability": 0.85,
+  "targetReached": true,
+  "recommended": {
+   "id": "SMA13/CR20/lime/antirut/none/R0/lignin",
+   "label": "SMA-13 + 橡胶改性沥青(20%胶粉) + 消石灰替代1.5%矿粉 + 抗车辙剂(0.4%混合料) + 木质素纤维0.3%",
+   "reliability": 0.865,
+   "passRate": {
+    "pgHigh": 1,
+    "pgLow": 1,
+    "ds": 0.978,
+    "strain": 1,
+    "tsr": 0.92,
+    "fatigue": 0.96,
+    "td": 1
+   },
+   "bottleneck": "tsr",
+   "bottleneckName": "水稳定性 冻融劈裂比",
+   "lifeMean": 7.6,
+   "lifeP10": 7,
+   "costM2": 67,
+   "euac": 10.42,
+   "carbonM2": 7.4,
+   "carbonYr": 0.97,
+   "formula": {
+    "gradation": "SMA-13",
+    "binder": "橡胶改性沥青(20%胶粉)",
+    "binderContent": 5.9,
+    "aggregate": "花岗岩",
+    "water": "消石灰替代1.5%矿粉",
+    "rut": "抗车辙剂(0.4%混合料)",
+    "warm": "热拌",
+    "rap": "不掺RAP",
+    "fiber": "木质素纤维0.3%",
+    "binderPG": "PG 76-28"
+   },
+   "predicted": {
+    "pgHigh": {
+     "mean": 76,
+     "req": null,
+     "binding": "scene"
+    },
+    "pgLow": {
+     "mean": -27,
+     "req": null,
+     "binding": "scene"
+    },
+    "ds": {
+     "mean": 7690.7,
+     "req": 4958.8,
+     "binding": "scene"
+    },
+    "strain": {
+     "mean": 3420,
+     "req": 2500,
+     "binding": "scene"
+    },
+    "tsr": {
+     "mean": 87,
+     "req": 82,
+     "binding": "scene"
+    },
+    "fatigue": {
+     "mean": 5.9,
+     "req": 5.5,
+     "binding": "scene"
+    },
+    "td": {
+     "mean": 0.93,
+     "req": 0.55,
+     "binding": "scene"
+    }
+   },
+   "costBreak": {
+    "materials": 35.7,
+    "additives": 7.6,
+    "production": 11.7,
+    "milling": 12
+   }
+  },
+  "process": {
+   "mixTemp": [
+    175,
+    185
+   ],
+   "compactionStartMin": 155,
+   "minAmbient": 10,
+   "vaDesign": 3.5,
+   "vaExpectedExcess": 0,
+   "robustness": {
+    "colder8": 0,
+    "va1": -0.282
+   }
+  },
+  "counterfactuals": [
+   {
+    "change": "抗车辙剂：抗车辙剂(0.4%混合料) → 无",
+    "dim": "rut",
+    "id": "SMA13/CR20/lime/none/none/R0/lignin",
+    "dRel": -0.4725,
+    "dEuac": 0.001676143639386396,
+    "dCarbonYr": -0.04145982688743832,
+    "meets": false,
+    "bottleneck": "ds",
+    "bottleneckRate": 0.4225
+   },
+   {
+    "change": "拌和工艺：热拌 → 表面活性剂温拌(0.5%油重)",
+    "dim": "warm",
+    "id": "SMA13/CR20/lime/antirut/warm/R0/lignin",
+    "dRel": -0.0625,
+    "dEuac": 0.10525327288585373,
+    "dCarbonYr": -0.06992273704868979,
+    "meets": false,
+    "bottleneck": "tsr",
+    "bottleneckRate": 0.855
+   },
+   {
+    "change": "抗水损措施：消石灰替代1.5%矿粉 → 胺类抗剥落剂(0.4%油重)",
+    "dim": "water",
+    "id": "SMA13/CR20/amine/antirut/none/R0/lignin",
+    "dRel": -0.0625,
+    "dEuac": 0.18219032566645232,
+    "dCarbonYr": 0.0029309551099013786,
+    "meets": false,
+    "bottleneck": "tsr",
+    "bottleneckRate": 0.855
+   },
+   {
+    "change": "结合料：橡胶改性沥青(20%胶粉) → SBS改性沥青(70#基, 5.5%)",
+    "dim": "binder",
+    "id": "SMA13/SBS70_5/lime/antirut/none/R0/lignin",
+    "dRel": 0.0675,
+    "dEuac": 0.429386819159026,
+    "dCarbonYr": 0.12580847554611896,
+    "meets": true,
+    "bottleneck": "fatigue",
+    "bottleneckRate": 0.96
+   },
+   {
+    "change": "纤维：木质素纤维0.3% → 玄武岩纤维0.3%",
+    "dim": "fiber",
+    "id": "SMA13/CR20/lime/antirut/none/R0/basalt",
+    "dRel": 0.030000000000000027,
+    "dEuac": 0.48601588128378204,
+    "dCarbonYr": 0.05189755087710057,
+    "meets": true,
+    "bottleneck": "tsr",
+    "bottleneckRate": 0.92
+   },
+   {
+    "change": "结合料：橡胶改性沥青(20%胶粉) → SBS改性沥青(70#基, 4.5%)",
+    "dim": "binder",
+    "id": "SMA13/SBS70_4/lime/antirut/none/R0/lignin",
+    "dRel": -0.020000000000000018,
+    "dEuac": 0.6139912824378069,
+    "dCarbonYr": 0.14432745902158495,
+    "meets": false,
+    "bottleneck": "fatigue",
+    "bottleneckRate": 0.885
+   },
+   {
+    "change": "结合料：橡胶改性沥青(20%胶粉) → SBS改性沥青(70#基, 3.5%)",
+    "dim": "binder",
+    "id": "SMA13/SBS70_3/lime/antirut/none/R0/lignin",
+    "dRel": -0.24749999999999994,
+    "dEuac": 1.1352147472616867,
+    "dCarbonYr": 0.19806050391878627,
+    "meets": false,
+    "bottleneck": "fatigue",
+    "bottleneckRate": 0.77
+   },
+   {
+    "change": "结合料：橡胶改性沥青(20%胶粉) → SBS改性沥青(90#基, 5.5%)",
+    "dim": "binder",
+    "id": "SMA13/SBS90_5/lime/antirut/none/R0/lignin",
+    "dRel": -0.22999999999999998,
+    "dEuac": 1.2245259346414201,
+    "dCarbonYr": 0.22665622020320864,
+    "meets": false,
+    "bottleneck": "ds",
+    "bottleneckRate": 0.6725
+   },
+   {
+    "change": "结合料：橡胶改性沥青(20%胶粉) → SBS改性沥青(90#基, 4.5%)",
+    "dim": "binder",
+    "id": "SMA13/SBS90_4/lime/antirut/none/R0/lignin",
+    "dRel": -0.685,
+    "dEuac": 1.9557578393555257,
+    "dCarbonYr": 0.3122096189223539,
+    "meets": false,
+    "bottleneck": "ds",
+    "bottleneckRate": 0.2675
+   },
+   {
+    "change": "结合料：橡胶改性沥青(20%胶粉) → SBS改性沥青(110#基, 5.5%)",
+    "dim": "binder",
+    "id": "SMA13/SBS110_5/lime/antirut/none/R0/lignin",
+    "dRel": -0.8475,
+    "dEuac": 3.0000963183619707,
+    "dCarbonYr": 0.4409842218048886,
+    "meets": false,
+    "bottleneck": "ds",
+    "bottleneckRate": 0.0725
+   }
+  ],
+  "alternatives": [
+   {
+    "id": "SMA13/CR20/lime/none/none/R0/lignin",
+    "label": "SMA-13 + 橡胶改性沥青(20%胶粉) + 消石灰替代1.5%矿粉 + 木质素纤维0.3%",
+    "reliability": 0.393,
+    "passRate": {
+     "pgHigh": 1,
+     "pgLow": 1,
+     "ds": 0.423,
+     "strain": 1,
+     "tsr": 0.92,
+     "fatigue": 0.96,
+     "td": 1
+    },
+    "bottleneck": "ds",
+    "bottleneckName": "高温抗车辙 动稳定度",
+    "lifeMean": 6.9,
+    "lifeP10": 6.2,
+    "costM2": 61.5,
+    "euac": 10.43,
+    "carbonM2": 6.4,
+    "carbonYr": 0.93
+   },
+   {
+    "id": "SMA13/CR20/lime/none/warm/R0/lignin",
+    "label": "SMA-13 + 橡胶改性沥青(20%胶粉) + 消石灰替代1.5%矿粉 + 表面活性剂温拌(0.5%油重) + 木质素纤维0.3%",
+    "reliability": 0.363,
+    "passRate": {
+     "pgHigh": 1,
+     "pgLow": 1,
+     "ds": 0.423,
+     "strain": 1,
+     "tsr": 0.855,
+     "fatigue": 0.96,
+     "td": 1
+    },
+    "bottleneck": "ds",
+    "bottleneckName": "高温抗车辙 动稳定度",
+    "lifeMean": 6.9,
+    "lifeP10": 6.2,
+    "costM2": 61.3,
+    "euac": 10.42,
+    "carbonM2": 5.8,
+    "carbonYr": 0.84
+   },
+   {
+    "id": "SMA13/CR20/amine/none/warm/R0/lignin",
+    "label": "SMA-13 + 橡胶改性沥青(20%胶粉) + 胺类抗剥落剂(0.4%油重) + 表面活性剂温拌(0.5%油重) + 木质素纤维0.3%",
+    "reliability": 0.348,
+    "passRate": {
+     "pgHigh": 1,
+     "pgLow": 1,
+     "ds": 0.423,
+     "strain": 1,
+     "tsr": 0.793,
+     "fatigue": 0.96,
+     "td": 1
+    },
+    "bottleneck": "ds",
+    "bottleneckName": "高温抗车辙 动稳定度",
+    "lifeMean": 6.9,
+    "lifeP10": 6.2,
+    "costM2": 61.6,
+    "euac": 10.51,
+    "carbonM2": 5.7,
+    "carbonYr": 0.83
+   },
+   {
+    "id": "AC13/CR20/amine/none/warm/R0/none",
+    "label": "AC-13 + 橡胶改性沥青(20%胶粉) + 胺类抗剥落剂(0.4%油重) + 表面活性剂温拌(0.5%油重)",
+    "reliability": 0.015,
+    "passRate": {
+     "pgHigh": 1,
+     "pgLow": 1,
+     "ds": 0.03,
+     "strain": 1,
+     "tsr": 0.453,
+     "fatigue": 0.633,
+     "td": 0.64
+    },
+    "bottleneck": "ds",
+    "bottleneckName": "高温抗车辙 动稳定度",
+    "lifeMean": 5.9,
+    "lifeP10": 5.2,
+    "costM2": 53,
+    "euac": 10.34,
+    "carbonM2": 5.3,
+    "carbonYr": 0.89
+   }
+  ],
+  "pareto": [
+   {
+    "id": "AC13/SBS90_5/lime/none/warm/R30/none",
+    "label": "AC-13 + SBS改性沥青(90#基, 5.5%) + 消石灰替代1.5%矿粉 + 表面活性剂温拌(0.5%油重) + RAP 30%+再生剂",
+    "reliability": 0.008,
+    "passRate": {
+     "pgHigh": 1,
+     "pgLow": 1,
+     "ds": 0.013,
+     "strain": 0.998,
+     "tsr": 0.453,
+     "fatigue": 0.52,
+     "td": 0.64
+    },
+    "bottleneck": "ds",
+    "bottleneckName": "高温抗车辙 动稳定度",
+    "lifeMean": 5.7,
+    "lifeP10": 4.9,
+    "costM2": 50,
+    "euac": 10.13,
+    "carbonM2": 5.9,
+    "carbonYr": 1.05
+   },
+   {
+    "id": "AC16/SBS90_5/lime/none/warm/R30/none",
+    "label": "AC-16 + SBS改性沥青(90#基, 5.5%) + 消石灰替代1.5%矿粉 + 表面活性剂温拌(0.5%油重) + RAP 30%+再生剂",
+    "reliability": 0.013,
+    "passRate": {
+     "pgHigh": 1,
+     "pgLow": 1,
+     "ds": 0.053,
+     "strain": 0.983,
+     "tsr": 0.348,
+     "fatigue": 0.365,
+     "td": 0.88
+    },
+    "bottleneck": "ds",
+    "bottleneckName": "高温抗车辙 动稳定度",
+    "lifeMean": 5.6,
+    "lifeP10": 4.3,
+    "costM2": 48.8,
+    "euac": 10.18,
+    "carbonM2": 5.9,
+    "carbonYr": 1.05
+   },
+   {
+    "id": "AC16/CR20/lime/none/warm/R0/none",
+    "label": "AC-16 + 橡胶改性沥青(20%胶粉) + 消石灰替代1.5%矿粉 + 表面活性剂温拌(0.5%油重)",
+    "reliability": 0.028,
+    "passRate": {
+     "pgHigh": 1,
+     "pgLow": 1,
+     "ds": 0.103,
+     "strain": 1,
+     "tsr": 0.453,
+     "fatigue": 0.47,
+     "td": 0.88
+    },
+    "bottleneck": "ds",
+    "bottleneckName": "高温抗车辙 动稳定度",
+    "lifeMean": 5.9,
+    "lifeP10": 4.7,
+    "costM2": 51.5,
+    "euac": 10.19,
+    "carbonM2": 5.3,
+    "carbonYr": 0.91
+   },
+   {
+    "id": "AC13/SBS70_5/lime/none/warm/R15/none",
+    "label": "AC-13 + SBS改性沥青(70#基, 5.5%) + 消石灰替代1.5%矿粉 + 表面活性剂温拌(0.5%油重) + RAP 15%",
+    "reliability": 0.1,
+    "passRate": {
+     "pgHigh": 1,
+     "pgLow": 1,
+     "ds": 0.473,
+     "strain": 0.97,
+     "tsr": 0.58,
+     "fatigue": 0.478,
+     "td": 0.64
+    },
+    "bottleneck": "ds",
+    "bottleneckName": "高温抗车辙 动稳定度",
+    "lifeMean": 6.1,
+    "lifeP10": 4.7,
+    "costM2": 53.1,
+    "euac": 10.22,
+    "carbonM2": 6.2,
+    "carbonYr": 1.01
+   },
+   {
+    "id": "AC13/SBS70_5/lime/none/none/R15/none",
+    "label": "AC-13 + SBS改性沥青(70#基, 5.5%) + 消石灰替代1.5%矿粉 + RAP 15%",
+    "reliability": 0.108,
+    "passRate": {
+     "pgHigh": 1,
+     "pgLow": 1,
+     "ds": 0.473,
+     "strain": 0.97,
+     "tsr": 0.67,
+     "fatigue": 0.478,
+     "td": 0.64
+    },
+    "bottleneck": "ds",
+    "bottleneckName": "高温抗车辙 动稳定度",
+    "lifeMean": 6.1,
+    "lifeP10": 4.7,
+    "costM2": 53.3,
+    "euac": 10.23,
+    "carbonM2": 6.8,
+    "carbonYr": 1.11
+   },
+   {
+    "id": "AC16/CR20/amine/none/warm/R0/none",
+    "label": "AC-16 + 橡胶改性沥青(20%胶粉) + 胺类抗剥落剂(0.4%油重) + 表面活性剂温拌(0.5%油重)",
+    "reliability": 0.02,
+    "passRate": {
+     "pgHigh": 1,
+     "pgLow": 1,
+     "ds": 0.103,
+     "strain": 1,
+     "tsr": 0.348,
+     "fatigue": 0.47,
+     "td": 0.88
+    },
+    "bottleneck": "ds",
+    "bottleneckName": "高温抗车辙 动稳定度",
+    "lifeMean": 5.9,
+    "lifeP10": 4.7,
+    "costM2": 51.7,
+    "euac": 10.28,
+    "carbonM2": 5.3,
+    "carbonYr": 0.9
+   },
+   {
+    "id": "AC13/SBS70_5/amine/none/warm/R15/none",
+    "label": "AC-13 + SBS改性沥青(70#基, 5.5%) + 胺类抗剥落剂(0.4%油重) + 表面活性剂温拌(0.5%油重) + RAP 15%",
+    "reliability": 0.075,
+    "passRate": {
+     "pgHigh": 1,
+     "pgLow": 1,
+     "ds": 0.473,
+     "strain": 0.97,
+     "tsr": 0.453,
+     "fatigue": 0.478,
+     "td": 0.64
+    },
+    "bottleneck": "tsr",
+    "bottleneckName": "水稳定性 冻融劈裂比",
+    "lifeMean": 6.1,
+    "lifeP10": 4.7,
+    "costM2": 53.4,
+    "euac": 10.31,
+    "carbonM2": 6.1,
+    "carbonYr": 1
+   },
+   {
+    "id": "AC13/CR20/amine/none/warm/R0/none",
+    "label": "AC-13 + 橡胶改性沥青(20%胶粉) + 胺类抗剥落剂(0.4%油重) + 表面活性剂温拌(0.5%油重)",
+    "reliability": 0.015,
+    "passRate": {
+     "pgHigh": 1,
+     "pgLow": 1,
+     "ds": 0.03,
+     "strain": 1,
+     "tsr": 0.453,
+     "fatigue": 0.633,
+     "td": 0.64
+    },
+    "bottleneck": "ds",
+    "bottleneckName": "高温抗车辙 动稳定度",
+    "lifeMean": 5.9,
+    "lifeP10": 5.2,
+    "costM2": 53,
+    "euac": 10.34,
+    "carbonM2": 5.3,
+    "carbonYr": 0.89
+   },
+   {
+    "id": "SMA13/CR20/lime/none/warm/R0/lignin",
+    "label": "SMA-13 + 橡胶改性沥青(20%胶粉) + 消石灰替代1.5%矿粉 + 表面活性剂温拌(0.5%油重) + 木质素纤维0.3%",
+    "reliability": 0.363,
+    "passRate": {
+     "pgHigh": 1,
+     "pgLow": 1,
+     "ds": 0.423,
+     "strain": 1,
+     "tsr": 0.855,
+     "fatigue": 0.96,
+     "td": 1
+    },
+    "bottleneck": "ds",
+    "bottleneckName": "高温抗车辙 动稳定度",
+    "lifeMean": 6.9,
+    "lifeP10": 6.2,
+    "costM2": 61.3,
+    "euac": 10.42,
+    "carbonM2": 5.8,
+    "carbonYr": 0.84
+   },
+   {
+    "id": "SMA13/CR20/lime/antirut/none/R0/lignin",
+    "label": "SMA-13 + 橡胶改性沥青(20%胶粉) + 消石灰替代1.5%矿粉 + 抗车辙剂(0.4%混合料) + 木质素纤维0.3%",
+    "reliability": 0.865,
+    "passRate": {
+     "pgHigh": 1,
+     "pgLow": 1,
+     "ds": 0.978,
+     "strain": 1,
+     "tsr": 0.92,
+     "fatigue": 0.96,
+     "td": 1
+    },
+    "bottleneck": "tsr",
+    "bottleneckName": "水稳定性 冻融劈裂比",
+    "lifeMean": 7.6,
+    "lifeP10": 7,
+    "costM2": 67,
+    "euac": 10.42,
+    "carbonM2": 7.4,
+    "carbonYr": 0.97
+   },
+   {
+    "id": "SMA13/CR20/lime/none/none/R0/lignin",
+    "label": "SMA-13 + 橡胶改性沥青(20%胶粉) + 消石灰替代1.5%矿粉 + 木质素纤维0.3%",
+    "reliability": 0.393,
+    "passRate": {
+     "pgHigh": 1,
+     "pgLow": 1,
+     "ds": 0.423,
+     "strain": 1,
+     "tsr": 0.92,
+     "fatigue": 0.96,
+     "td": 1
+    },
+    "bottleneck": "ds",
+    "bottleneckName": "高温抗车辙 动稳定度",
+    "lifeMean": 6.9,
+    "lifeP10": 6.2,
+    "costM2": 61.5,
+    "euac": 10.43,
+    "carbonM2": 6.4,
+    "carbonYr": 0.93
+   },
+   {
+    "id": "SMA13/CR20/amine/none/warm/R0/lignin",
+    "label": "SMA-13 + 橡胶改性沥青(20%胶粉) + 胺类抗剥落剂(0.4%油重) + 表面活性剂温拌(0.5%油重) + 木质素纤维0.3%",
+    "reliability": 0.348,
+    "passRate": {
+     "pgHigh": 1,
+     "pgLow": 1,
+     "ds": 0.423,
+     "strain": 1,
+     "tsr": 0.793,
+     "fatigue": 0.96,
+     "td": 1
+    },
+    "bottleneck": "ds",
+    "bottleneckName": "高温抗车辙 动稳定度",
+    "lifeMean": 6.9,
+    "lifeP10": 6.2,
+    "costM2": 61.6,
+    "euac": 10.51,
+    "carbonM2": 5.7,
+    "carbonYr": 0.83
+   },
+   {
+    "id": "SMA13/CR20/lime/antirut/warm/R0/lignin",
+    "label": "SMA-13 + 橡胶改性沥青(20%胶粉) + 消石灰替代1.5%矿粉 + 抗车辙剂(0.4%混合料) + 表面活性剂温拌(0.5%油重) + 木质素纤维0.3%",
+    "reliability": 0.803,
+    "passRate": {
+     "pgHigh": 1,
+     "pgLow": 1,
+     "ds": 0.978,
+     "strain": 1,
+     "tsr": 0.855,
+     "fatigue": 0.96,
+     "td": 1
+    },
+    "bottleneck": "tsr",
+    "bottleneckName": "水稳定性 冻融劈裂比",
+    "lifeMean": 7.5,
+    "lifeP10": 6.8,
+    "costM2": 66.8,
+    "euac": 10.53,
+    "carbonM2": 6.7,
+    "carbonYr": 0.9
+   },
+   {
+    "id": "SMA13/SBS70_5/lime/antirut/none/R0/lignin",
+    "label": "SMA-13 + SBS改性沥青(70#基, 5.5%) + 消石灰替代1.5%矿粉 + 抗车辙剂(0.4%混合料) + 木质素纤维0.3%",
+    "reliability": 0.933,
+    "passRate": {
+     "pgHigh": 1,
+     "pgLow": 1,
+     "ds": 0.998,
+     "strain": 1,
+     "tsr": 0.97,
+     "fatigue": 0.96,
+     "td": 1
+    },
+    "bottleneck": "fatigue",
+    "bottleneckName": "疲劳寿命",
+    "lifeMean": 7.9,
+    "lifeP10": 7.2,
+    "costM2": 72,
+    "euac": 10.85,
+    "carbonM2": 8.7,
+    "carbonYr": 1.09
+   },
+   {
+    "id": "SMA13/CR20/lime/antirut/none/R0/basalt",
+    "label": "SMA-13 + 橡胶改性沥青(20%胶粉) + 消石灰替代1.5%矿粉 + 抗车辙剂(0.4%混合料) + 玄武岩纤维0.3%",
+    "reliability": 0.895,
+    "passRate": {
+     "pgHigh": 1,
+     "pgLow": 1,
+     "ds": 0.978,
+     "strain": 1,
+     "tsr": 0.92,
+     "fatigue": 0.993,
+     "td": 1
+    },
+    "bottleneck": "tsr",
+    "bottleneckName": "水稳定性 冻融劈裂比",
+    "lifeMean": 7.7,
+    "lifeP10": 7,
+    "costM2": 70.5,
+    "euac": 10.91,
+    "carbonM2": 7.8,
+    "carbonYr": 1.02
+   },
+   {
+    "id": "SMA13/CR20/lime/antirut/warm/R0/basalt",
+    "label": "SMA-13 + 橡胶改性沥青(20%胶粉) + 消石灰替代1.5%矿粉 + 抗车辙剂(0.4%混合料) + 表面活性剂温拌(0.5%油重) + 玄武岩纤维0.3%",
+    "reliability": 0.83,
+    "passRate": {
+     "pgHigh": 1,
+     "pgLow": 1,
+     "ds": 0.978,
+     "strain": 1,
+     "tsr": 0.855,
+     "fatigue": 0.993,
+     "td": 1
+    },
+    "bottleneck": "tsr",
+    "bottleneckName": "水稳定性 冻融劈裂比",
+    "lifeMean": 7.5,
+    "lifeP10": 6.9,
+    "costM2": 70.3,
+    "euac": 11.03,
+    "carbonM2": 7.2,
+    "carbonYr": 0.95
+   },
+   {
+    "id": "SMA13/SBS70_5/lime/antirut/none/R0/basalt",
+    "label": "SMA-13 + SBS改性沥青(70#基, 5.5%) + 消石灰替代1.5%矿粉 + 抗车辙剂(0.4%混合料) + 玄武岩纤维0.3%",
+    "reliability": 0.963,
+    "passRate": {
+     "pgHigh": 1,
+     "pgLow": 1,
+     "ds": 0.998,
+     "strain": 1,
+     "tsr": 0.97,
+     "fatigue": 0.993,
+     "td": 1
+    },
+    "bottleneck": "tsr",
+    "bottleneckName": "水稳定性 冻融劈裂比",
+    "lifeMean": 8,
+    "lifeP10": 7.2,
+    "costM2": 75.5,
+    "euac": 11.29,
+    "carbonM2": 9.1,
+    "carbonYr": 1.14
+   },
+   {
+    "id": "SMA13/HVA/lime/none/none/R0/lignin",
+    "label": "SMA-13 + 高粘高弹改性沥青 + 消石灰替代1.5%矿粉 + 木质素纤维0.3%",
+    "reliability": 0.985,
+    "passRate": {
+     "pgHigh": 1,
+     "pgLow": 1,
+     "ds": 1,
+     "strain": 1,
+     "tsr": 0.988,
+     "fatigue": 0.998,
+     "td": 1
+    },
+    "bottleneck": "tsr",
+    "bottleneckName": "水稳定性 冻融劈裂比",
+    "lifeMean": 8.3,
+    "lifeP10": 7.6,
+    "costM2": 79.1,
+    "euac": 11.38,
+    "carbonM2": 8.7,
+    "carbonYr": 1.04
+   },
+   {
+    "id": "SMA13/HVA/lime/none/warm/R0/lignin",
+    "label": "SMA-13 + 高粘高弹改性沥青 + 消石灰替代1.5%矿粉 + 表面活性剂温拌(0.5%油重) + 木质素纤维0.3%",
+    "reliability": 0.975,
+    "passRate": {
+     "pgHigh": 1,
+     "pgLow": 1,
+     "ds": 1,
+     "strain": 1,
+     "tsr": 0.978,
+     "fatigue": 0.998,
+     "td": 1
+    },
+    "bottleneck": "tsr",
+    "bottleneckName": "水稳定性 冻融劈裂比",
+    "lifeMean": 8.2,
+    "lifeP10": 7.4,
+    "costM2": 78.9,
+    "euac": 11.53,
+    "carbonM2": 8,
+    "carbonYr": 0.98
+   },
+   {
+    "id": "SMA13/HVA/lime/none/none/R0/basalt",
+    "label": "SMA-13 + 高粘高弹改性沥青 + 消石灰替代1.5%矿粉 + 玄武岩纤维0.3%",
+    "reliability": 0.988,
+    "passRate": {
+     "pgHigh": 1,
+     "pgLow": 1,
+     "ds": 1,
+     "strain": 1,
+     "tsr": 0.988,
+     "fatigue": 1,
+     "td": 1
+    },
+    "bottleneck": "tsr",
+    "bottleneckName": "水稳定性 冻融劈裂比",
+    "lifeMean": 8.4,
+    "lifeP10": 7.6,
+    "costM2": 82.6,
+    "euac": 11.86,
+    "carbonM2": 9.1,
+    "carbonYr": 1.09
+   },
+   {
+    "id": "SMA13/HVA/lime/none/warm/R0/basalt",
+    "label": "SMA-13 + 高粘高弹改性沥青 + 消石灰替代1.5%矿粉 + 表面活性剂温拌(0.5%油重) + 玄武岩纤维0.3%",
+    "reliability": 0.978,
+    "passRate": {
+     "pgHigh": 1,
+     "pgLow": 1,
+     "ds": 1,
+     "strain": 1,
+     "tsr": 0.978,
+     "fatigue": 1,
+     "td": 1
+    },
+    "bottleneck": "tsr",
+    "bottleneckName": "水稳定性 冻融劈裂比",
+    "lifeMean": 8.2,
+    "lifeP10": 7.4,
+    "costM2": 82.4,
+    "euac": 12.03,
+    "carbonM2": 8.5,
+    "carbonYr": 1.03
+   }
+  ],
+  "baselines": {
+   "experience": {
+    "id": "SMA13/SBS70_4/amine/none/none/R0/lignin",
+    "label": "SMA-13 + SBS改性沥青(70#基, 4.5%) + 胺类抗剥落剂(0.4%油重) + 木质素纤维0.3%",
+    "reliability": 0.425,
+    "passRate": {
+     "pgHigh": 1,
+     "pgLow": 1,
+     "ds": 0.495,
+     "strain": 1,
+     "tsr": 0.92,
+     "fatigue": 0.885,
+     "td": 1
+    },
+    "bottleneck": "ds",
+    "bottleneckName": "高温抗车辙 动稳定度",
+    "lifeMean": 6.9,
+    "lifeP10": 6.2,
+    "costM2": 65.5,
+    "euac": 11.08,
+    "carbonM2": 7.4,
+    "carbonYr": 1.07
+   },
+   "weightedSum": {
+    "id": "SMA13/SBS70_5/lime/none/none/R0/lignin",
+    "label": "SMA-13 + SBS改性沥青(70#基, 5.5%) + 消石灰替代1.5%矿粉 + 木质素纤维0.3%",
+    "reliability": 0.815,
+    "passRate": {
+     "pgHigh": 1,
+     "pgLow": 1,
+     "ds": 0.863,
+     "strain": 1,
+     "tsr": 0.97,
+     "fatigue": 0.96,
+     "td": 1
+    },
+    "bottleneck": "ds",
+    "bottleneckName": "高温抗车辙 动稳定度",
+    "lifeMean": 7.5,
+    "lifeP10": 6.8,
+    "costM2": 66.5,
+    "euac": 10.5,
+    "carbonM2": 7.7,
+    "carbonYr": 1.03
+   },
+   "cheapest": {
+    "id": "AC16/B110/lime/none/warm/R30/none",
+    "label": "AC-16 + 110#A 道路石油沥青 + 消石灰替代1.5%矿粉 + 表面活性剂温拌(0.5%油重) + RAP 30%+再生剂",
+    "reliability": 0,
+    "passRate": {
+     "pgHigh": 0,
+     "pgLow": 1,
+     "ds": 0,
+     "strain": 0.59,
+     "tsr": 0.123,
+     "fatigue": 0.015,
+     "td": 0.88
+    },
+    "bottleneck": "pgHigh",
+    "bottleneckName": "高温分级 PG高温",
+    "lifeMean": 2.9,
+    "lifeP10": 2.5,
+    "costM2": 43.3,
+    "euac": 16.08,
+    "carbonM2": 5.2,
+    "carbonYr": 1.75
+   }
+  }
+ },
+ "C2": {
+  "engine": "SZXC-1.0",
+  "elapsedMs": 113,
+  "scenario": {
+   "roadClass": "arterial",
+   "traffic": "heavy",
+   "speed": "normal",
+   "treatment": "MR_UP",
+   "aggregate": "basalt",
+   "distresses": [
+    {
+     "id": "thermalCrack",
+     "severity": 2
+    }
+   ],
+   "ambientT": 9,
+   "haulMin": 50,
+   "targetReliability": 0.85,
+   "budgetPerM2": null,
+   "nightWork": false,
+   "samples": 400,
+   "seed": 20261021,
+   "cityId": "harbin"
+  },
+  "tags": [
+   "CZ:2-1-2",
+   "CZH:2",
+   "CZL:1",
+   "CZR:2",
+   "TL:heavy",
+   "SPD:normal",
+   "TRT:MR_UP",
+   "AGG:basalt",
+   "ROAD:arterial",
+   "DIS:thermalCrack",
+   "DIS:thermalCrack:重"
+  ],
+  "climate": {
+   "city": "哈尔滨",
+   "zone": "2-1-2",
+   "zoneName": "夏热区·冬严寒区·湿润区",
+   "pavHigh98": 52.7,
+   "pavLow98": -31.2,
+   "pgRequired98": "PG 58-40"
+  },
+  "requirements": [
+   {
+    "ind": "pgHigh",
+    "name": "高温分级 PG高温",
+    "unit": "°C",
+    "sceneTarget": 50.2,
+    "why": "LTPPBind 公式: 7日最高气温 31.5°C → 路面20mm处 50.2°C；交通/车速加级 +0 级(每级6°C)"
+   },
+   {
+    "ind": "pgLow",
+    "name": "低温分级 PG低温",
+    "unit": "°C",
+    "sceneTarget": -28,
+    "why": "SHRP 公式: 年极端低温均值 -31.1°C → 路面 -25°C；温缩裂缝严重，再降 3°C"
+   },
+   {
+    "ind": "ds",
+    "name": "高温抗车辙 动稳定度",
+    "unit": "次/mm",
+    "sceneTarget": 2000,
+    "why": "规范改性沥青 2000 次/mm（2-1 区）× 重交通 1"
+   },
+   {
+    "ind": "strain",
+    "name": "低温抗裂 破坏应变",
+    "unit": "με",
+    "sceneTarget": 3150,
+    "why": "规范改性沥青 3000 με（冬严寒区） × 裂缝病害 1.05"
+   },
+   {
+    "ind": "tsr",
+    "name": "水稳定性 冻融劈裂比",
+    "unit": "%",
+    "sceneTarget": 80,
+    "why": "规范 年降水≥500mm 改性沥青 80%"
+   },
+   {
+    "ind": "fatigue",
+    "name": "疲劳寿命",
+    "unit": "lg次",
+    "sceneTarget": 5.1,
+    "why": "重交通对应 lgNf ≥ 5.1（四点弯曲 600με）"
+   },
+   {
+    "ind": "td",
+    "name": "抗滑 构造深度",
+    "unit": "mm",
+    "sceneTarget": 0.55,
+    "why": "高等级道路构造深度 0.55 mm"
+   }
+  ],
+  "priorities": [
+   {
+    "ind": "strain",
+    "name": "低温抗裂 破坏应变",
+    "scarcity": 0.764
+   },
+   {
+    "ind": "pgLow",
+    "name": "低温分级 PG低温",
+    "scarcity": 0.747
+   },
+   {
+    "ind": "ds",
+    "name": "高温抗车辙 动稳定度",
+    "scarcity": 0.47
+   },
+   {
+    "ind": "fatigue",
+    "name": "疲劳寿命",
+    "scarcity": 0.414
+   },
+   {
+    "ind": "tsr",
+    "name": "水稳定性 冻融劈裂比",
+    "scarcity": 0.294
+   },
+   {
+    "ind": "td",
+    "name": "抗滑 构造深度",
+    "scarcity": 0.12
+   },
+   {
+    "ind": "pgHigh",
+    "name": "高温分级 PG高温",
+    "scarcity": 0
+   }
+  ],
+  "stats": {
+   "enumerated": 3747,
+   "feasible": 966,
+   "budgetCut": 0,
+   "rejected": {
+    "R08 层厚与公称最大粒径不匹配(2.5–4.0倍)": 3,
+    "R12 高RAP 掺量不再加纤维": 168,
+    "R05 硬质沥青仅用于 AC-16 且限非寒区": 144,
+    "R07 施工气温低于铺筑下限": 672,
+    "R11 RAP 不与高粘/橡胶/硬质沥青组合": 72,
+    "R09 OGFC/高粘沥青不再加抗车辙剂": 42,
+    "R01 SMA 须用改性沥青": 360,
+    "R04 SMA/OGFC 表层不掺RAP": 384,
+    "R02 OGFC 须用高粘高弹沥青": 864,
+    "R03 冬寒/严寒区不用排水路面(冻融堵塞)": 72
+   },
+   "samples": 400
+  },
+  "targetReliability": 0.85,
+  "targetReached": false,
+  "recommended": {
+   "id": "AC16/SBS110_5/lime/antirut/warm/R0/basalt",
+   "label": "AC-16 + SBS改性沥青(110#基, 5.5%) + 消石灰替代1.5%矿粉 + 抗车辙剂(0.4%混合料) + 表面活性剂温拌(0.5%油重) + 玄武岩纤维0.3%",
+   "reliability": 0.74,
+   "passRate": {
+    "pgHigh": 1,
+    "pgLow": 0.975,
+    "ds": 0.845,
+    "strain": 0.978,
+    "tsr": 0.953,
+    "fatigue": 1,
+    "td": 0.958
+   },
+   "bottleneck": "ds",
+   "bottleneckName": "高温抗车辙 动稳定度",
+   "lifeMean": 7.3,
+   "lifeP10": 6.8,
+   "costM2": 68.1,
+   "euac": 10.98,
+   "carbonM2": 7.9,
+   "carbonYr": 1.08,
+   "formula": {
+    "gradation": "AC-16",
+    "binder": "SBS改性沥青(110#基, 5.5%)",
+    "binderContent": 4.6,
+    "aggregate": "玄武岩",
+    "water": "消石灰替代1.5%矿粉",
+    "rut": "抗车辙剂(0.4%混合料)",
+    "warm": "表面活性剂温拌(0.5%油重)",
+    "rap": "不掺RAP",
+    "fiber": "玄武岩纤维0.3%",
+    "binderPG": "PG 70-40"
+   },
+   "predicted": {
+    "pgHigh": {
+     "mean": 69.2,
+     "req": null,
+     "binding": "scene"
+    },
+    "pgLow": {
+     "mean": -34.1,
+     "req": null,
+     "binding": "scene"
+    },
+    "ds": {
+     "mean": 2828.2,
+     "req": 2000,
+     "binding": "scene"
+    },
+    "strain": {
+     "mean": 3663.5,
+     "req": 3150,
+     "binding": "scene"
+    },
+    "tsr": {
+     "mean": 89,
+     "req": 80,
+     "binding": "scene"
+    },
+    "fatigue": {
+     "mean": 5.86,
+     "req": 5.1,
+     "binding": "scene"
+    },
+    "td": {
+     "mean": 0.67,
+     "req": 0.55,
+     "binding": "scene"
+    }
+   },
+   "costBreak": {
+    "materials": 33.6,
+    "additives": 11.6,
+    "production": 10.8,
+    "milling": 12
+   }
+  },
+  "process": {
+   "mixTemp": [
+    145,
+    155
+   ],
+   "compactionStartMin": 125,
+   "minAmbient": 5,
+   "vaDesign": 4,
+   "vaExpectedExcess": 0.75,
+   "robustness": {
+    "colder8": -0.19,
+    "va1": -0.2
+   }
+  },
+  "counterfactuals": [
+   {
+    "change": "纤维：玄武岩纤维0.3% → 无",
+    "dim": "fiber",
+    "id": "AC16/SBS110_5/lime/antirut/warm/R0/none",
+    "dRel": -0.02749999999999997,
+    "dEuac": -0.7668921231962376,
+    "dCarbonYr": -0.07055012971575869,
+    "meets": false,
+    "bottleneck": "ds",
+    "bottleneckRate": 0.845
+   },
+   {
+    "change": "RAP掺量：不掺RAP → RAP 15%",
+    "dim": "rap",
+    "id": "AC16/SBS110_5/lime/antirut/warm/R15/basalt",
+    "dRel": 0,
+    "dEuac": -0.534784887440038,
+    "dCarbonYr": -0.025644671447543343,
+    "meets": false,
+    "bottleneck": "pgLow",
+    "bottleneckRate": 0.9325
+   },
+   {
+    "change": "抗水损措施：消石灰替代1.5%矿粉 → 胺类抗剥落剂(0.4%油重)",
+    "dim": "water",
+    "id": "AC16/SBS110_5/amine/antirut/warm/R0/basalt",
+    "dRel": -0.012499999999999956,
+    "dEuac": 0.08099360752229678,
+    "dCarbonYr": -0.0082037625933018,
+    "meets": false,
+    "bottleneck": "ds",
+    "bottleneckRate": 0.845
+   },
+   {
+    "change": "抗车辙剂：抗车辙剂(0.4%混合料) → 无",
+    "dim": "rut",
+    "id": "AC16/SBS110_5/lime/none/warm/R0/basalt",
+    "dRel": -0.5725,
+    "dEuac": 0.20872969867445335,
+    "dCarbonYr": -0.018696711686918777,
+    "meets": false,
+    "bottleneck": "ds",
+    "bottleneckRate": 0.18
+   },
+   {
+    "change": "结合料：SBS改性沥青(110#基, 5.5%) → SBS改性沥青(90#基, 5.5%)",
+    "dim": "binder",
+    "id": "AC16/SBS90_5/lime/antirut/warm/R0/basalt",
+    "dRel": -0.22999999999999998,
+    "dEuac": 0.5368647051644917,
+    "dCarbonYr": 0.054022942852227196,
+    "meets": false,
+    "bottleneck": "strain",
+    "bottleneckRate": 0.72
+   },
+   {
+    "change": "级配：AC-16 → AC-13",
+    "dim": "grad",
+    "id": "AC13/SBS110_5/lime/antirut/warm/R0/basalt",
+    "dRel": -0.2425,
+    "dEuac": 0.5938186258087725,
+    "dCarbonYr": 0.05128106361160678,
+    "meets": false,
+    "bottleneck": "ds",
+    "bottleneckRate": 0.6775
+   },
+   {
+    "change": "抗水损措施：消石灰替代1.5%矿粉 → 无",
+    "dim": "water",
+    "id": "AC16/SBS110_5/none/antirut/warm/R0/basalt",
+    "dRel": -0.35,
+    "dEuac": 0.5987035744356888,
+    "dCarbonYr": 0.05520631705818846,
+    "meets": false,
+    "bottleneck": "tsr",
+    "bottleneckRate": 0.46
+   },
+   {
+    "change": "结合料：SBS改性沥青(110#基, 5.5%) → SBS改性沥青(90#基, 4.5%)",
+    "dim": "binder",
+    "id": "AC16/SBS90_4/lime/antirut/warm/R0/basalt",
+    "dRel": -0.4775,
+    "dEuac": 0.8541958012123221,
+    "dCarbonYr": 0.08521283545370983,
+    "meets": false,
+    "bottleneck": "strain",
+    "bottleneckRate": 0.5075
+   },
+   {
+    "change": "结合料：SBS改性沥青(110#基, 5.5%) → 橡胶改性沥青(20%胶粉)",
+    "dim": "binder",
+    "id": "AC16/CR20/lime/antirut/warm/R0/basalt",
+    "dRel": -0.6025,
+    "dEuac": 1.0663458097844476,
+    "dCarbonYr": 0.021859144359921423,
+    "meets": false,
+    "bottleneck": "strain",
+    "bottleneckRate": 0.36
+   },
+   {
+    "change": "级配：AC-16 → SMA-13",
+    "dim": "grad",
+    "id": "SMA13/SBS110_5/lime/antirut/warm/R0/basalt",
+    "dRel": -0.11499999999999999,
+    "dEuac": 1.605984918006671,
+    "dCarbonYr": 0.08959304924025502,
+    "meets": false,
+    "bottleneck": "ds",
+    "bottleneckRate": 0.64
+   },
+   {
+    "change": "结合料：SBS改性沥青(110#基, 5.5%) → SBS改性沥青(70#基, 5.5%)",
+    "dim": "binder",
+    "id": "AC16/SBS70_5/lime/antirut/warm/R0/basalt",
+    "dRel": -0.71,
+    "dEuac": 2.3820347704941813,
+    "dCarbonYr": 0.24588082298861513,
+    "meets": false,
+    "bottleneck": "strain",
+    "bottleneckRate": 0.115
+   },
+   {
+    "change": "结合料：SBS改性沥青(110#基, 5.5%) → SBS改性沥青(70#基, 4.5%)",
+    "dim": "binder",
+    "id": "AC16/SBS70_4/lime/antirut/warm/R0/basalt",
+    "dRel": -0.7325,
+    "dEuac": 2.951112470971683,
+    "dCarbonYr": 0.3024842458507606,
+    "meets": false,
+    "bottleneck": "strain",
+    "bottleneckRate": 0.0425
+   }
+  ],
+  "alternatives": [
+   {
+    "id": "AC16/SBS110_5/lime/antirut/warm/R15/basalt",
+    "label": "AC-16 + SBS改性沥青(110#基, 5.5%) + 消石灰替代1.5%矿粉 + 抗车辙剂(0.4%混合料) + 表面活性剂温拌(0.5%油重) + RAP 15% + 玄武岩纤维0.3%",
+    "reliability": 0.74,
+    "passRate": {
+     "pgHigh": 1,
+     "pgLow": 0.933,
+     "ds": 0.933,
+     "strain": 0.945,
+     "tsr": 0.933,
+     "fatigue": 0.998,
+     "td": 0.958
+    },
+    "bottleneck": "pgLow",
+    "bottleneckName": "低温分级 PG低温",
+    "lifeMean": 7.2,
+    "lifeP10": 6.7,
+    "costM2": 64.4,
+    "euac": 10.45,
+    "carbonM2": 7.6,
+    "carbonYr": 1.05
+   },
+   {
+    "id": "SMA13/CR20/lime/none/warm/R0/lignin",
+    "label": "SMA-13 + 橡胶改性沥青(20%胶粉) + 消石灰替代1.5%矿粉 + 表面活性剂温拌(0.5%油重) + 木质素纤维0.3%",
+    "reliability": 0.378,
+    "passRate": {
+     "pgHigh": 1,
+     "pgLow": 0.413,
+     "ds": 0.93,
+     "strain": 0.965,
+     "tsr": 0.993,
+     "fatigue": 1,
+     "td": 1
+    },
+    "bottleneck": "pgLow",
+    "bottleneckName": "低温分级 PG低温",
+    "lifeMean": 6.5,
+    "lifeP10": 5.2,
+    "costM2": 63.8,
+    "euac": 11.52,
+    "carbonM2": 5.8,
+    "carbonYr": 0.88
+   },
+   {
+    "id": "SMA13/CR20/amine/none/warm/R0/lignin",
+    "label": "SMA-13 + 橡胶改性沥青(20%胶粉) + 胺类抗剥落剂(0.4%油重) + 表面活性剂温拌(0.5%油重) + 木质素纤维0.3%",
+    "reliability": 0.375,
+    "passRate": {
+     "pgHigh": 1,
+     "pgLow": 0.413,
+     "ds": 0.93,
+     "strain": 0.965,
+     "tsr": 0.983,
+     "fatigue": 1,
+     "td": 1
+    },
+    "bottleneck": "pgLow",
+    "bottleneckName": "低温分级 PG低温",
+    "lifeMean": 6.5,
+    "lifeP10": 5.2,
+    "costM2": 64.1,
+    "euac": 11.58,
+    "carbonM2": 5.7,
+    "carbonYr": 0.87
+   },
+   {
+    "id": "AC13/CR20/amine/none/warm/R0/none",
+    "label": "AC-13 + 橡胶改性沥青(20%胶粉) + 胺类抗剥落剂(0.4%油重) + 表面活性剂温拌(0.5%油重)",
+    "reliability": 0.145,
+    "passRate": {
+     "pgHigh": 1,
+     "pgLow": 0.413,
+     "ds": 0.94,
+     "strain": 0.553,
+     "tsr": 0.905,
+     "fatigue": 0.978,
+     "td": 0.783
+    },
+    "bottleneck": "pgLow",
+    "bottleneckName": "低温分级 PG低温",
+    "lifeMean": 6.3,
+    "lifeP10": 5.2,
+    "costM2": 55.4,
+    "euac": 10.29,
+    "carbonM2": 5.3,
+    "carbonYr": 0.84
+   }
+  ],
+  "pareto": [
+   {
+    "id": "AC16/SBS110_5/lime/none/warm/R30/none",
+    "label": "AC-16 + SBS改性沥青(110#基, 5.5%) + 消石灰替代1.5%矿粉 + 表面活性剂温拌(0.5%油重) + RAP 30%+再生剂",
+    "reliability": 0.238,
+    "passRate": {
+     "pgHigh": 1,
+     "pgLow": 0.838,
+     "ds": 0.49,
+     "strain": 0.783,
+     "tsr": 0.888,
+     "fatigue": 0.94,
+     "td": 0.958
+    },
+    "bottleneck": "ds",
+    "bottleneckName": "高温抗车辙 动稳定度",
+    "lifeMean": 6.7,
+    "lifeP10": 6.1,
+    "costM2": 50.7,
+    "euac": 8.8,
+    "carbonM2": 5.9,
+    "carbonYr": 0.88
+   },
+   {
+    "id": "AC16/SBS110_5/amine/none/warm/R30/none",
+    "label": "AC-16 + SBS改性沥青(110#基, 5.5%) + 胺类抗剥落剂(0.4%油重) + 表面活性剂温拌(0.5%油重) + RAP 30%+再生剂",
+    "reliability": 0.235,
+    "passRate": {
+     "pgHigh": 1,
+     "pgLow": 0.838,
+     "ds": 0.49,
+     "strain": 0.783,
+     "tsr": 0.83,
+     "fatigue": 0.94,
+     "td": 0.958
+    },
+    "bottleneck": "ds",
+    "bottleneckName": "高温抗车辙 动稳定度",
+    "lifeMean": 6.7,
+    "lifeP10": 6.1,
+    "costM2": 51,
+    "euac": 8.87,
+    "carbonM2": 5.8,
+    "carbonYr": 0.86
+   },
+   {
+    "id": "AC16/SBS110_5/lime/none/warm/R15/none",
+    "label": "AC-16 + SBS改性沥青(110#基, 5.5%) + 消石灰替代1.5%矿粉 + 表面活性剂温拌(0.5%油重) + RAP 15%",
+    "reliability": 0.245,
+    "passRate": {
+     "pgHigh": 1,
+     "pgLow": 0.933,
+     "ds": 0.318,
+     "strain": 0.945,
+     "tsr": 0.933,
+     "fatigue": 0.993,
+     "td": 0.958
+    },
+    "bottleneck": "ds",
+    "bottleneckName": "高温抗车辙 动稳定度",
+    "lifeMean": 6.7,
+    "lifeP10": 6,
+    "costM2": 53.7,
+    "euac": 9.37,
+    "carbonM2": 6.1,
+    "carbonYr": 0.91
+   },
+   {
+    "id": "AC16/SBS110_5/lime/antirut/warm/R30/none",
+    "label": "AC-16 + SBS改性沥青(110#基, 5.5%) + 消石灰替代1.5%矿粉 + 抗车辙剂(0.4%混合料) + 表面活性剂温拌(0.5%油重) + RAP 30%+再生剂",
+    "reliability": 0.335,
+    "passRate": {
+     "pgHigh": 1,
+     "pgLow": 0.838,
+     "ds": 0.978,
+     "strain": 0.5,
+     "tsr": 0.888,
+     "fatigue": 0.94,
+     "td": 0.958
+    },
+    "bottleneck": "strain",
+    "bottleneckName": "低温抗裂 破坏应变",
+    "lifeMean": 6.8,
+    "lifeP10": 6.2,
+    "costM2": 56.1,
+    "euac": 9.62,
+    "carbonM2": 6.8,
+    "carbonYr": 1
+   },
+   {
+    "id": "AC16/SBS110_5/amine/antirut/warm/R30/none",
+    "label": "AC-16 + SBS改性沥青(110#基, 5.5%) + 胺类抗剥落剂(0.4%油重) + 抗车辙剂(0.4%混合料) + 表面活性剂温拌(0.5%油重) + RAP 30%+再生剂",
+    "reliability": 0.32,
+    "passRate": {
+     "pgHigh": 1,
+     "pgLow": 0.838,
+     "ds": 0.978,
+     "strain": 0.5,
+     "tsr": 0.83,
+     "fatigue": 0.94,
+     "td": 0.958
+    },
+    "bottleneck": "strain",
+    "bottleneckName": "低温抗裂 破坏应变",
+    "lifeMean": 6.8,
+    "lifeP10": 6.2,
+    "costM2": 56.4,
+    "euac": 9.69,
+    "carbonM2": 6.8,
+    "carbonYr": 0.99
+   },
+   {
+    "id": "AC13/SBS110_5/lime/antirut/warm/R30/none",
+    "label": "AC-13 + SBS改性沥青(110#基, 5.5%) + 消石灰替代1.5%矿粉 + 抗车辙剂(0.4%混合料) + 表面活性剂温拌(0.5%油重) + RAP 30%+再生剂",
+    "reliability": 0.373,
+    "passRate": {
+     "pgHigh": 1,
+     "pgLow": 0.838,
+     "ds": 0.923,
+     "strain": 0.67,
+     "tsr": 0.933,
+     "fatigue": 0.99,
+     "td": 0.778
+    },
+    "bottleneck": "strain",
+    "bottleneckName": "低温抗裂 破坏应变",
+    "lifeMean": 6.9,
+    "lifeP10": 6.3,
+    "costM2": 57.2,
+    "euac": 9.73,
+    "carbonM2": 6.9,
+    "carbonYr": 1
+   },
+   {
+    "id": "AC16/SBS110_5/lime/antirut/warm/R15/none",
+    "label": "AC-16 + SBS改性沥青(110#基, 5.5%) + 消石灰替代1.5%矿粉 + 抗车辙剂(0.4%混合料) + 表面活性剂温拌(0.5%油重) + RAP 15%",
+    "reliability": 0.648,
+    "passRate": {
+     "pgHigh": 1,
+     "pgLow": 0.933,
+     "ds": 0.933,
+     "strain": 0.823,
+     "tsr": 0.933,
+     "fatigue": 0.993,
+     "td": 0.958
+    },
+    "bottleneck": "strain",
+    "bottleneckName": "低温抗裂 破坏应变",
+    "lifeMean": 7.1,
+    "lifeP10": 6.6,
+    "costM2": 59.2,
+    "euac": 9.74,
+    "carbonM2": 7.1,
+    "carbonYr": 0.99
+   },
+   {
+    "id": "AC16/SBS110_5/amine/antirut/warm/R15/none",
+    "label": "AC-16 + SBS改性沥青(110#基, 5.5%) + 胺类抗剥落剂(0.4%油重) + 抗车辙剂(0.4%混合料) + 表面活性剂温拌(0.5%油重) + RAP 15%",
+    "reliability": 0.618,
+    "passRate": {
+     "pgHigh": 1,
+     "pgLow": 0.933,
+     "ds": 0.933,
+     "strain": 0.823,
+     "tsr": 0.888,
+     "fatigue": 0.993,
+     "td": 0.958
+    },
+    "bottleneck": "strain",
+    "bottleneckName": "低温抗裂 破坏应变",
+    "lifeMean": 7.1,
+    "lifeP10": 6.6,
+    "costM2": 59.5,
+    "euac": 9.82,
+    "carbonM2": 7,
+    "carbonYr": 0.98
+   },
+   {
+    "id": "AC16/SBS90_5/lime/none/warm/R0/none",
+    "label": "AC-16 + SBS改性沥青(90#基, 5.5%) + 消石灰替代1.5%矿粉 + 表面活性剂温拌(0.5%油重)",
+    "reliability": 0.408,
+    "passRate": {
+     "pgHigh": 1,
+     "pgLow": 0.75,
+     "ds": 0.815,
+     "strain": 0.72,
+     "tsr": 0.95,
+     "fatigue": 0.993,
+     "td": 0.96
+    },
+    "bottleneck": "strain",
+    "bottleneckName": "低温抗裂 破坏应变",
+    "lifeMean": 6.8,
+    "lifeP10": 6.2,
+    "costM2": 57.6,
+    "euac": 9.85,
+    "carbonM2": 6.3,
+    "carbonYr": 0.92
+   },
+   {
+    "id": "AC16/SBS90_5/amine/none/warm/R0/none",
+    "label": "AC-16 + SBS改性沥青(90#基, 5.5%) + 胺类抗剥落剂(0.4%油重) + 表面活性剂温拌(0.5%油重)",
+    "reliability": 0.4,
+    "passRate": {
+     "pgHigh": 1,
+     "pgLow": 0.75,
+     "ds": 0.815,
+     "strain": 0.72,
+     "tsr": 0.928,
+     "fatigue": 0.993,
+     "td": 0.96
+    },
+    "bottleneck": "strain",
+    "bottleneckName": "低温抗裂 破坏应变",
+    "lifeMean": 6.8,
+    "lifeP10": 6.1,
+    "costM2": 57.9,
+    "euac": 9.91,
+    "carbonM2": 6.2,
+    "carbonYr": 0.91
+   },
+   {
+    "id": "AC16/CR20/amine/none/warm/R0/none",
+    "label": "AC-16 + 橡胶改性沥青(20%胶粉) + 胺类抗剥落剂(0.4%油重) + 表面活性剂温拌(0.5%油重)",
+    "reliability": 0.128,
+    "passRate": {
+     "pgHigh": 1,
+     "pgLow": 0.413,
+     "ds": 0.988,
+     "strain": 0.36,
+     "tsr": 0.855,
+     "fatigue": 0.91,
+     "td": 0.96
+    },
+    "bottleneck": "strain",
+    "bottleneckName": "低温抗裂 破坏应变",
+    "lifeMean": 6.2,
+    "lifeP10": 5.2,
+    "costM2": 54.2,
+    "euac": 10.15,
+    "carbonM2": 5.3,
+    "carbonYr": 0.84
+   },
+   {
+    "id": "AC16/SBS110_5/lime/antirut/warm/R0/none",
+    "label": "AC-16 + SBS改性沥青(110#基, 5.5%) + 消石灰替代1.5%矿粉 + 抗车辙剂(0.4%混合料) + 表面活性剂温拌(0.5%油重)",
+    "reliability": 0.713,
+    "passRate": {
+     "pgHigh": 1,
+     "pgLow": 0.975,
+     "ds": 0.845,
+     "strain": 0.945,
+     "tsr": 0.953,
+     "fatigue": 0.998,
+     "td": 0.958
+    },
+    "bottleneck": "ds",
+    "bottleneckName": "高温抗车辙 动稳定度",
+    "lifeMean": 7.2,
+    "lifeP10": 6.7,
+    "costM2": 62.9,
+    "euac": 10.22,
+    "carbonM2": 7.3,
+    "carbonYr": 1.01
+   },
+   {
+    "id": "AC13/CR20/lime/none/warm/R0/none",
+    "label": "AC-13 + 橡胶改性沥青(20%胶粉) + 消石灰替代1.5%矿粉 + 表面活性剂温拌(0.5%油重)",
+    "reliability": 0.15,
+    "passRate": {
+     "pgHigh": 1,
+     "pgLow": 0.413,
+     "ds": 0.94,
+     "strain": 0.553,
+     "tsr": 0.94,
+     "fatigue": 0.978,
+     "td": 0.783
+    },
+    "bottleneck": "pgLow",
+    "bottleneckName": "低温分级 PG低温",
+    "lifeMean": 6.3,
+    "lifeP10": 5.2,
+    "costM2": 55.2,
+    "euac": 10.23,
+    "carbonM2": 5.4,
+    "carbonYr": 0.85
+   },
+   {
+    "id": "AC16/SBS110_5/amine/antirut/warm/R0/none",
+    "label": "AC-16 + SBS改性沥青(110#基, 5.5%) + 胺类抗剥落剂(0.4%油重) + 抗车辙剂(0.4%混合料) + 表面活性剂温拌(0.5%油重)",
+    "reliability": 0.7,
+    "passRate": {
+     "pgHigh": 1,
+     "pgLow": 0.975,
+     "ds": 0.845,
+     "strain": 0.945,
+     "tsr": 0.933,
+     "fatigue": 0.998,
+     "td": 0.958
+    },
+    "bottleneck": "ds",
+    "bottleneckName": "高温抗车辙 动稳定度",
+    "lifeMean": 7.2,
+    "lifeP10": 6.7,
+    "costM2": 63.2,
+    "euac": 10.29,
+    "carbonM2": 7.2,
+    "carbonYr": 1
+   },
+   {
+    "id": "AC13/CR20/amine/none/warm/R0/none",
+    "label": "AC-13 + 橡胶改性沥青(20%胶粉) + 胺类抗剥落剂(0.4%油重) + 表面活性剂温拌(0.5%油重)",
+    "reliability": 0.145,
+    "passRate": {
+     "pgHigh": 1,
+     "pgLow": 0.413,
+     "ds": 0.94,
+     "strain": 0.553,
+     "tsr": 0.905,
+     "fatigue": 0.978,
+     "td": 0.783
+    },
+    "bottleneck": "pgLow",
+    "bottleneckName": "低温分级 PG低温",
+    "lifeMean": 6.3,
+    "lifeP10": 5.2,
+    "costM2": 55.4,
+    "euac": 10.29,
+    "carbonM2": 5.3,
+    "carbonYr": 0.84
+   },
+   {
+    "id": "AC16/SBS110_5/lime/antirut/warm/R15/basalt",
+    "label": "AC-16 + SBS改性沥青(110#基, 5.5%) + 消石灰替代1.5%矿粉 + 抗车辙剂(0.4%混合料) + 表面活性剂温拌(0.5%油重) + RAP 15% + 玄武岩纤维0.3%",
+    "reliability": 0.74,
+    "passRate": {
+     "pgHigh": 1,
+     "pgLow": 0.933,
+     "ds": 0.933,
+     "strain": 0.945,
+     "tsr": 0.933,
+     "fatigue": 0.998,
+     "td": 0.958
+    },
+    "bottleneck": "pgLow",
+    "bottleneckName": "低温分级 PG低温",
+    "lifeMean": 7.2,
+    "lifeP10": 6.7,
+    "costM2": 64.4,
+    "euac": 10.45,
+    "carbonM2": 7.6,
+    "carbonYr": 1.05
+   },
+   {
+    "id": "SMA13/CR20/lime/none/warm/R0/lignin",
+    "label": "SMA-13 + 橡胶改性沥青(20%胶粉) + 消石灰替代1.5%矿粉 + 表面活性剂温拌(0.5%油重) + 木质素纤维0.3%",
+    "reliability": 0.378,
+    "passRate": {
+     "pgHigh": 1,
+     "pgLow": 0.413,
+     "ds": 0.93,
+     "strain": 0.965,
+     "tsr": 0.993,
+     "fatigue": 1,
+     "td": 1
+    },
+    "bottleneck": "pgLow",
+    "bottleneckName": "低温分级 PG低温",
+    "lifeMean": 6.5,
+    "lifeP10": 5.2,
+    "costM2": 63.8,
+    "euac": 11.52,
+    "carbonM2": 5.8,
+    "carbonYr": 0.88
+   },
+   {
+    "id": "SMA13/CR20/amine/none/warm/R0/lignin",
+    "label": "SMA-13 + 橡胶改性沥青(20%胶粉) + 胺类抗剥落剂(0.4%油重) + 表面活性剂温拌(0.5%油重) + 木质素纤维0.3%",
+    "reliability": 0.375,
+    "passRate": {
+     "pgHigh": 1,
+     "pgLow": 0.413,
+     "ds": 0.93,
+     "strain": 0.965,
+     "tsr": 0.983,
+     "fatigue": 1,
+     "td": 1
+    },
+    "bottleneck": "pgLow",
+    "bottleneckName": "低温分级 PG低温",
+    "lifeMean": 6.5,
+    "lifeP10": 5.2,
+    "costM2": 64.1,
+    "euac": 11.58,
+    "carbonM2": 5.7,
+    "carbonYr": 0.87
+   }
+  ],
+  "baselines": {
+   "experience": {
+    "id": "AC13/SBS110_5/none/none/none/R0/none",
+    "label": "AC-13 + SBS改性沥青(110#基, 5.5%)",
+    "reliability": 0.035,
+    "passRate": {
+     "pgHigh": 1,
+     "pgLow": 0.975,
+     "ds": 0.048,
+     "strain": 0.99,
+     "tsr": 0.478,
+     "fatigue": 0.998,
+     "td": 0.81
+    },
+    "bottleneck": "ds",
+    "bottleneckName": "高温抗车辙 动稳定度",
+    "lifeMean": 6,
+    "lifeP10": 5.4,
+    "costM2": 58.7,
+    "euac": 11.19,
+    "carbonM2": 6.9,
+    "carbonYr": 1.14
+   },
+   "weightedSum": {
+    "id": "SMA13/CR20/lime/none/warm/R0/lignin",
+    "label": "SMA-13 + 橡胶改性沥青(20%胶粉) + 消石灰替代1.5%矿粉 + 表面活性剂温拌(0.5%油重) + 木质素纤维0.3%",
+    "reliability": 0.378,
+    "passRate": {
+     "pgHigh": 1,
+     "pgLow": 0.413,
+     "ds": 0.93,
+     "strain": 0.965,
+     "tsr": 0.993,
+     "fatigue": 1,
+     "td": 1
+    },
+    "bottleneck": "pgLow",
+    "bottleneckName": "低温分级 PG低温",
+    "lifeMean": 6.5,
+    "lifeP10": 5.2,
+    "costM2": 63.8,
+    "euac": 11.52,
+    "carbonM2": 5.8,
+    "carbonYr": 0.88
+   },
+   "cheapest": {
+    "id": "AC16/B110/none/none/warm/R30/none",
+    "label": "AC-16 + 110#A 道路石油沥青 + 表面活性剂温拌(0.5%油重) + RAP 30%+再生剂",
+    "reliability": 0,
+    "passRate": {
+     "pgHigh": 1,
+     "pgLow": 0.12,
+     "ds": 0,
+     "strain": 0,
+     "tsr": 0.113,
+     "fatigue": 0.153,
+     "td": 0.943
+    },
+    "bottleneck": "ds",
+    "bottleneckName": "高温抗车辙 动稳定度",
+    "lifeMean": 4.2,
+    "lifeP10": 3.5,
+    "costM2": 44.9,
+    "euac": 12.12,
+    "carbonM2": 5,
+    "carbonYr": 1.21
+   }
+  }
+ },
+ "C3": {
+  "engine": "SZXC-1.0",
+  "elapsedMs": 170,
+  "scenario": {
+   "roadClass": "highway",
+   "traffic": "heavy",
+   "speed": "normal",
+   "treatment": "MR_UP",
+   "aggregate": "limestone",
+   "distresses": [
+    {
+     "id": "moisture",
+     "severity": 2
+    },
+    {
+     "id": "fatigueCrack",
+     "severity": 1
+    }
+   ],
+   "ambientT": 22,
+   "haulMin": 45,
+   "targetReliability": 0.9,
+   "budgetPerM2": null,
+   "nightWork": false,
+   "samples": 400,
+   "seed": 20261021,
+   "cityId": "chongqing"
+  },
+  "tags": [
+   "CZ:1-4-1",
+   "CZH:1",
+   "CZL:4",
+   "CZR:1",
+   "TL:heavy",
+   "SPD:normal",
+   "TRT:MR_UP",
+   "AGG:limestone",
+   "ROAD:highway",
+   "DIS:moisture",
+   "DIS:moisture:重",
+   "DIS:fatigueCrack",
+   "DIS:fatigueCrack:中"
+  ],
+  "climate": {
+   "city": "重庆",
+   "zone": "1-4-1",
+   "zoneName": "夏炎热区·冬温区·潮湿区",
+   "pavHigh98": 63.1,
+   "pavLow98": 0.1,
+   "pgRequired98": "PG 64-10"
+  },
+  "requirements": [
+   {
+    "ind": "pgHigh",
+    "name": "高温分级 PG高温",
+    "unit": "°C",
+    "sceneTarget": 60.4,
+    "why": "LTPPBind 公式: 7日最高气温 38.3°C → 路面20mm处 60.4°C；交通/车速加级 +0 级(每级6°C)"
+   },
+   {
+    "ind": "pgLow",
+    "name": "低温分级 PG低温",
+    "unit": "°C",
+    "sceneTarget": 3.2,
+    "why": "SHRP 公式: 年极端低温均值 1.8°C → 路面 3.2°C"
+   },
+   {
+    "ind": "ds",
+    "name": "高温抗车辙 动稳定度",
+    "unit": "次/mm",
+    "sceneTarget": 2800,
+    "why": "规范改性沥青 2800 次/mm（1-4 区）× 重交通 1"
+   },
+   {
+    "ind": "strain",
+    "name": "低温抗裂 破坏应变",
+    "unit": "με",
+    "sceneTarget": 2500,
+    "why": "规范改性沥青 2500 με（冬温区）"
+   },
+   {
+    "ind": "tsr",
+    "name": "水稳定性 冻融劈裂比",
+    "unit": "%",
+    "sceneTarget": 84,
+    "why": "规范 年降水≥500mm 改性沥青 80% + 水损害病害 4%"
+   },
+   {
+    "ind": "fatigue",
+    "name": "疲劳寿命",
+    "unit": "lg次",
+    "sceneTarget": 5.3,
+    "why": "重交通对应 lgNf ≥ 5.1（四点弯曲 600με） + 网裂病害 0.2"
+   },
+   {
+    "ind": "td",
+    "name": "抗滑 构造深度",
+    "unit": "mm",
+    "sceneTarget": 0.55,
+    "why": "高等级道路构造深度 0.55 mm"
+   }
+  ],
+  "priorities": [
+   {
+    "ind": "ds",
+    "name": "高温抗车辙 动稳定度",
+    "scarcity": 0.45
+   },
+   {
+    "ind": "fatigue",
+    "name": "疲劳寿命",
+    "scarcity": 0.42
+   },
+   {
+    "ind": "td",
+    "name": "抗滑 构造深度",
+    "scarcity": 0.299
+   },
+   {
+    "ind": "strain",
+    "name": "低温抗裂 破坏应变",
+    "scarcity": 0.284
+   },
+   {
+    "ind": "tsr",
+    "name": "水稳定性 冻融劈裂比",
+    "scarcity": 0.181
+   },
+   {
+    "ind": "pgHigh",
+    "name": "高温分级 PG高温",
+    "scarcity": 0.096
+   },
+   {
+    "ind": "pgLow",
+    "name": "低温分级 PG低温",
+    "scarcity": 0
+   }
+  ],
+  "stats": {
+   "enumerated": 3747,
+   "feasible": 1488,
+   "budgetCut": 0,
+   "rejected": {
+    "R08 层厚与公称最大粒径不匹配(2.5–4.0倍)": 3,
+    "R12 高RAP 掺量不再加纤维": 240,
+    "R05 硬质沥青仅用于 AC-16 且限非寒区": 72,
+    "R11 RAP 不与高粘/橡胶/硬质沥青组合": 192,
+    "R09 OGFC/高粘沥青不再加抗车辙剂": 96,
+    "R01 SMA 须用改性沥青": 360,
+    "R04 SMA/OGFC 表层不掺RAP": 432,
+    "R02 OGFC 须用高粘高弹沥青": 864
+   },
+   "samples": 400
+  },
+  "targetReliability": 0.9,
+  "targetReached": true,
+  "recommended": {
+   "id": "SMA13/CR20/lime/none/warm/R0/lignin",
+   "label": "SMA-13 + 橡胶改性沥青(20%胶粉) + 消石灰替代1.5%矿粉 + 表面活性剂温拌(0.5%油重) + 木质素纤维0.3%",
+   "reliability": 0.975,
+   "passRate": {
+    "pgHigh": 1,
+    "pgLow": 1,
+    "ds": 0.978,
+    "strain": 1,
+    "tsr": 1,
+    "fatigue": 0.998,
+    "td": 1
+   },
+   "bottleneck": "ds",
+   "bottleneckName": "高温抗车辙 动稳定度",
+   "lifeMean": 8.1,
+   "lifeP10": 7.4,
+   "costM2": 61.8,
+   "euac": 9.07,
+   "carbonM2": 5.8,
+   "carbonYr": 0.71,
+   "formula": {
+    "gradation": "SMA-13",
+    "binder": "橡胶改性沥青(20%胶粉)",
+    "binderContent": 5.9,
+    "aggregate": "石灰岩",
+    "water": "消石灰替代1.5%矿粉",
+    "rut": "无",
+    "warm": "表面活性剂温拌(0.5%油重)",
+    "rap": "不掺RAP",
+    "fiber": "木质素纤维0.3%",
+    "binderPG": "PG 76-28"
+   },
+   "predicted": {
+    "pgHigh": {
+     "mean": 76,
+     "req": null,
+     "binding": "scene"
+    },
+    "pgLow": {
+     "mean": -27,
+     "req": null,
+     "binding": "scene"
+    },
+    "ds": {
+     "mean": 4806.7,
+     "req": 3000,
+     "binding": "std"
+    },
+    "strain": {
+     "mean": 3570,
+     "req": 2500,
+     "binding": "scene"
+    },
+    "tsr": {
+     "mean": 95,
+     "req": 84,
+     "binding": "scene"
+    },
+    "fatigue": {
+     "mean": 5.9,
+     "req": 5.3,
+     "binding": "scene"
+    },
+    "td": {
+     "mean": 0.9,
+     "req": 0.55,
+     "binding": "scene"
+    }
+   },
+   "costBreak": {
+    "materials": 36.1,
+    "additives": 2.7,
+    "production": 10.9,
+    "milling": 12
+   }
+  },
+  "process": {
+   "mixTemp": [
+    150,
+    160
+   ],
+   "compactionStartMin": 130,
+   "minAmbient": 5,
+   "vaDesign": 3.5,
+   "vaExpectedExcess": 0,
+   "robustness": {
+    "colder8": 0,
+    "va1": -0.052
+   }
+  },
+  "counterfactuals": [
+   {
+    "change": "拌和工艺：表面活性剂温拌(0.5%油重) → 热拌",
+    "dim": "warm",
+    "id": "SMA13/CR20/lime/none/none/R0/lignin",
+    "dRel": 0,
+    "dEuac": 0.006993159374747648,
+    "dCarbonYr": 0.07558567056559184,
+    "meets": true,
+    "bottleneck": "ds",
+    "bottleneckRate": 0.9775
+   },
+   {
+    "change": "抗水损措施：消石灰替代1.5%矿粉 → 胺类抗剥落剂(0.4%油重)",
+    "dim": "water",
+    "id": "SMA13/CR20/amine/none/warm/R0/lignin",
+    "dRel": -0.0024999999999999467,
+    "dEuac": 0.07827671089752641,
+    "dCarbonYr": -0.007509814152141914,
+    "meets": true,
+    "bottleneck": "ds",
+    "bottleneckRate": 0.9775
+   },
+   {
+    "change": "结合料：橡胶改性沥青(20%胶粉) → SBS改性沥青(70#基, 5.5%)",
+    "dim": "binder",
+    "id": "SMA13/SBS70_5/lime/none/warm/R0/lignin",
+    "dRel": 0.020000000000000018,
+    "dEuac": 0.31311117737503835,
+    "dCarbonYr": 0.11481537301513267,
+    "meets": true,
+    "bottleneck": "ds",
+    "bottleneckRate": 0.9975
+   },
+   {
+    "change": "抗车辙剂：无 → 抗车辙剂(0.4%混合料)",
+    "dim": "rut",
+    "id": "SMA13/CR20/lime/antirut/warm/R0/lignin",
+    "dRel": 0.022500000000000075,
+    "dEuac": 0.34834498479798803,
+    "dCarbonYr": 0.07643600212590673,
+    "meets": true,
+    "bottleneck": "fatigue",
+    "bottleneckRate": 0.9975
+   },
+   {
+    "change": "结合料：橡胶改性沥青(20%胶粉) → SBS改性沥青(70#基, 4.5%)",
+    "dim": "binder",
+    "id": "SMA13/SBS70_4/lime/none/warm/R0/lignin",
+    "dRel": 0.0050000000000000044,
+    "dEuac": 0.5066180614477389,
+    "dCarbonYr": 0.13035649007757644,
+    "meets": true,
+    "bottleneck": "ds",
+    "bottleneckRate": 0.9875
+   },
+   {
+    "change": "纤维：木质素纤维0.3% → 玄武岩纤维0.3%",
+    "dim": "fiber",
+    "id": "SMA13/CR20/lime/none/warm/R0/basalt",
+    "dRel": 0.0025000000000000577,
+    "dEuac": 0.5110957803987439,
+    "dCarbonYr": 0.053492104749607305,
+    "meets": true,
+    "bottleneck": "ds",
+    "bottleneckRate": 0.9775
+   },
+   {
+    "change": "抗水损措施：消石灰替代1.5%矿粉 → 无",
+    "dim": "water",
+    "id": "SMA13/CR20/none/none/warm/R0/lignin",
+    "dRel": -0.14,
+    "dEuac": 0.5347063529721812,
+    "dCarbonYr": 0.039046685346220134,
+    "meets": false,
+    "bottleneck": "tsr",
+    "bottleneckRate": 0.855
+   },
+   {
+    "change": "结合料：橡胶改性沥青(20%胶粉) → SBS改性沥青(70#基, 3.5%)",
+    "dim": "binder",
+    "id": "SMA13/SBS70_3/lime/none/warm/R0/lignin",
+    "dRel": -0.14500000000000002,
+    "dEuac": 0.959025815551195,
+    "dCarbonYr": 0.17127445921765627,
+    "meets": false,
+    "bottleneck": "ds",
+    "bottleneckRate": 0.8625
+   },
+   {
+    "change": "结合料：橡胶改性沥青(20%胶粉) → SBS改性沥青(90#基, 5.5%)",
+    "dim": "binder",
+    "id": "SMA13/SBS90_5/lime/none/warm/R0/lignin",
+    "dRel": -0.24749999999999994,
+    "dEuac": 1.5118748569329874,
+    "dCarbonYr": 0.24069459884908073,
+    "meets": false,
+    "bottleneck": "ds",
+    "bottleneckRate": 0.7275
+   },
+   {
+    "change": "结合料：橡胶改性沥青(20%胶粉) → 高粘高弹改性沥青",
+    "dim": "binder",
+    "id": "SMA13/HVA/lime/none/warm/R0/lignin",
+    "dRel": 0.025000000000000022,
+    "dEuac": 1.7473483396224143,
+    "dCarbonYr": 0.1985827285420434,
+    "meets": true,
+    "bottleneck": "pgHigh",
+    "bottleneckRate": 1
+   },
+   {
+    "change": "结合料：橡胶改性沥青(20%胶粉) → SBS改性沥青(90#基, 4.5%)",
+    "dim": "binder",
+    "id": "SMA13/SBS90_4/lime/none/warm/R0/lignin",
+    "dRel": -0.6625,
+    "dEuac": 2.124352641527489,
+    "dCarbonYr": 0.29992129543280266,
+    "meets": false,
+    "bottleneck": "ds",
+    "bottleneckRate": 0.3125
+   },
+   {
+    "change": "结合料：橡胶改性沥青(20%胶粉) → SBS改性沥青(110#基, 5.5%)",
+    "dim": "binder",
+    "id": "SMA13/SBS110_5/lime/none/warm/R0/lignin",
+    "dRel": -0.88,
+    "dEuac": 2.9954149819606393,
+    "dCarbonYr": 0.39796080486420726,
+    "meets": false,
+    "bottleneck": "ds",
+    "bottleneckRate": 0.095
+   }
+  ],
+  "alternatives": [
+   {
+    "id": "SMA13/CR20/amine/none/warm/R0/lignin",
+    "label": "SMA-13 + 橡胶改性沥青(20%胶粉) + 胺类抗剥落剂(0.4%油重) + 表面活性剂温拌(0.5%油重) + 木质素纤维0.3%",
+    "reliability": 0.973,
+    "passRate": {
+     "pgHigh": 1,
+     "pgLow": 1,
+     "ds": 0.978,
+     "strain": 1,
+     "tsr": 0.998,
+     "fatigue": 0.998,
+     "td": 1
+    },
+    "bottleneck": "ds",
+    "bottleneckName": "高温抗车辙 动稳定度",
+    "lifeMean": 8.1,
+    "lifeP10": 7.4,
+    "costM2": 62.1,
+    "euac": 9.15,
+    "carbonM2": 5.7,
+    "carbonYr": 0.7
+   },
+   {
+    "id": "AC16/CR20/amine/none/warm/R0/none",
+    "label": "AC-16 + 橡胶改性沥青(20%胶粉) + 胺类抗剥落剂(0.4%油重) + 表面活性剂温拌(0.5%油重)",
+    "reliability": 0.545,
+    "passRate": {
+     "pgHigh": 1,
+     "pgLow": 1,
+     "ds": 0.89,
+     "strain": 1,
+     "tsr": 0.97,
+     "fatigue": 0.785,
+     "td": 0.805
+    },
+    "bottleneck": "fatigue",
+    "bottleneckName": "疲劳寿命",
+    "lifeMean": 7,
+    "lifeP10": 6.1,
+    "costM2": 52.2,
+    "euac": 8.81,
+    "carbonM2": 5.3,
+    "carbonYr": 0.75
+   },
+   {
+    "id": "SMA13/SBS70_5/lime/none/none/R0/lignin",
+    "label": "SMA-13 + SBS改性沥青(70#基, 5.5%) + 消石灰替代1.5%矿粉 + 木质素纤维0.3%",
+    "reliability": 0.995,
+    "passRate": {
+     "pgHigh": 1,
+     "pgLow": 1,
+     "ds": 0.998,
+     "strain": 1,
+     "tsr": 1,
+     "fatigue": 0.998,
+     "td": 1
+    },
+    "bottleneck": "ds",
+    "bottleneckName": "高温抗车辙 动稳定度",
+    "lifeMean": 8.6,
+    "lifeP10": 8.1,
+    "costM2": 67,
+    "euac": 9.37,
+    "carbonM2": 7.7,
+    "carbonYr": 0.89
+   },
+   {
+    "id": "AC16/CR20/lime/none/none/R0/none",
+    "label": "AC-16 + 橡胶改性沥青(20%胶粉) + 消石灰替代1.5%矿粉",
+    "reliability": 0.553,
+    "passRate": {
+     "pgHigh": 1,
+     "pgLow": 1,
+     "ds": 0.89,
+     "strain": 1,
+     "tsr": 0.988,
+     "fatigue": 0.785,
+     "td": 0.805
+    },
+    "bottleneck": "fatigue",
+    "bottleneckName": "疲劳寿命",
+    "lifeMean": 7,
+    "lifeP10": 6.1,
+    "costM2": 52.1,
+    "euac": 8.77,
+    "carbonM2": 6,
+    "carbonYr": 0.85
+   }
+  ],
+  "pareto": [
+   {
+    "id": "AC16/SBS90_5/lime/none/warm/R30/none",
+    "label": "AC-16 + SBS改性沥青(90#基, 5.5%) + 消石灰替代1.5%矿粉 + 表面活性剂温拌(0.5%油重) + RAP 30%+再生剂",
+    "reliability": 0.423,
+    "passRate": {
+     "pgHigh": 1,
+     "pgLow": 1,
+     "ds": 0.798,
+     "strain": 0.983,
+     "tsr": 0.97,
+     "fatigue": 0.688,
+     "td": 0.805
+    },
+    "bottleneck": "fatigue",
+    "bottleneckName": "疲劳寿命",
+    "lifeMean": 6.8,
+    "lifeP10": 5.6,
+    "costM2": 49.2,
+    "euac": 8.56,
+    "carbonM2": 5.9,
+    "carbonYr": 0.87
+   },
+   {
+    "id": "AC16/SBS90_5/amine/none/warm/R30/none",
+    "label": "AC-16 + SBS改性沥青(90#基, 5.5%) + 胺类抗剥落剂(0.4%油重) + 表面活性剂温拌(0.5%油重) + RAP 30%+再生剂",
+    "reliability": 0.398,
+    "passRate": {
+     "pgHigh": 1,
+     "pgLow": 1,
+     "ds": 0.798,
+     "strain": 0.983,
+     "tsr": 0.92,
+     "fatigue": 0.688,
+     "td": 0.805
+    },
+    "bottleneck": "fatigue",
+    "bottleneckName": "疲劳寿命",
+    "lifeMean": 6.7,
+    "lifeP10": 5.6,
+    "costM2": 49.5,
+    "euac": 8.63,
+    "carbonM2": 5.8,
+    "carbonYr": 0.86
+   },
+   {
+    "id": "AC16/CR20/lime/none/warm/R0/none",
+    "label": "AC-16 + 橡胶改性沥青(20%胶粉) + 消石灰替代1.5%矿粉 + 表面活性剂温拌(0.5%油重)",
+    "reliability": 0.548,
+    "passRate": {
+     "pgHigh": 1,
+     "pgLow": 1,
+     "ds": 0.89,
+     "strain": 1,
+     "tsr": 0.978,
+     "fatigue": 0.785,
+     "td": 0.805
+    },
+    "bottleneck": "fatigue",
+    "bottleneckName": "疲劳寿命",
+    "lifeMean": 7,
+    "lifeP10": 6.1,
+    "costM2": 51.9,
+    "euac": 8.74,
+    "carbonM2": 5.3,
+    "carbonYr": 0.76
+   },
+   {
+    "id": "AC16/CR20/lime/none/none/R0/none",
+    "label": "AC-16 + 橡胶改性沥青(20%胶粉) + 消石灰替代1.5%矿粉",
+    "reliability": 0.553,
+    "passRate": {
+     "pgHigh": 1,
+     "pgLow": 1,
+     "ds": 0.89,
+     "strain": 1,
+     "tsr": 0.988,
+     "fatigue": 0.785,
+     "td": 0.805
+    },
+    "bottleneck": "fatigue",
+    "bottleneckName": "疲劳寿命",
+    "lifeMean": 7,
+    "lifeP10": 6.1,
+    "costM2": 52.1,
+    "euac": 8.77,
+    "carbonM2": 6,
+    "carbonYr": 0.85
+   },
+   {
+    "id": "AC16/CR20/amine/none/warm/R0/none",
+    "label": "AC-16 + 橡胶改性沥青(20%胶粉) + 胺类抗剥落剂(0.4%油重) + 表面活性剂温拌(0.5%油重)",
+    "reliability": 0.545,
+    "passRate": {
+     "pgHigh": 1,
+     "pgLow": 1,
+     "ds": 0.89,
+     "strain": 1,
+     "tsr": 0.97,
+     "fatigue": 0.785,
+     "td": 0.805
+    },
+    "bottleneck": "fatigue",
+    "bottleneckName": "疲劳寿命",
+    "lifeMean": 7,
+    "lifeP10": 6.1,
+    "costM2": 52.2,
+    "euac": 8.81,
+    "carbonM2": 5.3,
+    "carbonYr": 0.75
+   },
+   {
+    "id": "SMA13/CR20/lime/none/warm/R0/lignin",
+    "label": "SMA-13 + 橡胶改性沥青(20%胶粉) + 消石灰替代1.5%矿粉 + 表面活性剂温拌(0.5%油重) + 木质素纤维0.3%",
+    "reliability": 0.975,
+    "passRate": {
+     "pgHigh": 1,
+     "pgLow": 1,
+     "ds": 0.978,
+     "strain": 1,
+     "tsr": 1,
+     "fatigue": 0.998,
+     "td": 1
+    },
+    "bottleneck": "ds",
+    "bottleneckName": "高温抗车辙 动稳定度",
+    "lifeMean": 8.1,
+    "lifeP10": 7.4,
+    "costM2": 61.8,
+    "euac": 9.07,
+    "carbonM2": 5.8,
+    "carbonYr": 0.71
+   },
+   {
+    "id": "SMA13/CR20/amine/none/warm/R0/lignin",
+    "label": "SMA-13 + 橡胶改性沥青(20%胶粉) + 胺类抗剥落剂(0.4%油重) + 表面活性剂温拌(0.5%油重) + 木质素纤维0.3%",
+    "reliability": 0.973,
+    "passRate": {
+     "pgHigh": 1,
+     "pgLow": 1,
+     "ds": 0.978,
+     "strain": 1,
+     "tsr": 0.998,
+     "fatigue": 0.998,
+     "td": 1
+    },
+    "bottleneck": "ds",
+    "bottleneckName": "高温抗车辙 动稳定度",
+    "lifeMean": 8.1,
+    "lifeP10": 7.4,
+    "costM2": 62.1,
+    "euac": 9.15,
+    "carbonM2": 5.7,
+    "carbonYr": 0.7
+   },
+   {
+    "id": "SMA13/SBS70_5/lime/none/none/R0/lignin",
+    "label": "SMA-13 + SBS改性沥青(70#基, 5.5%) + 消石灰替代1.5%矿粉 + 木质素纤维0.3%",
+    "reliability": 0.995,
+    "passRate": {
+     "pgHigh": 1,
+     "pgLow": 1,
+     "ds": 0.998,
+     "strain": 1,
+     "tsr": 1,
+     "fatigue": 0.998,
+     "td": 1
+    },
+    "bottleneck": "ds",
+    "bottleneckName": "高温抗车辙 动稳定度",
+    "lifeMean": 8.6,
+    "lifeP10": 8.1,
+    "costM2": 67,
+    "euac": 9.37,
+    "carbonM2": 7.7,
+    "carbonYr": 0.89
+   },
+   {
+    "id": "SMA13/CR20/lime/antirut/none/R0/lignin",
+    "label": "SMA-13 + 橡胶改性沥青(20%胶粉) + 消石灰替代1.5%矿粉 + 抗车辙剂(0.4%混合料) + 木质素纤维0.3%",
+    "reliability": 0.998,
+    "passRate": {
+     "pgHigh": 1,
+     "pgLow": 1,
+     "ds": 1,
+     "strain": 1,
+     "tsr": 1,
+     "fatigue": 0.998,
+     "td": 1
+    },
+    "bottleneck": "fatigue",
+    "bottleneckName": "疲劳寿命",
+    "lifeMean": 8.7,
+    "lifeP10": 8.2,
+    "costM2": 67.4,
+    "euac": 9.38,
+    "carbonM2": 7.4,
+    "carbonYr": 0.85
+   },
+   {
+    "id": "SMA13/SBS70_5/lime/none/warm/R0/lignin",
+    "label": "SMA-13 + SBS改性沥青(70#基, 5.5%) + 消石灰替代1.5%矿粉 + 表面活性剂温拌(0.5%油重) + 木质素纤维0.3%",
+    "reliability": 0.995,
+    "passRate": {
+     "pgHigh": 1,
+     "pgLow": 1,
+     "ds": 0.998,
+     "strain": 1,
+     "tsr": 1,
+     "fatigue": 0.998,
+     "td": 1
+    },
+    "bottleneck": "ds",
+    "bottleneckName": "高温抗车辙 动稳定度",
+    "lifeMean": 8.6,
+    "lifeP10": 8.1,
+    "costM2": 66.8,
+    "euac": 9.38,
+    "carbonM2": 7,
+    "carbonYr": 0.82
+   },
+   {
+    "id": "SMA13/CR20/lime/antirut/warm/R0/lignin",
+    "label": "SMA-13 + 橡胶改性沥青(20%胶粉) + 消石灰替代1.5%矿粉 + 抗车辙剂(0.4%混合料) + 表面活性剂温拌(0.5%油重) + 木质素纤维0.3%",
+    "reliability": 0.998,
+    "passRate": {
+     "pgHigh": 1,
+     "pgLow": 1,
+     "ds": 1,
+     "strain": 1,
+     "tsr": 1,
+     "fatigue": 0.998,
+     "td": 1
+    },
+    "bottleneck": "fatigue",
+    "bottleneckName": "疲劳寿命",
+    "lifeMean": 8.6,
+    "lifeP10": 8.1,
+    "costM2": 67.2,
+    "euac": 9.42,
+    "carbonM2": 6.7,
+    "carbonYr": 0.78
+   },
+   {
+    "id": "SMA13/CR20/lime/none/warm/R0/basalt",
+    "label": "SMA-13 + 橡胶改性沥青(20%胶粉) + 消石灰替代1.5%矿粉 + 表面活性剂温拌(0.5%油重) + 玄武岩纤维0.3%",
+    "reliability": 0.978,
+    "passRate": {
+     "pgHigh": 1,
+     "pgLow": 1,
+     "ds": 0.978,
+     "strain": 1,
+     "tsr": 1,
+     "fatigue": 1,
+     "td": 1
+    },
+    "bottleneck": "ds",
+    "bottleneckName": "高温抗车辙 动稳定度",
+    "lifeMean": 8.1,
+    "lifeP10": 7.5,
+    "costM2": 65.3,
+    "euac": 9.58,
+    "carbonM2": 6.2,
+    "carbonYr": 0.76
+   },
+   {
+    "id": "SMA13/CR20/lime/antirut/none/R0/basalt",
+    "label": "SMA-13 + 橡胶改性沥青(20%胶粉) + 消石灰替代1.5%矿粉 + 抗车辙剂(0.4%混合料) + 玄武岩纤维0.3%",
+    "reliability": 1,
+    "passRate": {
+     "pgHigh": 1,
+     "pgLow": 1,
+     "ds": 1,
+     "strain": 1,
+     "tsr": 1,
+     "fatigue": 1,
+     "td": 1
+    },
+    "bottleneck": "pgHigh",
+    "bottleneckName": "高温分级 PG高温",
+    "lifeMean": 8.7,
+    "lifeP10": 8.2,
+    "costM2": 71,
+    "euac": 9.83,
+    "carbonM2": 7.8,
+    "carbonYr": 0.9
+   },
+   {
+    "id": "SMA13/CR20/lime/antirut/warm/R0/basalt",
+    "label": "SMA-13 + 橡胶改性沥青(20%胶粉) + 消石灰替代1.5%矿粉 + 抗车辙剂(0.4%混合料) + 表面活性剂温拌(0.5%油重) + 玄武岩纤维0.3%",
+    "reliability": 1,
+    "passRate": {
+     "pgHigh": 1,
+     "pgLow": 1,
+     "ds": 1,
+     "strain": 1,
+     "tsr": 1,
+     "fatigue": 1,
+     "td": 1
+    },
+    "bottleneck": "pgHigh",
+    "bottleneckName": "高温分级 PG高温",
+    "lifeMean": 8.6,
+    "lifeP10": 8.1,
+    "costM2": 70.8,
+    "euac": 9.88,
+    "carbonM2": 7.2,
+    "carbonYr": 0.83
+   }
+  ],
+  "baselines": {
+   "experience": {
+    "id": "AC13/SBS70_4/amine/none/none/R0/none",
+    "label": "AC-13 + SBS改性沥青(70#基, 4.5%) + 胺类抗剥落剂(0.4%油重)",
+    "reliability": 0.308,
+    "passRate": {
+     "pgHigh": 1,
+     "pgLow": 1,
+     "ds": 0.798,
+     "strain": 0.975,
+     "tsr": 0.995,
+     "fatigue": 0.775,
+     "td": 0.502
+    },
+    "bottleneck": "td",
+    "bottleneckName": "抗滑 构造深度",
+    "lifeMean": 6.7,
+    "lifeP10": 5.9,
+    "costM2": 56.6,
+    "euac": 9.88,
+    "carbonM2": 6.8,
+    "carbonYr": 1.01
+   },
+   "weightedSum": {
+    "id": "AC16/CR20/lime/none/none/R0/none",
+    "label": "AC-16 + 橡胶改性沥青(20%胶粉) + 消石灰替代1.5%矿粉",
+    "reliability": 0.553,
+    "passRate": {
+     "pgHigh": 1,
+     "pgLow": 1,
+     "ds": 0.89,
+     "strain": 1,
+     "tsr": 0.988,
+     "fatigue": 0.785,
+     "td": 0.805
+    },
+    "bottleneck": "fatigue",
+    "bottleneckName": "疲劳寿命",
+    "lifeMean": 7,
+    "lifeP10": 6.1,
+    "costM2": 52.1,
+    "euac": 8.77,
+    "carbonM2": 6,
+    "carbonYr": 0.85
+   },
+   "cheapest": {
+    "id": "AC16/B110/none/none/warm/R30/none",
+    "label": "AC-16 + 110#A 道路石油沥青 + 表面活性剂温拌(0.5%油重) + RAP 30%+再生剂",
+    "reliability": 0,
+    "passRate": {
+     "pgHigh": 0.233,
+     "pgLow": 1,
+     "ds": 0,
+     "strain": 0.59,
+     "tsr": 0.123,
+     "fatigue": 0.048,
+     "td": 0.805
+    },
+    "bottleneck": "ds",
+    "bottleneckName": "高温抗车辙 动稳定度",
+    "lifeMean": 3.7,
+    "lifeP10": 2.9,
+    "costM2": 43.3,
+    "euac": 13.21,
+    "carbonM2": 5,
+    "carbonYr": 1.37
+   }
+  }
+ },
+ "C4": {
+  "engine": "SZXC-1.0",
+  "elapsedMs": 99,
+  "scenario": {
+   "roadClass": "arterial",
+   "traffic": "medium",
+   "speed": "normal",
+   "treatment": "THIN",
+   "aggregate": "basalt",
+   "distresses": [
+    {
+     "id": "skid",
+     "severity": 2
+    },
+    {
+     "id": "aging",
+     "severity": 1
+    }
+   ],
+   "ambientT": 16,
+   "haulMin": 40,
+   "targetReliability": 0.85,
+   "budgetPerM2": null,
+   "nightWork": true,
+   "samples": 400,
+   "seed": 20261021,
+   "cityId": "wuhan"
+  },
+  "tags": [
+   "CZ:1-3-1",
+   "CZH:1",
+   "CZL:3",
+   "CZR:1",
+   "TL:medium",
+   "SPD:normal",
+   "TRT:THIN",
+   "AGG:basalt",
+   "ROAD:arterial",
+   "DIS:skid",
+   "DIS:skid:重",
+   "DIS:aging",
+   "DIS:aging:中"
+  ],
+  "climate": {
+   "city": "武汉",
+   "zone": "1-3-1",
+   "zoneName": "夏炎热区·冬冷区·潮湿区",
+   "pavHigh98": 61.5,
+   "pavLow98": -14,
+   "pgRequired98": "PG 64-16"
+  },
+  "requirements": [
+   {
+    "ind": "pgHigh",
+    "name": "高温分级 PG高温",
+    "unit": "°C",
+    "sceneTarget": 59,
+    "why": "LTPPBind 公式: 7日最高气温 37°C → 路面20mm处 59°C；交通/车速加级 +0 级(每级6°C)"
+   },
+   {
+    "ind": "pgLow",
+    "name": "低温分级 PG低温",
+    "unit": "°C",
+    "sceneTarget": -7.8,
+    "why": "SHRP 公式: 年极端低温均值 -11.1°C → 路面 -7.8°C"
+   },
+   {
+    "ind": "ds",
+    "name": "高温抗车辙 动稳定度",
+    "unit": "次/mm",
+    "sceneTarget": 1500,
+    "why": "规范普通沥青 1000 次/mm（1-3 区）× 交通系数 1.5"
+   },
+   {
+    "ind": "strain",
+    "name": "低温抗裂 破坏应变",
+    "unit": "με",
+    "sceneTarget": 2000,
+    "why": "规范普通沥青 2000 με（冬冷区）"
+   },
+   {
+    "ind": "tsr",
+    "name": "水稳定性 冻融劈裂比",
+    "unit": "%",
+    "sceneTarget": 80,
+    "why": "规范 年降水≥500mm 改性沥青 80%"
+   },
+   {
+    "ind": "fatigue",
+    "name": "疲劳寿命",
+    "unit": "lg次",
+    "sceneTarget": 4.8,
+    "why": "中等交通对应 lgNf ≥ 4.8（四点弯曲 600με）"
+   },
+   {
+    "ind": "td",
+    "name": "抗滑 构造深度",
+    "unit": "mm",
+    "sceneTarget": 0.8,
+    "why": "抗滑不足病害，目标构造深度 0.8 mm"
+   }
+  ],
+  "priorities": [
+   {
+    "ind": "td",
+    "name": "抗滑 构造深度",
+    "scarcity": 0.822
+   },
+   {
+    "ind": "ds",
+    "name": "高温抗车辙 动稳定度",
+    "scarcity": 0.487
+   },
+   {
+    "ind": "tsr",
+    "name": "水稳定性 冻融劈裂比",
+    "scarcity": 0.093
+   },
+   {
+    "ind": "strain",
+    "name": "低温抗裂 破坏应变",
+    "scarcity": 0.089
+   },
+   {
+    "ind": "pgHigh",
+    "name": "高温分级 PG高温",
+    "scarcity": 0.062
+   },
+   {
+    "ind": "fatigue",
+    "name": "疲劳寿命",
+    "scarcity": 0.047
+   },
+   {
+    "ind": "pgLow",
+    "name": "低温分级 PG低温",
+    "scarcity": 0.003
+   }
+  ],
+  "stats": {
+   "enumerated": 2812,
+   "feasible": 828,
+   "budgetCut": 0,
+   "rejected": {
+    "R12 高RAP 掺量不再加纤维": 120,
+    "R05 硬质沥青仅用于 AC-16 且限非寒区": 72,
+    "R11 RAP 不与高粘/橡胶/硬质沥青组合": 72,
+    "R09 OGFC/高粘沥青不再加抗车辙剂": 60,
+    "R08 层厚与公称最大粒径不匹配(2.5–4.0倍)": 4,
+    "R01 SMA 须用改性沥青": 360,
+    "R04 SMA/OGFC 表层不掺RAP": 432,
+    "R02 OGFC 须用高粘高弹沥青": 864
+   },
+   "samples": 400
+  },
+  "targetReliability": 0.85,
+  "targetReached": true,
+  "recommended": {
+   "id": "OGFC10/HVA/lime/none/none/R0/lignin",
+   "label": "OGFC-10 + 高粘高弹改性沥青 + 消石灰替代1.5%矿粉 + 木质素纤维0.3%",
+   "reliability": 0.96,
+   "passRate": {
+    "pgHigh": 1,
+    "pgLow": 1,
+    "ds": 1,
+    "strain": 1,
+    "tsr": 0.963,
+    "fatigue": 0.998,
+    "td": 1
+   },
+   "bottleneck": "tsr",
+   "bottleneckName": "水稳定性 冻融劈裂比",
+   "lifeMean": 6,
+   "lifeP10": 5.5,
+   "costM2": 32,
+   "euac": 6.12,
+   "carbonM2": 3.5,
+   "carbonYr": 0.59,
+   "formula": {
+    "gradation": "OGFC-10",
+    "binder": "高粘高弹改性沥青",
+    "binderContent": 5,
+    "aggregate": "玄武岩",
+    "water": "消石灰替代1.5%矿粉",
+    "rut": "无",
+    "warm": "热拌",
+    "rap": "不掺RAP",
+    "fiber": "木质素纤维0.3%",
+    "binderPG": "PG 88-34"
+   },
+   "predicted": {
+    "pgHigh": {
+     "mean": 86,
+     "req": null,
+     "binding": "scene"
+    },
+    "pgLow": {
+     "mean": -30,
+     "req": null,
+     "binding": "scene"
+    },
+    "ds": {
+     "mean": 5415,
+     "req": 1500,
+     "binding": "scene"
+    },
+    "strain": {
+     "mean": 3790,
+     "req": 2500,
+     "binding": "std"
+    },
+    "tsr": {
+     "mean": 86,
+     "req": 80,
+     "binding": "scene"
+    },
+    "fatigue": {
+     "mean": 5.35,
+     "req": 4.8,
+     "binding": "scene"
+    },
+    "td": {
+     "mean": 1.35,
+     "req": 0.8,
+     "binding": "scene"
+    }
+   },
+   "costBreak": {
+    "materials": 24.9,
+    "additives": 1.1,
+    "production": 5.9,
+    "milling": 0
+   }
+  },
+  "process": {
+   "mixTemp": [
+    180,
+    190
+   ],
+   "compactionStartMin": 160,
+   "minAmbient": 10,
+   "vaDesign": 18,
+   "vaExpectedExcess": 0.32,
+   "robustness": {
+    "colder8": -0.392,
+    "va1": -0.073
+   }
+  },
+  "counterfactuals": [
+   {
+    "change": "拌和工艺：热拌 → 表面活性剂温拌(0.5%油重)",
+    "dim": "warm",
+    "id": "OGFC10/HVA/lime/none/warm/R0/lignin",
+    "dRel": -0.029999999999999916,
+    "dEuac": 0.07750621249186551,
+    "dCarbonYr": -0.0441540403175934,
+    "meets": true,
+    "bottleneck": "tsr",
+    "bottleneckRate": 0.93
+   },
+   {
+    "change": "抗水损措施：消石灰替代1.5%矿粉 → 胺类抗剥落剂(0.4%油重)",
+    "dim": "water",
+    "id": "OGFC10/HVA/amine/none/none/R0/lignin",
+    "dRel": -0.03249999999999997,
+    "dEuac": 0.1523194551709901,
+    "dCarbonYr": 0.005572074500470592,
+    "meets": true,
+    "bottleneck": "tsr",
+    "bottleneckRate": 0.9275
+   },
+   {
+    "change": "纤维：木质素纤维0.3% → 玄武岩纤维0.3%",
+    "dim": "fiber",
+    "id": "OGFC10/HVA/lime/none/none/R0/basalt",
+    "dRel": 0.0025000000000000577,
+    "dEuac": 0.3330752293900101,
+    "dCarbonYr": 0.03624338882266731,
+    "meets": true,
+    "bottleneck": "tsr",
+    "bottleneckRate": 0.9625
+   },
+   {
+    "change": "抗水损措施：消石灰替代1.5%矿粉 → 无",
+    "dim": "water",
+    "id": "OGFC10/HVA/none/none/none/R0/lignin",
+    "dRel": -0.6599999999999999,
+    "dEuac": 0.9556510440883912,
+    "dCarbonYr": 0.09535795087783061,
+    "meets": false,
+    "bottleneck": "tsr",
+    "bottleneckRate": 0.3
+   },
+   {
+    "change": "级配：OGFC-10 → SMA-10",
+    "dim": "grad",
+    "id": "SMA10/HVA/lime/none/none/R0/lignin",
+    "dRel": -0.2025,
+    "dEuac": 3.063020413762157,
+    "dCarbonYr": 0.27511602268475865,
+    "meets": false,
+    "bottleneck": "td",
+    "bottleneckRate": 0.7575
+   }
+  ],
+  "alternatives": [
+   {
+    "id": "AC10/B70/none/none/warm/R30/none",
+    "label": "AC-10 + 70#A 道路石油沥青 + 表面活性剂温拌(0.5%油重) + RAP 30%+再生剂",
+    "reliability": 0,
+    "passRate": {
+     "pgHigh": 1,
+     "pgLow": 0.995,
+     "ds": 0.08,
+     "strain": 0.545,
+     "tsr": 0.323,
+     "fatigue": 0.588,
+     "td": 0
+    },
+    "bottleneck": "td",
+    "bottleneckName": "抗滑 构造深度",
+    "lifeMean": 4,
+    "lifeP10": 3.6,
+    "costM2": 22.2,
+    "euac": 6.09,
+    "carbonM2": 2.4,
+    "carbonYr": 0.6
+   },
+   {
+    "id": "OGFC10/HVA/lime/none/warm/R0/lignin",
+    "label": "OGFC-10 + 高粘高弹改性沥青 + 消石灰替代1.5%矿粉 + 表面活性剂温拌(0.5%油重) + 木质素纤维0.3%",
+    "reliability": 0.93,
+    "passRate": {
+     "pgHigh": 1,
+     "pgLow": 1,
+     "ds": 1,
+     "strain": 1,
+     "tsr": 0.93,
+     "fatigue": 0.998,
+     "td": 1
+    },
+    "bottleneck": "tsr",
+    "bottleneckName": "水稳定性 冻融劈裂比",
+    "lifeMean": 5.9,
+    "lifeP10": 5.4,
+    "costM2": 31.9,
+    "euac": 6.2,
+    "carbonM2": 3.2,
+    "carbonYr": 0.54
+   },
+   {
+    "id": "OGFC10/HVA/lime/none/none/R0/basalt",
+    "label": "OGFC-10 + 高粘高弹改性沥青 + 消石灰替代1.5%矿粉 + 玄武岩纤维0.3%",
+    "reliability": 0.963,
+    "passRate": {
+     "pgHigh": 1,
+     "pgLow": 1,
+     "ds": 1,
+     "strain": 1,
+     "tsr": 0.963,
+     "fatigue": 1,
+     "td": 1
+    },
+    "bottleneck": "tsr",
+    "bottleneckName": "水稳定性 冻融劈裂比",
+    "lifeMean": 6,
+    "lifeP10": 5.5,
+    "costM2": 33.7,
+    "euac": 6.45,
+    "carbonM2": 3.8,
+    "carbonYr": 0.62
+   },
+   {
+    "id": "SMA10/CR20/lime/none/warm/R0/lignin",
+    "label": "SMA-10 + 橡胶改性沥青(20%胶粉) + 消石灰替代1.5%矿粉 + 表面活性剂温拌(0.5%油重) + 木质素纤维0.3%",
+    "reliability": 0.728,
+    "passRate": {
+     "pgHigh": 1,
+     "pgLow": 1,
+     "ds": 0.968,
+     "strain": 1,
+     "tsr": 1,
+     "fatigue": 1,
+     "td": 0.75
+    },
+    "bottleneck": "td",
+    "bottleneckName": "抗滑 构造深度",
+    "lifeMean": 5.4,
+    "lifeP10": 5.1,
+    "costM2": 32.8,
+    "euac": 6.87,
+    "carbonM2": 2.9,
+    "carbonYr": 0.53
+   }
+  ],
+  "pareto": [
+   {
+    "id": "AC10/B70/none/none/warm/R30/none",
+    "label": "AC-10 + 70#A 道路石油沥青 + 表面活性剂温拌(0.5%油重) + RAP 30%+再生剂",
+    "reliability": 0,
+    "passRate": {
+     "pgHigh": 1,
+     "pgLow": 0.995,
+     "ds": 0.08,
+     "strain": 0.545,
+     "tsr": 0.323,
+     "fatigue": 0.588,
+     "td": 0
+    },
+    "bottleneck": "td",
+    "bottleneckName": "抗滑 构造深度",
+    "lifeMean": 4,
+    "lifeP10": 3.6,
+    "costM2": 22.2,
+    "euac": 6.09,
+    "carbonM2": 2.4,
+    "carbonYr": 0.6
+   },
+   {
+    "id": "OGFC10/HVA/lime/none/none/R0/lignin",
+    "label": "OGFC-10 + 高粘高弹改性沥青 + 消石灰替代1.5%矿粉 + 木质素纤维0.3%",
+    "reliability": 0.96,
+    "passRate": {
+     "pgHigh": 1,
+     "pgLow": 1,
+     "ds": 1,
+     "strain": 1,
+     "tsr": 0.963,
+     "fatigue": 0.998,
+     "td": 1
+    },
+    "bottleneck": "tsr",
+    "bottleneckName": "水稳定性 冻融劈裂比",
+    "lifeMean": 6,
+    "lifeP10": 5.5,
+    "costM2": 32,
+    "euac": 6.12,
+    "carbonM2": 3.5,
+    "carbonYr": 0.59
+   },
+   {
+    "id": "OGFC10/HVA/lime/none/warm/R0/lignin",
+    "label": "OGFC-10 + 高粘高弹改性沥青 + 消石灰替代1.5%矿粉 + 表面活性剂温拌(0.5%油重) + 木质素纤维0.3%",
+    "reliability": 0.93,
+    "passRate": {
+     "pgHigh": 1,
+     "pgLow": 1,
+     "ds": 1,
+     "strain": 1,
+     "tsr": 0.93,
+     "fatigue": 0.998,
+     "td": 1
+    },
+    "bottleneck": "tsr",
+    "bottleneckName": "水稳定性 冻融劈裂比",
+    "lifeMean": 5.9,
+    "lifeP10": 5.4,
+    "costM2": 31.9,
+    "euac": 6.2,
+    "carbonM2": 3.2,
+    "carbonYr": 0.54
+   },
+   {
+    "id": "OGFC10/HVA/lime/none/none/R0/basalt",
+    "label": "OGFC-10 + 高粘高弹改性沥青 + 消石灰替代1.5%矿粉 + 玄武岩纤维0.3%",
+    "reliability": 0.963,
+    "passRate": {
+     "pgHigh": 1,
+     "pgLow": 1,
+     "ds": 1,
+     "strain": 1,
+     "tsr": 0.963,
+     "fatigue": 1,
+     "td": 1
+    },
+    "bottleneck": "tsr",
+    "bottleneckName": "水稳定性 冻融劈裂比",
+    "lifeMean": 6,
+    "lifeP10": 5.5,
+    "costM2": 33.7,
+    "euac": 6.45,
+    "carbonM2": 3.8,
+    "carbonYr": 0.62
+   },
+   {
+    "id": "SMA10/CR20/lime/none/warm/R0/lignin",
+    "label": "SMA-10 + 橡胶改性沥青(20%胶粉) + 消石灰替代1.5%矿粉 + 表面活性剂温拌(0.5%油重) + 木质素纤维0.3%",
+    "reliability": 0.728,
+    "passRate": {
+     "pgHigh": 1,
+     "pgLow": 1,
+     "ds": 0.968,
+     "strain": 1,
+     "tsr": 1,
+     "fatigue": 1,
+     "td": 0.75
+    },
+    "bottleneck": "td",
+    "bottleneckName": "抗滑 构造深度",
+    "lifeMean": 5.4,
+    "lifeP10": 5.1,
+    "costM2": 32.8,
+    "euac": 6.87,
+    "carbonM2": 2.9,
+    "carbonYr": 0.53
+   },
+   {
+    "id": "SMA10/CR20/none/none/warm/R0/lignin",
+    "label": "SMA-10 + 橡胶改性沥青(20%胶粉) + 表面活性剂温拌(0.5%油重) + 木质素纤维0.3%",
+    "reliability": 0.638,
+    "passRate": {
+     "pgHigh": 1,
+     "pgLow": 1,
+     "ds": 0.968,
+     "strain": 1,
+     "tsr": 0.888,
+     "fatigue": 1,
+     "td": 0.75
+    },
+    "bottleneck": "td",
+    "bottleneckName": "抗滑 构造深度",
+    "lifeMean": 5.3,
+    "lifeP10": 5,
+    "costM2": 32.5,
+    "euac": 6.89,
+    "carbonM2": 2.8,
+    "carbonYr": 0.52
+   },
+   {
+    "id": "SMA10/CR20/amine/none/warm/R0/lignin",
+    "label": "SMA-10 + 橡胶改性沥青(20%胶粉) + 胺类抗剥落剂(0.4%油重) + 表面活性剂温拌(0.5%油重) + 木质素纤维0.3%",
+    "reliability": 0.728,
+    "passRate": {
+     "pgHigh": 1,
+     "pgLow": 1,
+     "ds": 0.968,
+     "strain": 1,
+     "tsr": 1,
+     "fatigue": 1,
+     "td": 0.75
+    },
+    "bottleneck": "td",
+    "bottleneckName": "抗滑 构造深度",
+    "lifeMean": 5.4,
+    "lifeP10": 5.1,
+    "costM2": 32.9,
+    "euac": 6.91,
+    "carbonM2": 2.8,
+    "carbonYr": 0.52
+   }
+  ],
+  "baselines": {
+   "experience": {
+    "id": "SMA10/SBS70_4/none/none/none/R0/lignin",
+    "label": "SMA-10 + SBS改性沥青(70#基, 4.5%) + 木质素纤维0.3%",
+    "reliability": 0.713,
+    "passRate": {
+     "pgHigh": 1,
+     "pgLow": 1,
+     "ds": 0.973,
+     "strain": 1,
+     "tsr": 0.968,
+     "fatigue": 1,
+     "td": 0.755
+    },
+    "bottleneck": "td",
+    "bottleneckName": "抗滑 构造深度",
+    "lifeMean": 5.4,
+    "lifeP10": 5.1,
+    "costM2": 35,
+    "euac": 7.36,
+    "carbonM2": 3.9,
+    "carbonYr": 0.72
+   },
+   "weightedSum": {
+    "id": "OGFC10/HVA/lime/none/none/R0/lignin",
+    "label": "OGFC-10 + 高粘高弹改性沥青 + 消石灰替代1.5%矿粉 + 木质素纤维0.3%",
+    "reliability": 0.96,
+    "passRate": {
+     "pgHigh": 1,
+     "pgLow": 1,
+     "ds": 1,
+     "strain": 1,
+     "tsr": 0.963,
+     "fatigue": 0.998,
+     "td": 1
+    },
+    "bottleneck": "tsr",
+    "bottleneckName": "水稳定性 冻融劈裂比",
+    "lifeMean": 6,
+    "lifeP10": 5.5,
+    "costM2": 32,
+    "euac": 6.12,
+    "carbonM2": 3.5,
+    "carbonYr": 0.59
+   },
+   "cheapest": {
+    "id": "AC10/B110/none/none/warm/R30/none",
+    "label": "AC-10 + 110#A 道路石油沥青 + 表面活性剂温拌(0.5%油重) + RAP 30%+再生剂",
+    "reliability": 0,
+    "passRate": {
+     "pgHigh": 0.483,
+     "pgLow": 1,
+     "ds": 0,
+     "strain": 1,
+     "tsr": 0.325,
+     "fatigue": 0.915,
+     "td": 0
+    },
+    "bottleneck": "ds",
+    "bottleneckName": "高温抗车辙 动稳定度",
+    "lifeMean": 3.3,
+    "lifeP10": 3,
+    "costM2": 22,
+    "euac": 7.29,
+    "carbonM2": 2.4,
+    "carbonYr": 0.74
+   }
+  }
+ },
+ "C5": {
+  "engine": "SZXC-1.0",
+  "elapsedMs": 177,
+  "scenario": {
+   "roadClass": "highway",
+   "traffic": "vheavy",
+   "speed": "normal",
+   "treatment": "MR_UP",
+   "aggregate": "limestone",
+   "distresses": [
+    {
+     "id": "thermalCrack",
+     "severity": 1
+    },
+    {
+     "id": "rutting",
+     "severity": 1
+    }
+   ],
+   "ambientT": 18,
+   "haulMin": 60,
+   "targetReliability": 0.9,
+   "budgetPerM2": null,
+   "nightWork": false,
+   "samples": 400,
+   "seed": 20261021,
+   "cityId": "urumqi"
+  },
+  "tags": [
+   "CZ:1-1-3",
+   "CZH:1",
+   "CZL:1",
+   "CZR:3",
+   "TL:vheavy",
+   "SPD:normal",
+   "TRT:MR_UP",
+   "AGG:limestone",
+   "ROAD:highway",
+   "DIS:thermalCrack",
+   "DIS:thermalCrack:中",
+   "DIS:rutting",
+   "DIS:rutting:中"
+  ],
+  "climate": {
+   "city": "乌鲁木齐",
+   "zone": "1-1-3",
+   "zoneName": "夏炎热区·冬严寒区·半干区",
+   "pavHigh98": 57.1,
+   "pavLow98": -34.1,
+   "pgRequired98": "PG 64-40"
+  },
+  "requirements": [
+   {
+    "ind": "pgHigh",
+    "name": "高温分级 PG高温",
+    "unit": "°C",
+    "sceneTarget": 60.2,
+    "why": "LTPPBind 公式: 7日最高气温 35°C → 路面20mm处 54.2°C；交通/车速加级 +1 级(每级6°C)"
+   },
+   {
+    "ind": "pgLow",
+    "name": "低温分级 PG低温",
+    "unit": "°C",
+    "sceneTarget": -27.1,
+    "why": "SHRP 公式: 年极端低温均值 -33.5°C → 路面 -27.1°C"
+   },
+   {
+    "ind": "ds",
+    "name": "高温抗车辙 动稳定度",
+    "unit": "次/mm",
+    "sceneTarget": 3024,
+    "why": "规范改性沥青 2400 次/mm（1-1 区）× 特重交通 1.2 × 车辙病害 1.05"
+   },
+   {
+    "ind": "strain",
+    "name": "低温抗裂 破坏应变",
+    "unit": "με",
+    "sceneTarget": 3090,
+    "why": "规范改性沥青 3000 με（冬严寒区） × 裂缝病害 1.03"
+   },
+   {
+    "ind": "tsr",
+    "name": "水稳定性 冻融劈裂比",
+    "unit": "%",
+    "sceneTarget": 75,
+    "why": "规范 年降水<500mm 改性沥青 75%"
+   },
+   {
+    "ind": "fatigue",
+    "name": "疲劳寿命",
+    "unit": "lg次",
+    "sceneTarget": 5.3,
+    "why": "特重交通对应 lgNf ≥ 5.3（四点弯曲 600με）"
+   },
+   {
+    "ind": "td",
+    "name": "抗滑 构造深度",
+    "unit": "mm",
+    "sceneTarget": 0.55,
+    "why": "高等级道路构造深度 0.55 mm"
+   }
+  ],
+  "priorities": [
+   {
+    "ind": "strain",
+    "name": "低温抗裂 破坏应变",
+    "scarcity": 0.63
+   },
+   {
+    "ind": "pgLow",
+    "name": "低温分级 PG低温",
+    "scarcity": 0.623
+   },
+   {
+    "ind": "ds",
+    "name": "高温抗车辙 动稳定度",
+    "scarcity": 0.498
+   },
+   {
+    "ind": "fatigue",
+    "name": "疲劳寿命",
+    "scarcity": 0.411
+   },
+   {
+    "ind": "td",
+    "name": "抗滑 构造深度",
+    "scarcity": 0.303
+   },
+   {
+    "ind": "pgHigh",
+    "name": "高温分级 PG高温",
+    "scarcity": 0.094
+   },
+   {
+    "ind": "tsr",
+    "name": "水稳定性 冻融劈裂比",
+    "scarcity": 0.003
+   }
+  ],
+  "stats": {
+   "enumerated": 3747,
+   "feasible": 1452,
+   "budgetCut": 0,
+   "rejected": {
+    "R08 层厚与公称最大粒径不匹配(2.5–4.0倍)": 3,
+    "R12 高RAP 掺量不再加纤维": 240,
+    "R05 硬质沥青仅用于 AC-16 且限非寒区": 144,
+    "R11 RAP 不与高粘/橡胶/硬质沥青组合": 144,
+    "R09 OGFC/高粘沥青不再加抗车辙剂": 84,
+    "R01 SMA 须用改性沥青": 360,
+    "R04 SMA/OGFC 表层不掺RAP": 384,
+    "R02 OGFC 须用高粘高弹沥青": 864,
+    "R03 冬寒/严寒区不用排水路面(冻融堵塞)": 72
+   },
+   "samples": 400
+  },
+  "targetReliability": 0.9,
+  "targetReached": false,
+  "recommended": {
+   "id": "SMA13/SBS90_5/amine/antirut/none/R0/basalt",
+   "label": "SMA-13 + SBS改性沥青(90#基, 5.5%) + 胺类抗剥落剂(0.4%油重) + 抗车辙剂(0.4%混合料) + 玄武岩纤维0.3%",
+   "reliability": 0.808,
+   "passRate": {
+    "pgHigh": 1,
+    "pgLow": 0.813,
+    "ds": 0.995,
+    "strain": 1,
+    "tsr": 1,
+    "fatigue": 1,
+    "td": 1
+   },
+   "bottleneck": "pgLow",
+   "bottleneckName": "低温分级 PG低温",
+   "lifeMean": 8.8,
+   "lifeP10": 7.4,
+   "costM2": 75.9,
+   "euac": 10.57,
+   "carbonM2": 9,
+   "carbonYr": 1.03,
+   "formula": {
+    "gradation": "SMA-13",
+    "binder": "SBS改性沥青(90#基, 5.5%)",
+    "binderContent": 5.9,
+    "aggregate": "石灰岩",
+    "water": "胺类抗剥落剂(0.4%油重)",
+    "rut": "抗车辙剂(0.4%混合料)",
+    "warm": "热拌",
+    "rap": "不掺RAP",
+    "fiber": "玄武岩纤维0.3%",
+    "binderPG": "PG 76-34"
+   },
+   "predicted": {
+    "pgHigh": {
+     "mean": 73.2,
+     "req": null,
+     "binding": "scene"
+    },
+    "pgLow": {
+     "mean": -30.1,
+     "req": null,
+     "binding": "scene"
+    },
+    "ds": {
+     "mean": 5621,
+     "req": 3024,
+     "binding": "scene"
+    },
+    "strain": {
+     "mean": 3753.5,
+     "req": 3090,
+     "binding": "scene"
+    },
+    "tsr": {
+     "mean": 96,
+     "req": 80,
+     "binding": "std"
+    },
+    "fatigue": {
+     "mean": 6.15,
+     "req": 5.3,
+     "binding": "scene"
+    },
+    "td": {
+     "mean": 0.9,
+     "req": 0.55,
+     "binding": "scene"
+    }
+   },
+   "costBreak": {
+    "materials": 40.8,
+    "additives": 11.4,
+    "production": 11.7,
+    "milling": 12
+   }
+  },
+  "process": {
+   "mixTemp": [
+    170,
+    180
+   ],
+   "compactionStartMin": 150,
+   "minAmbient": 10,
+   "vaDesign": 3.5,
+   "vaExpectedExcess": 0,
+   "robustness": {
+    "colder8": -0.027,
+    "va1": -0.012
+   }
+  },
+  "counterfactuals": [
+   {
+    "change": "级配：SMA-13 → AC-16",
+    "dim": "grad",
+    "id": "AC16/SBS90_5/amine/antirut/none/R0/basalt",
+    "dRel": -0.27,
+    "dEuac": -0.5361793343727328,
+    "dCarbonYr": 0.0329997761111418,
+    "meets": false,
+    "bottleneck": "td",
+    "bottleneckRate": 0.805
+   },
+   {
+    "change": "纤维：玄武岩纤维0.3% → 木质素纤维0.3%",
+    "dim": "fiber",
+    "id": "SMA13/SBS90_5/amine/antirut/none/R0/lignin",
+    "dRel": -0.0050000000000000044,
+    "dEuac": -0.3782050607432197,
+    "dCarbonYr": -0.03562778011460188,
+    "meets": false,
+    "bottleneck": "pgLow",
+    "bottleneckRate": 0.8125
+   },
+   {
+    "change": "抗车辙剂：抗车辙剂(0.4%混合料) → 无",
+    "dim": "rut",
+    "id": "SMA13/SBS90_5/amine/none/none/R0/basalt",
+    "dRel": -0.23250000000000004,
+    "dEuac": -0.14745338014852827,
+    "dCarbonYr": -0.039125266160317085,
+    "meets": false,
+    "bottleneck": "ds",
+    "bottleneckRate": 0.71
+   },
+   {
+    "change": "级配：SMA-13 → AC-13",
+    "dim": "grad",
+    "id": "AC13/SBS90_5/amine/antirut/none/R0/basalt",
+    "dRel": -0.4725,
+    "dEuac": -0.05924413710964771,
+    "dCarbonYr": 0.07460320607598137,
+    "meets": false,
+    "bottleneck": "td",
+    "bottleneckRate": 0.5025
+   },
+   {
+    "change": "抗水损措施：胺类抗剥落剂(0.4%油重) → 无",
+    "dim": "water",
+    "id": "SMA13/SBS90_5/none/antirut/none/R0/basalt",
+    "dRel": -0.0024999999999999467,
+    "dEuac": -0.048158940059975563,
+    "dCarbonYr": 0.0028896232728667925,
+    "meets": false,
+    "bottleneck": "pgLow",
+    "bottleneckRate": 0.8125
+   },
+   {
+    "change": "抗水损措施：胺类抗剥落剂(0.4%油重) → 消石灰替代1.5%矿粉",
+    "dim": "water",
+    "id": "SMA13/SBS90_5/lime/antirut/none/R0/basalt",
+    "dRel": 0,
+    "dEuac": -0.04127092850585434,
+    "dCarbonYr": 0.009962310612886993,
+    "meets": false,
+    "bottleneck": "pgLow",
+    "bottleneckRate": 0.8125
+   },
+   {
+    "change": "拌和工艺：热拌 → 表面活性剂温拌(0.5%油重)",
+    "dim": "warm",
+    "id": "SMA13/SBS90_5/amine/antirut/warm/R0/basalt",
+    "dRel": 0,
+    "dEuac": -0.02607908886556487,
+    "dCarbonYr": -0.07230791988864294,
+    "meets": false,
+    "bottleneck": "pgLow",
+    "bottleneckRate": 0.8125
+   },
+   {
+    "change": "结合料：SBS改性沥青(90#基, 5.5%) → SBS改性沥青(110#基, 5.5%)",
+    "dim": "binder",
+    "id": "SMA13/SBS110_5/amine/antirut/none/R0/basalt",
+    "dRel": -0.05999999999999994,
+    "dEuac": 0.22194039084072514,
+    "dCarbonYr": 0.03684513951266255,
+    "meets": false,
+    "bottleneck": "ds",
+    "bottleneckRate": 0.765
+   },
+   {
+    "change": "结合料：SBS改性沥青(90#基, 5.5%) → SBS改性沥青(90#基, 4.5%)",
+    "dim": "binder",
+    "id": "SMA13/SBS90_4/amine/antirut/none/R0/basalt",
+    "dRel": -0.15500000000000003,
+    "dEuac": 0.44090325267265484,
+    "dCarbonYr": 0.0481439182430059,
+    "meets": false,
+    "bottleneck": "pgLow",
+    "bottleneckRate": 0.6875
+   },
+   {
+    "change": "结合料：SBS改性沥青(90#基, 5.5%) → 橡胶改性沥青(20%胶粉)",
+    "dim": "binder",
+    "id": "SMA13/CR20/amine/antirut/none/R0/basalt",
+    "dRel": -0.30000000000000004,
+    "dEuac": 0.4449929246224098,
+    "dCarbonYr": -0.04452998058890878,
+    "meets": false,
+    "bottleneck": "pgLow",
+    "bottleneckRate": 0.515
+   },
+   {
+    "change": "结合料：SBS改性沥青(90#基, 5.5%) → SBS改性沥青(70#基, 5.5%)",
+    "dim": "binder",
+    "id": "SMA13/SBS70_5/amine/antirut/none/R0/basalt",
+    "dRel": -0.395,
+    "dEuac": 1.7348088455365644,
+    "dCarbonYr": 0.17595214993488262,
+    "meets": false,
+    "bottleneck": "pgLow",
+    "bottleneckRate": 0.4325
+   },
+   {
+    "change": "结合料：SBS改性沥青(90#基, 5.5%) → SBS改性沥青(70#基, 4.5%)",
+    "dim": "binder",
+    "id": "SMA13/SBS70_4/amine/antirut/none/R0/basalt",
+    "dRel": -0.5675,
+    "dEuac": 2.2743403071486696,
+    "dCarbonYr": 0.2310728561763804,
+    "meets": false,
+    "bottleneck": "pgLow",
+    "bottleneckRate": 0.2925
+   }
+  ],
+  "alternatives": [
+   {
+    "id": "SMA13/SBS90_5/amine/antirut/warm/R0/basalt",
+    "label": "SMA-13 + SBS改性沥青(90#基, 5.5%) + 胺类抗剥落剂(0.4%油重) + 抗车辙剂(0.4%混合料) + 表面活性剂温拌(0.5%油重) + 玄武岩纤维0.3%",
+    "reliability": 0.808,
+    "passRate": {
+     "pgHigh": 1,
+     "pgLow": 0.813,
+     "ds": 0.995,
+     "strain": 1,
+     "tsr": 1,
+     "fatigue": 1,
+     "td": 1
+    },
+    "bottleneck": "pgLow",
+    "bottleneckName": "低温分级 PG低温",
+    "lifeMean": 8.8,
+    "lifeP10": 7.4,
+    "costM2": 75.7,
+    "euac": 10.55,
+    "carbonM2": 8.4,
+    "carbonYr": 0.96
+   },
+   {
+    "id": "SMA13/SBS90_5/lime/antirut/warm/R0/basalt",
+    "label": "SMA-13 + SBS改性沥青(90#基, 5.5%) + 消石灰替代1.5%矿粉 + 抗车辙剂(0.4%混合料) + 表面活性剂温拌(0.5%油重) + 玄武岩纤维0.3%",
+    "reliability": 0.808,
+    "passRate": {
+     "pgHigh": 1,
+     "pgLow": 0.813,
+     "ds": 0.995,
+     "strain": 1,
+     "tsr": 1,
+     "fatigue": 1,
+     "td": 1
+    },
+    "bottleneck": "pgLow",
+    "bottleneckName": "低温分级 PG低温",
+    "lifeMean": 8.8,
+    "lifeP10": 7.4,
+    "costM2": 75.5,
+    "euac": 10.51,
+    "carbonM2": 8.5,
+    "carbonYr": 0.97
+   },
+   {
+    "id": "SMA13/HVA/lime/none/warm/R0/lignin",
+    "label": "SMA-13 + 高粘高弹改性沥青 + 消石灰替代1.5%矿粉 + 表面活性剂温拌(0.5%油重) + 木质素纤维0.3%",
+    "reliability": 0.805,
+    "passRate": {
+     "pgHigh": 1,
+     "pgLow": 0.805,
+     "ds": 1,
+     "strain": 1,
+     "tsr": 1,
+     "fatigue": 1,
+     "td": 1
+    },
+    "bottleneck": "pgLow",
+    "bottleneckName": "低温分级 PG低温",
+    "lifeMean": 9,
+    "lifeP10": 7.4,
+    "costM2": 79.3,
+    "euac": 10.85,
+    "carbonM2": 8,
+    "carbonYr": 0.89
+   },
+   {
+    "id": "SMA13/SBS90_5/amine/antirut/warm/R0/lignin",
+    "label": "SMA-13 + SBS改性沥青(90#基, 5.5%) + 胺类抗剥落剂(0.4%油重) + 抗车辙剂(0.4%混合料) + 表面活性剂温拌(0.5%油重) + 木质素纤维0.3%",
+    "reliability": 0.803,
+    "passRate": {
+     "pgHigh": 1,
+     "pgLow": 0.813,
+     "ds": 0.995,
+     "strain": 0.995,
+     "tsr": 1,
+     "fatigue": 1,
+     "td": 1
+    },
+    "bottleneck": "pgLow",
+    "bottleneckName": "低温分级 PG低温",
+    "lifeMean": 8.6,
+    "lifeP10": 7.4,
+    "costM2": 72.2,
+    "euac": 10.17,
+    "carbonM2": 7.9,
+    "carbonYr": 0.92
+   }
+  ],
+  "pareto": [
+   {
+    "id": "AC16/SBS110_5/none/none/warm/R30/none",
+    "label": "AC-16 + SBS改性沥青(110#基, 5.5%) + 表面活性剂温拌(0.5%油重) + RAP 30%+再生剂",
+    "reliability": 0.038,
+    "passRate": {
+     "pgHigh": 1,
+     "pgLow": 0.88,
+     "ds": 0.073,
+     "strain": 0.9,
+     "tsr": 0.988,
+     "fatigue": 0.843,
+     "td": 0.805
+    },
+    "bottleneck": "ds",
+    "bottleneckName": "高温抗车辙 动稳定度",
+    "lifeMean": 7,
+    "lifeP10": 6.3,
+    "costM2": 48.7,
+    "euac": 8.13,
+    "carbonM2": 5.8,
+    "carbonYr": 0.82
+   },
+   {
+    "id": "AC16/SBS90_5/none/none/warm/R30/none",
+    "label": "AC-16 + SBS改性沥青(90#基, 5.5%) + 表面活性剂温拌(0.5%油重) + RAP 30%+再生剂",
+    "reliability": 0.045,
+    "passRate": {
+     "pgHigh": 1,
+     "pgLow": 0.538,
+     "ds": 0.673,
+     "strain": 0.298,
+     "tsr": 0.988,
+     "fatigue": 0.688,
+     "td": 0.805
+    },
+    "bottleneck": "strain",
+    "bottleneckName": "低温抗裂 破坏应变",
+    "lifeMean": 7,
+    "lifeP10": 5.8,
+    "costM2": 48.8,
+    "euac": 8.29,
+    "carbonM2": 5.8,
+    "carbonYr": 0.83
+   },
+   {
+    "id": "AC16/SBS90_5/none/none/warm/R15/none",
+    "label": "AC-16 + SBS改性沥青(90#基, 5.5%) + 表面活性剂温拌(0.5%油重) + RAP 15%",
+    "reliability": 0.128,
+    "passRate": {
+     "pgHigh": 1,
+     "pgLow": 0.67,
+     "ds": 0.505,
+     "strain": 0.63,
+     "tsr": 0.995,
+     "fatigue": 0.858,
+     "td": 0.805
+    },
+    "bottleneck": "ds",
+    "bottleneckName": "高温抗车辙 动稳定度",
+    "lifeMean": 7.4,
+    "lifeP10": 6.5,
+    "costM2": 51.7,
+    "euac": 8.32,
+    "carbonM2": 6,
+    "carbonYr": 0.81
+   },
+   {
+    "id": "AC16/SBS110_5/none/antirut/warm/R30/none",
+    "label": "AC-16 + SBS改性沥青(110#基, 5.5%) + 抗车辙剂(0.4%混合料) + 表面活性剂温拌(0.5%油重) + RAP 30%+再生剂",
+    "reliability": 0.26,
+    "passRate": {
+     "pgHigh": 1,
+     "pgLow": 0.88,
+     "ds": 0.718,
+     "strain": 0.69,
+     "tsr": 0.988,
+     "fatigue": 0.843,
+     "td": 0.805
+    },
+    "bottleneck": "strain",
+    "bottleneckName": "低温抗裂 破坏应变",
+    "lifeMean": 7.6,
+    "lifeP10": 6.9,
+    "costM2": 54.1,
+    "euac": 8.43,
+    "carbonM2": 6.7,
+    "carbonYr": 0.88
+   },
+   {
+    "id": "AC16/CR20/none/none/warm/R0/none",
+    "label": "AC-16 + 橡胶改性沥青(20%胶粉) + 表面活性剂温拌(0.5%油重)",
+    "reliability": 0.133,
+    "passRate": {
+     "pgHigh": 1,
+     "pgLow": 0.515,
+     "ds": 0.81,
+     "strain": 0.565,
+     "tsr": 0.995,
+     "fatigue": 0.785,
+     "td": 0.805
+    },
+    "bottleneck": "pgLow",
+    "bottleneckName": "低温分级 PG低温",
+    "lifeMean": 7.2,
+    "lifeP10": 5.9,
+    "costM2": 51.5,
+    "euac": 8.53,
+    "carbonM2": 5.2,
+    "carbonYr": 0.73
+   },
+   {
+    "id": "AC16/SBS110_5/none/antirut/warm/R15/none",
+    "label": "AC-16 + SBS改性沥青(110#基, 5.5%) + 抗车辙剂(0.4%混合料) + 表面活性剂温拌(0.5%油重) + RAP 15%",
+    "reliability": 0.355,
+    "passRate": {
+     "pgHigh": 1,
+     "pgLow": 0.943,
+     "ds": 0.558,
+     "strain": 0.918,
+     "tsr": 0.995,
+     "fatigue": 0.948,
+     "td": 0.805
+    },
+    "bottleneck": "ds",
+    "bottleneckName": "高温抗车辙 动稳定度",
+    "lifeMean": 7.8,
+    "lifeP10": 7.2,
+    "costM2": 57,
+    "euac": 8.71,
+    "carbonM2": 6.9,
+    "carbonYr": 0.89
+   },
+   {
+    "id": "AC16/SBS90_5/none/none/warm/R0/none",
+    "label": "AC-16 + SBS改性沥青(90#基, 5.5%) + 表面活性剂温拌(0.5%油重)",
+    "reliability": 0.163,
+    "passRate": {
+     "pgHigh": 1,
+     "pgLow": 0.813,
+     "ds": 0.31,
+     "strain": 0.873,
+     "tsr": 0.998,
+     "fatigue": 0.948,
+     "td": 0.805
+    },
+    "bottleneck": "ds",
+    "bottleneckName": "高温抗车辙 动稳定度",
+    "lifeMean": 7.4,
+    "lifeP10": 6.8,
+    "costM2": 55.2,
+    "euac": 8.76,
+    "carbonM2": 6.2,
+    "carbonYr": 0.83
+   },
+   {
+    "id": "AC16/CR20/none/none/warm/R0/basalt",
+    "label": "AC-16 + 橡胶改性沥青(20%胶粉) + 表面活性剂温拌(0.5%油重) + 玄武岩纤维0.3%",
+    "reliability": 0.24,
+    "passRate": {
+     "pgHigh": 1,
+     "pgLow": 0.515,
+     "ds": 0.81,
+     "strain": 0.828,
+     "tsr": 0.995,
+     "fatigue": 0.893,
+     "td": 0.805
+    },
+    "bottleneck": "pgLow",
+    "bottleneckName": "低温分级 PG低温",
+    "lifeMean": 7.3,
+    "lifeP10": 6.1,
+    "costM2": 56.8,
+    "euac": 9.22,
+    "carbonM2": 5.8,
+    "carbonYr": 0.79
+   },
+   {
+    "id": "AC16/SBS90_5/none/antirut/warm/R0/none",
+    "label": "AC-16 + SBS改性沥青(90#基, 5.5%) + 抗车辙剂(0.4%混合料) + 表面活性剂温拌(0.5%油重)",
+    "reliability": 0.37,
+    "passRate": {
+     "pgHigh": 1,
+     "pgLow": 0.813,
+     "ds": 0.96,
+     "strain": 0.63,
+     "tsr": 0.998,
+     "fatigue": 0.948,
+     "td": 0.805
+    },
+    "bottleneck": "strain",
+    "bottleneckName": "低温抗裂 破坏应变",
+    "lifeMean": 7.7,
+    "lifeP10": 6.9,
+    "costM2": 60.6,
+    "euac": 9.3,
+    "carbonM2": 7.2,
+    "carbonYr": 0.93
+   },
+   {
+    "id": "AC16/SBS90_5/none/antirut/none/R0/none",
+    "label": "AC-16 + SBS改性沥青(90#基, 5.5%) + 抗车辙剂(0.4%混合料)",
+    "reliability": 0.373,
+    "passRate": {
+     "pgHigh": 1,
+     "pgLow": 0.813,
+     "ds": 0.96,
+     "strain": 0.63,
+     "tsr": 1,
+     "fatigue": 0.948,
+     "td": 0.805
+    },
+    "bottleneck": "strain",
+    "bottleneckName": "低温抗裂 破坏应变",
+    "lifeMean": 7.7,
+    "lifeP10": 6.9,
+    "costM2": 60.8,
+    "euac": 9.33,
+    "carbonM2": 7.8,
+    "carbonYr": 1.01
+   },
+   {
+    "id": "AC16/SBS90_5/lime/antirut/warm/R0/none",
+    "label": "AC-16 + SBS改性沥青(90#基, 5.5%) + 消石灰替代1.5%矿粉 + 抗车辙剂(0.4%混合料) + 表面活性剂温拌(0.5%油重)",
+    "reliability": 0.373,
+    "passRate": {
+     "pgHigh": 1,
+     "pgLow": 0.813,
+     "ds": 0.96,
+     "strain": 0.63,
+     "tsr": 1,
+     "fatigue": 0.948,
+     "td": 0.805
+    },
+    "bottleneck": "strain",
+    "bottleneckName": "低温抗裂 破坏应变",
+    "lifeMean": 7.7,
+    "lifeP10": 6.9,
+    "costM2": 61,
+    "euac": 9.36,
+    "carbonM2": 7.3,
+    "carbonYr": 0.94
+   },
+   {
+    "id": "AC16/SBS90_5/amine/antirut/warm/R0/none",
+    "label": "AC-16 + SBS改性沥青(90#基, 5.5%) + 胺类抗剥落剂(0.4%油重) + 抗车辙剂(0.4%混合料) + 表面活性剂温拌(0.5%油重)",
+    "reliability": 0.373,
+    "passRate": {
+     "pgHigh": 1,
+     "pgLow": 0.813,
+     "ds": 0.96,
+     "strain": 0.63,
+     "tsr": 1,
+     "fatigue": 0.948,
+     "td": 0.805
+    },
+    "bottleneck": "strain",
+    "bottleneckName": "低温抗裂 破坏应变",
+    "lifeMean": 7.7,
+    "lifeP10": 6.9,
+    "costM2": 61.3,
+    "euac": 9.4,
+    "carbonM2": 7.2,
+    "carbonYr": 0.93
+   },
+   {
+    "id": "AC16/SBS110_5/none/antirut/warm/R15/basalt",
+    "label": "AC-16 + SBS改性沥青(110#基, 5.5%) + 抗车辙剂(0.4%混合料) + 表面活性剂温拌(0.5%油重) + RAP 15% + 玄武岩纤维0.3%",
+    "reliability": 0.403,
+    "passRate": {
+     "pgHigh": 1,
+     "pgLow": 0.943,
+     "ds": 0.558,
+     "strain": 0.975,
+     "tsr": 0.995,
+     "fatigue": 0.983,
+     "td": 0.805
+    },
+    "bottleneck": "ds",
+    "bottleneckName": "高温抗车辙 动稳定度",
+    "lifeMean": 7.8,
+    "lifeP10": 7.2,
+    "costM2": 62.2,
+    "euac": 9.43,
+    "carbonM2": 7.5,
+    "carbonYr": 0.96
+   },
+   {
+    "id": "SMA13/CR20/none/none/warm/R0/lignin",
+    "label": "SMA-13 + 橡胶改性沥青(20%胶粉) + 表面活性剂温拌(0.5%油重) + 木质素纤维0.3%",
+    "reliability": 0.488,
+    "passRate": {
+     "pgHigh": 1,
+     "pgLow": 0.515,
+     "ds": 0.978,
+     "strain": 0.985,
+     "tsr": 0.988,
+     "fatigue": 0.998,
+     "td": 1
+    },
+    "bottleneck": "pgLow",
+    "bottleneckName": "低温分级 PG低温",
+    "lifeMean": 7.7,
+    "lifeP10": 6.2,
+    "costM2": 61.4,
+    "euac": 9.58,
+    "carbonM2": 5.7,
+    "carbonYr": 0.73
+   },
+   {
+    "id": "SMA13/CR20/none/none/none/R0/lignin",
+    "label": "SMA-13 + 橡胶改性沥青(20%胶粉) + 木质素纤维0.3%",
+    "reliability": 0.493,
+    "passRate": {
+     "pgHigh": 1,
+     "pgLow": 0.515,
+     "ds": 0.978,
+     "strain": 0.985,
+     "tsr": 0.995,
+     "fatigue": 0.998,
+     "td": 1
+    },
+    "bottleneck": "pgLow",
+    "bottleneckName": "低温分级 PG低温",
+    "lifeMean": 7.8,
+    "lifeP10": 6.2,
+    "costM2": 61.6,
+    "euac": 9.61,
+    "carbonM2": 6.3,
+    "carbonYr": 0.81
+   },
+   {
+    "id": "SMA13/CR20/lime/none/warm/R0/lignin",
+    "label": "SMA-13 + 橡胶改性沥青(20%胶粉) + 消石灰替代1.5%矿粉 + 表面活性剂温拌(0.5%油重) + 木质素纤维0.3%",
+    "reliability": 0.495,
+    "passRate": {
+     "pgHigh": 1,
+     "pgLow": 0.515,
+     "ds": 0.978,
+     "strain": 0.985,
+     "tsr": 1,
+     "fatigue": 0.998,
+     "td": 1
+    },
+    "bottleneck": "pgLow",
+    "bottleneckName": "低温分级 PG低温",
+    "lifeMean": 7.8,
+    "lifeP10": 6.2,
+    "costM2": 61.8,
+    "euac": 9.62,
+    "carbonM2": 5.8,
+    "carbonYr": 0.74
+   },
+   {
+    "id": "SMA13/CR20/amine/none/warm/R0/lignin",
+    "label": "SMA-13 + 橡胶改性沥青(20%胶粉) + 胺类抗剥落剂(0.4%油重) + 表面活性剂温拌(0.5%油重) + 木质素纤维0.3%",
+    "reliability": 0.495,
+    "passRate": {
+     "pgHigh": 1,
+     "pgLow": 0.515,
+     "ds": 0.978,
+     "strain": 0.985,
+     "tsr": 1,
+     "fatigue": 0.998,
+     "td": 1
+    },
+    "bottleneck": "pgLow",
+    "bottleneckName": "低温分级 PG低温",
+    "lifeMean": 7.8,
+    "lifeP10": 6.2,
+    "costM2": 62.1,
+    "euac": 9.67,
+    "carbonM2": 5.7,
+    "carbonYr": 0.73
+   },
+   {
+    "id": "AC16/HVA/none/none/warm/R0/none",
+    "label": "AC-16 + 高粘高弹改性沥青 + 表面活性剂温拌(0.5%油重)",
+    "reliability": 0.61,
+    "passRate": {
+     "pgHigh": 1,
+     "pgLow": 0.805,
+     "ds": 1,
+     "strain": 0.96,
+     "tsr": 1,
+     "fatigue": 0.948,
+     "td": 0.805
+    },
+    "bottleneck": "pgLow",
+    "bottleneckName": "低温分级 PG低温",
+    "lifeMean": 8,
+    "lifeP10": 7,
+    "costM2": 65.1,
+    "euac": 9.73,
+    "carbonM2": 7,
+    "carbonYr": 0.87
+   },
+   {
+    "id": "SMA13/SBS90_5/none/none/warm/R0/lignin",
+    "label": "SMA-13 + SBS改性沥青(90#基, 5.5%) + 表面活性剂温拌(0.5%油重) + 木质素纤维0.3%",
+    "reliability": 0.573,
+    "passRate": {
+     "pgHigh": 1,
+     "pgLow": 0.813,
+     "ds": 0.71,
+     "strain": 1,
+     "tsr": 0.995,
+     "fatigue": 1,
+     "td": 1
+    },
+    "bottleneck": "ds",
+    "bottleneckName": "高温抗车辙 动稳定度",
+    "lifeMean": 8.1,
+    "lifeP10": 7.2,
+    "costM2": 66.1,
+    "euac": 9.79,
+    "carbonM2": 6.9,
+    "carbonYr": 0.86
+   },
+   {
+    "id": "SMA13/SBS90_5/amine/none/warm/R0/lignin",
+    "label": "SMA-13 + SBS改性沥青(90#基, 5.5%) + 胺类抗剥落剂(0.4%油重) + 表面活性剂温拌(0.5%油重) + 木质素纤维0.3%",
+    "reliability": 0.575,
+    "passRate": {
+     "pgHigh": 1,
+     "pgLow": 0.813,
+     "ds": 0.71,
+     "strain": 1,
+     "tsr": 1,
+     "fatigue": 1,
+     "td": 1
+    },
+    "bottleneck": "ds",
+    "bottleneckName": "高温抗车辙 动稳定度",
+    "lifeMean": 8.1,
+    "lifeP10": 7.2,
+    "costM2": 66.8,
+    "euac": 9.89,
+    "carbonM2": 7,
+    "carbonYr": 0.86
+   },
+   {
+    "id": "SMA13/CR20/none/none/warm/R0/basalt",
+    "label": "SMA-13 + 橡胶改性沥青(20%胶粉) + 表面活性剂温拌(0.5%油重) + 玄武岩纤维0.3%",
+    "reliability": 0.498,
+    "passRate": {
+     "pgHigh": 1,
+     "pgLow": 0.515,
+     "ds": 0.978,
+     "strain": 1,
+     "tsr": 0.988,
+     "fatigue": 1,
+     "td": 1
+    },
+    "bottleneck": "pgLow",
+    "bottleneckName": "低温分级 PG低温",
+    "lifeMean": 7.8,
+    "lifeP10": 6.2,
+    "costM2": 64.9,
+    "euac": 10.09,
+    "carbonM2": 6.1,
+    "carbonYr": 0.78
+   },
+   {
+    "id": "SMA13/SBS90_5/none/antirut/warm/R0/lignin",
+    "label": "SMA-13 + SBS改性沥青(90#基, 5.5%) + 抗车辙剂(0.4%混合料) + 表面活性剂温拌(0.5%油重) + 木质素纤维0.3%",
+    "reliability": 0.798,
+    "passRate": {
+     "pgHigh": 1,
+     "pgLow": 0.813,
+     "ds": 0.995,
+     "strain": 0.995,
+     "tsr": 0.995,
+     "fatigue": 1,
+     "td": 1
+    },
+    "bottleneck": "pgLow",
+    "bottleneckName": "低温分级 PG低温",
+    "lifeMean": 8.6,
+    "lifeP10": 7.4,
+    "costM2": 71.6,
+    "euac": 10.12,
+    "carbonM2": 7.9,
+    "carbonYr": 0.92
+   },
+   {
+    "id": "SMA13/CR20/lime/none/warm/R0/basalt",
+    "label": "SMA-13 + 橡胶改性沥青(20%胶粉) + 消石灰替代1.5%矿粉 + 表面活性剂温拌(0.5%油重) + 玄武岩纤维0.3%",
+    "reliability": 0.505,
+    "passRate": {
+     "pgHigh": 1,
+     "pgLow": 0.515,
+     "ds": 0.978,
+     "strain": 1,
+     "tsr": 1,
+     "fatigue": 1,
+     "td": 1
+    },
+    "bottleneck": "pgLow",
+    "bottleneckName": "低温分级 PG低温",
+    "lifeMean": 7.8,
+    "lifeP10": 6.2,
+    "costM2": 65.3,
+    "euac": 10.12,
+    "carbonM2": 6.2,
+    "carbonYr": 0.79
+   },
+   {
+    "id": "SMA13/SBS90_5/lime/antirut/warm/R0/lignin",
+    "label": "SMA-13 + SBS改性沥青(90#基, 5.5%) + 消石灰替代1.5%矿粉 + 抗车辙剂(0.4%混合料) + 表面活性剂温拌(0.5%油重) + 木质素纤维0.3%",
+    "reliability": 0.803,
+    "passRate": {
+     "pgHigh": 1,
+     "pgLow": 0.813,
+     "ds": 0.995,
+     "strain": 0.995,
+     "tsr": 1,
+     "fatigue": 1,
+     "td": 1
+    },
+    "bottleneck": "pgLow",
+    "bottleneckName": "低温分级 PG低温",
+    "lifeMean": 8.6,
+    "lifeP10": 7.4,
+    "costM2": 71.9,
+    "euac": 10.13,
+    "carbonM2": 8,
+    "carbonYr": 0.93
+   },
+   {
+    "id": "SMA13/CR20/amine/none/warm/R0/basalt",
+    "label": "SMA-13 + 橡胶改性沥青(20%胶粉) + 胺类抗剥落剂(0.4%油重) + 表面活性剂温拌(0.5%油重) + 玄武岩纤维0.3%",
+    "reliability": 0.505,
+    "passRate": {
+     "pgHigh": 1,
+     "pgLow": 0.515,
+     "ds": 0.978,
+     "strain": 1,
+     "tsr": 1,
+     "fatigue": 1,
+     "td": 1
+    },
+    "bottleneck": "pgLow",
+    "bottleneckName": "低温分级 PG低温",
+    "lifeMean": 7.8,
+    "lifeP10": 6.2,
+    "costM2": 65.6,
+    "euac": 10.17,
+    "carbonM2": 6.1,
+    "carbonYr": 0.78
+   },
+   {
+    "id": "SMA13/SBS90_5/amine/antirut/warm/R0/lignin",
+    "label": "SMA-13 + SBS改性沥青(90#基, 5.5%) + 胺类抗剥落剂(0.4%油重) + 抗车辙剂(0.4%混合料) + 表面活性剂温拌(0.5%油重) + 木质素纤维0.3%",
+    "reliability": 0.803,
+    "passRate": {
+     "pgHigh": 1,
+     "pgLow": 0.813,
+     "ds": 0.995,
+     "strain": 0.995,
+     "tsr": 1,
+     "fatigue": 1,
+     "td": 1
+    },
+    "bottleneck": "pgLow",
+    "bottleneckName": "低温分级 PG低温",
+    "lifeMean": 8.6,
+    "lifeP10": 7.4,
+    "costM2": 72.2,
+    "euac": 10.17,
+    "carbonM2": 7.9,
+    "carbonYr": 0.92
+   },
+   {
+    "id": "SMA13/SBS90_5/lime/antirut/warm/R0/basalt",
+    "label": "SMA-13 + SBS改性沥青(90#基, 5.5%) + 消石灰替代1.5%矿粉 + 抗车辙剂(0.4%混合料) + 表面活性剂温拌(0.5%油重) + 玄武岩纤维0.3%",
+    "reliability": 0.808,
+    "passRate": {
+     "pgHigh": 1,
+     "pgLow": 0.813,
+     "ds": 0.995,
+     "strain": 1,
+     "tsr": 1,
+     "fatigue": 1,
+     "td": 1
+    },
+    "bottleneck": "pgLow",
+    "bottleneckName": "低温分级 PG低温",
+    "lifeMean": 8.8,
+    "lifeP10": 7.4,
+    "costM2": 75.5,
+    "euac": 10.51,
+    "carbonM2": 8.5,
+    "carbonYr": 0.97
+   },
+   {
+    "id": "SMA13/SBS90_5/amine/antirut/warm/R0/basalt",
+    "label": "SMA-13 + SBS改性沥青(90#基, 5.5%) + 胺类抗剥落剂(0.4%油重) + 抗车辙剂(0.4%混合料) + 表面活性剂温拌(0.5%油重) + 玄武岩纤维0.3%",
+    "reliability": 0.808,
+    "passRate": {
+     "pgHigh": 1,
+     "pgLow": 0.813,
+     "ds": 0.995,
+     "strain": 1,
+     "tsr": 1,
+     "fatigue": 1,
+     "td": 1
+    },
+    "bottleneck": "pgLow",
+    "bottleneckName": "低温分级 PG低温",
+    "lifeMean": 8.8,
+    "lifeP10": 7.4,
+    "costM2": 75.7,
+    "euac": 10.55,
+    "carbonM2": 8.4,
+    "carbonYr": 0.96
+   },
+   {
+    "id": "SMA13/HVA/lime/none/warm/R0/lignin",
+    "label": "SMA-13 + 高粘高弹改性沥青 + 消石灰替代1.5%矿粉 + 表面活性剂温拌(0.5%油重) + 木质素纤维0.3%",
+    "reliability": 0.805,
+    "passRate": {
+     "pgHigh": 1,
+     "pgLow": 0.805,
+     "ds": 1,
+     "strain": 1,
+     "tsr": 1,
+     "fatigue": 1,
+     "td": 1
+    },
+    "bottleneck": "pgLow",
+    "bottleneckName": "低温分级 PG低温",
+    "lifeMean": 9,
+    "lifeP10": 7.4,
+    "costM2": 79.3,
+    "euac": 10.85,
+    "carbonM2": 8,
+    "carbonYr": 0.89
+   }
+  ],
+  "baselines": {
+   "experience": {
+    "id": "SMA13/SBS110_5/none/none/none/R0/lignin",
+    "label": "SMA-13 + SBS改性沥青(110#基, 5.5%) + 木质素纤维0.3%",
+    "reliability": 0.083,
+    "passRate": {
+     "pgHigh": 1,
+     "pgLow": 0.978,
+     "ds": 0.088,
+     "strain": 1,
+     "tsr": 0.998,
+     "fatigue": 1,
+     "td": 1
+    },
+    "bottleneck": "ds",
+    "bottleneckName": "高温抗车辙 动稳定度",
+    "lifeMean": 7.2,
+    "lifeP10": 6.5,
+    "costM2": 66.1,
+    "euac": 10.79,
+    "carbonM2": 7.6,
+    "carbonYr": 1.05
+   },
+   "weightedSum": {
+    "id": "SMA13/CR20/lime/none/none/R0/lignin",
+    "label": "SMA-13 + 橡胶改性沥青(20%胶粉) + 消石灰替代1.5%矿粉 + 木质素纤维0.3%",
+    "reliability": 0.495,
+    "passRate": {
+     "pgHigh": 1,
+     "pgLow": 0.515,
+     "ds": 0.978,
+     "strain": 0.985,
+     "tsr": 1,
+     "fatigue": 0.998,
+     "td": 1
+    },
+    "bottleneck": "pgLow",
+    "bottleneckName": "低温分级 PG低温",
+    "lifeMean": 7.8,
+    "lifeP10": 6.2,
+    "costM2": 62,
+    "euac": 9.65,
+    "carbonM2": 6.4,
+    "carbonYr": 0.82
+   },
+   "cheapest": {
+    "id": "AC16/B110/none/none/warm/R30/none",
+    "label": "AC-16 + 110#A 道路石油沥青 + 表面活性剂温拌(0.5%油重) + RAP 30%+再生剂",
+    "reliability": 0,
+    "passRate": {
+     "pgHigh": 0.28,
+     "pgLow": 0.215,
+     "ds": 0,
+     "strain": 0,
+     "tsr": 0.92,
+     "fatigue": 0.048,
+     "td": 0.805
+    },
+    "bottleneck": "ds",
+    "bottleneckName": "高温抗车辙 动稳定度",
+    "lifeMean": 4.1,
+    "lifeP10": 3.3,
+    "costM2": 43.3,
+    "euac": 11.91,
+    "carbonM2": 5,
+    "carbonYr": 1.23
+   }
+  }
+ },
+ "C6": {
+  "engine": "SZXC-1.0",
+  "elapsedMs": 163,
+  "scenario": {
+   "roadClass": "local",
+   "traffic": "medium",
+   "speed": "normal",
+   "treatment": "MR_UP",
+   "aggregate": "limestone",
+   "distresses": [
+    {
+     "id": "aging",
+     "severity": 1
+    },
+    {
+     "id": "fatigueCrack",
+     "severity": 0
+    }
+   ],
+   "ambientT": 20,
+   "haulMin": 35,
+   "targetReliability": 0.75,
+   "budgetPerM2": 52,
+   "nightWork": false,
+   "samples": 400,
+   "seed": 20261021,
+   "cityId": "xian"
+  },
+  "tags": [
+   "CZ:1-3-2",
+   "CZH:1",
+   "CZL:3",
+   "CZR:2",
+   "TL:medium",
+   "SPD:normal",
+   "TRT:MR_UP",
+   "AGG:limestone",
+   "ROAD:local",
+   "DIS:aging",
+   "DIS:aging:中",
+   "DIS:fatigueCrack",
+   "DIS:fatigueCrack:轻"
+  ],
+  "climate": {
+   "city": "西安",
+   "zone": "1-3-2",
+   "zoneName": "夏炎热区·冬冷区·湿润区",
+   "pavHigh98": 61.8,
+   "pavLow98": -16.1,
+   "pgRequired98": "PG 64-22"
+  },
+  "requirements": [
+   {
+    "ind": "pgHigh",
+    "name": "高温分级 PG高温",
+    "unit": "°C",
+    "sceneTarget": 58.8,
+    "why": "LTPPBind 公式: 7日最高气温 37.5°C → 路面20mm处 58.8°C；交通/车速加级 +0 级(每级6°C)"
+   },
+   {
+    "ind": "pgLow",
+    "name": "低温分级 PG低温",
+    "unit": "°C",
+    "sceneTarget": -10.5,
+    "why": "SHRP 公式: 年极端低温均值 -14.2°C → 路面 -10.5°C"
+   },
+   {
+    "ind": "ds",
+    "name": "高温抗车辙 动稳定度",
+    "unit": "次/mm",
+    "sceneTarget": 1500,
+    "why": "规范普通沥青 1000 次/mm（1-3 区）× 交通系数 1.5"
+   },
+   {
+    "ind": "strain",
+    "name": "低温抗裂 破坏应变",
+    "unit": "με",
+    "sceneTarget": 2000,
+    "why": "规范普通沥青 2000 με（冬冷区）"
+   },
+   {
+    "ind": "tsr",
+    "name": "水稳定性 冻融劈裂比",
+    "unit": "%",
+    "sceneTarget": 75,
+    "why": "规范 年降水≥500mm 普通沥青 75%"
+   },
+   {
+    "ind": "fatigue",
+    "name": "疲劳寿命",
+    "unit": "lg次",
+    "sceneTarget": 4.9,
+    "why": "中等交通对应 lgNf ≥ 4.8（四点弯曲 600με） + 网裂病害 0.1"
+   },
+   {
+    "ind": "td",
+    "name": "抗滑 构造深度",
+    "unit": "mm",
+    "sceneTarget": 0.45,
+    "why": "一般道路构造深度 0.45 mm"
+   }
+  ],
+  "priorities": [
+   {
+    "ind": "ds",
+    "name": "高温抗车辙 动稳定度",
+    "scarcity": 0.554
+   },
+   {
+    "ind": "fatigue",
+    "name": "疲劳寿命",
+    "scarcity": 0.391
+   },
+   {
+    "ind": "strain",
+    "name": "低温抗裂 破坏应变",
+    "scarcity": 0.326
+   },
+   {
+    "ind": "pgHigh",
+    "name": "高温分级 PG高温",
+    "scarcity": 0.129
+   },
+   {
+    "ind": "td",
+    "name": "抗滑 构造深度",
+    "scarcity": 0.055
+   },
+   {
+    "ind": "pgLow",
+    "name": "低温分级 PG低温",
+    "scarcity": 0.047
+   },
+   {
+    "ind": "tsr",
+    "name": "水稳定性 冻融劈裂比",
+    "scarcity": 0.021
+   }
+  ],
+  "stats": {
+   "enumerated": 3747,
+   "feasible": 1488,
+   "budgetCut": 1135,
+   "rejected": {
+    "R08 层厚与公称最大粒径不匹配(2.5–4.0倍)": 3,
+    "R12 高RAP 掺量不再加纤维": 240,
+    "R05 硬质沥青仅用于 AC-16 且限非寒区": 72,
+    "R11 RAP 不与高粘/橡胶/硬质沥青组合": 192,
+    "R09 OGFC/高粘沥青不再加抗车辙剂": 96,
+    "R01 SMA 须用改性沥青": 360,
+    "R04 SMA/OGFC 表层不掺RAP": 432,
+    "R02 OGFC 须用高粘高弹沥青": 864
+   },
+   "samples": 400
+  },
+  "targetReliability": 0.75,
+  "targetReached": true,
+  "recommended": {
+   "id": "AC16/SBS90_5/lime/none/warm/R30/none",
+   "label": "AC-16 + SBS改性沥青(90#基, 5.5%) + 消石灰替代1.5%矿粉 + 表面活性剂温拌(0.5%油重) + RAP 30%+再生剂",
+   "reliability": 0.773,
+   "passRate": {
+    "pgHigh": 1,
+    "pgLow": 1,
+    "ds": 0.798,
+    "strain": 0.983,
+    "tsr": 0.998,
+    "fatigue": 0.998,
+    "td": 0.99
+   },
+   "bottleneck": "ds",
+   "bottleneckName": "高温抗车辙 动稳定度",
+   "lifeMean": 8.4,
+   "lifeP10": 7.7,
+   "costM2": 49.2,
+   "euac": 7.04,
+   "carbonM2": 5.9,
+   "carbonYr": 0.7,
+   "formula": {
+    "gradation": "AC-16",
+    "binder": "SBS改性沥青(90#基, 5.5%)",
+    "binderContent": 4.6,
+    "aggregate": "石灰岩",
+    "water": "消石灰替代1.5%矿粉",
+    "rut": "无",
+    "warm": "表面活性剂温拌(0.5%油重)",
+    "rap": "RAP 30%+再生剂",
+    "fiber": "无",
+    "binderPG": "PG 76-34"
+   },
+   "predicted": {
+    "pgHigh": {
+     "mean": 75.7,
+     "req": null,
+     "binding": "scene"
+    },
+    "pgLow": {
+     "mean": -27.1,
+     "req": null,
+     "binding": "scene"
+    },
+    "ds": {
+     "mean": 3430.8,
+     "req": 2800,
+     "binding": "std"
+    },
+    "strain": {
+     "mean": 2973.5,
+     "req": 2500,
+     "binding": "std"
+    },
+    "tsr": {
+     "mean": 90,
+     "req": 80,
+     "binding": "std"
+    },
+    "fatigue": {
+     "mean": 5.44,
+     "req": 4.9,
+     "binding": "scene"
+    },
+    "td": {
+     "mean": 0.62,
+     "req": 0.45,
+     "binding": "scene"
+    }
+   },
+   "costBreak": {
+    "materials": 25.4,
+    "additives": 1,
+    "production": 10.8,
+    "milling": 12
+   }
+  },
+  "process": {
+   "mixTemp": [
+    145,
+    155
+   ],
+   "compactionStartMin": 125,
+   "minAmbient": 5,
+   "vaDesign": 4,
+   "vaExpectedExcess": 0,
+   "robustness": {
+    "colder8": -0.06,
+    "va1": -0.175
+   }
+  },
+  "counterfactuals": [
+   {
+    "change": "拌和工艺：表面活性剂温拌(0.5%油重) → 热拌",
+    "dim": "warm",
+    "id": "AC16/SBS90_5/lime/none/none/R30/none",
+    "dRel": 0.0025000000000000577,
+    "dEuac": 0.026173727483985942,
+    "dCarbonYr": 0.0747332209492757,
+    "meets": true,
+    "bottleneck": "ds",
+    "bottleneckRate": 0.7975
+   },
+   {
+    "change": "抗水损措施：消石灰替代1.5%矿粉 → 胺类抗剥落剂(0.4%油重)",
+    "dim": "water",
+    "id": "AC16/SBS90_5/amine/none/warm/R30/none",
+    "dRel": -0.0024999999999999467,
+    "dEuac": 0.04453649311938079,
+    "dCarbonYr": -0.010015934814650462,
+    "meets": true,
+    "bottleneck": "ds",
+    "bottleneckRate": 0.7975
+   },
+   {
+    "change": "抗水损措施：消石灰替代1.5%矿粉 → 无",
+    "dim": "water",
+    "id": "AC16/SBS90_5/none/none/warm/R30/none",
+    "dRel": -0.15249999999999997,
+    "dEuac": 0.12816549025864354,
+    "dCarbonYr": 0.007633238249269647,
+    "meets": false,
+    "bottleneck": "tsr",
+    "bottleneckRate": 0.7925
+   },
+   {
+    "change": "结合料：SBS改性沥青(90#基, 5.5%) → SBS改性沥青(70#基, 5.5%)",
+    "dim": "binder",
+    "id": "AC16/SBS70_5/lime/none/warm/R30/none",
+    "dRel": -0.08250000000000002,
+    "dEuac": 0.1351377236331439,
+    "dCarbonYr": 0.011701483065529206,
+    "meets": false,
+    "bottleneck": "strain",
+    "bottleneckRate": 0.7325
+   },
+   {
+    "change": "结合料：SBS改性沥青(90#基, 5.5%) → SBS改性沥青(70#基, 4.5%)",
+    "dim": "binder",
+    "id": "AC16/SBS70_4/lime/none/warm/R30/none",
+    "dRel": -0.32249999999999995,
+    "dEuac": 0.3413228149783194,
+    "dCarbonYr": 0.033310462532619045,
+    "meets": false,
+    "bottleneck": "strain",
+    "bottleneckRate": 0.515
+   },
+   {
+    "change": "结合料：SBS改性沥青(90#基, 5.5%) → SBS改性沥青(90#基, 4.5%)",
+    "dim": "binder",
+    "id": "AC16/SBS90_4/lime/none/warm/R30/none",
+    "dRel": -0.40499999999999997,
+    "dEuac": 0.3491337215386725,
+    "dCarbonYr": 0.039215810804013373,
+    "meets": false,
+    "bottleneck": "ds",
+    "bottleneckRate": 0.3925
+   },
+   {
+    "change": "级配：AC-16 → AC-13",
+    "dim": "grad",
+    "id": "AC13/SBS90_5/lime/none/warm/R30/none",
+    "dRel": -0.24749999999999994,
+    "dEuac": 0.43138938309648545,
+    "dCarbonYr": 0.038243357329316274,
+    "meets": false,
+    "bottleneck": "ds",
+    "bottleneckRate": 0.61
+   },
+   {
+    "change": "结合料：SBS改性沥青(90#基, 5.5%) → SBS改性沥青(70#基, 3.5%)",
+    "dim": "binder",
+    "id": "AC16/SBS70_3/lime/none/warm/R30/none",
+    "dRel": -0.59,
+    "dEuac": 0.6423598293983748,
+    "dCarbonYr": 0.06452196877210792,
+    "meets": false,
+    "bottleneck": "strain",
+    "bottleneckRate": 0.2825
+   },
+   {
+    "change": "结合料：SBS改性沥青(90#基, 5.5%) → SBS改性沥青(110#基, 5.5%)",
+    "dim": "binder",
+    "id": "AC16/SBS110_5/lime/none/warm/R30/none",
+    "dRel": -0.635,
+    "dEuac": 0.8421671530899353,
+    "dCarbonYr": 0.09926492696050715,
+    "meets": false,
+    "bottleneck": "ds",
+    "bottleneckRate": 0.1375
+   },
+   {
+    "change": "结合料：SBS改性沥青(90#基, 5.5%) → 90#A 道路石油沥青",
+    "dim": "binder",
+    "id": "AC16/B90/lime/none/warm/R30/none",
+    "dRel": -0.77,
+    "dEuac": 1.3721945427038937,
+    "dCarbonYr": 0.14652301568739634,
+    "meets": false,
+    "bottleneck": "ds",
+    "bottleneckRate": 0.0025
+   },
+   {
+    "change": "结合料：SBS改性沥青(90#基, 5.5%) → 110#A 道路石油沥青",
+    "dim": "binder",
+    "id": "AC16/B110/lime/none/warm/R30/none",
+    "dRel": -0.7725,
+    "dEuac": 1.9477373226317498,
+    "dCarbonYr": 0.22677108000722457,
+    "meets": false,
+    "bottleneck": "ds",
+    "bottleneckRate": 0
+   },
+   {
+    "change": "结合料：SBS改性沥青(90#基, 5.5%) → 70#A 道路石油沥青",
+    "dim": "binder",
+    "id": "AC16/B70/lime/none/warm/R30/none",
+    "dRel": -0.755,
+    "dEuac": 2.118992379589879,
+    "dCarbonYr": 0.19687135089483165,
+    "meets": false,
+    "bottleneck": "fatigue",
+    "bottleneckRate": 0.1425
+   }
+  ],
+  "alternatives": [
+   {
+    "id": "AC16/SBS90_5/lime/none/none/R30/none",
+    "label": "AC-16 + SBS改性沥青(90#基, 5.5%) + 消石灰替代1.5%矿粉 + RAP 30%+再生剂",
+    "reliability": 0.775,
+    "passRate": {
+     "pgHigh": 1,
+     "pgLow": 1,
+     "ds": 0.798,
+     "strain": 0.983,
+     "tsr": 1,
+     "fatigue": 0.998,
+     "td": 0.99
+    },
+    "bottleneck": "ds",
+    "bottleneckName": "高温抗车辙 动稳定度",
+    "lifeMean": 8.4,
+    "lifeP10": 7.7,
+    "costM2": 49.4,
+    "euac": 7.07,
+    "carbonM2": 6.5,
+    "carbonYr": 0.77
+   },
+   {
+    "id": "AC16/SBS90_5/amine/none/warm/R30/none",
+    "label": "AC-16 + SBS改性沥青(90#基, 5.5%) + 胺类抗剥落剂(0.4%油重) + 表面活性剂温拌(0.5%油重) + RAP 30%+再生剂",
+    "reliability": 0.77,
+    "passRate": {
+     "pgHigh": 1,
+     "pgLow": 1,
+     "ds": 0.798,
+     "strain": 0.983,
+     "tsr": 0.995,
+     "fatigue": 0.998,
+     "td": 0.99
+    },
+    "bottleneck": "ds",
+    "bottleneckName": "高温抗车辙 动稳定度",
+    "lifeMean": 8.4,
+    "lifeP10": 7.7,
+    "costM2": 49.5,
+    "euac": 7.08,
+    "carbonM2": 5.8,
+    "carbonYr": 0.69
+   },
+   {
+    "id": "AC16/CR20/lime/none/warm/R0/none",
+    "label": "AC-16 + 橡胶改性沥青(20%胶粉) + 消石灰替代1.5%矿粉 + 表面活性剂温拌(0.5%油重)",
+    "reliability": 0.878,
+    "passRate": {
+     "pgHigh": 1,
+     "pgLow": 1,
+     "ds": 0.89,
+     "strain": 1,
+     "tsr": 1,
+     "fatigue": 0.998,
+     "td": 0.99
+    },
+    "bottleneck": "ds",
+    "bottleneckName": "高温抗车辙 动稳定度",
+    "lifeMean": 8.6,
+    "lifeP10": 7.9,
+    "costM2": 51.9,
+    "euac": 7.26,
+    "carbonM2": 5.3,
+    "carbonYr": 0.62
+   }
+  ],
+  "pareto": [
+   {
+    "id": "AC16/SBS90_5/lime/none/warm/R30/none",
+    "label": "AC-16 + SBS改性沥青(90#基, 5.5%) + 消石灰替代1.5%矿粉 + 表面活性剂温拌(0.5%油重) + RAP 30%+再生剂",
+    "reliability": 0.773,
+    "passRate": {
+     "pgHigh": 1,
+     "pgLow": 1,
+     "ds": 0.798,
+     "strain": 0.983,
+     "tsr": 0.998,
+     "fatigue": 0.998,
+     "td": 0.99
+    },
+    "bottleneck": "ds",
+    "bottleneckName": "高温抗车辙 动稳定度",
+    "lifeMean": 8.4,
+    "lifeP10": 7.7,
+    "costM2": 49.2,
+    "euac": 7.04,
+    "carbonM2": 5.9,
+    "carbonYr": 0.7
+   },
+   {
+    "id": "AC16/SBS90_5/lime/none/none/R30/none",
+    "label": "AC-16 + SBS改性沥青(90#基, 5.5%) + 消石灰替代1.5%矿粉 + RAP 30%+再生剂",
+    "reliability": 0.775,
+    "passRate": {
+     "pgHigh": 1,
+     "pgLow": 1,
+     "ds": 0.798,
+     "strain": 0.983,
+     "tsr": 1,
+     "fatigue": 0.998,
+     "td": 0.99
+    },
+    "bottleneck": "ds",
+    "bottleneckName": "高温抗车辙 动稳定度",
+    "lifeMean": 8.4,
+    "lifeP10": 7.7,
+    "costM2": 49.4,
+    "euac": 7.07,
+    "carbonM2": 6.5,
+    "carbonYr": 0.77
+   },
+   {
+    "id": "AC16/SBS90_5/amine/none/warm/R30/none",
+    "label": "AC-16 + SBS改性沥青(90#基, 5.5%) + 胺类抗剥落剂(0.4%油重) + 表面活性剂温拌(0.5%油重) + RAP 30%+再生剂",
+    "reliability": 0.77,
+    "passRate": {
+     "pgHigh": 1,
+     "pgLow": 1,
+     "ds": 0.798,
+     "strain": 0.983,
+     "tsr": 0.995,
+     "fatigue": 0.998,
+     "td": 0.99
+    },
+    "bottleneck": "ds",
+    "bottleneckName": "高温抗车辙 动稳定度",
+    "lifeMean": 8.4,
+    "lifeP10": 7.7,
+    "costM2": 49.5,
+    "euac": 7.08,
+    "carbonM2": 5.8,
+    "carbonYr": 0.69
+   },
+   {
+    "id": "AC16/CR20/lime/none/warm/R0/none",
+    "label": "AC-16 + 橡胶改性沥青(20%胶粉) + 消石灰替代1.5%矿粉 + 表面活性剂温拌(0.5%油重)",
+    "reliability": 0.878,
+    "passRate": {
+     "pgHigh": 1,
+     "pgLow": 1,
+     "ds": 0.89,
+     "strain": 1,
+     "tsr": 1,
+     "fatigue": 0.998,
+     "td": 0.99
+    },
+    "bottleneck": "ds",
+    "bottleneckName": "高温抗车辙 动稳定度",
+    "lifeMean": 8.6,
+    "lifeP10": 7.9,
+    "costM2": 51.9,
+    "euac": 7.26,
+    "carbonM2": 5.3,
+    "carbonYr": 0.62
+   }
+  ],
+  "baselines": {
+   "experience": {
+    "id": "AC13/SBS70_4/none/none/none/R0/none",
+    "label": "AC-13 + SBS改性沥青(70#基, 4.5%)",
+    "reliability": 0.663,
+    "passRate": {
+     "pgHigh": 1,
+     "pgLow": 1,
+     "ds": 0.798,
+     "strain": 0.975,
+     "tsr": 0.978,
+     "fatigue": 0.998,
+     "td": 0.88
+    },
+    "bottleneck": "ds",
+    "bottleneckName": "高温抗车辙 动稳定度",
+    "lifeMean": 8.2,
+    "lifeP10": 7.6,
+    "costM2": 55.9,
+    "euac": 8.15,
+    "carbonM2": 6.8,
+    "carbonYr": 0.82
+   },
+   "weightedSum": {
+    "id": "AC16/SBS90_5/lime/none/warm/R30/none",
+    "label": "AC-16 + SBS改性沥青(90#基, 5.5%) + 消石灰替代1.5%矿粉 + 表面活性剂温拌(0.5%油重) + RAP 30%+再生剂",
+    "reliability": 0.773,
+    "passRate": {
+     "pgHigh": 1,
+     "pgLow": 1,
+     "ds": 0.798,
+     "strain": 0.983,
+     "tsr": 0.998,
+     "fatigue": 0.998,
+     "td": 0.99
+    },
+    "bottleneck": "ds",
+    "bottleneckName": "高温抗车辙 动稳定度",
+    "lifeMean": 8.4,
+    "lifeP10": 7.7,
+    "costM2": 49.2,
+    "euac": 7.04,
+    "carbonM2": 5.9,
+    "carbonYr": 0.7
+   },
+   "cheapest": {
+    "id": "AC16/B110/none/none/warm/R30/none",
+    "label": "AC-16 + 110#A 道路石油沥青 + 表面活性剂温拌(0.5%油重) + RAP 30%+再生剂",
+    "reliability": 0,
+    "passRate": {
+     "pgHigh": 0.488,
+     "pgLow": 1,
+     "ds": 0,
+     "strain": 0.998,
+     "tsr": 0.92,
+     "fatigue": 0.51,
+     "td": 0.99
+    },
+    "bottleneck": "ds",
+    "bottleneckName": "高温抗车辙 动稳定度",
+    "lifeMean": 5.6,
+    "lifeP10": 5,
+    "costM2": 43.3,
+    "euac": 8.91,
+    "carbonM2": 5,
+    "carbonYr": 0.91
+   }
+  }
+ },
+ "C7": {
+  "engine": "SZXC-1.0",
+  "module": "crack",
+  "scenario": {
+   "roadClass": "arterial",
+   "traffic": "heavy",
+   "speed": "normal",
+   "treatment": "CRACK",
+   "aggregate": "limestone",
+   "distresses": [],
+   "ambientT": 22,
+   "haulMin": 40,
+   "targetReliability": 0.85,
+   "budgetPerM2": null,
+   "nightWork": false,
+   "samples": 400,
+   "seed": 20261021,
+   "cityId": "harbin",
+   "crackWidthMm": 8
+  },
+  "tags": [
+   "CZ:2-1-2",
+   "CZH:2",
+   "CZL:1",
+   "CZR:2",
+   "TL:heavy",
+   "SPD:normal",
+   "TRT:CRACK",
+   "AGG:limestone",
+   "ROAD:arterial"
+  ],
+  "climate": {
+   "city": "哈尔滨",
+   "zone": "2-1-2",
+   "pavHigh98": 52.7,
+   "pavLow98": -31.2
+  },
+  "method": "开槽灌缝（槽宽 10–15mm）",
+  "sealant": {
+   "id": "S_COLD",
+   "name": "寒冷型加热灌缝胶",
+   "lowTest": -40,
+   "softening": 78,
+   "price": 16,
+   "note": "冬严寒区"
+  },
+  "feasibleSealants": [
+   "寒冷型加热灌缝胶"
+  ],
+  "reason": "路表低温(98%) -31.2°C，要求低温拉伸试验温度不高于该值；路表高温 52.7°C，软化点宜≥68°C",
+  "note": ""
+ }
+}

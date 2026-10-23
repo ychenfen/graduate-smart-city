@@ -1,0 +1,13 @@
+{
+  "archive": "数智选材_完整交付_20261022.zip",
+  "bytes": 56743189,
+  "sha256": "e423882234ce7299720afbf5fcd3a4ea01a673e9c8b27c6c6d04050886df35bb",
+  "files": 55,
+  "crc": "pass",
+  "manifest_hashes": "pass",
+  "independent_copy": "pass",
+  "restored_tests": 24,
+  "offline_rebuild": "byte_identical",
+  "case_replay": "identical_except_timing",
+  "external_status": "not_uploaded_or_submitted"
+}

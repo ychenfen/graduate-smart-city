@@ -1,0 +1,349 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>数智选材 原型</title>
+<style>
+:root{
+  --paper:#f6f3ec; --card:#fffdf8; --ink:#1d1c1a; --ink2:#5b5850; --ink3:#8d887c; --rule:#d9d3c5;
+  --accent:#e0a100; --accent-ink:#5a4100; --ok:#2f7d4f; --warn:#b5531c; --dot:#b9b2a2; --front:#1d1c1a;
+  --mono: ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+}
+@media (prefers-color-scheme: dark){ :root:not([data-theme="light"]){
+  --paper:#171614; --card:#201f1c; --ink:#ece7dc; --ink2:#b5ae9f; --ink3:#857f72; --rule:#3a3730;
+  --accent:#f0b51e; --accent-ink:#f6d27a; --ok:#6cc08f; --warn:#e88a55; --dot:#5c574d; --front:#ece7dc; } }
+:root[data-theme="dark"]{ --paper:#171614; --card:#201f1c; --ink:#ece7dc; --ink2:#b5ae9f; --ink3:#857f72; --rule:#3a3730;
+  --accent:#f0b51e; --accent-ink:#f6d27a; --ok:#6cc08f; --warn:#e88a55; --dot:#5c574d; --front:#ece7dc; }
+*{box-sizing:border-box}
+html,body{margin:0;background:var(--paper);color:var(--ink);font:14px/1.6 -apple-system,"PingFang SC","Microsoft YaHei",sans-serif}
+header{display:flex;align-items:baseline;gap:16px;flex-wrap:wrap;padding:18px 24px 10px;border-bottom:2px solid var(--ink)}
+header h1{font-size:20px;margin:0;letter-spacing:.06em}
+header .sub{color:var(--ink2);font-size:13px}
+header .tools{margin-left:auto;display:flex;gap:8px;align-items:center}
+.wrap{display:grid;grid-template-columns:320px 1fr;gap:0;min-height:calc(100vh - 60px)}
+aside{border-right:1px solid var(--rule);padding:16px 18px;background:var(--card)}
+main{padding:16px 24px 48px;min-width:0}
+h2{font-size:13px;letter-spacing:.12em;color:var(--ink2);margin:22px 0 8px;font-weight:600;border-bottom:1px solid var(--rule);padding-bottom:4px;display:flex;gap:8px;align-items:baseline}
+h2 .n{font-family:var(--mono);color:var(--accent-ink);background:var(--accent);color:#1d1c1a;padding:0 6px;border-radius:2px;font-size:12px}
+h2 .hint{margin-left:auto;font-weight:400;letter-spacing:0;color:var(--ink3);font-size:12px}
+label{display:block;font-size:12px;color:var(--ink2);margin:10px 0 3px}
+select,input[type=number],input[type=text]{width:100%;padding:6px 8px;border:1px solid var(--rule);background:var(--paper);color:var(--ink);border-radius:3px;font:inherit}
+.row2{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.dis{display:grid;grid-template-columns:1fr 92px;gap:4px 8px;align-items:center;font-size:13px}
+.dis select{padding:3px 6px}
+button{font:inherit;border:1px solid var(--ink);background:var(--ink);color:var(--paper);padding:7px 14px;border-radius:3px;cursor:pointer}
+button.ghost{background:transparent;color:var(--ink)}
+button:focus-visible,select:focus-visible,input:focus-visible{outline:2px solid var(--accent);outline-offset:1px}
+.run{width:100%;margin-top:16px;padding:10px}
+.casepick{display:flex;flex-wrap:wrap;gap:6px;margin-top:6px}
+.casepick button{background:transparent;color:var(--ink);border-color:var(--rule);padding:3px 8px;font-size:12px}
+.casepick button.on{border-color:var(--ink);background:var(--accent);color:#1d1c1a}
+.bg{font-size:12px;color:var(--ink2);margin-top:8px;line-height:1.5}
+.verdict{display:grid;grid-template-columns:auto 1fr;gap:4px 18px;padding:14px 16px;background:var(--card);border:1px solid var(--rule);border-left:6px solid var(--accent)}
+.verdict .big{font-size:22px;font-weight:700;line-height:1.3;grid-column:1/-1}
+.verdict .k{color:var(--ink3);font-size:12px}
+.verdict .v{font-family:var(--mono)}
+.kpis{display:flex;flex-wrap:wrap;gap:0;margin-top:10px;border:1px solid var(--rule);background:var(--card)}
+.kpi{padding:8px 14px;border-right:1px solid var(--rule);min-width:120px}
+.kpi:last-child{border-right:0}
+.kpi .k{font-size:11px;color:var(--ink3)}
+.kpi .v{font-family:var(--mono);font-size:18px}
+.kpi .v small{font-size:11px;color:var(--ink3)}
+table{border-collapse:collapse;width:100%;background:var(--card);font-size:13px}
+th,td{border-bottom:1px solid var(--rule);padding:6px 8px;text-align:left;vertical-align:top}
+th{font-weight:600;color:var(--ink2);font-size:12px;background:var(--paper)}
+td.num{font-family:var(--mono);text-align:right;white-space:nowrap}
+td.why{color:var(--ink2);font-size:12px}
+.tag{display:inline-block;font-size:11px;padding:0 5px;border:1px solid var(--rule);border-radius:2px;color:var(--ink2);margin-right:2px}
+.tag.std{border-color:var(--ink3)}
+.tag.scene{border-color:var(--accent);color:var(--accent-ink)}
+.bar{position:relative;height:14px;background:var(--paper);border:1px solid var(--rule);min-width:120px}
+.bar i{position:absolute;left:0;top:0;bottom:0;background:var(--ink)}
+.bar i.low{background:var(--warn)}
+.bar b{position:absolute;top:-3px;bottom:-3px;width:2px;background:var(--accent)}
+.grid2{display:grid;grid-template-columns:minmax(0,1.25fr) minmax(0,1fr);gap:18px}
+.chartbox{background:var(--card);border:1px solid var(--rule);padding:8px;position:relative}
+svg text{fill:var(--ink2);font-size:11px;font-family:var(--mono)}
+.tip{position:absolute;pointer-events:none;background:var(--ink);color:var(--paper);font-size:12px;padding:6px 8px;border-radius:3px;max-width:320px;display:none;z-index:2}
+.legend{display:flex;gap:14px;font-size:12px;color:var(--ink2);margin:6px 2px 0;flex-wrap:wrap}
+.legend span::before{content:"";display:inline-block;width:9px;height:9px;margin-right:5px;vertical-align:-1px;border-radius:50%}
+.legend .l1::before{background:var(--dot)} .legend .l2::before{background:var(--front)} .legend .l3::before{background:var(--accent);border-radius:0;transform:rotate(45deg)} .legend .l4::before{border:2px solid var(--warn);background:transparent;border-radius:0}
+.formula{font-family:var(--mono);font-size:13px;background:var(--card);border:1px dashed var(--ink3);padding:10px 12px;line-height:1.8}
+.formula b{font-family:-apple-system,"PingFang SC",sans-serif;font-weight:600;color:var(--ink2);display:inline-block;min-width:76px;font-size:12px}
+.note{font-size:12px;color:var(--ink3)}
+.cf td:first-child{max-width:330px}
+.pos{color:var(--ok)} .neg{color:var(--warn)}
+.pill{font-size:11px;padding:1px 6px;border-radius:9px;background:var(--paper);border:1px solid var(--rule)}
+.pill.ok{border-color:var(--ok);color:var(--ok)} .pill.no{border-color:var(--warn);color:var(--warn)}
+.fb{display:grid;grid-template-columns:repeat(4,minmax(0,1fr)) auto;gap:8px;align-items:end;background:var(--card);border:1px solid var(--rule);padding:10px}
+.empty{color:var(--ink3);padding:30px;text-align:center;border:1px dashed var(--rule)}
+footer{color:var(--ink3);font-size:11px;padding:8px 24px;border-top:1px solid var(--rule)}
+@media (max-width:900px){table{display:block;overflow-x:auto} .wrap{grid-template-columns:1fr} aside{border-right:0;border-bottom:1px solid var(--rule)} .grid2{grid-template-columns:1fr} .fb{grid-template-columns:1fr 1fr} main{padding:12px 16px 40px} header{padding:14px 16px 8px}}
+</style>
+</head>
+<body>
+<header>
+  <h1>数智选材</h1>
+  <span class="sub">养护场景 → 性能需求包络 → 达标可靠度选材 · 演示原型 v1.0</span>
+  <span class="tools"><button class="ghost" id="themeBtn" type="button" title="切换明暗">明/暗</button></span>
+</header>
+<div class="wrap">
+<aside>
+  <h2><span class="n">01</span>场景输入</h2>
+  <div class="note">载入典型案例，或直接修改参数：</div>
+  <div class="casepick" id="casePick"></div>
+  <div class="bg" id="caseBg"></div>
+  <label for="city">所在城市（气候数据）</label><select id="city"></select>
+  <div class="row2">
+    <div><label for="roadClass">道路等级</label><select id="roadClass"><option value="highway">高速/一级</option><option value="arterial">城市主干/快速路</option><option value="local">次干/支路</option></select></div>
+    <div><label for="treatment">养护工法</label><select id="treatment"></select></div>
+  </div>
+  <div class="row2">
+    <div><label for="traffic">交通荷载等级</label><select id="traffic"></select></div>
+    <div><label for="speed">车速/渠化</label><select id="speed"></select></div>
+  </div>
+  <label for="aggregate">粗集料</label><select id="aggregate"></select>
+  <label>病害与严重程度</label>
+  <div class="dis" id="disBox"></div>
+  <div class="row2">
+    <div><label for="ambientT">施工期气温 °C</label><input type="number" id="ambientT" step="1"></div>
+    <div><label for="haulMin">运输时间 min</label><input type="number" id="haulMin" step="5"></div>
+  </div>
+  <div class="row2">
+    <div><label for="targetRel">目标可靠度</label><input type="number" id="targetRel" step="0.05" min="0.5" max="0.99" placeholder="按等级缺省"></div>
+    <div><label for="budget">造价上限 元/m²</label><input type="number" id="budget" step="1" placeholder="不限"></div>
+  </div>
+  <label style="display:flex;gap:6px;align-items:center"><input type="checkbox" id="nightWork"> 夜间封道施工</label>
+  <div id="crackBox" style="display:none"><label for="crackW">裂缝宽度 mm</label><input type="number" id="crackW" value="8"></div>
+  <button class="run" id="runBtn" type="button">生成材料方案</button>
+  <div class="note" style="margin-top:10px">引擎在本地浏览器运行，不联网。每个候选方案做 400 次蒙特卡洛抽样（公共随机数）。</div>
+</aside>
+<main id="out"><div class="empty">在左侧选择案例或输入场景后点击“生成材料方案”。</div></main>
+</div>
+<footer>构造案例与演示先验。模型内通过比例不代表工程成功概率，寿命、费用与碳排均为假设测算；规则须按原始条文和企业试验逐项复核。</footer>
+
+<script>/*@KB*/</script>
+<script>/*@ENGINE*/</script>
+<script>window.SZXC_CASES = /*@CASES*/[];</script>
+<script>
+(function(){
+'use strict';
+const E = window.SZXC, KB = E.KB, CASES = window.SZXC_CASES;
+const $ = (id) => document.getElementById(id);
+const fmt = (x, d=2) => (x==null||isNaN(x)) ? '—' : Number(x).toFixed(d);
+const pct = (x) => (x*100).toFixed(1) + '%';
+const esc = (s) => String(s).replace(/[&<>"]/g, (c) => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+let biasState = {}; let last = null; let selectedId = null; let currentCase = null;
+
+// ---------- 主题 ----------
+try { const t = localStorage.getItem('szxc-theme'); if (t) document.documentElement.dataset.theme = t; } catch(e) {}
+$('themeBtn').onclick = () => {
+  const cur = document.documentElement.dataset.theme || (matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+  const nx = cur === 'dark' ? 'light' : 'dark'; document.documentElement.dataset.theme = nx;
+  try { localStorage.setItem('szxc-theme', nx); } catch(e) {}
+  if (last) render(last);
+};
+
+// ---------- 表单 ----------
+const opt = (sel, arr, f) => { sel.innerHTML = arr.map((x) => `<option value="${x.id}">${esc(f(x))}</option>`).join(''); };
+opt($('city'), KB.cities, (c) => `${c.name}（${E.climateOf({cityId:c.id}).zone.code}）`);
+opt($('treatment'), KB.treatments, (t) => t.name.replace('(本系统设计上面层)',''));
+opt($('traffic'), KB.traffic.levels, (t) => `${t.name}（${t.esal}）`);
+opt($('speed'), KB.traffic.speed, (t) => t.name);
+opt($('aggregate'), KB.aggregates, (a) => a.name + (a.acidic ? '（酸性）' : ''));
+$('disBox').innerHTML = KB.distresses.map((d) => `<span>${d.name}</span><select data-dis="${d.id}" aria-label="${d.name}严重程度"><option value="">无</option><option value="0">轻</option><option value="1">中</option><option value="2">重</option></select>`).join('');
+$('treatment').onchange = () => { $('crackBox').style.display = $('treatment').value === 'CRACK' ? '' : 'none'; };
+$('casePick').innerHTML = CASES.map((c) => `<button type="button" data-case="${c.id}">${c.id} ${esc(c.title.split('·')[0])}</button>`).join('');
+$('casePick').onclick = (e) => { const b = e.target.closest('[data-case]'); if (b) loadCase(b.dataset.case, true); };
+
+function loadCase(id, run) {
+  const c = CASES.find((x) => x.id === id); currentCase = c; const s = c.input;
+  document.querySelectorAll('#casePick button').forEach((b) => b.classList.toggle('on', b.dataset.case === id));
+  $('caseBg').textContent = c.title + '。' + c.background;
+  $('city').value = s.cityId; $('roadClass').value = s.roadClass || 'highway'; $('treatment').value = s.treatment;
+  $('traffic').value = s.traffic || 'heavy'; $('speed').value = s.speed || 'normal'; $('aggregate').value = s.aggregate || 'limestone';
+  document.querySelectorAll('[data-dis]').forEach((el) => { const d = (s.distresses||[]).find((x) => x.id === el.dataset.dis); el.value = d ? String(d.severity) : ''; });
+  $('ambientT').value = s.ambientT ?? 22; $('haulMin').value = s.haulMin ?? 40; $('nightWork').checked = !!s.nightWork;
+  $('targetRel').value = s.targetReliability ?? ''; $('budget').value = s.budgetPerM2 ?? ''; $('crackW').value = s.crackWidthMm ?? 8;
+  $('treatment').onchange();
+  if (run) runNow();
+}
+function readForm() {
+  const s = { cityId: $('city').value, roadClass: $('roadClass').value, treatment: $('treatment').value, traffic: $('traffic').value,
+    speed: $('speed').value, aggregate: $('aggregate').value, ambientT: +$('ambientT').value, haulMin: +$('haulMin').value, nightWork: $('nightWork').checked,
+    distresses: [...document.querySelectorAll('[data-dis]')].filter((el) => el.value !== '').map((el) => ({ id: el.dataset.dis, severity: +el.value })) };
+  if ($('targetRel').value) s.targetReliability = +$('targetRel').value;
+  if ($('budget').value) s.budgetPerM2 = +$('budget').value;
+  if (s.treatment === 'CRACK') s.crackWidthMm = +$('crackW').value;
+  return s;
+}
+function runNow() {
+  $('runBtn').textContent = '计算中…';
+  setTimeout(() => {
+    try { last = E.recommend(readForm(), { biasState }); selectedId = last.recommended ? last.recommended.id : null; render(last); }
+    catch (e) { last = null; selectedId = null; $('out').innerHTML = `<div class="empty">出错：${esc(e.message)}</div>`; }
+    $('runBtn').textContent = '生成材料方案';
+  }, 20);
+}
+$('runBtn').onclick = runNow;
+
+// ---------- 渲染 ----------
+function render(o) {
+  if (o.module === 'crack') return renderCrack(o);
+  if (o.module === 'infeasible') {
+    $('out').innerHTML = `<div class="empty">${esc(o.reason)}<br>规则筛选后 ${o.stats.feasible} 个候选，预算剔除 ${o.stats.budgetCut} 个。</div>`;
+    return;
+  }
+  const r = o.recommended;
+  const sim = CASES.map((c) => ({ c, s: E.similarity(o.tags, E.tagScenario(c.input)) })).filter((x) => !currentCase || x.c.id !== currentCase.id || true).sort((a,b) => b.s - a.s).slice(0, 3);
+  $('out').innerHTML = `
+  <h2><span class="n">02</span>结论 <span class="hint">${o.climate.city} · ${o.climate.zone} ${o.climate.zoneName} · 候选 ${o.stats.feasible}/${o.stats.enumerated} · ${o.elapsedMs} ms</span></h2>
+  <div class="verdict">
+    <div class="big">${esc(r.label)}</div>
+    <span class="k">模型内联合通过比例</span><span class="v">${pct(r.reliability)}　目标 ${pct(o.targetReliability)}　${o.targetReached ? '<span class="pill ok">模型内达成</span>' : '<span class="pill no">模型内未达目标，须人工复核</span>'}</span>
+    <span class="k">95%抽样区间</span><span class="v">${r.reliabilityInterval95.map(pct).join('–')}（${r.samples}次抽样，仅含抽样误差，不含模型与先验误差）</span>
+    <span class="k">最可能先出问题的指标</span><span class="v">${esc(r.bottleneckName)}（单项达标 ${pct(r.passRate[r.bottleneck])}）</span>
+    <span class="k">场景所需结合料等级(98%)</span><span class="v">${o.climate.pgRequired98}；所选结合料 ${r.formula.binderPG}</span>
+  </div>
+  <div class="kpis">
+    <div class="kpi"><div class="k">模型估计寿命</div><div class="v">${fmt(r.lifeMean,1)}<small> 年（P10 ${fmt(r.lifeP10,1)}）</small></div></div>
+    <div class="kpi"><div class="k">初始造价</div><div class="v">${fmt(r.costM2,1)}<small> 元/m²</small></div></div>
+    <div class="kpi"><div class="k">等额年值成本</div><div class="v">${fmt(r.euac,2)}<small> 元/m²·年</small></div></div>
+    <div class="kpi"><div class="k">年均碳排</div><div class="v">${fmt(r.carbonYr,2)}<small> kgCO₂e/m²·年</small></div></div>
+  </div>
+
+  <h2><span class="n">03</span>需求包络：这个场景要什么，依据是什么</h2>
+  <table><thead><tr><th>性能指标</th><th style="text-align:right">场景目标</th><th style="text-align:right">所选方案预测</th><th>达标概率</th><th>依据</th></tr></thead><tbody>
+  ${o.requirements.map((q) => { const p = r.predicted[q.ind]; const pr = r.passRate[q.ind];
+    const reqShow = q.ind==='pgHigh'||q.ind==='pgLow' ? q.sceneTarget : (p.req ?? q.sceneTarget);
+    return `<tr><td>${q.name}</td><td class="num">${q.ind==='pgLow'?'≤ ':'≥ '}${fmt(reqShow, q.ind==='ds'||q.ind==='strain'?0:q.ind==='td'?2:1)} ${q.unit}</td><td class="num">${fmt(p.mean, q.ind==='ds'||q.ind==='strain'?0:q.ind==='td'?2:1)}</td>
+    <td><div class="bar" title="${pct(pr)}"><i class="${pr < o.targetReliability ? 'low':''}" style="width:${pr*100}%"></i><b style="left:${o.targetReliability*100}%"></b></div></td>
+    <td class="why">${p.binding==='std' ? '<span class="tag std">规范底线</span>' : '<span class="tag scene">场景驱动</span>'} ${esc(q.why)}</td></tr>`; }).join('')}
+  </tbody></table>
+  <div class="note">PG 两行的目标是年均气候下的中值，达标概率按气候年际波动抽样计算；黄色竖线为目标可靠度。</div>
+
+  <h2><span class="n">04</span>方案空间 <span class="hint">点击任一点查看该方案</span></h2>
+  <div class="grid2">
+    <div class="chartbox" id="chart"><div class="tip" id="tip"></div></div>
+    <div>
+      <div class="formula" id="formula"></div>
+      <div class="note" style="margin-top:8px">优先级（按稀缺度：可行方案中多少比例难以满足该项）</div>
+      <table style="margin-top:4px"><tbody>${o.priorities.slice(0,5).map((p,i) => `<tr><td style="width:24px" class="num">${i+1}</td><td>${p.name}</td><td style="width:45%"><div class="bar"><i style="width:${p.scarcity*100}%"></i></div></td></tr>`).join('')}</tbody></table>
+    </div>
+  </div>
+  <div class="legend"><span class="l1">可行方案</span><span class="l2">Pareto 前沿</span><span class="l3">推荐</span><span class="l4">经验选型</span></div>
+
+  <h2><span class="n">05</span>如果……会怎样：单变量反事实</h2>
+  <table class="cf"><thead><tr><th>只改一项</th><th style="text-align:right">可靠度变化</th><th style="text-align:right">年值成本变化</th><th style="text-align:right">年均碳排变化</th><th>结果</th></tr></thead><tbody>
+  ${o.counterfactuals.slice(0,8).map((c) => `<tr><td>${esc(c.change)}</td><td class="num ${c.dRel>=0?'pos':'neg'}">${c.dRel>=0?'+':''}${(c.dRel*100).toFixed(1)} pt</td><td class="num ${c.dEuac<=0?'pos':'neg'}">${c.dEuac>=0?'+':''}${fmt(c.dEuac)}</td><td class="num ${c.dCarbonYr<=0?'pos':'neg'}">${c.dCarbonYr>=0?'+':''}${fmt(c.dCarbonYr)}</td><td>${c.meets?'<span class="pill ok">仍达标</span>':`<span class="pill no">${esc(E.IND_NAME[c.bottleneck])} ${pct(c.bottleneckRate)}</span>`}</td></tr>`).join('')}
+  </tbody></table>
+
+  <h2><span class="n">06</span>材料—工艺协同</h2>
+  <table><tbody>
+    <tr><td>拌和温度</td><td class="num">${o.process.mixTemp[0]}–${o.process.mixTemp[1]} °C</td><td class="why">初压开始温度不低于 ${o.process.compactionStartMin} °C</td></tr>
+    <tr><td>允许铺筑的最低气温</td><td class="num">${o.process.minAmbient} °C</td><td class="why">当前施工期气温 ${o.scenario.ambientT} °C${o.scenario.nightWork?'，夜间施工':''}</td></tr>
+    <tr><td>预计压实欠缺带来的空隙率增量</td><td class="num">+${fmt(o.process.vaExpectedExcess,2)} %</td><td class="why">设计空隙率 ${o.process.vaDesign}%</td></tr>
+    <tr><td>若施工气温再低 8 °C</td><td class="num ${o.process.robustness.colder8<0?'neg':''}">${(o.process.robustness.colder8*100).toFixed(1)} pt</td><td class="why">可靠度变化</td></tr>
+    <tr><td>若现场空隙率比设计大 1%</td><td class="num ${o.process.robustness.va1<0?'neg':''}">${(o.process.robustness.va1*100).toFixed(1)} pt</td><td class="why">可靠度变化：数值越接近 0，施工容错越高</td></tr>
+  </tbody></table>
+
+  <h2><span class="n">07</span>和常见做法比</h2>
+  <table><thead><tr><th>方法</th><th>方案</th><th style="text-align:right">可靠度</th><th style="text-align:right">寿命</th><th style="text-align:right">造价</th><th style="text-align:right">年值成本</th><th style="text-align:right">年均碳排</th></tr></thead><tbody>
+  ${[['本系统', r], ['经验选型', o.baselines.experience], ['加权打分(AHP式)', o.baselines.weightedSum], ['最低造价', o.baselines.cheapest]].map(([n, x]) => `<tr><td>${n}</td><td>${esc(x.label)}</td><td class="num">${pct(x.reliability)}</td><td class="num">${fmt(x.lifeMean,1)}</td><td class="num">${fmt(x.costM2,1)}</td><td class="num">${fmt(x.euac)}</td><td class="num">${fmt(x.carbonYr)}</td></tr>`).join('')}
+  </tbody></table>
+
+  <h2><span class="n">08</span>监测反馈：让推荐随工程数据进化</h2>
+  <div class="fb">
+    <div><label for="fbFam">结合料类别</label><select id="fbFam"><option value="sbs">SBS改性</option><option value="rubber">橡胶改性</option><option value="hva">高粘高弹</option><option value="base">基质</option><option value="hard">硬质</option></select></div>
+    <div><label for="fbGrad">级配类型</label><select id="fbGrad"><option value="dense">密级配 AC</option><option value="sma">SMA</option><option value="ogfc">OGFC</option></select></div>
+    <div><label for="fbInd">指标</label><select id="fbInd"><option value="tsr">水稳定性</option><option value="ds">动稳定度</option><option value="strain">低温应变</option></select></div>
+    <div><label for="fbRatio">实测/预测（每段）</label><input type="number" id="fbRatio" value="0.88" step="0.01"></div>
+    <button type="button" id="fbBtn">回流 10 段数据并重算</button>
+  </div>
+  <div class="note" id="fbState" style="margin-top:6px">${Object.keys(biasState).length ? '已修正：' + Object.entries(biasState).map(([k,v]) => `${k} 偏差 ${(Math.exp(v.mean)*100-100).toFixed(1)}%（n=${v.n}）`).join('；') : '尚无回流数据，模型使用先验。'} <a href="#" id="fbReset">清空</a></div>
+
+  <h2><span class="n">09</span>相似案例</h2>
+  <table><tbody>${sim.map((x) => `<tr><td class="num" style="width:60px">${(x.s*100).toFixed(0)}%</td><td>${esc(x.c.id)} ${esc(x.c.title)}</td></tr>`).join('')}</tbody></table>
+  <div class="note">按场景标签（气候分区、交通、工法、病害、集料）计算 Jaccard 相似度，案例库可随项目积累扩充。</div>
+  `;
+  drawChart(o);
+  showFormula(o, selectedId);
+  $('fbBtn').onclick = () => {
+    const obs = Array.from({length:10}, () => ({ binderFamily: $('fbFam').value, gradType: $('fbGrad').value, indicator: $('fbInd').value, ratio: +$('fbRatio').value }));
+    try { biasState = E.updateBias(biasState, obs); runNow(); }
+    catch (e) { $('fbState').textContent = e.message; }
+  };
+  $('fbReset').onclick = (e) => { e.preventDefault(); biasState = {}; runNow(); };
+}
+
+function drawChart(o) {
+  const box = $('chart'), W = Math.max(320, box.clientWidth - 16), H = 300, m = {l:46, r:12, t:12, b:36};
+  const css = getComputedStyle(document.documentElement);
+  const C = (v) => css.getPropertyValue(v).trim();
+  // 横轴只覆盖“有意义”的方案（可靠度≥10%），超出部分贴边绘制
+  const pts = o.cloud; const xs = pts.map((p) => p[1]);
+  const xsUseful = pts.filter((p) => p[0] >= 0.1).map((p) => p[1]).concat([o.baselines.experience.euac, o.recommended.euac]);
+  const x0 = Math.min(...xs) - 0.2, x1 = Math.max(x0 + 1, Math.max(...xsUseful) * 1.04);
+  const X = (v) => m.l + (Math.min(v, x1) - x0) / (x1 - x0) * (W - m.l - m.r);
+  const Y = (v) => m.t + (1 - v) * (H - m.t - m.b);
+  const front = new Set(o.pareto.map((p) => p.id));
+  let s = `<svg width="${W}" height="${H}" role="img" aria-label="可靠度与年值成本散点图">`;
+  for (let g = 0; g <= 1.0001; g += 0.25) s += `<line x1="${m.l}" x2="${W-m.r}" y1="${Y(g)}" y2="${Y(g)}" stroke="${C('--rule')}"/><text x="${m.l-6}" y="${Y(g)+4}" text-anchor="end">${(g*100).toFixed(0)}%</text>`;
+  const step = niceStep((x1 - x0) / 5);
+  for (let v = Math.ceil(x0/step)*step; v <= x1; v += step) s += `<text x="${X(v)}" y="${H-m.b+16}" text-anchor="middle">${v.toFixed(step<1?1:0)}</text>`;
+  s += `<text x="${(W+m.l)/2}" y="${H-4}" text-anchor="middle">等额年值成本 元/(m²·年) →</text>`;
+  s += `<line x1="${m.l}" x2="${W-m.r}" y1="${Y(o.targetReliability)}" y2="${Y(o.targetReliability)}" stroke="${C('--accent')}" stroke-dasharray="5 4" stroke-width="1.5"/>`;
+  s += `<text x="${W-m.r-2}" y="${Y(o.targetReliability)-4}" text-anchor="end" style="fill:${C('--accent-ink')}">目标可靠度</text>`;
+  for (const p of pts) if (!front.has(p[3])) s += `<circle cx="${X(p[1]).toFixed(1)}" cy="${Y(p[0]).toFixed(1)}" r="2.2" fill="${C('--dot')}" data-id="${p[3]}"/>`;
+  for (const p of pts) if (front.has(p[3])) s += `<circle cx="${X(p[1]).toFixed(1)}" cy="${Y(p[0]).toFixed(1)}" r="3.6" fill="${C('--front')}" data-id="${p[3]}"/>`;
+  const ex = o.baselines.experience; s += `<rect x="${X(ex.euac)-5}" y="${Y(ex.reliability)-5}" width="10" height="10" fill="none" stroke="${C('--warn')}" stroke-width="2" data-id="${ex.id}"/>`;
+  const r = o.recommended; s += `<rect x="${X(r.euac)-6}" y="${Y(r.reliability)-6}" width="12" height="12" fill="${C('--accent')}" stroke="${C('--ink')}" transform="rotate(45 ${X(r.euac)} ${Y(r.reliability)})" data-id="${r.id}"/>`;
+  s += `</svg>`;
+  box.insertAdjacentHTML('beforeend', s);
+  const tip = $('tip'), byId = new Map(pts.map((p) => [p[3], p]));
+  box.querySelector('svg').addEventListener('mousemove', (e) => {
+    const id = e.target.dataset && e.target.dataset.id; if (!id) { tip.style.display = 'none'; return; }
+    const p = byId.get(id) || [ex.reliability, ex.euac, ex.carbonYr, id];
+    tip.innerHTML = `${esc(labelOf(id))}<br>可靠度 ${pct(p[0])} · 年值 ${fmt(p[1])} · 碳 ${fmt(p[2])}`;
+    const bb = box.getBoundingClientRect(); tip.style.display = 'block';
+    tip.style.left = Math.min(e.clientX - bb.left + 12, bb.width - 300) + 'px'; tip.style.top = (e.clientY - bb.top + 12) + 'px';
+  });
+  box.querySelector('svg').addEventListener('mouseleave', () => { tip.style.display = 'none'; });
+  box.querySelector('svg').addEventListener('click', (e) => { const id = e.target.dataset && e.target.dataset.id; if (id) { selectedId = id; showFormula(o, id); } });
+}
+function niceStep(x) { const p = Math.pow(10, Math.floor(Math.log10(x))); const f = x / p; return (f < 1.5 ? 1 : f < 3.5 ? 2 : f < 7.5 ? 5 : 10) * p; }
+function labelOf(id) {
+  const [g, b, w, r, wm, rap, f] = id.split('/'), A = KB.additives, by = (a, i) => a.find((x) => x.id === i);
+  const parts = [by(KB.gradations, g).name, E.resolveBinder(b).name];
+  if (w !== 'none') parts.push(by(A.water, w).name); if (r !== 'none') parts.push(by(A.rut, r).name);
+  if (wm !== 'none') parts.push(by(A.warm, wm).name); if (rap !== 'R0') parts.push(by(A.rap, rap).name); if (f !== 'none') parts.push(by(A.fiber, f).name);
+  return parts.join(' + ');
+}
+function showFormula(o, id) {
+  const r = o.recommended, isRec = id === r.id;
+  const p = o.cloud.find((x) => x[3] === id);
+  const [g, b, w, rut, wm, rap, f] = id.split('/'), A = KB.additives, by = (a, i) => a.find((x) => x.id === i);
+  const bd = E.resolveBinder(b), gd = by(KB.gradations, g);
+  $('formula').innerHTML = `<div style="margin-bottom:6px">${isRec ? '<span class="pill ok">推荐方案</span>' : '<span class="pill">所选方案</span>'} ${isRec ? '' : `可靠度 ${pct(p[0])} · 年值 ${fmt(p[1])}`}</div>
+    <b>级配</b>${gd.name}（油石比约 ${gd.pb}%，设计空隙率 ${gd.va}%）<br>
+    <b>结合料</b>${bd.name}，约 PG ${E.pgGradeHigh(bd.trueHigh)}-${-E.pgGradeLow(bd.trueLow)}<br>
+    <b>集料</b>${by(KB.aggregates, o.scenario.aggregate).name}<br>
+    <b>抗水损</b>${by(A.water, w).name}<br><b>抗车辙</b>${by(A.rut, rut).name}<br>
+    <b>拌和</b>${by(A.warm, wm).name}<br><b>RAP</b>${by(A.rap, rap).name}<br><b>纤维</b>${by(A.fiber, f).name}`;
+}
+function renderCrack(o) {
+  $('out').innerHTML = `
+  <h2><span class="n">02</span>结论 <span class="hint">${o.climate.city} · ${o.climate.zone}</span></h2>
+  <div class="verdict"><div class="big">${esc(o.method)} · ${esc(o.sealant.name)}</div>
+  <span class="k">选型依据</span><span class="v">${esc(o.reason)}</span>
+  <span class="k">满足条件的型号</span><span class="v">${esc(o.feasibleSealants.join('、') || '无')}</span>
+  <span class="k">参考单价</span><span class="v">${o.sealant.price} 元/延米（演示值）</span></div>
+  <p class="note">${esc(o.note || '裂缝处治模块按路表温度包络筛选灌缝材料型号，再按缝宽确定工艺。')}</p>`;
+}
+
+loadCase((CASES.find((c) => "#" + c.id === location.hash) || CASES[0]).id, true);
+})();
+</script>
+</body>
+</html>

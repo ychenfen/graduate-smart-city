@@ -1,0 +1,44 @@
+[
+ {
+  "case": "C1",
+  "sameExact": 0.125,
+  "sameFamily": 0.35,
+  "relLossMedian": 0,
+  "euacRegretMedian": 0.3800000000000008
+ },
+ {
+  "case": "C2",
+  "sameExact": 0.05,
+  "sameFamily": 0.35,
+  "relLossMedian": 0.1329999999999999,
+  "euacRegretMedian": 0.8099999999999987
+ },
+ {
+  "case": "C3",
+  "sameExact": 0.45,
+  "sameFamily": 0.875,
+  "relLossMedian": 0,
+  "euacRegretMedian": 0
+ },
+ {
+  "case": "C4",
+  "sameExact": 0.675,
+  "sameFamily": 0.775,
+  "relLossMedian": 0,
+  "euacRegretMedian": 0
+ },
+ {
+  "case": "C5",
+  "sameExact": 0.175,
+  "sameFamily": 0.625,
+  "relLossMedian": 0.05699999999999994,
+  "euacRegretMedian": 0.4499999999999993
+ },
+ {
+  "case": "C6",
+  "sameExact": 0.2,
+  "sameFamily": 0.225,
+  "relLossMedian": 0.0030000000000000027,
+  "euacRegretMedian": 0.13999999999999968
+ }
+]

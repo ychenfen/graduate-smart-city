@@ -1,0 +1,50 @@
+[
+  {
+    "id": "C1",
+    "title": "海南洋浦·疏港重载道路车辙处治",
+    "background": "港区集疏运道路，重载集装箱车低速渠化行驶，夏季路表温度高、降雨集中；上面层出现严重车辙并伴随局部水损害。当地常用花岗岩集料（酸性）。养护决策输出：铣刨重铺上面层 4cm。",
+    "input": { "cityId": "yangpu", "roadClass": "arterial", "traffic": "xheavy", "speed": "slow", "treatment": "MR_UP", "aggregate": "granite",
+               "distresses": [ { "id": "rutting", "severity": 2 }, { "id": "moisture", "severity": 1 } ], "ambientT": 28, "haulMin": 30 }
+  },
+  {
+    "id": "C2",
+    "title": "哈尔滨·城市主干路低温裂缝，晚秋施工",
+    "background": "冬严寒区城市主干路，横向温缩裂缝密集；工期安排在 10 月中旬，施工期日均气温约 9°C。养护决策输出：铣刨重铺上面层 4cm。",
+    "input": { "cityId": "harbin", "roadClass": "arterial", "traffic": "heavy", "speed": "normal", "treatment": "MR_UP", "aggregate": "basalt",
+               "distresses": [ { "id": "thermalCrack", "severity": 2 } ], "ambientT": 9, "haulMin": 50 }
+  },
+  {
+    "id": "C3",
+    "title": "重庆·山区高速水损害路段修复",
+    "background": "湿热多雨山区高速，坑槽、松散成片，伴随轻度网裂；夏季路表高温突出。养护决策输出：铣刨重铺上面层 4cm。",
+    "input": { "cityId": "chongqing", "roadClass": "highway", "traffic": "heavy", "speed": "normal", "treatment": "MR_UP", "aggregate": "limestone",
+               "distresses": [ { "id": "moisture", "severity": 2 }, { "id": "fatigueCrack", "severity": 1 } ], "ambientT": 22, "haulMin": 45 }
+  },
+  {
+    "id": "C4",
+    "title": "武汉·城市快速路抗滑不足，夜间薄层罩面",
+    "background": "城市快速路表面磨光、构造深度不足，结构完好；只能夜间封道施工，施工期气温约 16°C。养护决策输出：薄层罩面 2.5cm。",
+    "input": { "cityId": "wuhan", "roadClass": "arterial", "traffic": "medium", "speed": "normal", "treatment": "THIN", "aggregate": "basalt",
+               "distresses": [ { "id": "skid", "severity": 2 }, { "id": "aging", "severity": 1 } ], "ambientT": 16, "haulMin": 40, "nightWork": true }
+  },
+  {
+    "id": "C5",
+    "title": "乌鲁木齐·国道温缩裂缝与车辙并存",
+    "background": "冬严寒、夏炎热的大温差地区，特重交通国道同时出现横向裂缝和车辙，高低温需求互相掣肘。养护决策输出：铣刨重铺上面层 4cm。",
+    "input": { "cityId": "urumqi", "roadClass": "highway", "traffic": "vheavy", "speed": "normal", "treatment": "MR_UP", "aggregate": "limestone",
+               "distresses": [ { "id": "thermalCrack", "severity": 1 }, { "id": "rutting", "severity": 1 } ], "ambientT": 18, "haulMin": 60 }
+  },
+  {
+    "id": "C6",
+    "title": "西安·市政次干路低预算罩面",
+    "background": "市政次干路表面老化、轻度网裂，预算受限（初始造价不超过 52 元/m²），希望消纳本市铣刨料。养护决策输出：铣刨重铺上面层 4cm。",
+    "input": { "cityId": "xian", "roadClass": "local", "traffic": "medium", "speed": "normal", "treatment": "MR_UP", "aggregate": "limestone",
+               "distresses": [ { "id": "aging", "severity": 1 }, { "id": "fatigueCrack", "severity": 0 } ], "ambientT": 20, "haulMin": 35, "budgetPerM2": 52 }
+  },
+  {
+    "id": "C7",
+    "title": "哈尔滨·横向裂缝灌缝处治",
+    "background": "与 C2 同一城市，另一路段裂缝宽度 6–10mm，路面结构尚好，养护决策输出：裂缝处治。",
+    "input": { "cityId": "harbin", "roadClass": "arterial", "traffic": "heavy", "treatment": "CRACK", "crackWidthMm": 8 }
+  }
+]

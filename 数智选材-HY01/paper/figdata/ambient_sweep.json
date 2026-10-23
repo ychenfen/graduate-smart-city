@@ -1,0 +1,285 @@
+{
+ "plans": [
+  "AC16/SBS110_5/lime/antirut/warm/R0/basalt",
+  "AC16/SBS110_5/lime/antirut/none/R0/basalt",
+  "AC13/SBS110_5/none/none/none/R0/none",
+  "SMA13/SBS90_5/lime/antirut/warm/R0/basalt"
+ ],
+ "rows": [
+  {
+   "T": 2,
+   "AC16/SBS110_5/lime/antirut/warm/R0/basalt": null,
+   "AC16/SBS110_5/lime/antirut/warm/R0/basalt#va": 1.6348475,
+   "AC16/SBS110_5/lime/antirut/none/R0/basalt": null,
+   "AC16/SBS110_5/lime/antirut/none/R0/basalt#va": 2.97245,
+   "AC13/SBS110_5/none/none/none/R0/none": null,
+   "AC13/SBS110_5/none/none/none/R0/none#va": 2.97245,
+   "SMA13/SBS90_5/lime/antirut/warm/R0/basalt": null,
+   "SMA13/SBS90_5/lime/antirut/warm/R0/basalt#va": 1.6956225000000003
+  },
+  {
+   "T": 3,
+   "AC16/SBS110_5/lime/antirut/warm/R0/basalt": null,
+   "AC16/SBS110_5/lime/antirut/warm/R0/basalt#va": 1.50909,
+   "AC16/SBS110_5/lime/antirut/none/R0/basalt": null,
+   "AC16/SBS110_5/lime/antirut/none/R0/basalt#va": 2.7438000000000002,
+   "AC13/SBS110_5/none/none/none/R0/none": null,
+   "AC13/SBS110_5/none/none/none/R0/none#va": 2.7438000000000002,
+   "SMA13/SBS90_5/lime/antirut/warm/R0/basalt": null,
+   "SMA13/SBS90_5/lime/antirut/warm/R0/basalt#va": 1.56519
+  },
+  {
+   "T": 4,
+   "AC16/SBS110_5/lime/antirut/warm/R0/basalt": null,
+   "AC16/SBS110_5/lime/antirut/warm/R0/basalt#va": 1.3833325,
+   "AC16/SBS110_5/lime/antirut/none/R0/basalt": null,
+   "AC16/SBS110_5/lime/antirut/none/R0/basalt#va": 2.5151499999999998,
+   "AC13/SBS110_5/none/none/none/R0/none": null,
+   "AC13/SBS110_5/none/none/none/R0/none#va": 2.5151499999999998,
+   "SMA13/SBS90_5/lime/antirut/warm/R0/basalt": null,
+   "SMA13/SBS90_5/lime/antirut/warm/R0/basalt#va": 1.4347575000000004
+  },
+  {
+   "T": 5,
+   "AC16/SBS110_5/lime/antirut/warm/R0/basalt": 0.62375,
+   "AC16/SBS110_5/lime/antirut/warm/R0/basalt#va": 1.2575749999999999,
+   "AC16/SBS110_5/lime/antirut/none/R0/basalt": null,
+   "AC16/SBS110_5/lime/antirut/none/R0/basalt#va": 2.2865,
+   "AC13/SBS110_5/none/none/none/R0/none": null,
+   "AC13/SBS110_5/none/none/none/R0/none#va": 2.2865,
+   "SMA13/SBS90_5/lime/antirut/warm/R0/basalt": 0.67,
+   "SMA13/SBS90_5/lime/antirut/warm/R0/basalt#va": 1.3043250000000002
+  },
+  {
+   "T": 6,
+   "AC16/SBS110_5/lime/antirut/warm/R0/basalt": 0.65875,
+   "AC16/SBS110_5/lime/antirut/warm/R0/basalt#va": 1.1318175000000001,
+   "AC16/SBS110_5/lime/antirut/none/R0/basalt": null,
+   "AC16/SBS110_5/lime/antirut/none/R0/basalt#va": 2.05785,
+   "AC13/SBS110_5/none/none/none/R0/none": null,
+   "AC13/SBS110_5/none/none/none/R0/none#va": 2.05785,
+   "SMA13/SBS90_5/lime/antirut/warm/R0/basalt": 0.67875,
+   "SMA13/SBS90_5/lime/antirut/warm/R0/basalt#va": 1.1738925
+  },
+  {
+   "T": 7,
+   "AC16/SBS110_5/lime/antirut/warm/R0/basalt": 0.67875,
+   "AC16/SBS110_5/lime/antirut/warm/R0/basalt#va": 1.00606,
+   "AC16/SBS110_5/lime/antirut/none/R0/basalt": null,
+   "AC16/SBS110_5/lime/antirut/none/R0/basalt#va": 1.8292000000000002,
+   "AC13/SBS110_5/none/none/none/R0/none": null,
+   "AC13/SBS110_5/none/none/none/R0/none#va": 1.8292000000000002,
+   "SMA13/SBS90_5/lime/antirut/warm/R0/basalt": 0.68375,
+   "SMA13/SBS90_5/lime/antirut/warm/R0/basalt#va": 1.0434600000000003
+  },
+  {
+   "T": 8,
+   "AC16/SBS110_5/lime/antirut/warm/R0/basalt": 0.71,
+   "AC16/SBS110_5/lime/antirut/warm/R0/basalt#va": 0.8803025,
+   "AC16/SBS110_5/lime/antirut/none/R0/basalt": null,
+   "AC16/SBS110_5/lime/antirut/none/R0/basalt#va": 1.6005499999999997,
+   "AC13/SBS110_5/none/none/none/R0/none": null,
+   "AC13/SBS110_5/none/none/none/R0/none#va": 1.6005499999999997,
+   "SMA13/SBS90_5/lime/antirut/warm/R0/basalt": 0.69125,
+   "SMA13/SBS90_5/lime/antirut/warm/R0/basalt#va": 0.9130275000000001
+  },
+  {
+   "T": 9,
+   "AC16/SBS110_5/lime/antirut/warm/R0/basalt": 0.72125,
+   "AC16/SBS110_5/lime/antirut/warm/R0/basalt#va": 0.754545,
+   "AC16/SBS110_5/lime/antirut/none/R0/basalt": null,
+   "AC16/SBS110_5/lime/antirut/none/R0/basalt#va": 1.3719000000000001,
+   "AC13/SBS110_5/none/none/none/R0/none": null,
+   "AC13/SBS110_5/none/none/none/R0/none#va": 1.3719000000000001,
+   "SMA13/SBS90_5/lime/antirut/warm/R0/basalt": 0.7,
+   "SMA13/SBS90_5/lime/antirut/warm/R0/basalt#va": 0.782595
+  },
+  {
+   "T": 10,
+   "AC16/SBS110_5/lime/antirut/warm/R0/basalt": 0.74625,
+   "AC16/SBS110_5/lime/antirut/warm/R0/basalt#va": 0.6287874999999999,
+   "AC16/SBS110_5/lime/antirut/none/R0/basalt": 0.67625,
+   "AC16/SBS110_5/lime/antirut/none/R0/basalt#va": 1.14325,
+   "AC13/SBS110_5/none/none/none/R0/none": 0.035,
+   "AC13/SBS110_5/none/none/none/R0/none#va": 1.14325,
+   "SMA13/SBS90_5/lime/antirut/warm/R0/basalt": 0.7025,
+   "SMA13/SBS90_5/lime/antirut/warm/R0/basalt#va": 0.6521625000000001
+  },
+  {
+   "T": 11,
+   "AC16/SBS110_5/lime/antirut/warm/R0/basalt": 0.775,
+   "AC16/SBS110_5/lime/antirut/warm/R0/basalt#va": 0.50303,
+   "AC16/SBS110_5/lime/antirut/none/R0/basalt": 0.71125,
+   "AC16/SBS110_5/lime/antirut/none/R0/basalt#va": 0.9146000000000001,
+   "AC13/SBS110_5/none/none/none/R0/none": 0.045,
+   "AC13/SBS110_5/none/none/none/R0/none#va": 0.9146000000000001,
+   "SMA13/SBS90_5/lime/antirut/warm/R0/basalt": 0.70875,
+   "SMA13/SBS90_5/lime/antirut/warm/R0/basalt#va": 0.5217300000000001
+  },
+  {
+   "T": 12,
+   "AC16/SBS110_5/lime/antirut/warm/R0/basalt": 0.79375,
+   "AC16/SBS110_5/lime/antirut/warm/R0/basalt#va": 0.3772725,
+   "AC16/SBS110_5/lime/antirut/none/R0/basalt": 0.7475,
+   "AC16/SBS110_5/lime/antirut/none/R0/basalt#va": 0.6859500000000001,
+   "AC13/SBS110_5/none/none/none/R0/none": 0.05125,
+   "AC13/SBS110_5/none/none/none/R0/none#va": 0.6859500000000001,
+   "SMA13/SBS90_5/lime/antirut/warm/R0/basalt": 0.7125,
+   "SMA13/SBS90_5/lime/antirut/warm/R0/basalt#va": 0.3912975
+  },
+  {
+   "T": 13,
+   "AC16/SBS110_5/lime/antirut/warm/R0/basalt": 0.805,
+   "AC16/SBS110_5/lime/antirut/warm/R0/basalt#va": 0.251515,
+   "AC16/SBS110_5/lime/antirut/none/R0/basalt": 0.78625,
+   "AC16/SBS110_5/lime/antirut/none/R0/basalt#va": 0.45730000000000004,
+   "AC13/SBS110_5/none/none/none/R0/none": 0.05375,
+   "AC13/SBS110_5/none/none/none/R0/none#va": 0.45730000000000004,
+   "SMA13/SBS90_5/lime/antirut/warm/R0/basalt": 0.71625,
+   "SMA13/SBS90_5/lime/antirut/warm/R0/basalt#va": 0.26086500000000007
+  },
+  {
+   "T": 14,
+   "AC16/SBS110_5/lime/antirut/warm/R0/basalt": 0.815,
+   "AC16/SBS110_5/lime/antirut/warm/R0/basalt#va": 0.1257575,
+   "AC16/SBS110_5/lime/antirut/none/R0/basalt": 0.8125,
+   "AC16/SBS110_5/lime/antirut/none/R0/basalt#va": 0.22865000000000002,
+   "AC13/SBS110_5/none/none/none/R0/none": 0.06625,
+   "AC13/SBS110_5/none/none/none/R0/none#va": 0.22865000000000002,
+   "SMA13/SBS90_5/lime/antirut/warm/R0/basalt": 0.71875,
+   "SMA13/SBS90_5/lime/antirut/warm/R0/basalt#va": 0.13043250000000003
+  },
+  {
+   "T": 15,
+   "AC16/SBS110_5/lime/antirut/warm/R0/basalt": 0.82625,
+   "AC16/SBS110_5/lime/antirut/warm/R0/basalt#va": 0,
+   "AC16/SBS110_5/lime/antirut/none/R0/basalt": 0.83,
+   "AC16/SBS110_5/lime/antirut/none/R0/basalt#va": 0,
+   "AC13/SBS110_5/none/none/none/R0/none": 0.08,
+   "AC13/SBS110_5/none/none/none/R0/none#va": 0,
+   "SMA13/SBS90_5/lime/antirut/warm/R0/basalt": 0.71875,
+   "SMA13/SBS90_5/lime/antirut/warm/R0/basalt#va": 0
+  },
+  {
+   "T": 16,
+   "AC16/SBS110_5/lime/antirut/warm/R0/basalt": 0.82625,
+   "AC16/SBS110_5/lime/antirut/warm/R0/basalt#va": 0,
+   "AC16/SBS110_5/lime/antirut/none/R0/basalt": 0.83,
+   "AC16/SBS110_5/lime/antirut/none/R0/basalt#va": 0,
+   "AC13/SBS110_5/none/none/none/R0/none": 0.08,
+   "AC13/SBS110_5/none/none/none/R0/none#va": 0,
+   "SMA13/SBS90_5/lime/antirut/warm/R0/basalt": 0.71875,
+   "SMA13/SBS90_5/lime/antirut/warm/R0/basalt#va": 0
+  },
+  {
+   "T": 17,
+   "AC16/SBS110_5/lime/antirut/warm/R0/basalt": 0.82625,
+   "AC16/SBS110_5/lime/antirut/warm/R0/basalt#va": 0,
+   "AC16/SBS110_5/lime/antirut/none/R0/basalt": 0.83,
+   "AC16/SBS110_5/lime/antirut/none/R0/basalt#va": 0,
+   "AC13/SBS110_5/none/none/none/R0/none": 0.08,
+   "AC13/SBS110_5/none/none/none/R0/none#va": 0,
+   "SMA13/SBS90_5/lime/antirut/warm/R0/basalt": 0.71875,
+   "SMA13/SBS90_5/lime/antirut/warm/R0/basalt#va": 0
+  },
+  {
+   "T": 18,
+   "AC16/SBS110_5/lime/antirut/warm/R0/basalt": 0.82625,
+   "AC16/SBS110_5/lime/antirut/warm/R0/basalt#va": 0,
+   "AC16/SBS110_5/lime/antirut/none/R0/basalt": 0.83,
+   "AC16/SBS110_5/lime/antirut/none/R0/basalt#va": 0,
+   "AC13/SBS110_5/none/none/none/R0/none": 0.08,
+   "AC13/SBS110_5/none/none/none/R0/none#va": 0,
+   "SMA13/SBS90_5/lime/antirut/warm/R0/basalt": 0.71875,
+   "SMA13/SBS90_5/lime/antirut/warm/R0/basalt#va": 0
+  },
+  {
+   "T": 19,
+   "AC16/SBS110_5/lime/antirut/warm/R0/basalt": 0.82625,
+   "AC16/SBS110_5/lime/antirut/warm/R0/basalt#va": 0,
+   "AC16/SBS110_5/lime/antirut/none/R0/basalt": 0.83,
+   "AC16/SBS110_5/lime/antirut/none/R0/basalt#va": 0,
+   "AC13/SBS110_5/none/none/none/R0/none": 0.08,
+   "AC13/SBS110_5/none/none/none/R0/none#va": 0,
+   "SMA13/SBS90_5/lime/antirut/warm/R0/basalt": 0.71875,
+   "SMA13/SBS90_5/lime/antirut/warm/R0/basalt#va": 0
+  },
+  {
+   "T": 20,
+   "AC16/SBS110_5/lime/antirut/warm/R0/basalt": 0.82625,
+   "AC16/SBS110_5/lime/antirut/warm/R0/basalt#va": 0,
+   "AC16/SBS110_5/lime/antirut/none/R0/basalt": 0.83,
+   "AC16/SBS110_5/lime/antirut/none/R0/basalt#va": 0,
+   "AC13/SBS110_5/none/none/none/R0/none": 0.08,
+   "AC13/SBS110_5/none/none/none/R0/none#va": 0,
+   "SMA13/SBS90_5/lime/antirut/warm/R0/basalt": 0.71875,
+   "SMA13/SBS90_5/lime/antirut/warm/R0/basalt#va": 0
+  },
+  {
+   "T": 21,
+   "AC16/SBS110_5/lime/antirut/warm/R0/basalt": 0.82625,
+   "AC16/SBS110_5/lime/antirut/warm/R0/basalt#va": 0,
+   "AC16/SBS110_5/lime/antirut/none/R0/basalt": 0.83,
+   "AC16/SBS110_5/lime/antirut/none/R0/basalt#va": 0,
+   "AC13/SBS110_5/none/none/none/R0/none": 0.08,
+   "AC13/SBS110_5/none/none/none/R0/none#va": 0,
+   "SMA13/SBS90_5/lime/antirut/warm/R0/basalt": 0.71875,
+   "SMA13/SBS90_5/lime/antirut/warm/R0/basalt#va": 0
+  },
+  {
+   "T": 22,
+   "AC16/SBS110_5/lime/antirut/warm/R0/basalt": 0.82625,
+   "AC16/SBS110_5/lime/antirut/warm/R0/basalt#va": 0,
+   "AC16/SBS110_5/lime/antirut/none/R0/basalt": 0.83,
+   "AC16/SBS110_5/lime/antirut/none/R0/basalt#va": 0,
+   "AC13/SBS110_5/none/none/none/R0/none": 0.08,
+   "AC13/SBS110_5/none/none/none/R0/none#va": 0,
+   "SMA13/SBS90_5/lime/antirut/warm/R0/basalt": 0.71875,
+   "SMA13/SBS90_5/lime/antirut/warm/R0/basalt#va": 0
+  },
+  {
+   "T": 23,
+   "AC16/SBS110_5/lime/antirut/warm/R0/basalt": 0.82625,
+   "AC16/SBS110_5/lime/antirut/warm/R0/basalt#va": 0,
+   "AC16/SBS110_5/lime/antirut/none/R0/basalt": 0.83,
+   "AC16/SBS110_5/lime/antirut/none/R0/basalt#va": 0,
+   "AC13/SBS110_5/none/none/none/R0/none": 0.08,
+   "AC13/SBS110_5/none/none/none/R0/none#va": 0,
+   "SMA13/SBS90_5/lime/antirut/warm/R0/basalt": 0.71875,
+   "SMA13/SBS90_5/lime/antirut/warm/R0/basalt#va": 0
+  },
+  {
+   "T": 24,
+   "AC16/SBS110_5/lime/antirut/warm/R0/basalt": 0.82625,
+   "AC16/SBS110_5/lime/antirut/warm/R0/basalt#va": 0,
+   "AC16/SBS110_5/lime/antirut/none/R0/basalt": 0.83,
+   "AC16/SBS110_5/lime/antirut/none/R0/basalt#va": 0,
+   "AC13/SBS110_5/none/none/none/R0/none": 0.08,
+   "AC13/SBS110_5/none/none/none/R0/none#va": 0,
+   "SMA13/SBS90_5/lime/antirut/warm/R0/basalt": 0.71875,
+   "SMA13/SBS90_5/lime/antirut/warm/R0/basalt#va": 0
+  },
+  {
+   "T": 25,
+   "AC16/SBS110_5/lime/antirut/warm/R0/basalt": 0.82625,
+   "AC16/SBS110_5/lime/antirut/warm/R0/basalt#va": 0,
+   "AC16/SBS110_5/lime/antirut/none/R0/basalt": 0.83,
+   "AC16/SBS110_5/lime/antirut/none/R0/basalt#va": 0,
+   "AC13/SBS110_5/none/none/none/R0/none": 0.08,
+   "AC13/SBS110_5/none/none/none/R0/none#va": 0,
+   "SMA13/SBS90_5/lime/antirut/warm/R0/basalt": 0.71875,
+   "SMA13/SBS90_5/lime/antirut/warm/R0/basalt#va": 0
+  },
+  {
+   "T": 26,
+   "AC16/SBS110_5/lime/antirut/warm/R0/basalt": 0.82625,
+   "AC16/SBS110_5/lime/antirut/warm/R0/basalt#va": 0,
+   "AC16/SBS110_5/lime/antirut/none/R0/basalt": 0.83,
+   "AC16/SBS110_5/lime/antirut/none/R0/basalt#va": 0,
+   "AC13/SBS110_5/none/none/none/R0/none": 0.08,
+   "AC13/SBS110_5/none/none/none/R0/none#va": 0,
+   "SMA13/SBS90_5/lime/antirut/warm/R0/basalt": 0.71875,
+   "SMA13/SBS90_5/lime/antirut/warm/R0/basalt#va": 0
+  }
+ ]
+}
